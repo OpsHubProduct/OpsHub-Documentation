@@ -465,12 +465,20 @@ Once you select **Yes**, the following fields will appear. You need to enter app
 
 1. Provide query to be used for search entity in the target system in native target system format. 
    For example, `Title=@Name@ and CustomId=@ID@`. Here **Name** and **ID** are the field names of source system.
-2. Fields of the target system's entity can also be used in the Target Search Query in case the source system and target system's field values format are different.
-   * For example, if the source and target system have a different entity ID format or entity display name, the target search query on the source entity fields may not be useful. In such case, a user can convert the source entity ID to the target entity Id format using the mapped target system's field; that target system field can be used in the target search query.
-   * Source entity ID: `XYZ-50` and Target entity ID: `50`, then the user can do the advanced mapping to convert the source ID format to Target entity ID format under the target field named **"ID converter."**
-     * In such case, the target look-up query can be: `Entity ID = @ID converter@`. 
-       &#xNAN;_ [Where **Entity ID** and **ID converter** both are target system fields]_
-     * **Note**: Here, instead of the target field **"ID converter,"** the user can utilize the pseudo/virtual field in the mapping to have source-to-target format conversion, and then the pseudo/virtual field can be used in the target look-up, too  [as per the use case].
+   2. Fields of the target system's entity can also be used in the Target Search Query in case the source system and target system's field values format are different.
+      * For example, if the source and target system have a different entity ID format or entity display name, the target search query on the source entity fields may not be useful. In such case, a user can convert the source entity ID to the target entity Id format using the mapped target system's field; that target system field can be used in the target search query.
+      * Source entity ID: `XYZ-50` and Target entity ID: `50`, then the user can do the advanced mapping to convert the source ID format to Target entity ID format under the target field named **"ID converter."**
+        * In such case, the target look-up query can be: `Entity ID = @ID converter@`. 
+          &#xNAN;_ [Where **Entity ID** and **ID converter** both are target system fields]_
+        * **Note**: Here, instead of the target field **"ID converter,"** the user can utilize the pseudo/virtual field in the mapping to have source-to-target format conversion, and then the pseudo/virtual field can be used in the target look-up, too  [as per the use case].
+      * **Using Target Internal ID from Source**
+        * If the source system stores the target entity's internal ID, the following query can be used:
+
+            ```{"condition":"EQUALS","field":"oh_internal_id","value":"@source_field_name@"}```
+
+          *  `oh_internal_id`: Virtual field representing the target system entity's internal ID
+          *  `source_field_name`: Source field that contains the target entity's internal ID 
+        * **Note**: In the query, replace `source_field_name` with the actual source field that stores the target entity's internal ID.
 3. For native form of end system query to be given for your system, you can refer **Target LookUp Configuration** section in the specific connector document.
 4. **What if multiple entities found in Target System matching above Query?** 
    Here you can define the action to be taken when there are multiple entities found in the target system matching query provided above in **Target Search Query**. Select appropriate options from the drop-down list.
