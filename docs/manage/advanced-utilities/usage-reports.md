@@ -1,3 +1,8 @@
+---
+if: >-
+    "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product
+---
+
 # Overview
 
 The **Usage Reports** feature enables administrators to export detailed system usage data for analysis and licensing purposes. Reports can be downloaded directly from the **Licenses screen** or through the **Admin API**, providing a convenient and efficient way to access usage information.

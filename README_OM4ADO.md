@@ -48,19 +48,14 @@ layout:
          <td><a href="docs/manage/manage.md">Manage</a></td>
       </tr>
       <tr>
-         <td align="center"><h3><mark style="color:#233C5D">Supported Connectors</mark></h3></td>
-         <td><a href="docs/assets/Site_Images/Supported_Connectors.svg">Supported Connectors</a></td>
-         <td><a href="docs/supported-connectors/systems-supported.md">Supported Connectors</a></td>
+         <td align="center"><h3><mark style="color:#233C5D">Supported Versions & Entities</mark></h3></td>
+         <td><a href="docs/assets/Site_Images/Supported_Connectors.svg">Supported Versions & Entities</a></td>
+         <td><a href="docs/supported-connectors/systems-supported-om4ado.md">Supported Versions & Entities</a></td>
       </tr>
       <tr>
          <td align="center"><h3><mark style="color:#233C5D">Release Notes</mark></h3></td>
          <td><a href="docs/assets/Site_Images/Release_Note.svg">Release Note</a></td>
          <td><a href="docs/release-notes/release-notes.md">Release Note</a></td>
-      </tr>
-      <tr>
-         <td align="center"><h3><mark style="color:#233C5D">Knowledge Resources</mark></h3></td>
-         <td><a href="docs/assets/Site_Images/Knowledge_Resources.svg">Knowledge Resources</a></td>
-         <td><a href="docs/knowledge-resources/knowledge-resource-index.md">Knowledge Resource</a></td>
       </tr>
       <tr>
          <td align="center"><h3><mark style="color:#233C5D">Help Center</mark></h3></td>

@@ -20,7 +20,6 @@ layout:
 # Deployment Options
 
 * **On Premise:** Can be deployed on a local virtual machine or local server.
-* **On OpsHub Cloud:** Can be deployed on an Azure environment provided by OpsHub. Contact the support or sales team for this deployment option.
 * **On Customer Cloud:** Can be deployed on a cloud service hosted by the customer. Supported cloud services include Amazon EC2 and Microsoft Azure.
 
 # Installation Prerequisites

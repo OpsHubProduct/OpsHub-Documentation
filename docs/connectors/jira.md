@@ -1841,7 +1841,7 @@ For Target Lookup configuration of QMetry entities, refer to [Target lookup for 
 ## AIO plugin entities
 
 *  <code class="expression">space.vars.OIM</code> supports three AIO entities: AIO Test Case, AIO Test Cycle, AIO Test Run.
-* The supported versions of the AIO plugin are mentioned in [Systems Supported List](../supported-connectors/systems-supported.md).
+* The supported versions of the AIO plugin are mentioned in [Systems Supported List](../supported-connectors/systems-supported-oim.md).
 
 ### Supported Relationships
 

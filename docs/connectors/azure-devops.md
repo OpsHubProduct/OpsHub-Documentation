@@ -665,7 +665,7 @@ This configuration option in <code class="expression">space.vars.OIM</code> allo
 
 <code class="expression">space.vars.OIM</code> supports migration of meta-entities including **Users, Groups, Teams, Areas, Iterations & Security Permissions** for Team Foundation Server and Azure DevOps.
 
-Supported versions of Team Foundation Server are listed in the [Systems Supported List](../supported-connectors/systems-supported.md).
+Supported versions of Team Foundation Server are listed in the [Systems Supported List](../supported-connectors/systems-supported-oim.md).
 
 
 ### Users

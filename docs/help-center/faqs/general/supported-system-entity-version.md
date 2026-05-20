@@ -16,4 +16,14 @@ There can be multiple queries as below:
 
 ## Solution
 
-To know which systems, versions, and entity types are supported by <code class="expression">space.vars.OIM</code>, refer to the [Systems Supported List](../../../supported-connectors/systems-supported.md) documentation.
+{% if "OM4ADO" === visitor.claims.unsigned.product %}  
+
+To know which systems, versions, and entity types are supported by <code class="expression">space.vars.OM4ADO</code>, refer to the [Supported Versions and Entities List](../../../supported-connectors/systems-supported-om4ado.md) documentation.
+
+{% endif %}  
+
+{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}  
+
+To know which systems, versions, and entity types are supported by <code class="expression">space.vars.OIM</code>, refer to the [Systems Supported List](../../../supported-connectors/systems-supported-oim.md) documentation.
+
+{% endif %}

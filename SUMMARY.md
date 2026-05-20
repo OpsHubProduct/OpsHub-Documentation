@@ -96,7 +96,8 @@
       * [Upgrading Application Version](docs/manage/upgrade/upgrade-application-om4ado.md)
       * [Taking Application Backup](docs/manage/upgrade/taking-application-backup.md)
     * [Product Security](docs/manage/product-security.md)
-* [Supported Connectors](docs/supported-connectors/systems-supported.md)
+* [Supported Connectors](docs/supported-connectors/systems-supported-oim.md)
+* [Supported Versions & Entities](docs/supported-connectors/systems-supported-om4ado.md)
 * [Connector Documentation](docs/connectors/connectors.md)
     * [Aha](docs/connectors/aha.md)
     * [Aras Innovator](docs/connectors/aras.md)
@@ -467,5 +468,3 @@
     * [Page Structure & Markdown Formatting Guide](docs/contributor-guide/content-creation-guide.md)
     * [Contribution Workflow](CONTRIBUTING.md)
     * [Troubleshoot Formatting Issues](docs/contributor-guide/content-troubleshooting.md)
-
-{% endif %}
