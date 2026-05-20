@@ -331,7 +331,7 @@ To list a new connector in the documentation, follow the steps below. These step
       <tbody>
         <tr>
           <td align="center"><strong>Welcome to OpsHub Guide</strong></td>
-          <td><a href="../../README1.md">Welcome</a></td>
+          <td><a href="../../README_OIM.md">Welcome</a></td>
         </tr>
       </tbody>
     </table>
@@ -347,7 +347,7 @@ To list a new connector in the documentation, follow the steps below. These step
       <tbody>
         <tr>
           <td align="center"><strong>Welcome to OpsHub Guide</strong></td>
-          <td><a href="../../README1.md">Welcome</a></td>
+          <td><a href="../../README_OIM.md">Welcome</a></td>
         </tr>
       </tbody>
     </table>
