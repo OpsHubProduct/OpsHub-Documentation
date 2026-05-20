@@ -319,7 +319,7 @@ To list a new connector in the documentation, follow the steps below. These step
 
 ## Card View HTML Table
 - You can use cards to create a visually engaging page layout, combining text, links, and optional images in a clean, grid-based structure.
-- **Example:** 
+- **Example:**
     ```html
     <table data-view="cards" data-full-width="false">
       <thead>
@@ -331,7 +331,7 @@ To list a new connector in the documentation, follow the steps below. These step
       <tbody>
         <tr>
           <td align="center"><strong>Welcome to OpsHub Guide</strong></td>
-          <td><a href="../../README.md">Welcome</a></td>
+          <td><a href="../../README1.md">Welcome</a></td>
         </tr>
       </tbody>
     </table>
@@ -347,7 +347,7 @@ To list a new connector in the documentation, follow the steps below. These step
       <tbody>
         <tr>
           <td align="center"><strong>Welcome to OpsHub Guide</strong></td>
-          <td><a href="../../README.md">Welcome</a></td>
+          <td><a href="../../README1.md">Welcome</a></td>
         </tr>
       </tbody>
     </table>

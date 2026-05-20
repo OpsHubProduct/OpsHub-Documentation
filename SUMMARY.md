@@ -1,5 +1,6 @@
 # Table of contents
-* [Welcome](README.md)
+* [Welcome](README1.md)
+* [Welcome](README2.md)
 * [Get Started](docs/getting-started/getting-started.md)
     * [Getting OpsHub Integration Manager](docs/getting-started/download-oim.md)
     * [Getting OpsHub Migrator for Microsoft Azure DevOps](docs/getting-started/download-om4ado.md)

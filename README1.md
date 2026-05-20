@@ -1,6 +1,6 @@
 ---
 if: >-
-  visitor.claims.unsigned.product !== "OM4ADO"
+  "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product 
 cover: ./docs/assets/Site_Images/OIM.png
 icon: hand-wave
 coverY: 0
