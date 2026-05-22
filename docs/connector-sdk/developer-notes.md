@@ -8,8 +8,9 @@ if: >-
 
 | SDK Server                                                                                                                                 | OIM                 | Remarks                                                                                                                                                                     |
 |--------------------------------------------------------------------------------------------------------------------------------------------|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [1.19.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgCzYZnd_ofPRaW3N-z45vl5Ab68ZhIfC4P7mjRJ3PtPt0o?e=QxxBbI) | \>=7.224            | Added bidirectional support for attachments in complex field with multiple rows, for example, the test step field.                                                          |
-| [1.18.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgAEkBpLrfOzSaJpQ-z0_dEMATNOApeDs0SQHvszRfNQye8?e=wKOqGa) | \>=7.217            | Enhanced link support to include link internal name and link direction.<br> Enhanced Test Step field synchronization with attachment & inline image/ file.                  |
+ | [1.20.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgA5dDSkzZ6JS518k8LyTCtuAaqNkHD9amjtAaVKbXzpCCY?e=L4zR15) | \>=7.225              | Added support to wait before processing history updates to ensure that only mature and stable revisions are synchronized.                                          | 
+| [1.19.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgCzYZnd_ofPRaW3N-z45vl5Ab68ZhIfC4P7mjRJ3PtPt0o?e=QxxBbI) | \>=7.224 and <7.225 | Added bidirectional support for attachments in complex field with multiple rows, for example, the test step field.                                                          |
+| [1.18.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgAEkBpLrfOzSaJpQ-z0_dEMATNOApeDs0SQHvszRfNQye8?e=wKOqGa) | \>=7.217 and <7.224 | Enhanced link support to include link internal name and link direction.<br> Enhanced Test Step field synchronization with attachment & inline image/ file.                  |
 | [1.17.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/EkEI6J-uYJFKv7_ePKrgqlEB9J9-oPTIo7D6r73Y2WG2oA?e=lROoA9)  | \>=7.198 and <7.217 | Added support for bulk linking and link ordering                                                                                                                            |
 | [1.16.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/EvOnIixsygdIjhvfCa7vWS0BVG2vyovUYG4lzaRL1bN2UA?e=kIBnIn)  | 7.197               | Added support for systemId to store system-specific cache and cleanupGlobalCache flag to control cache cleanup.<br><br>Added support for adding multiple inline url prefix. |
 | [1.15.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/EvvyUofLAjxHk-N5W0YnH_sBD6JEYO2grFg9FjWcycR0qg?e=a3RdTs)  | \>=7.189 and <7.197 | Added support for Rank synchronization                                                                                                                                      |
@@ -35,6 +36,14 @@ if: >-
 
 > 💡 **Looking for older developer notes?**  
 > Check out the [Developer Notes](https://docs.myopshub.com/oim/index.php/Developer_Notes) for versions prior to **1.6.0**.
+
+# SDK Release 1.20.0
+## Added support for wait duration before processing history updates
+
+**Backward Compatible Changes**
+- [Entity Type-Get API](entity-type-get.md#api-uri)
+  - [Response payload](entity-type-get.md#response-payloaad):
+  - In **history** attribute `readWaitTimeInMillis` is added.
 
 # SDK Release 1.18.0
 ## Enhanced link support to include link internal name and link direction
