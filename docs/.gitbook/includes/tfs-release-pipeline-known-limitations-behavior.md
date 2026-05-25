@@ -27,14 +27,14 @@ These are required to in target due to Azure DevOps API Restrictions/limitations
   * Impersonation is not supported.
     * Reason: ADO/TFS API limitation.
   * Synchronization of security permissions for individual Release Pipelines is not supported.
-  * Cross-Project Team/Group Synchronization Behavior for Stage Owners and Approvers:
+  * Cross-Project Team/Group Synchronization Behavior for Stage **Owners** and **Approvers**:
     * In Release Pipeline, stage owners and approvers can belong to:
         * A team/group from the same project
         * An organization-level team/group
         * A team/group from another project (cross-project)
-    * If the team/group is identified as an organization-level group, <code class="expression">space.vars.SITENAME</code> searches for and maps the corresponding team/group within the target organization.
+    * If the team/group is identified as an organization-level group, <code class="expression">space.vars.OIM</code> searches for and maps the corresponding team/group within the target organization.
     * If the team/group is identified as a cross-project group:
-        * <code class="expression">space.vars.SITENAME</code> first searches for the corresponding cross-project team/group in the target organization.
+        * <code class="expression">space.vars.OIM</code> first searches for the corresponding cross-project team/group in the target organization.
         * If the cross-project exists in the target organization but the matching team/group is not found, an error is reported.
-        * If the cross-project itself does not exist in the target organization, <code class="expression">space.vars.SITENAME</code> falls back to searching for the team/group within the current target project.
-    * If the team/group belongs to the same project, <code class="expression">space.vars.SITENAME</code> searches for and maps the corresponding team/group within the target project.
+        * If the cross-project itself does not exist in the target organization, <code class="expression">space.vars.OIM</code> falls back to searching for the team/group within the current target project.
+    * If the team/group belongs to the same project, <code class="expression">space.vars.OIM</code> searches for and maps the corresponding team/group within the target project.
