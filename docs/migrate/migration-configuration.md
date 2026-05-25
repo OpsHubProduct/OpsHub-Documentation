@@ -348,6 +348,11 @@ Work items assigned to **Dipak Prajapati** in source will be assigned to **Yash 
   <img src="../assets/Migration%20Configuration%2012.png" width="1000"/>
 </p>
 
+* **Note:**
+  * For users who are mapped but are not present in the selected source project, the mapped target user display name will be resolved only under the following conditions:
+    * The custom user mapping uses the source username/email instead of the source display name.
+    * Alternatively, if the custom user mapping uses the source display name instead of the source username/email, then the source and target users must have the same email address in their respective systems, and the target user must exist in the target project for the user resolution to succeed.
+    
 ---
 
 ## Migration Summary
