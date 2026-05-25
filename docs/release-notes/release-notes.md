@@ -1,44 +1,46 @@
-{% if "OpsHub Integration Manager" === space.vars.SITENAME %}  
+{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}  
 
-***
-
-# Critical Updates & Actions Required
-* Enforced mandatory password reset for all new and default user accounts of <code class="expression">space.vars.SITENAME</code> to ensure compliance with product security requirements and defined password policies.
+# New Version(s)
+* IBM Engineering Requirements Management DOORS Next: 7.1.x
+* Java Development Kit (JDK): 17.0.19
 
 # Enhancements
 
 ## Common
-* Improved dashboard view that allows users to click on an integration card and directly navigate to the corresponding integration folder.
-* Enhanced rule-based routing to support default routing for entity type movement. For setup guidelines, refer to: [How to configure defaulting for rule-based routing](../integrate/rule-based-routing.md#default-route-configuration-guidelines).
-* Enhanced **Transitions & Dependencies** to enforce dependent fields during item updates.
- 
-## ServiceNow/ServiceNow Quick Connect
-* Added support for Catalog Variables.
+* Introduced automatic user authentication via SAML without requiring user setup in <code class="expression">space.vars.OIM</code>.
 
-# Major Bugs
-
-## Common
-* Resolved an issue where extra new lines were introduced when syncing content from the source system’s wiki field to the target system’s HTML field.
-* Resolved an issue where cyclic sync occurred because changes in inline image height and width were not retained, causing the system to repeatedly detect differences. 
+## Aras Innovator
+* Added support for Reference fields.
 
 ## Azure DevOps Server/Services
-* Resolved an issue where enabling OH Soft Delete for test items resulted in hard deletion when the items were deleted in the source system.
-  * Clarification: Soft delete is supported only for items that can be restored.
-  * In Azure DevOps, only work items support restoration, whereas test items are permanently deleted(hard delete). 
-* Resolved an issue where comments were duplicated during creation when both item creation and state transition occurred within the same revision.
+* Added support for skipping Automated Test Runs and Results.
 
-## GitHub
-* Resolved an issue where the “last processed time” displayed on the integration page showed an incorrect or unexpected date. 
+## Zendesk
+* Added support for Global OAuth as authentication type in Zendesk.
 
-## Jira Cloud
-* Resolved an OutOfMemory issue when Jira Cloud was configured as the source in <code class="expression">space.vars.SITENAME</code> with “Child Link” enabled in the mapping configuration.
-  * Use case: This happened when the parent item had more than 100 child items, causing repeated retrieval of the same page due to a pagination issue. 
+# Major Bug Fixes
+
+## Common
+* Resolved an issue where inline attachment URLs were truncated when attachment names contained special characters such as '&'.
+* Resolved an issue causing inconsistent link synchronization behavior when the same target link type was configured for both default and non-default links.
+
+## Aha
+* Resolved an issue where the first revision was not retrieved from Aha while fetching revisions using advanced methods such as getEntityRevisions.
+
+## Azure DevOps Server/Services
+* Resolved an issue causing global failures for the testcase entity when the parameterMap value was found to be undefined.
+
+## Jira Zephyr Essential
+* Resolved an issue where TestStep entities were not synchronized to Zephyr Essential as targets. 
+
+## ServiceNow/ServiceNow Quick Connect
+* Resolved a Null Pointer Exception that occurred when the username value was null.
 
 {% endif %}  
 
-{% if "OpsHub Migrator for Microsoft Azure DevOps" === space.vars.SITENAME %}  
+{% if "OM4ADO" === visitor.claims.unsigned.product %}  
 
-# Major Bugs  
-* Resolved an issue where deletion of the testcase in source, deleted the testcase in target in ongoing migration due to defaulting of delete set to soft-delete which caused an issue as the test items were not supporting restored from bin.
+# Major Bug Fixes
+* Resolved an issue causing global failures during testcase entity migration when the parameterMap value was found to be undefined.
 
 {% endif %}
