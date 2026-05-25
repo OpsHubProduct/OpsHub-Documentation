@@ -32,9 +32,9 @@ These are required to in target due to Azure DevOps API Restrictions/limitations
         * A team/group from the same project
         * An organization-level team/group
         * A team/group from another project (cross-project)
-    * If the team/group is identified as an organization-level group, <code class="expression">space.vars.OIM</code> searches for and maps the corresponding team/group within the target organization.
+    * If the group is identified as an organization-level group, <code class="expression">space.vars.OIM</code> synchronizes it with the corresponding group at the target organization level.
     * If the team/group is identified as a cross-project group:
-        * <code class="expression">space.vars.OIM</code> first searches for the corresponding cross-project team/group in the target organization.
-        * If the cross-project exists in the target organization but the matching team/group is not found, an error is reported.
-        * If the cross-project itself does not exist in the target organization, <code class="expression">space.vars.OIM</code> falls back to searching for the team/group within the current target project.
-    * If the team/group belongs to the same project, <code class="expression">space.vars.OIM</code> searches for and maps the corresponding team/group within the target project.
+        * <code class="expression">space.vars.OIM</code> first attempts to synchronize it with the corresponding cross-project team/group in the target organization.
+        * If the cross-project exists in the target organization but the corresponding team/group is not available, an error is reported.
+        * If the cross-project itself does not exist in the target organization, <code class="expression">space.vars.OIM</code> synchronizes the team/group at the current target project level.
+    * If the team/group belongs to the same project, <code class="expression">space.vars.OIM</code> synchronizes it with the corresponding team/group in the target project.
