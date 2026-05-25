@@ -49,7 +49,7 @@ Select the installation directory. Before selecting a directory, make sure it is
 
 Each installation must be registered with <code class="expression">space.vars.OM4ADO</code>. Registration can be completed either in Online or Offline mode.
 
-Please refer to the [Registration](Registration.md) page for more details.
+Please refer to the [Registration](registration.md) page for more details.
 
 ## Database Selection
 
