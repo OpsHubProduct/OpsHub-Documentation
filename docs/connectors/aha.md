@@ -166,6 +166,7 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
   * **Note** The above fields will be deprecated in future releases and replaced with link-based support.
 * Hierarchy sync is not supported. Hence, the synchronization of ranking the requirements and to-dos will not be supported.
 * Attachment and inline image synchronization is not supported for fields of type Table and other complex type of fields.
+* User mention for portal users will be synchronized as text(user value coming from source).
 * Entity mention is not supported for the following entities in the given scenarios:
   * **When Aha! is configured as the target system,** Entity mention is not supported for Goals, Notes, and To-Do entities.
   * **When Aha! is configured as the source system,** Entity mention through source URL configuration is not supported for the Goals entity.
@@ -215,7 +216,19 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
       * **Additional delay depends on polling/scheduling interval:**
         * Total delay = 5 minutes (processing) + configured polling interval.
         * Example: If polling is set to 5 minutes, creations/updates may reflect after approximately 10 minutes.
-        * **Note:** To avoid dependency on the delay, you may run sync the current state and sync history separately in a tabular format in target system.
+      * **Current-State-Based Synchronization with Revision History**
+        * If the integration is running on  current state-based synchronization and you are syncing history of source to target system's field or comment, then the field updates may be delayed if changes are made within last 5 minutes.
+          * Reason: This happens because Aha merges audit records within 5-minute intervals done on the same field.
+        * Example Timeline:
+          * Time T1: field1 value changed from **A** to **B**
+          * Time T2: field2 value changed from **1** to **2**
+          * Time T3: field1 value changed from **B** to **C**
+          * Time T4: field1 value changed from **C** to **D**
+        * Aha end system audits will be as follows:
+          * Time T1: field1 value changed from **A** to **D**
+          * Time T2: field2 value changed from **1** to **2**
+        * OIM current sync execution starts at time T5.
+        * The updates made on the field2 will be synchronized in next synchronization cycle because of Aha's audits behavior.
   * Metadata is not available for the system fields. So, we are providing static metadata in the system itself. Here, the user can change the display name of the entity. User can provide the entity name using the JSON input, and if any user doesn't provide any JSON input, an inbuild entity display name will be considered.
   * In Aha! Develop instance, for **Epic & Feature** type of entities, **Workspace** field is not available for synchronization.
   * In Aha! Develop instance, for **Requirement** type of entity, **Initial estimate, Detailed estimate & Actual effort** fields will not be synced.
