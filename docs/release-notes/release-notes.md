@@ -47,16 +47,6 @@
 * Resolved an issue where processing failures occurred because of invalid characters generated while looking up release pipelines in the target system.
 * Resolved an issue where attachment processing failures occurred when attachments were not found in Azure DevOps Server/Services as the source system.
 
-
-## Windchill
-* Resolved an issue where <code class="expression">space.vars.SITENAME</code> incorrectly associates linked release entity even if its synced via <code class="expression">space.vars.SITENAME</code>. 
-
-## Azure DevOps Server/Services
-* Resolved an issue where sync for Azure DevOps Services are impacted due to headers are incorrectly returning the value of API rate limit. 
-* Resolved an issue where global failure occured with  Null Pointer Exception for Test Suite due to missing workitem fields contains inaccessible test case.
-* Resolved an issue where processing failure occured because of invalid character formed while looking up release pipeline in target.
-* Resolved an issue where processing failure observed for the attachments where it was not found in Azure DevOps Server/Service as source system.
-
 ## GitHub
 * Resolved an issue where high RAM utilization warnings were observed on the VM hosting <code class="expression">space.vars.SITENAME</code>.
 
