@@ -27,3 +27,16 @@ These are required to in target due to Azure DevOps API Restrictions/limitations
   * Impersonation is not supported.
     * Reason: ADO/TFS API limitation.
   * Synchronization of security permissions for individual Release Pipelines is not supported.
+  * Cross-Project Team/Group Synchronization Behavior for Stage **Owners** and **Approvers**:
+    * In Release Pipeline, stage owners and approvers can belong to:
+      * A team/group from the same project
+      * An organization-level team/group
+      * A team/group from another project (cross-project)
+
+      | Source Team/Group | Target Synchronization Behavior                                                                   |
+      |-------------------|---------------------------------------------------------------------------------------------------|
+      | Same project team/group | Synchronized with the corresponding team/group in the target project.                             |
+      | Organization-level team/group | Synchronized at the target organization level.                                                    |
+      | Cross-project team/group with matching project and team/group available in target organization | Synchronized with the corresponding cross-project team/group in the target organization.          |
+      | Cross-project team/group where the project exists but the corresponding team/group is unavailable in target organization | Synchronization fails with error as teams/groups are not present.                                 |
+      | Cross-project team/group where the project is unavailable in target organization | Synchronized with the corresponding team/group in the current target project (fallback behavior). |
