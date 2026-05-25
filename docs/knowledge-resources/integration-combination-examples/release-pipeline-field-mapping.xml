@@ -1,17 +1,17 @@
 <com.opshub.server.admin.mapperconfiguration.MapperConfigDataInfo>
-  <objectVersion>0</objectVersion>
+  <objectVersion>2</objectVersion>
   <parentId>0</parentId>
-  <mappingId>-1</mappingId>
+  <mappingId>124</mappingId>
   <mappingName>Default Release Pipeline Field Mapping</mappingName>
   <direction>
     <direction>BIDIRECTIONAL</direction>
   </direction>
   <endpoint1>
-    <endpointId>22</endpointId>
+    <endpointId>264</endpointId>
     <mapperContext>
       <com.opshub.eai.mapper.config.EndpointContext>
         <key>tfsProjectName</key>
-        <value>b6bcba35-773c-40af-a378-edc8ae19f78c</value>
+        <value>8e14be74-3865-4776-9895-69059d39791c</value>
       </com.opshub.eai.mapper.config.EndpointContext>
       <com.opshub.eai.mapper.config.EndpointContext>
         <key>issueType</key>
@@ -20,11 +20,11 @@
     </mapperContext>
   </endpoint1>
   <endpoint2>
-    <endpointId>23</endpointId>
+    <endpointId>262</endpointId>
     <mapperContext>
       <com.opshub.eai.mapper.config.EndpointContext>
         <key>tfsProjectName</key>
-        <value>1c68a6cc-03bc-450b-9993-e73ba9b88340</value>
+        <value>9c806f6e-5930-46d5-a15f-1733ce0d389a</value>
       </com.opshub.eai.mapper.config.EndpointContext>
       <com.opshub.eai.mapper.config.EndpointContext>
         <key>issueType</key>
@@ -45,7 +45,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -71,7 +70,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -105,7 +103,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -131,7 +128,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -165,7 +161,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -191,7 +186,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -225,7 +219,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -251,7 +244,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -285,7 +277,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -311,7 +302,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -345,7 +335,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -371,7 +360,152 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
+          <userMentionSupported>false</userMentionSupported>
+          <entityMentionSupported>false</entityMentionSupported>
+        </referenceSettings>
+        <lookups/>
+        <oleObjectMapped>false</oleObjectMapped>
+        <pictureObjectMapped>false</pictureObjectMapped>
+        <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+        <sameAsIntegration>false</sameAsIntegration>
+        <scopeField>false</scopeField>
+        <ohCommentSettings>
+          <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+          <commentType>OH_Default</commentType>
+        </ohCommentSettings>
+      </forwardSettings>
+      <direction>
+        <direction>BIDIRECTIONAL</direction>
+      </direction>
+      <conflictStrategy>
+        <conflictStrategy>NO_CHECK</conflictStrategy>
+      </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+      <backWardSettings>
+        <internalName>Stage Users</internalName>
+        <displayName>Stage Users</displayName>
+        <dataType>text</dataType>
+        <systemField>true</systemField>
+        <multiValued>true</multiValued>
+        <syncWhen>
+          <syncWhen>BOTH</syncWhen>
+        </syncWhen>
+        <overwrite>false</overwrite>
+        <advanceXSL>&lt;Stage-space-Users allowDuplicateValues=&quot;true&quot;&gt;
+          &lt;xsl:for-each xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; select=&quot;SourceXML/updatedFields/Property/Stage-space-Users/list&quot;&gt;
+          &lt;op_list&gt;
+          &lt;stageName&gt;
+          &lt;xsl:value-of select=&quot;Property/stageName&quot;/&gt;
+          &lt;/stageName&gt;
+          &lt;userMeta&gt;
+          &lt;userName&gt;
+          &lt;xsl:value-of select=&quot;Property/userMeta/Property/userName&quot;/&gt;
+          &lt;/userName&gt;
+          &lt;userEmail&gt;
+          &lt;xsl:value-of select=&quot;Property/userMeta/Property/userEmail&quot;/&gt;
+          &lt;/userEmail&gt;
+          &lt;userDisplayName&gt;
+          &lt;xsl:choose&gt;
+          &lt;xsl:when test=&quot;Property/userMeta/Property/userEmail != &apos;&apos;&quot;&gt;
+          &lt;xsl:variable name=&quot;emailTarget&quot; select=&quot;userUtils:getUserNameFromEmail(
+          $workflowId,
+          $targetSystemId,
+          Property/userMeta/Property/userEmail,
+          &apos;false&apos;,
+          &apos;false&apos;
+          )&quot;/&gt;
+          &lt;xsl:choose&gt;
+          &lt;xsl:when test=&quot;$emailTarget != &apos;&apos;&quot;&gt;
+          &lt;xsl:value-of select=&quot;$emailTarget&quot;/&gt;
+          &lt;/xsl:when&gt;
+          &lt;xsl:otherwise&gt;
+          &lt;xsl:value-of select=&quot;Property/userMeta/Property/userDisplayName&quot;/&gt;
+          &lt;/xsl:otherwise&gt;
+          &lt;/xsl:choose&gt;
+          &lt;/xsl:when&gt;
+          &lt;xsl:otherwise&gt;
+          &lt;xsl:value-of select=&quot;Property/userMeta/Property/userDisplayName&quot;/&gt;
+          &lt;/xsl:otherwise&gt;
+          &lt;/xsl:choose&gt;
+          &lt;/userDisplayName&gt;
+          &lt;/userMeta&gt;
+          &lt;role&gt;
+          &lt;xsl:value-of select=&quot;Property/role&quot;/&gt;
+          &lt;/role&gt;
+          &lt;/op_list&gt;
+          &lt;/xsl:for-each&gt;
+          &lt;/Stage-space-Users&gt;</advanceXSL>
+        <referenceSettings>
+          <userMentionSupported>false</userMentionSupported>
+          <entityMentionSupported>false</entityMentionSupported>
+        </referenceSettings>
+        <lookups/>
+        <oleObjectMapped>false</oleObjectMapped>
+        <pictureObjectMapped>false</pictureObjectMapped>
+        <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+        <sameAsIntegration>false</sameAsIntegration>
+        <scopeField>false</scopeField>
+        <ohCommentSettings>
+          <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+          <commentType>OH_Default</commentType>
+        </ohCommentSettings>
+      </backWardSettings>
+      <forwardSettings>
+        <internalName>Stage Users</internalName>
+        <displayName>Stage Users</displayName>
+        <dataType>text</dataType>
+        <systemField>true</systemField>
+        <multiValued>true</multiValued>
+        <syncWhen>
+          <syncWhen>BOTH</syncWhen>
+        </syncWhen>
+        <overwrite>false</overwrite>
+        <advanceXSL>&lt;Stage-space-Users allowDuplicateValues=&quot;true&quot;&gt;
+          &lt;xsl:for-each xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; select=&quot;SourceXML/updatedFields/Property/Stage-space-Users/list&quot;&gt;
+          &lt;op_list&gt;
+          &lt;stageName&gt;
+          &lt;xsl:value-of select=&quot;Property/stageName&quot;/&gt;
+          &lt;/stageName&gt;
+          &lt;userMeta&gt;
+          &lt;userName&gt;
+          &lt;xsl:value-of select=&quot;Property/userMeta/Property/userName&quot;/&gt;
+          &lt;/userName&gt;
+          &lt;userEmail&gt;
+          &lt;xsl:value-of select=&quot;Property/userMeta/Property/userEmail&quot;/&gt;
+          &lt;/userEmail&gt;
+          &lt;userDisplayName&gt;
+          &lt;xsl:choose&gt;
+          &lt;xsl:when test=&quot;Property/userMeta/Property/userEmail != &apos;&apos;&quot;&gt;
+          &lt;xsl:variable name=&quot;emailTarget&quot; select=&quot;userUtils:getUserNameFromEmail(
+          $workflowId,
+          $targetSystemId,
+          Property/userMeta/Property/userEmail,
+          &apos;false&apos;,
+          &apos;false&apos;
+          )&quot;/&gt;
+          &lt;xsl:choose&gt;
+          &lt;xsl:when test=&quot;$emailTarget != &apos;&apos;&quot;&gt;
+          &lt;xsl:value-of select=&quot;$emailTarget&quot;/&gt;
+          &lt;/xsl:when&gt;
+          &lt;xsl:otherwise&gt;
+          &lt;xsl:value-of select=&quot;Property/userMeta/Property/userDisplayName&quot;/&gt;
+          &lt;/xsl:otherwise&gt;
+          &lt;/xsl:choose&gt;
+          &lt;/xsl:when&gt;
+          &lt;xsl:otherwise&gt;
+          &lt;xsl:value-of select=&quot;Property/userMeta/Property/userDisplayName&quot;/&gt;
+          &lt;/xsl:otherwise&gt;
+          &lt;/xsl:choose&gt;
+          &lt;/userDisplayName&gt;
+          &lt;/userMeta&gt;
+          &lt;role&gt;
+          &lt;xsl:value-of select=&quot;Property/role&quot;/&gt;
+          &lt;/role&gt;
+          &lt;/op_list&gt;
+          &lt;/xsl:for-each&gt;
+          &lt;/Stage-space-Users&gt;</advanceXSL>
+        <referenceSettings>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -405,7 +539,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -431,7 +564,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -465,7 +597,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -491,7 +622,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -525,7 +655,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -551,7 +680,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -585,7 +713,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -611,7 +738,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -645,7 +771,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -671,7 +796,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -705,7 +829,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -731,7 +854,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -765,7 +887,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -791,7 +912,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -825,7 +945,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -851,7 +970,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -885,7 +1003,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -911,7 +1028,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -945,7 +1061,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -971,7 +1086,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -1005,7 +1119,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -1031,7 +1144,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -1065,7 +1177,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -1091,7 +1202,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -1125,7 +1235,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -1151,7 +1260,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -1185,7 +1293,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -1211,7 +1318,6 @@
         </syncWhen>
         <overwrite>false</overwrite>
         <referenceSettings>
-          <referenceAdvanceScript/>
           <userMentionSupported>false</userMentionSupported>
           <entityMentionSupported>false</entityMentionSupported>
         </referenceSettings>
@@ -1268,4 +1374,24 @@
     <includeAuthorBackward>false</includeAuthorBackward>
   </ohCommentAuthor>
   <validate>true</validate>
+  <endpoint1Info>
+    <objectVersion>0</objectVersion>
+    <id>264</id>
+    <name>TFS target1 ppp</name>
+    <typeId>24</typeId>
+    <type>Team Foundation Server/Azure DevOps</type>
+    <version>2020</version>
+    <parentTypeId>25</parentTypeId>
+    <entityVersion>0</entityVersion>
+  </endpoint1Info>
+  <endpoint2Info>
+    <objectVersion>0</objectVersion>
+    <id>262</id>
+    <name>ADO</name>
+    <typeId>24</typeId>
+    <type>Team Foundation Server/Azure DevOps</type>
+    <version>2019</version>
+    <parentTypeId>25</parentTypeId>
+    <entityVersion>0</entityVersion>
+  </endpoint2Info>
 </com.opshub.server.admin.mapperconfiguration.MapperConfigDataInfo>
