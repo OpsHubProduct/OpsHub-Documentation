@@ -288,7 +288,7 @@ When the search text is cleared:
 * The final field name will be:
   **`ProductUst__169__Uendversion`**
 
-You can map attachments, comments and relationships between System 1 and System 2. You can also configure workflow transition between System 1 and System 2.
+You can map attachments, comments and relationships between System 1 and System 2. You can also configure Transitions & Dependencies between System 1 and System 2.
 
 
 ## Specifying Unicode for values in lookup fields
@@ -530,20 +530,20 @@ Read in detail about [Default Link Settings](default-link-settings.md) here.
 </p>
 
 
-# Workflow Transition
+# Transitions & Dependencies
 
-**Workflow transition** is a feature supported by <code class="expression">space.vars.OIM</code> wherein the user can configure <code class="expression">space.vars.OIM</code> to automatically handle workflow transition of an entity as per requirement.
+**Transitions & Dependencies** is a feature supported by <code class="expression">space.vars.OIM</code> wherein the user can configure <code class="expression">space.vars.OIM</code> to automatically handle Transitions & Dependencies of an entity as per requirement.
 
 For example, consider a system in which Transition Workflow exists, a certain state is only accessible from a certain specific state or a new item can only exist in a new default state. Another example can be a requirement in which a state a field has to be assigned a value. If the value for that field is not assigned in that specific state, then it will result into error. In such circumstances, synchronizing entities from a system that does not enforce Transition Workflow to the target system is cumbersome.
 
-To solve this problem, <code class="expression">space.vars.OIM</code> allows the user to configure Workflow Transition Handling. Some systems provide workflow transition information through API. For these systems, the workflow transition information is picked from the API by default. Irrespective of the availability of the workflow transition through API, user can configure Workflow Transition by providing the information through XSL.
+To solve this problem, <code class="expression">space.vars.OIM</code> allows the user to configure Transitions & Dependencies Handling. Some systems provide Transitions information through API. For these systems, the transition information is picked from the API by default. Irrespective of the availability of the transitions through API, user can configure Transitions & Dependencies by providing the information through XSL.
 
-* Slide the button adjacent to **Workflow Transition** to the right.
-* Click the (</>) icon to edit the workflow transition XSL. A default sample XSL is loaded using which a user can build his own XSL as per his requirement.
+* Slide the button adjacent to **Transitions & Dependencies** to the right.
+* Click the (</>) icon to edit the Transitions & Dependencies XSL. A default sample XSL is loaded using which a user can build his own XSL as per his requirement.
 
-**Workflow Behaviour for Workflow Transition when the reference field is added as a dependent field:**
+**Workflow Behaviour for Transitions & Dependencies when the reference field is added as a dependent field:**
 
-* If the dependent field added in the workflow transition is the reference field type, then by default, the lookup for the target entity will be done based on a name basis.
+* If the dependent field added in the Transitions & Dependencies is the reference field type, then by default, the lookup for the target entity will be done based on a name basis.
 * If the user wants to perform target lookup based on the target entity id, they can achieve this by specifying the attribute `"lookupBy"` in the dependent field. For more details, refer to [Reference Field Working](mapping-configuration.md#reference-field).
 
 <p align="center">
@@ -554,42 +554,70 @@ To solve this problem, <code class="expression">space.vars.OIM</code> allows the
 
 ```xml
 <FieldTransitions>
-  <FieldTransition>
-    <transitionName>transitionName 1</transitionName>
-    <fromField>field1</fromField>
-    <toField>field1</toField>
-    <sourceValue/>
-    <targetValue>value1</targetValue>
-    <defaultTransition>true</defaultTransition>
-  </FieldTransition>
-  <FieldTransition>
-    <transitionName>transitionName 2</transitionName>
-    <fromField>field1</fromField>
-    <toField>field2</toField>
-    <sourceValue>value1</sourceValue>
-    <targetValue>value2</targetValue>
-    <dependentFields>
-      <dependentField>
-        <fieldName>dependent field 1</fieldName>
-        <executionOrder>BEFORE</executionOrder>
-        <possibleTargetValues>
-          <possibleValue>value A1</possibleValue>
-          <possibleValue>value B1</possibleValue>
-          <possibleValue>value C1</possibleValue>
-        </possibleTargetValues>
-        <defaultValue>value A1</defaultValue>
-      </dependentField>
-      <dependentField lookupBy="defaultTargetId">
-        <fieldName>dependent field 2</fieldName>
-        <possibleTargetValues>
-          <possibleValue>Id 1</possibleValue>
-          <possibleValue>Id 2</possibleValue>
-          <possibleValue>Id 3</possibleValue>
-        </possibleTargetValues>
-        <defaultValue>Id 1</defaultValue>
-      </dependentField>
-    </dependentFields>
-  </FieldTransition>
+  <Transitions>
+    <FieldTransition>
+      <transitionName>transitionName 1</transitionName>
+      <fromField>field1</fromField>
+      <toField>field1</toField>
+      <sourceValue/>
+      <targetValue>value1</targetValue>
+      <defaultTransition>true</defaultTransition>
+    </FieldTransition>
+    <FieldTransition>
+      <transitionName>transitionName 2</transitionName>
+      <fromField>field1</fromField>
+      <toField>field2</toField>
+      <sourceValue>value1</sourceValue>
+      <targetValue>value2</targetValue>
+      <dependentFields>
+        <dependentField>
+          <fieldName>dependent field 1</fieldName>
+          <executionOrder>BEFORE</executionOrder>
+          <possibleTargetValues>
+            <possibleValue>value A1</possibleValue>
+            <possibleValue>value B1</possibleValue>
+            <possibleValue>value C1</possibleValue>
+          </possibleTargetValues>
+          <defaultValue>value A1</defaultValue>
+          <alwaysUpdate>false</alwaysUpdate>
+        </dependentField>
+        <dependentField lookupBy="defaultTargetId">
+          <fieldName>dependent field 2</fieldName>
+          <possibleTargetValues>
+            <possibleValue>Id 1</possibleValue>
+            <possibleValue>Id 2</possibleValue>
+            <possibleValue>Id 3</possibleValue>
+          </possibleTargetValues>
+          <defaultValue>Id 1</defaultValue>
+          <alwaysUpdate>false</alwaysUpdate>
+        </dependentField>
+      </dependentFields>
+    </FieldTransition>
+  </Transitions>
+  <DependencyMap>
+    <Group>
+      <primaryField>dependent field 1</primaryField>
+      <dependentFields>
+        <dependentField>
+          <fieldName>dependent field 2</fieldName>
+        </dependentField>
+        <dependentField>
+          <fieldName>dependent field 3</fieldName>
+        </dependentField>
+      </dependentFields>
+    </Group>
+    <Group>
+      <primaryField>dependent field 3</primaryField>
+      <dependentFields>
+        <dependentField>
+          <fieldName>dependent field 1</fieldName>
+        </dependentField>
+        <dependentField>
+          <fieldName>dependent field 2</fieldName>
+        </dependentField>
+      </dependentFields>
+    </Group>
+  </DependencyMap>
 </FieldTransitions>
 ```
 
@@ -616,6 +644,145 @@ To solve this problem, <code class="expression">space.vars.OIM</code> allows the
           * WITH : Dependent fields with this value are updated as part of the state transition.
           * AFTER : Dependent fields with this value are updated after the state transition is completed.
         * If the `<executionOrder>` attribute is not specified for a dependent field, the execution order defaults to WITH.
+
+
+### Dependency Groups
+
+Dependency Groups are used to define relationships between fields outside of workflow transitions. This helps <code class="expression">space.vars.OIM</code> determine which fields should be processed together when one field depends on another.
+
+A dependency group consists of:
+
+- A `<primaryField>` : the main field that controls dependency.
+- A list of `<dependentField>` entries : fields that depend on the primary field.
+
+This configuration is useful in scenarios where:
+
+- Some APIs or workflows fail if a field is not explicitly sent, even if unchanged.
+- Workflow validators depend on the field update event
+- Validators or post-functions may trigger only when the field is part of the update payload.
+- Certain fields must be updated together with another field.
+- Target systems have validation rules between fields.
+- Field values are interdependent even when no workflow transition exists.
+
+#### Tags Explained
+
+| Tag | Description |
+|------|-------------|
+| `<DependencyMap>` | Root node that contains all dependency groups |
+| `<Group>` | Represents one dependency relationship group |
+| `<primaryField>` | Main field on which other fields depend |
+| `<dependentFields>` | Container for all dependent fields |
+| `<dependentField>` | Configuration for an individual dependent field |
+| `<fieldName>` | Internal name of the dependent field |
+
+#### Example
+
+```xml
+<DependencyMap>
+  <Group>
+    <primaryField>Documentation</primaryField>
+    <dependentFields>
+      <dependentField>
+        <fieldName>environment</fieldName>
+      </dependentField>
+      <dependentField>
+        <fieldName>labels</fieldName>
+      </dependentField>
+    </dependentFields>
+  </Group>
+
+  <Group>
+    <primaryField>environment</primaryField>
+    <dependentFields>
+      <dependentField>
+        <fieldName>Documentation</fieldName>
+      </dependentField>
+      <dependentField>
+        <fieldName>labels</fieldName>
+      </dependentField>
+    </dependentFields>
+  </Group>
+</DependencyMap>
+```
+
+#### Notes
+
+- Dependency Groups are configured under the `<DependencyMap>` node inside `<FieldTransitions>`.
+- Multiple `<Group>` entries can be added.
+- A field can act as both:
+  - a `<primaryField>` in one group, and
+  - a `<dependentField>` in another group.
+- Dependency groups are independent of workflow transitions and can be configured even when no transition exists.
+
+#### Complete Example
+
+```xml
+<FieldTransitions>
+  <Transitions>
+    <FieldTransition>
+      <transitionName>In Progress to In Review</transitionName>
+      <fromField>status</fromField>
+      <toField>status</toField>
+      <sourceValue>In Progress</sourceValue>
+      <targetValue>In Review</targetValue>
+      <dependentFields>
+        <dependentField>
+          <fieldName>Documentation</fieldName>
+          <executionOrder>WITH</executionOrder>
+          <alwaysUpdate>true</alwaysUpdate>
+        </dependentField>
+      </dependentFields>
+    </FieldTransition>
+  </Transitions>
+
+  <DependencyMap>
+    <Group>
+      <primaryField>Documentation</primaryField>
+      <dependentFields>
+        <dependentField>
+          <fieldName>environment</fieldName>
+        </dependentField>
+        <dependentField>
+          <fieldName>labels</fieldName>
+        </dependentField>
+      </dependentFields>
+    </Group>
+  </DependencyMap>
+</FieldTransitions>
+```
+
+When a field configured as a `<primaryField>` is detected as changed, all fields configured under its `<dependentFields>` are automatically included for update processing.
+
+For dependent fields added through `<DependencyMap>` groups:
+
+- Source old value vs source new value comparison is skipped.
+- Source new value vs current target value comparison is skipped.
+- The dependent fields are directly included in synchronization processing once the primary field change is detected.
+
+For example:
+
+```xml
+<DependencyMap>
+  <Group>
+    <primaryField>Documentation</primaryField>
+    <dependentFields>
+      <dependentField>
+        <fieldName>environment</fieldName>
+      </dependentField>
+      <dependentField>
+        <fieldName>labels</fieldName>
+      </dependentField>
+    </dependentFields>
+  </Group>
+</DependencyMap>
+```
+
+In the above example:
+
+- If `Documentation` changes,
+- then `environment` and `labels` are automatically included for synchronization,
+- even if their values themselves are not detected as changed during comparison.
+
 
 **Example of multi-valued type field:**
 
@@ -653,10 +820,10 @@ To solve this problem, <code class="expression">space.vars.OIM</code> allows the
 > **Note** : All the values provided for Advance Transition XSL are related to the target system.
 > **Note** : `<fromField>` and `<toField>` refer to the same field, provided end system's transition flow is configured on a single transition field. Otherwise, they refer to different fields as per the end system's transition flow.
 
-* If the Workflow Transition is configured, then during the integration, the transition of entities based on incoming values is done automatically by <code class="expression">space.vars.OIM</code>. This makes it easier to synchronize such systems.
+* If the Transitions & Dependencies is configured, then during the integration, the transition of entities based on incoming values is done automatically by <code class="expression">space.vars.OIM</code>. This makes it easier to synchronize such systems.
 * Now, click **Create Mapping** button to create the mapping.
 
-## Workflow Transition Example
+## Transitions & Dependencies Example
 
 Suppose the possible status transition(s) of Jira system is:
 
@@ -665,7 +832,7 @@ Suppose the possible status transition(s) of Jira system is:
 * Active → Resolved
 * Resolved → Closed
 
-Below is workflow transition XML configuration sample for <code class="expression">space.vars.OIM</code> for above possible end system transitions.
+Below is Transitions & Dependencies XML configuration sample for <code class="expression">space.vars.OIM</code> for above possible end system transitions.
 
 ```xml
 <FieldTransitions>
@@ -703,8 +870,8 @@ Below is workflow transition XML configuration sample for <code class="expressio
 
 ## Known Behavior and Limitations
 
-* If comment is mandatory on state/status transitions and user has configured the `OH_Dependent_Comments` in workflow transition XML, the N number of comment from source will be processed with N number of transition in target. If there is no comment coming from the source, default comment [mentioned in the Workflow transition XML] will be synced to the target system.
-* `OH_Dependent_Comments` in workflow transition XML will work for `WITH` execution order because of API limitations.
+* If comment is mandatory on state/status transitions and user has configured the `OH_Dependent_Comments` in transition XML, the N number of comment from source will be processed with N number of transition in target. If there is no comment coming from the source, default comment [mentioned in the Transitions & Dependencies XML] will be synced to the target system.
+* `OH_Dependent_Comments` in Transitions & Dependencies XML will work for `WITH` execution order because of API limitations.
 
 **E.g.,**
 
