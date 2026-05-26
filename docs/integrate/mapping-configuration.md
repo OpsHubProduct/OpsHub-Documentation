@@ -554,44 +554,70 @@ To solve this problem, <code class="expression">space.vars.SITENAME</code> allow
 
 ```xml
 <FieldTransitions>
-  <FieldTransition>
-    <transitionName>transitionName 1</transitionName>
-    <fromField>field1</fromField>
-    <toField>field1</toField>
-    <sourceValue/>
-    <targetValue>value1</targetValue>
-    <defaultTransition>true</defaultTransition>
-  </FieldTransition>
-  <FieldTransition>
-    <transitionName>transitionName 2</transitionName>
-    <fromField>field1</fromField>
-    <toField>field2</toField>
-    <sourceValue>value1</sourceValue>
-    <targetValue>value2</targetValue>
-    <dependentFields>
-      <dependentField>
-        <fieldName>dependent field 1</fieldName>
-        <executionOrder>BEFORE</executionOrder>
-        <possibleTargetValues>
-          <possibleValue>value A1</possibleValue>
-          <possibleValue>value B1</possibleValue>
-          <possibleValue>value C1</possibleValue>
-        </possibleTargetValues>
-        <defaultValue>value A1</defaultValue>
-        <alwaysUpdate>false</alwaysUpdate>
-      </dependentField>
-      <dependentField lookupBy="defaultTargetId">
-        <fieldName>dependent field 2</fieldName>
-        <possibleTargetValues>
-          <possibleValue>Id 1</possibleValue>
-          <possibleValue>Id 2</possibleValue>
-          <possibleValue>Id 3</possibleValue>
-        </possibleTargetValues>
-        <defaultValue>Id 1</defaultValue>
-        <alwaysUpdate>false</alwaysUpdate>
-      </dependentField>
-    </dependentFields>
-  </FieldTransition>
+  <Transitions>
+    <FieldTransition>
+      <transitionName>transitionName 1</transitionName>
+      <fromField>field1</fromField>
+      <toField>field1</toField>
+      <sourceValue/>
+      <targetValue>value1</targetValue>
+      <defaultTransition>true</defaultTransition>
+    </FieldTransition>
+    <FieldTransition>
+      <transitionName>transitionName 2</transitionName>
+      <fromField>field1</fromField>
+      <toField>field2</toField>
+      <sourceValue>value1</sourceValue>
+      <targetValue>value2</targetValue>
+      <dependentFields>
+        <dependentField>
+          <fieldName>dependent field 1</fieldName>
+          <executionOrder>BEFORE</executionOrder>
+          <possibleTargetValues>
+            <possibleValue>value A1</possibleValue>
+            <possibleValue>value B1</possibleValue>
+            <possibleValue>value C1</possibleValue>
+          </possibleTargetValues>
+          <defaultValue>value A1</defaultValue>
+          <alwaysUpdate>false</alwaysUpdate>
+        </dependentField>
+        <dependentField lookupBy="defaultTargetId">
+          <fieldName>dependent field 2</fieldName>
+          <possibleTargetValues>
+            <possibleValue>Id 1</possibleValue>
+            <possibleValue>Id 2</possibleValue>
+            <possibleValue>Id 3</possibleValue>
+          </possibleTargetValues>
+          <defaultValue>Id 1</defaultValue>
+          <alwaysUpdate>false</alwaysUpdate>
+        </dependentField>
+      </dependentFields>
+    </FieldTransition>
+  </Transitions>
+  <DependencyMap>
+    <Group>
+      <primaryField>dependent field 1</primaryField>
+      <dependentFields>
+        <dependentField>
+          <fieldName>dependent field 2</fieldName>
+        </dependentField>
+        <dependentField>
+          <fieldName>dependent field 3</fieldName>
+        </dependentField>
+      </dependentFields>
+    </Group>
+    <Group>
+      <primaryField>dependent field 3</primaryField>
+      <dependentFields>
+        <dependentField>
+          <fieldName>dependent field 1</fieldName>
+        </dependentField>
+        <dependentField>
+          <fieldName>dependent field 2</fieldName>
+        </dependentField>
+      </dependentFields>
+    </Group>
+  </DependencyMap>
 </FieldTransitions>
 ```
 
@@ -618,95 +644,144 @@ To solve this problem, <code class="expression">space.vars.SITENAME</code> allow
           * WITH : Dependent fields with this value are updated as part of the state transition.
           * AFTER : Dependent fields with this value are updated after the state transition is completed.
         * If the `<executionOrder>` attribute is not specified for a dependent field, the execution order defaults to WITH.
-      * `<alwaysUpdate>` : This attribute controls whether the dependent field should be updated every time a transition runs.
-        * `true` : The field is updated every time the transition executes, even if the new value is the same as the current value in the target.
-        * `false` : The field is updated only when there is an actual difference between the current target value and the incoming value.
-      * Use `true` to force an update every time, and `false` to update only when a change is detected.
-
-**Use cases for `true`: Target system enforces field presence**
-
-Some APIs or workflows fail if a field is not explicitly sent, even if unchanged.
-
-* Workflow validators depend on the field update event
-* Validators or post-functions may trigger only when the field is part of the update payload.
-
-If not specified, the default behavior is false, meaning:
-
-* The field is updated only when an actual change in value is detected
-
-## Target-Only Matching Transition
-
-A transition can be configured using only `<targetValue>` without specifying `<sourceValue>`.
-
-This is useful when the source value is unpredictable or multiple source states can move to one common target state.
-
-### Example
-
-```xml
-<FieldTransition>
-  <transitionName>Resolve Transition</transitionName>
-  <fromField>status</fromField>
-  <toField>status</toField>
-  <sourceValue></sourceValue>
-  <targetValue>Resolved</targetValue>
-</FieldTransition>
-```
-
-### Behavior
-
-If the incoming target value is `Resolved`, this transition is selected regardless of the current source value.
-
-### Use Cases
-
-- when multiple source states can move to a common target state
-- Source system workflow is dynamic.
-- Exact source status is not reliable.
 
 
-## Default (Generic) Transition
+### Dependency Groups
 
-A workflow transition can be marked as default using:
+Dependency Groups are used to define relationships between fields outside of workflow transitions. This helps <code class="expression">space.vars.SITENAME</code> determine which fields should be processed together when one field depends on another.
+
+A dependency group consists of:
+
+- A `<primaryField>` : the main field that controls dependency.
+- A list of `<dependentField>` entries : fields that depend on the primary field.
+
+This configuration is useful in scenarios where:
+
+- Some APIs or workflows fail if a field is not explicitly sent, even if unchanged.
+- Workflow validators depend on the field update event
+- Validators or post-functions may trigger only when the field is part of the update payload.
+- Certain fields must be updated together with another field.
+- Target systems have validation rules between fields.
+- Field values are interdependent even when no workflow transition exists.
+
+#### Tags Explained
+
+| Tag | Description |
+|------|-------------|
+| `<DependencyMap>` | Root node that contains all dependency groups |
+| `<Group>` | Represents one dependency relationship group |
+| `<primaryField>` | Main field on which other fields depend |
+| `<dependentFields>` | Container for all dependent fields |
+| `<dependentField>` | Configuration for an individual dependent field |
+| `<fieldName>` | Internal name of the dependent field |
+
+#### Example
 
 ```xml
-<sourceValue></sourceValue>
-<targetValue></targetValue>
+<DependencyMap>
+  <Group>
+    <primaryField>Documentation</primaryField>
+    <dependentFields>
+      <dependentField>
+        <fieldName>environment</fieldName>
+      </dependentField>
+      <dependentField>
+        <fieldName>labels</fieldName>
+      </dependentField>
+    </dependentFields>
+  </Group>
+
+  <Group>
+    <primaryField>environment</primaryField>
+    <dependentFields>
+      <dependentField>
+        <fieldName>Documentation</fieldName>
+      </dependentField>
+      <dependentField>
+        <fieldName>labels</fieldName>
+      </dependentField>
+    </dependentFields>
+  </Group>
+</DependencyMap>
 ```
 
-This transition acts as a generic route when no specific source-to-target mapping is defined.
+#### Notes
 
-#### In simple terms:
+- Dependency Groups are configured under the `<DependencyMap>` node inside `<FieldTransitions>`.
+- Multiple `<Group>` entries can be added.
+- A field can act as both:
+  - a `<primaryField>` in one group, and
+  - a `<dependentField>` in another group.
+- Dependency groups are independent of workflow transitions and can be configured even when no transition exists.
 
-- Use this when you don’t want to define transitions for every specific status change.
-- It ensures that updates still go through using a common transition.
-- Useful when the exact source/target combination is not important, but the dependent fields or updates must still be applied.
-
-#### When to use it:
-- When you don’t require strict mapping for each status change.
-- When dependent fields or other updates should be applied consistently, regardless of the exact transition.
-
-### Example
-
-If transitions are unknown, keep both source value and target value empty
+#### Complete Example
 
 ```xml
-<FieldTransition>
-  <transitionName>Default Transition</transitionName>
-  <fromField>status</fromField>
-  <toField>status</toField>
-  <sourceValue></sourceValue>
-  <targetValue></targetValue>
-</FieldTransition>
+<FieldTransitions>
+  <Transitions>
+    <FieldTransition>
+      <transitionName>In Progress to In Review</transitionName>
+      <fromField>status</fromField>
+      <toField>status</toField>
+      <sourceValue>In Progress</sourceValue>
+      <targetValue>In Review</targetValue>
+      <dependentFields>
+        <dependentField>
+          <fieldName>Documentation</fieldName>
+          <executionOrder>WITH</executionOrder>
+          <alwaysUpdate>true</alwaysUpdate>
+        </dependentField>
+      </dependentFields>
+    </FieldTransition>
+  </Transitions>
+
+  <DependencyMap>
+    <Group>
+      <primaryField>Documentation</primaryField>
+      <dependentFields>
+        <dependentField>
+          <fieldName>environment</fieldName>
+        </dependentField>
+        <dependentField>
+          <fieldName>labels</fieldName>
+        </dependentField>
+      </dependentFields>
+    </Group>
+  </DependencyMap>
+</FieldTransitions>
 ```
 
-### Behavior
+When a field configured as a `<primaryField>` is detected as changed, all fields configured under its `<dependentFields>` are automatically included for update processing.
 
-| Condition | Result |
-|-----------|--------|
-| Matching transition exists | The matching transition is used |
-| No matching transition exists | The default transition is used |
-| No matching transition exists and no default transition is configured | Synchronization fails with an error |
+For dependent fields added through `<DependencyMap>` groups:
 
----
+- Source old value vs source new value comparison is skipped.
+- Source new value vs current target value comparison is skipped.
+- The dependent fields are directly included in synchronization processing once the primary field change is detected.
+
+For example:
+
+```xml
+<DependencyMap>
+  <Group>
+    <primaryField>Documentation</primaryField>
+    <dependentFields>
+      <dependentField>
+        <fieldName>environment</fieldName>
+      </dependentField>
+      <dependentField>
+        <fieldName>labels</fieldName>
+      </dependentField>
+    </dependentFields>
+  </Group>
+</DependencyMap>
+```
+
+In the above example:
+
+- If `Documentation` changes,
+- then `environment` and `labels` are automatically included for synchronization,
+- even if their values themselves are not detected as changed during comparison.
 
 
 **Example of multi-valued type field:**
