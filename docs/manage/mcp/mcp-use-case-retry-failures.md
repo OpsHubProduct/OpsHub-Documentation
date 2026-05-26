@@ -26,6 +26,5 @@ A user wants to review the current processing failures across integrations and r
 
 ## Notes
 
-- Only processing failures (not global failures) can be retried via MCP.
-- Global failures can be listed and retrieved for review, but not retried.
+- Global failures can be listed and retrieved for review.
 - Updating `eventXML` for processing failures is not supported via MCP tools.
