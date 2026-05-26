@@ -1,6 +1,6 @@
 ---
 if: >-
-  visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
+    visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
 # Overview
@@ -10,6 +10,8 @@ if: >-
 Instead of manually constructing API calls or navigating the UI, you can instruct an AI assistant with queries like _"What systems are configured?"_ or _"Create a mapping between Rally and Jama for Project A and Project B"_, and the MCP server handles the rest.
 
 The <code class="expression">space.vars.OIM</code> MCP server is an HTTP server deployed with your <code class="expression">space.vars.OIM</code> instance — no separate installation is required. It acts as a bridge between any MCP-compatible AI client and the <code class="expression">space.vars.OIM</code> backend, fully respecting existing role-based access control and security policies.
+
+> **Tip**: For best results, it is recommended to also connect the **OpsHub Documentation MCP** alongside the <code class="expression">space.vars.OIM</code> MCP server. This allows your AI assistant to access OpsHub's product documentation — including connector-specific guides, field behaviours, and feature details — providing richer context when generating configurations, mappings, or answering questions about specific connectors and capabilities.
 
 To explore what operations are supported, refer to [MCP Capability Matrix](mcp-capability-matrix.md).  
 To get started with sample interactions, refer to [Sample Use Cases](mcp-sample-use-cases.md).
@@ -30,7 +32,7 @@ Following are the prerequisites to use the <code class="expression">space.vars.O
 
 ## MCP License
 
-- MCP server access is available with the **Professional** and **Ultimate** licenses of <code class="expression">space.vars.OIM</code>.
+- MCP server access is available with the **Professional** and **Ultimate** editions of <code class="expression">space.vars.OIM</code>.
 - MCP server is **not available** with OM4ADO.
 
 >**Note**: Please refer to [Validate MCP feature](#validate-mcp-feature) to determine whether the MCP feature is enabled on your <code class="expression">space.vars.OIM</code> instance. If you don't have a valid license, please reach out to OpsHub Sales/Support team.
@@ -326,7 +328,7 @@ mcpServers:
 MCP server activity is captured in a dedicated log file, separate from the main <code class="expression">space.vars.OIM</code> application logs. The MCP log file is located at:
 
 ```
-C:\Program Files\OpsHub\AppData\logs
+C:\Program Files\OpsHub\AppData\logs\MCPServer.log
 ```
 
 Use these logs to diagnose connectivity issues, authentication failures, or unexpected tool behaviour during MCP sessions.
@@ -352,13 +354,5 @@ To check whether the MCP feature is enabled in <code class="expression">space.va
 4. Please make sure the **MCP** feature is enabled.
 
 >**Note**: If this feature is disabled, and you have the license in which this feature is available, then please [install](Managing_Licenses) the correct license. If you don't have a valid license, please reach out to OpsHub Sales/Support team for receiving the appropriate license.
-
-## Validate Access to <code class="expression">space.vars.OIM</code> Instance
-
-To check whether the <code class="expression">space.vars.OIM</code> instance is accessible or not, please perform the below steps:
-
-1. Open the <code class="expression">space.vars.OIM</code> instance URL from any browser on the machine where the MCP client is running.
-2. Access the <code class="expression">space.vars.OIM</code> instance using the credentials you intend to use for MCP communication.
-3. If you can successfully login, this prerequisite is met.
 
 >**Note**: If <code class="expression">space.vars.OIM</code> is configured on HTTPS, then SSL certificates need to be trusted in your MCP client environment. For clients using `mcp-remote`, certificate handling may need to be configured depending on your OS and Node.js setup.
