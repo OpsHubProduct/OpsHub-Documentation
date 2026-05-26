@@ -1,4 +1,4 @@
-{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}  
+{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}
 
 <table data-view="cards" data-full-width="false">
   <thead>
@@ -21,15 +21,19 @@
       <td><a href="api.md">APIs</a></td>
     </tr>
     <tr>
+      <td align="center">🤖 <strong>MCP Server</strong></td>
+      <td><a href="mcp.md">MCP Server</a></td>
+    </tr>
+    <tr>
       <td align="center">⬆️ <strong>Upgrade</strong></td>
       <td><a href="upgrade-index.md">Upgrade</a></td>
     </tr>
   </tbody>
 </table>
 
-{% endif %}  
+{% endif %}
 
-{% if "OM4ADO" === visitor.claims.unsigned.product %}  
+{% if "OM4ADO" === visitor.claims.unsigned.product %}
 
 <table data-view="cards" data-full-width="false">
   <thead>
@@ -54,5 +58,4 @@
   </tbody>
 </table>
 
-{% endif %}  
-
+{% endif %}
