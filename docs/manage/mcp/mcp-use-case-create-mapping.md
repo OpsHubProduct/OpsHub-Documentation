@@ -11,20 +11,14 @@ A user wants to create a new field mapping between entity types of two systems �
 
 ## Example Interaction
 
-| Component | Detail                                                                                                            |
-|-----------|-------------------------------------------------------------------------------------------------------------------|
+| Component | Detail |
+|-----------|--------|
 | **User prompt** | "Create a mapping between Jira Issues and Rally Defects for the Alpha (Jira) - Beta (Rally) project integration." |
-| **MCP tools invoked** | Mapping planner tool → `get_fields_meta` (for both systems) → `create_mapping`                                    |
-| **AI assistant output** | Confirmation of the created mapping with its ID and a summary of the fields mapped                                |
-
-## What the AI Assistant Does
-
-1. Uses the mapping planner tool to determine the correct sequence of steps.
-2. Retrieves available fields and their metadata for both entity types.
-3. Checks for any existing mappings between the same entity types to avoid duplicates.
-4. Presents the proposed mapping to the user for confirmation.
-5. Creates the mapping upon confirmation.
+| **MCP tools invoked** | `mapping_planner` → `get_fields_meta` (for both systems) → `create_mapping` |
+| **AI assistant steps** | Retrieves field metadata for both entity types → checks for duplicate mappings → presents proposed mapping for user confirmation → creates on confirmation. |
+| **AI assistant output** | Confirmation of the created mapping with its ID and a summary of the fields mapped. |
 
 ## Notes
 
-- Advanced configurations such as XSLT transformations, conflict detection rules, and overwrite settings can also be applied by requesting them in your prompt.
+- The AI assistant will always check for existing mappings before creating and will warn of potential duplicates.
+- Advanced configurations such as XSLT transformations, conflict detection rules, and overwrite settings can be applied by requesting them in your prompt.
