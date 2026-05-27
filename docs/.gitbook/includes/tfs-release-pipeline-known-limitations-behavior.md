@@ -27,16 +27,17 @@ These are required to in target due to Azure DevOps API Restrictions/limitations
   * Impersonation is not supported.
     * Reason: ADO/TFS API limitation.
   * Synchronization of security permissions for individual Release Pipelines is not supported.
-* Cross-Project Team/Group Synchronization Behavior for Stage **Owners** and **Approvers**:
-    * In Release Pipeline, stage owners and approvers can belong to:
-        * A team/group from the same project
-        * An organization-level team/group
-        * A team/group from another project (cross-project)
-
-  | Source Team/Group | Target Behavior |
-      |-------------------|-----------------|
-  | Same project team/group | Synchronized with the corresponding team/group in the target project. |
-  | Organization-level group | Synchronized with the corresponding group at the target organization level. |
-  | Cross-project team/group where both the cross-project and corresponding team/group exist in the target organization | Synchronized with the corresponding cross-project team/group in the target organization. |
-  | Cross-project team/group where the cross-project exists in the target organization but the corresponding team/group does not exist | An error is reported. |
-  | Cross-project team/group where the cross-project does not exist in the target organization | Synchronized with the corresponding team/group in the current target project. |
+  * Cross-Project Team/Group Synchronization Behavior for Stage **Owners** and **Approvers**:
+  * In Release Pipeline, stage owners and approvers can belong to:
+    * A team/group from the same project
+    * An organization-level team/group
+    * A team/group from another project (cross-project)
+    
+    | Source Team/Group | Synchronization Behavior in Target                                                       |
+    |-------------------|------------------------------------------------------------------------------------------|
+    | Same project team/group | Synchronized with the corresponding team/group in the target project.                    |
+    | Organization-level group | Synchronized with the corresponding group at the target organization level.              |
+    | Cross-project team/group where both the cross-project and corresponding team/group exist in the target organization | Synchronized with the corresponding cross-project team/group in the target organization. |
+    | Cross-project team/group where the cross-project exists in the target organization but the corresponding team/group does not exist | An error is reported.                                                                    |
+    | Cross-project team/group where the cross-project does not exist in the target organization | Synchronized with the corresponding team/group in the current target project.            |
+    
