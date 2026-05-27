@@ -32,12 +32,11 @@ These are required to in target due to Azure DevOps API Restrictions/limitations
     * A team/group from the same project
     * An organization-level team/group
     * A team/group from another project (cross-project)
-    
-    | Source Team/Group | Synchronization Behavior in Target                                                       |
-    |-------------------|------------------------------------------------------------------------------------------|
-    | Same project team/group | Synchronized with the corresponding team/group in the target project.                    |
-    | Organization-level group | Synchronized with the corresponding group at the target organization level.              |
-    | Cross-project team/group where both the cross-project and corresponding team/group exist in the target organization | Synchronized with the corresponding cross-project team/group in the target organization. |
-    | Cross-project team/group where the cross-project exists in the target organization but the corresponding team/group does not exist | An error is reported.                                                                    |
-    | Cross-project team/group where the cross-project does not exist in the target organization | Synchronized with the corresponding team/group in the current target project.            |
-    
+
+    | Source Team/Group | Synchronization Behavior in Target |
+    |-------------------|-------------------------------------|
+    | Team/group selected from the source project | Synchronized with the corresponding team/group in the target project. |
+    | Organization-level group selected | Synchronized with the corresponding group at the target organization level. |
+    | Cross-project team/group where both the project and corresponding team/group are available in the target organization | Synchronized with the corresponding cross-project team/group in the target organization. |
+    | Cross-project team/group where the project exists in the target organization but the corresponding team/group is unavailable | An error is reported. |
+    | Cross-project team/group where the project is unavailable in the target organization | Synchronized with the corresponding team/group in the current target project as a fallback. |
