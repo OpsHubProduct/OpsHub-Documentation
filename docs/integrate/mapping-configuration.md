@@ -648,34 +648,23 @@ To solve this problem, <code class="expression">space.vars.OIM</code> allows the
 
 ### Dependency Groups
 
-Dependency Groups are used to define relationships between fields outside of workflow transitions. This helps <code class="expression">space.vars.OIM</code> determine which fields should be processed together when one field depends on another.
+Dependency Groups are used to define relationships between fields that should be processed together during synchronization.
 
-A dependency group consists of:
+This configuration is useful when updating one field also requires other related fields to be sent to the target system, even if those dependent fields themselves are not detected as changed.
 
-- A `<primaryField>` : the main field that controls dependency.
-- A list of `<dependentField>` entries : fields that depend on the primary field.
+OpsHub Integration Manager uses Dependency Groups to automatically include dependent fields in synchronization whenever the primary field changes.
 
-This configuration is useful in scenarios where:
+#### When to Use Dependency Groups
 
-- Some APIs or workflows fail if a field is not explicitly sent, even if unchanged.
-- Workflow validators depend on the field update event
-- Validators or post-functions may trigger only when the field is part of the update payload.
-- Certain fields must be updated together with another field.
-- Target systems have validation rules between fields.
-- Field values are interdependent even when no workflow transition exists.
+Dependency Groups are useful in scenarios such as:
 
-#### Tags Explained
+- Target system validators require multiple fields together.
+- APIs fail if related fields are not explicitly sent in the update payload.
+- Workflow validators or post-functions depend on related fields being part of the update request.
+- Certain fields are logically dependent on another field.
+- Field updates must be processed together to maintain consistency.
 
-| Tag | Description |
-|------|-------------|
-| `<DependencyMap>` | Root node that contains all dependency groups |
-| `<Group>` | Represents one dependency relationship group |
-| `<primaryField>` | Main field on which other fields depend |
-| `<dependentFields>` | Container for all dependent fields |
-| `<dependentField>` | Configuration for an individual dependent field |
-| `<fieldName>` | Internal name of the dependent field |
-
-#### Example
+#### XML Structure
 
 ```xml
 <DependencyMap>
@@ -705,53 +694,9 @@ This configuration is useful in scenarios where:
 </DependencyMap>
 ```
 
-#### Notes
+#### Behavior
 
-- Dependency Groups are configured under the `<DependencyMap>` node inside `<FieldTransitions>`.
-- Multiple `<Group>` entries can be added.
-- A field can act as both:
-  - a `<primaryField>` in one group, and
-  - a `<dependentField>` in another group.
-- Dependency groups are independent of workflow transitions and can be configured even when no transition exists.
-
-#### Complete Example
-
-```xml
-<FieldTransitions>
-  <Transitions>
-    <FieldTransition>
-      <transitionName>In Progress to In Review</transitionName>
-      <fromField>status</fromField>
-      <toField>status</toField>
-      <sourceValue>In Progress</sourceValue>
-      <targetValue>In Review</targetValue>
-      <dependentFields>
-        <dependentField>
-          <fieldName>Documentation</fieldName>
-          <executionOrder>WITH</executionOrder>
-          <alwaysUpdate>true</alwaysUpdate>
-        </dependentField>
-      </dependentFields>
-    </FieldTransition>
-  </Transitions>
-
-  <DependencyMap>
-    <Group>
-      <primaryField>Documentation</primaryField>
-      <dependentFields>
-        <dependentField>
-          <fieldName>environment</fieldName>
-        </dependentField>
-        <dependentField>
-          <fieldName>labels</fieldName>
-        </dependentField>
-      </dependentFields>
-    </Group>
-  </DependencyMap>
-</FieldTransitions>
-```
-
-When a field configured as a `<primaryField>` is detected as changed, all fields configured under its `<dependentFields>` are automatically included for update processing.
+When a field configured as a `<primaryField>` is detected as changed, all fields configured under its `<dependentFields>` are automatically included for synchronization.
 
 For dependent fields added through `<DependencyMap>` groups:
 
@@ -782,6 +727,26 @@ In the above example:
 - If `Documentation` changes,
 - then `environment` and `labels` are automatically included for synchronization,
 - even if their values themselves are not detected as changed during comparison.
+
+#### Tags Explained
+
+| Tag | Description |
+|------|-------------|
+| `<DependencyMap>` | Root node that contains all dependency groups |
+| `<Group>` | Represents one dependency relationship group |
+| `<primaryField>` | Main field on which other fields depend |
+| `<dependentFields>` | Container for all dependent fields |
+| `<dependentField>` | Configuration for an individual dependent field |
+| `<fieldName>` | Internal name of the dependent field |
+
+#### Notes
+
+- Dependency Groups are configured under the `<DependencyMap>` node inside `<FieldTransitions>`.
+- Multiple `<Group>` entries can be added.
+- A field can act as both:
+  - a `<primaryField>` in one group, and
+  - a `<dependentField>` in another group.
+- Dependency groups work independently of workflow transitions.
 
 
 **Example of multi-valued type field:**
