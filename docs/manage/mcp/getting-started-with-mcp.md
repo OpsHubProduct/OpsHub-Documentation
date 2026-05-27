@@ -25,8 +25,14 @@ MCP server access is available with the **Professional** and **Ultimate** editio
 To verify whether the MCP feature is enabled on your instance:
 
 1. [Login](../../getting-started/logging-in.md) to <code class="expression">space.vars.OIM</code>.
-2. Navigate to the Footer and click on the **Edition** value.
+2. Navigate to the Footer and click on the **Edition**.
+<p align="center">
+<img src="../../assets/MCP1.png" width="800"/>
+</p>
 3. Confirm that the **MCP** feature is listed as enabled.
+<p align="center">
+<img src="../../assets/MCP2.png" width="800"/>
+</p>
 
 > **Note**: If the MCP feature is not enabled and you have a license that should include it, please [install](Managing_Licenses) the correct license. If you do not have a valid license, please reach out to the OpsHub Sales/Support team.
 
