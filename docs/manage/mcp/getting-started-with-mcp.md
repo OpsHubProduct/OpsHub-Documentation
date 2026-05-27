@@ -3,8 +3,6 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-# Getting Started with MCP
-
 Consider asking your AI assistant _"How many integrations are currently running in OIM?"_ or _"Create an integration between Jira and Rally for Project Alpha"_ — and getting it done instantly. The <code class="expression">space.vars.OIM</code> MCP (Model Context Protocol) server connects your AI assistant directly to your <code class="expression">space.vars.OIM</code> instance, enabling you to query, configure, and manage integrations through natural language.
 
 The MCP server is deployed as part of your <code class="expression">space.vars.OIM</code> installation — no separate setup is required. It acts as a bridge between any MCP-compatible AI client and the <code class="expression">space.vars.OIM</code> backend, fully respecting existing role-based access control and security policies.

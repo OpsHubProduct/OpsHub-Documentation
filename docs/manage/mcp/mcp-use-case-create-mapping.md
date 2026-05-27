@@ -3,8 +3,6 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-# Create a New Mapping Between Two Systems
-
 ## Description
 
 A user wants to create a new field mapping between entity types of two systems — for example, mapping Jira Issues to Rally Defects.

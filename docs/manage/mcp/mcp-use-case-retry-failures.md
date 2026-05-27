@@ -3,8 +3,6 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-# List and Retry Processing Failures
-
 ## Description
 
 A user wants to review the processing failures across integrations and retry them without navigating to the <code class="expression">space.vars.OIM</code> UI. Processing failures are record-level failures — individual items that failed to sync — and can be re-queued for synchronization once the underlying issue is resolved.

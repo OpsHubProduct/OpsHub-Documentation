@@ -3,7 +3,6 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-# Configuration
 
 This page covers how to authenticate with the <code class="expression">space.vars.OIM</code> MCP server and how to configure popular MCP-compatible clients.
 

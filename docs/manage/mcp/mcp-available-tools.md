@@ -3,8 +3,6 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-# Available Tools
-
 This page lists all tools exposed by the <code class="expression">space.vars.OIM</code> MCP server. Your AI assistant uses these tools to perform operations on your <code class="expression">space.vars.OIM</code> instance.
 
 > **Note**: You do not invoke these tools directly. Your AI assistant selects and calls the appropriate tools based on your natural language prompt. This reference helps you understand what is available and what each tool does.

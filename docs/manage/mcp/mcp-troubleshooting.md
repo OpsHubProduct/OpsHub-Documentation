@@ -3,8 +3,6 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-# Troubleshooting
-
 ## MCP Logs
 
 The <code class="expression">space.vars.OIM</code> MCP server writes its activity to a dedicated log file. The log file captures all incoming MCP requests, tool invocations, authentication events, and any errors or exceptions that occur during MCP sessions.

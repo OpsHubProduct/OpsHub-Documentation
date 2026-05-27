@@ -3,7 +3,6 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-# Sample Use Cases
 
 The following sample use cases demonstrate how the <code class="expression">space.vars.OIM</code> MCP server can be used with an AI assistant to perform common integration management tasks through natural language.
 

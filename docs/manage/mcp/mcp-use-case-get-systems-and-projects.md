@@ -3,8 +3,6 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-# Query Configured Systems and Project Pairs
-
 ## Description
 
 A user wants to find out which systems are configured in <code class="expression">space.vars.OIM</code> and which project pairs are synchronizing between two specific systems.
