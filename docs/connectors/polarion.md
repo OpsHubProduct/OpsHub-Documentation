@@ -60,6 +60,59 @@ Refer to [Mapping Configuration](../integrate/mapping-configuration.md) for step
   <img src="../assets/PolarionMappingCreation.png" />
 </p>
 
+## Test Step Mapping (Advanced Mapping for Additional Fields)
+
+When synchronizing Test Steps from or to Polarion, standard fields (like Step, Step Description, and Expected Result) can often be mapped directly. However, if your Polarion Test Steps contain **Additional Fields** (custom columns within the test step table), you must use Advanced Mapping (XSLT) to access and map them.
+
+1. In the Mapping Configuration screen, click the **Advanced Mapping** toggle for the Test Steps field.
+2. Use the provided XSLT template to map the standard steps, and assess the `additionalFields` node to map custom test step columns.
+
+<p align="center">
+  <img src="../assets/PolarionMappingConfigTestStep.png" />
+</p>
+
+**Mapping Detail (XSLT Snippet for ADO <-> Polarion):**
+```xml
+<testSteps op_type="TestSteps">
+    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="SourceXML/updatedFields/Property/Steps/com.opshub.eai.tfs.common.TestStep">
+        <com.opshub.eai.TestStep>
+            <id>
+                <xsl:value-of select="testStep/id"/>
+            </id>
+            <step>
+                <xsl:value-of select="testStep/position"/>
+            </step>
+            <order>
+                <xsl:value-of select="testStep/position"/>
+            </order>
+            <description>
+                <xsl:value-of select="testStep/action"/>
+            </description>
+            <expected>
+                <xsl:value-of select="testStep/expectedResult"/>
+            </expected>
+            <additionalFields>
+                <stepAttachments>
+                    <xsl:for-each select="eaiAttachment/OHAttachment">
+                        <xsl:value-of select="fileName"/>
+                        <xsl:if test="position() != last()">, </xsl:if>
+                    </xsl:for-each>
+                </stepAttachments>
+            </additionalFields>
+        </com.opshub.eai.TestStep>
+    </xsl:for-each>
+</testSteps>
+```
+
+### Points To Be Considered
+
+#### Rename Standard Column Behavior
+
+If the internal name of the standard Test Step columns (such as Step, Step Description, or Expected Result) is renamed in Polarion, the following behavior will occur:
+* **Empty Standard Columns:** During synchronization from the source system to Polarion, these standard columns will remain empty. No data will be populated in them.
+* **Data Fallback:** The synchronization data intended for these renamed columns will instead fall into the **Additional Column Details** (Additional Fields) within the Test Step. You must use Advanced Mapping to extract or map them if needed.
+
+
 # Integration Configuration
 
 Set a time to synchronize data between Polarion and the other system. Define parameters and conditions, if any, for integration.
@@ -114,8 +167,9 @@ Navigate to [Criteria Configuration](../integrate/integration-configuration.md/#
   - Replies to comments or edits in Polarion will be synced as separate comments by <code class="expression">space.vars.OIM</code>.
 - **Project Groups**:
   - Project Groups are not visible in the Project mapping list due to API limitations; projects are listed individually.
-- **Test cases and Unit test cases in Work item**:
-    - Test Steps and relation with Test Records are not supported currently.
+- **Test cases Work item**:
+    - Test Steps are supported. However, if your Test Steps contain custom columns or if a standard column has been renamed, you must use Advanced Mapping (XSLT) to access and map the `additionalFields`.
+    - Synchronization of relationships between Test Steps and Test Records is not currently supported.
 - **Links**
   - For link synchronization it is required to provide link metadata for Polarion entity types in JSON format in OpsHub Integration Manager.
     - Reason: API unavailability.
