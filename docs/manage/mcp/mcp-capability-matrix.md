@@ -21,39 +21,17 @@ Use this matrix as a quick reference to understand MCP coverage.
 
 ---
 
-## Operations Matrix
+## Operations matrix
 
-### Systems
+### Systems, Mappings & Integrations
 
-| Feature / Module     | Get | Create | Update | List | Execute | Notes |
-|----------------------|-----|--------|--------|------|---------|-------|
-| System               | ✅  | ✅     | ✅     | ✅   | —       | —     |
-| System Type          | —   | —      | —      | ✅   | —       | —     |
-| System Type Template | ✅  | —      | —      | —    | —       | —     |
-
-### Metadata
-
-| Feature / Module        | Get | Create | Update | List | Execute | Notes                                                                          |
-|-------------------------|-----|--------|--------|------|---------|--------------------------------------------------------------------------------|
-| Projects                | —   | —      | —      | ✅   | —       | Retrieve projects configured in a system                                       |
-| Entity Types            | —   | —      | —      | ✅   | —       | Retrieve entity types for a system and project                                 |
-| Fields                  | ✅  | —      | —      | —    | —       | Includes lookup values and complex field metadata (comments, attachments, relationships) |
-
-### Mapping
-
-| Feature / Module          | Get | Create | Update | List | Execute | Notes                                                                        |
-|---------------------------|-----|--------|--------|------|---------|------------------------------------------------------------------------------|
-| Mapping                   | ✅  | ✅     | ✅     | ✅   | —       | —                                                                            |
-| Advanced Mapping Settings | ✅  | —      | ✅     | —    | —       | Conflict detection, overwrite rules                                          |
-| Mapping XSLT              | ✅  | —      | ✅     | —    | —       | Get and update advanced mapping transformations using <code class="expression">space.vars.OIM</code> advanced methods |
-
-### Integration
-
-| Feature / Module              | Get | Create | Update | List | Execute | Notes                                                             |
-|-------------------------------|-----|--------|--------|------|---------|-------------------------------------------------------------------|
-| Integration                   | ✅  | ✅     | ✅     | ✅   | —       | —                                                                 |
-| Integration Actions           | —   | —      | —      | —    | ✅      | Activate, inactivate, and on-demand execution of integrations     |
-| Advanced Integration Settings | ✅  | —      | ✅     | —    | —       | Override parameters for read/write operations, criteria configuration |
+| Feature / Module     | Get | Create | Update | List | Execute | Notes                                                                                                                                |
+|----------------------|-----|--------|--------|------|---------|--------------------------------------------------------------------------------------------------------------------------------------|
+| System               | ✅  | ✅     | ✅     | ✅   | —       | —                                                                                                                                    |
+| System Type          | —   | —      | —      | ✅   | —       | —                                                                                                                                    |
+| System Type Template | ✅  | —      | —      | —    | —       | —                                                                                                                                    |
+| Mapping                   | ✅  | ✅     | ✅     | ✅   | —       | Supports writing complex mapping transformation XSLTs using advanced methods provided by <code class="expression">space.vars.OIM</code> |
+| Integration                   | ✅  | ✅     | ✅     | ✅   | ✅       | —                                                                                                                                    |
 
 ### Folders & Schedules
 
@@ -61,18 +39,27 @@ Use this matrix as a quick reference to understand MCP coverage.
 |------------------|-----|--------|--------|------|---------|-------|
 | Folder           | ✅  | ✅     | ✅     | ✅   | —       | —     |
 | Schedule         | ✅  | ✅     | ✅     | ✅   | —       | —     |
-| Workflow         | ❌   | ❌      | ❌      | ✅   | —       | List available workflows only; create/update not supported via MCP |
+| Workflow         | ❌   | ❌      | ❌      | ✅   | —       | — |
 
-### Failures
+### Integration Monitoring & Maintenance
 
 | Feature / Module     | Get | Create | Update | List | Execute | Notes                                                  |
 |----------------------|-----|--------|--------|------|---------|--------------------------------------------------------|
 | Global Failure       | ✅   | —      | —      | ✅   | —       | —                                                      |
-| Processing Failure   | ✅   | —      | ❌      | ✅   | —      | Retry supported; eventXML update not supported via MCP |
-| Failure Notification | ✅  | ✅     | ✅     | —    | —       | —                                                              |
+| Processing Failure   | ✅   | —      | ❌      | ✅   | —      | — |
+| Failure Notification | ❌  | ❌     | ❌     | —    | —       | —                                                              |
+| Health Checkup   | ✅  | —      | —      | —    | —       | Includes integration failure analysis, and OIM instance system configuration and resource parameters |
+
+
+### Metadata
+
+| Feature / Module        | Get | Create | Update | List | Execute | Notes                                                                          |
+|-------------------------|-----|--------|--------|------|---------|--------------------------------------------------------------------------------|
+| Projects                | —   | —      | —      | ✅   | —       | —                                       |
+| Entity Types            | —   | —      | —      | ✅   | —       | —                                 |
+| Fields                  | ✅  | —      | —      | —    | —       | Includes lookup values and complex field metadata (comments, attachments, relationships) |
 
 ### Others
-
 
 | Feature / Module | Get | Create | Update | List | Execute | Notes                    |
 |------------------|-----|--------|--------|------|--------|--------------------------|
@@ -80,9 +67,3 @@ Use this matrix as a quick reference to understand MCP coverage.
 | Audit            | —   | —      | —      | ❌   | —      | —     |
 | Excel Upload     | ❌  | ❌    | ❌  | ❌   | —      | —      |
 | Reconcile        | ❌  | —    | —   | ❌    | —      | —      |
-
-### Health & Diagnostics
-
-| Feature / Module | Get | Create | Update | List | Execute | Notes                                                                                              |
-|------------------|-----|--------|--------|------|---------|---------------------------------------------------------------------------------------------------|
-| Health Checkup   | ✅  | —      | —      | —    | —       | Includes integration failure analysis, and OIM instance system configuration and resource parameters |
