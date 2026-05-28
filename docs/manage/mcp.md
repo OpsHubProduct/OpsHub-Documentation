@@ -12,8 +12,8 @@ if: >-
   </thead>
   <tbody>
     <tr>
-      <td align="center"> <strong>Getting Started with MCP</strong></td>
-      <td><a href="mcp/getting-started-with-mcp.md">Getting Started with MCP</a></td>
+      <td align="center"> <strong>Get Started</strong></td>
+      <td><a href="mcp/getting-started-with-mcp.md">Get Started</a></td>
     </tr>
     <tr>
       <td align="center"> <strong>Configuration</strong></td>

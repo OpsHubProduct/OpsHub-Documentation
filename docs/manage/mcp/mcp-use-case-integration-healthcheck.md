@@ -7,7 +7,7 @@ if: >-
 
 To get a complete picture of <code class="expression">space.vars.OIM</code> instance — not just whether integrations are running, but also the machine's memory consumption, disk space, database connection usage, active threads, and whether there are any unresolved failures that need attention. All of this without opening the UI.
 
-## Example Interaction
+## Example interaction
 
 | Component | Detail |
 |-----------|--------|

@@ -11,7 +11,7 @@ This page lists all tools exposed by the <code class="expression">space.vars.OIM
 
 ---
 
-## Planner Tools
+## Planner tools
 
 Planner tools guide the AI assistant through the correct sequence of steps before performing complex operations. The AI assistant calls the relevant planner automatically before executing create, update, or action operations on the corresponding resource.
 
@@ -27,7 +27,7 @@ Planner tools guide the AI assistant through the correct sequence of steps befor
 
 ---
 
-## System Tools
+## System tools
 
 | Tool | Description |
 |------|-------------|
@@ -40,7 +40,7 @@ Planner tools guide the AI assistant through the correct sequence of steps befor
 
 ---
 
-## Metadata Tools
+## Metadata tools
 
 Metadata tools retrieve structural information about systems — such as available projects, entity types, fields, and lookup values. These are used by the AI assistant when building or validating mappings.
 
@@ -54,7 +54,7 @@ Metadata tools retrieve structural information about systems — such as availab
 
 ---
 
-## Mapping Tools
+## Mapping tools
 
 | Tool | Description |
 |------|-------------|
@@ -66,7 +66,7 @@ Metadata tools retrieve structural information about systems — such as availab
 
 ---
 
-## XSLT Tools
+## XSLT tools
 
 XSLT tools provide reference guidance that the AI assistant uses when generating or validating advanced field-level transformations in mappings.
 
@@ -77,7 +77,7 @@ XSLT tools provide reference guidance that the AI assistant uses when generating
 
 ---
 
-## Integration Tools
+## Integration tools
 
 | Tool | Description                                                                                                                                                                                                                                     |
 |------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -90,7 +90,7 @@ XSLT tools provide reference guidance that the AI assistant uses when generating
 
 ---
 
-## Folder Tools
+## Folder tools
 
 | Tool | Description |
 |------|-------------|
@@ -101,7 +101,7 @@ XSLT tools provide reference guidance that the AI assistant uses when generating
 
 ---
 
-## Schedule Tools
+## Schedule tools
 
 | Tool | Description |
 |------|-------------|
@@ -112,7 +112,7 @@ XSLT tools provide reference guidance that the AI assistant uses when generating
 
 ---
 
-## Workflow Tools
+## Workflow tools
 
 | Tool | Description |
 |------|-------------|
@@ -120,7 +120,7 @@ XSLT tools provide reference guidance that the AI assistant uses when generating
 
 ---
 
-## Failure Tools
+## Failure tools
 
 | Tool | Description |
 |------|-------------|
@@ -132,7 +132,7 @@ XSLT tools provide reference guidance that the AI assistant uses when generating
 
 ---
 
-## Health & Diagnostics Tools
+## Health & diagnostics tools
 
 | Tool | Description |
 |------|-------------|

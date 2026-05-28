@@ -7,7 +7,7 @@ if: >-
 
 A user wants to find out which systems are configured in <code class="expression">space.vars.OIM</code> and which project pairs are synchronizing between two specific systems.
 
-## Example Interaction
+## Example interaction
 
 | Component | Detail |
 |-----------|--------|
@@ -16,7 +16,7 @@ A user wants to find out which systems are configured in <code class="expression
 | **AI assistant steps** | Retrieves all configured systems → filters integrations by the two specified systems → extracts project pairs and sync directions. |
 | **AI assistant output** | A summary of all configured systems, followed by a list of project pairs with sync directions between the two specified systems. |
 
-## Sample Output
+## Sample output
 
 | System Pair | Project (System A) | Direction | Project (System B) |
 |-------------|--------------------|-----------|--------------------|

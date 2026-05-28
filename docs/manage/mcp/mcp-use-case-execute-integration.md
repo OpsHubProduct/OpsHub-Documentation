@@ -8,7 +8,7 @@ if: >-
 
 A user wants to immediately trigger all active integrations between two configured systems without navigating the <code class="expression">space.vars.OIM</code> UI.
 
-## Example Interaction
+## Example interaction
 
 | Component | Detail |
 |-----------|--------|

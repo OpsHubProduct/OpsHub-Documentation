@@ -41,7 +41,7 @@ Use this matrix as a quick reference to understand MCP coverage.
 | Schedule         | ✅  | ✅     | ✅     | ✅   | —       | —     |
 | Workflow         | ❌   | ❌      | ❌      | ✅   | —       | — |
 
-### Integration Monitoring & Maintenance
+### Integration monitoring & maintenance
 
 | Feature / Module     | Get | Create | Update | List | Execute | Notes                                                  |
 |----------------------|-----|--------|--------|------|---------|--------------------------------------------------------|

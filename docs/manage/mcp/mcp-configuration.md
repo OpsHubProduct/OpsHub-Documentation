@@ -16,7 +16,7 @@ The <code class="expression">space.vars.OIM</code> MCP server currently supports
 
 Credentials can be passed in one of the following two ways in your client configuration:
 
-## Option 1 — Username and Password as Headers
+## Option 1 — username and password as headers
 
 ```json
 {
@@ -34,7 +34,7 @@ Credentials can be passed in one of the following two ways in your client config
 }
 ```
 
-## Option 2 — Base64-Encoded Authorization Header (Recommended)
+## Option 2 — base64-encoded authorization header (recommended)
 
 For improved security, encode your credentials as a Base64 string in the format `username:password` and pass them via the standard `Authorization` header. This avoids exposing plain-text credentials in your configuration file.
 
@@ -57,7 +57,7 @@ For improved security, encode your credentials as a Base64 string in the format 
 
 ---
 
-# Client Configuration
+# Client configuration
 
 Below are sample configurations for popular MCP-compatible clients. Replace the URL and credentials with values specific to your <code class="expression">space.vars.OIM</code> instance.
 
@@ -265,11 +265,12 @@ mcpServers:
 
 ---
 
-# HTTPS Configuration
+# HTTPS configuration
 
 If your <code class="expression">space.vars.OIM</code> instance is configured on HTTPS, your MCP client must trust the SSL certificate used by the server.
 
-- For clients that use `mcp-remote` as a bridge (Claude Desktop, Cline, Continue), the certificate must be trusted by your OS certificate store or Node.js environment. If you are using a self-signed or internal CA certificate, you may need to explicitly add it to Node.js using the `NODE_EXTRA_CA_CERTS` environment variable:
+- For clients that use `mcp-remote` as a bridge (Claude Desktop, Cline, Continue), the certificate must be trusted by your OS certificate store or Node.js environment. 
+- If you are using a self-signed or internal CA certificate, you may need to explicitly add it to Node.js using the `NODE_EXTRA_CA_CERTS` environment variable:
 
   ```bash
   NODE_EXTRA_CA_CERTS=/path/to/your/certificate.pem

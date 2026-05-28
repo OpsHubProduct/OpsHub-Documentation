@@ -3,7 +3,7 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-## MCP Logs
+## MCP logs
 
 The <code class="expression">space.vars.OIM</code> MCP server writes its activity to a dedicated log file. The log file captures all incoming MCP requests and tool invocations.
 
@@ -21,7 +21,7 @@ C:\Program Files\OpsHub\AppData\logs\MCPServer.log
 
 > **Note**: The installation directory may differ depending on the path chosen during setup.
 
-### What the Logs Contain
+### What the logs contain
 
 Each log entry follows this format:
 
@@ -48,16 +48,16 @@ Typical entries include:
 - **To find failures**: Search for `ERROR` or `WARN` in the log.
 ---
 
-## Common Issues
+## Common issues
 
-- [AI Assistant does not connect to MCP Server](#ai-assistant-does-not-connect-to-mcp-server)
-- [Authentication Failure](#authentication-failure)
+- [AI assistant does not connect to MCP Server](#ai-assistant-does-not-connect-to-mcp-server)
+- [Authentication failure](#authentication-failure)
 - [Tool calls succeed but return unexpected results](#tool-calls-succeed-but-return-unexpected-results)
-- [HTTPS / SSL Certificate Errors](#https--ssl-certificate-errors)
+- [HTTPS / SSL certificate errors](#https--ssl-certificate-errors)
 
 ---
 
-### AI Assistant does not connect to MCP Server
+### AI assistant does not connect to MCP server
 
 **Symptom**: The AI client reports that it cannot connect to the MCP server, or no OpsHub tools appear.
 
@@ -67,7 +67,7 @@ Typical entries include:
 3. Check that no firewall or proxy is blocking the connection to the <code class="expression">space.vars.OIM</code> host and port.
 4. In the log file, check whether `Registering MCP tool` entries are present — if absent, the MCP server did not start correctly.
 
-### Authentication Failure
+### Authentication failure
 
 **Symptom**: The AI client connects but operations return authentication or authorization errors.
 
@@ -83,7 +83,7 @@ Typical entries include:
 **Resolution**:
 - Add _"Do not use previously fetched data"_ to your prompt. AI assistants may cache tool results within a conversation session, so this forces a fresh query to <code class="expression">space.vars.OIM</code>.
 
-### HTTPS / SSL Certificate Errors
+### HTTPS / SSL certificate errors
 
 **Symptom**: The MCP client reports an SSL certificate error when connecting to an HTTPS <code class="expression">space.vars.OIM</code> instance.
 
