@@ -5,7 +5,7 @@ if: >-
 
 ## MCP Logs
 
-The <code class="expression">space.vars.OIM</code> MCP server writes its activity to a dedicated log file. The log file captures all incoming MCP requests, tool invocations, authentication events, and any errors or exceptions that occur during MCP sessions.
+The <code class="expression">space.vars.OIM</code> MCP server writes its activity to a dedicated log file. The log file captures all incoming MCP requests and tool invocations.
 
 The MCP log file is located at:
 
@@ -19,26 +19,44 @@ The MCP log file is located at:
 C:\Program Files\OpsHub\AppData\logs\MCPServer.log
 ```
 
-> **Note**: The installation directory may differ depending on the path chosen during setup. If you cannot find the log at the path above, check the directory where <code class="expression">space.vars.OIM</code> is installed.
+> **Note**: The installation directory may differ depending on the path chosen during setup.
 
 ### What the Logs Contain
 
-Each log entry includes a timestamp, log level, and a description of the event. Typical entries include:
+Each log entry follows this format:
 
-- Incoming MCP tool call requests, identified by entries containing `MCP Request` or the tool name being invoked
-- Tool execution results and any validation errors
-- Exceptions or unexpected errors during request processing
+```
+<Timestamp> <Log Level> [<Thread>] <Class> - <Message>
+```
 
-### Finding Relevant Entries
+For example:
+```
+2026-05-27 14:55:22.194+05:30 DEBUG [boundedElastic-3] co.op.mc.McpToolRegistrar - Executing tool=get_schema with arguments={toolName=update_system}
+2026-05-27 14:55:40.301+05:30 DEBUG [boundedElastic-3] co.op.mc.McpToolRegistrar - Successfully executed MCP tool: update_system, Tool Call Result: ...
+```
 
-To locate entries related to a specific request or session:
+Typical entries include:
 
-- Search for the **tool name** (e.g., `get_integrations_list`, `create_mapping`) to find log lines for a specific operation
-- Search for `ERROR` or `WARN` to quickly identify failures
+- **Tool invocations**: Logged  with prefix `Executing tool=<tool_name>` — shows the tool called and the arguments passed
+- **Tool results**: Logged  with prefix `Successfully executed MCP tool: <tool_name>` — shows the result returned
+
+### Debugging
+
+- **To trace a specific tool call**: Search for `Executing tool=<tool_name>` (e.g., `Executing tool=get_integrations_list`)
+- **To verify a tool completed successfully**: Search for `Successfully executed MCP tool: <tool_name>`
+- **To find errors or failures**: Search for `ERROR` or `WARN` in the log
+- **To check tool registration on startup**: Search for `Registering MCP tool` — all tools are logged during server startup
 
 ---
 
 ## Common Issues
+
+- [AI Assistant Does Not Connect to MCP Server](#ai-assistant-does-not-connect-to-mcp-server)
+- [Authentication Failure](#authentication-failure)
+- [Tool Calls Succeed but Return Unexpected Results](#tool-calls-succeed-but-return-unexpected-results)
+- [HTTPS / SSL Certificate Errors](#https--ssl-certificate-errors)
+
+---
 
 ### AI Assistant Does Not Connect to MCP Server
 
@@ -46,9 +64,9 @@ To locate entries related to a specific request or session:
 
 **Resolution**:
 1. Verify the MCP endpoint URL is correct: `<OpsHub Integration Manager URL>/OpsHubWS/mcp`
-2. Confirm the <code class="expression">space.vars.OIM</code> instance is running and accessible from the machine where the MCP client is running — open <code class="expression">space.vars.OIM</code> in a browser to verify.
+2. Confirm the <code class="expression">space.vars.OIM</code> instance is running and accessible — open it in a browser to verify.
 3. Check that no firewall or proxy is blocking the connection to the <code class="expression">space.vars.OIM</code> host and port.
-4. Review the MCP log file for connection or startup errors.
+4. In the log file, check whether `Registering MCP tool` entries are present — if absent, the MCP server did not start correctly.
 
 ### Authentication Failure
 
@@ -56,7 +74,7 @@ To locate entries related to a specific request or session:
 
 **Resolution**:
 1. Verify the username and password (or Base64-encoded `Authorization` header value) in your client configuration are correct.
-2. Confirm the user account exists in <code class="expression">space.vars.OIM</code> and is a local user — LDAP and SAML accounts cannot authenticate via MCP.
+2. Confirm the user account is a local <code class="expression">space.vars.OIM</code> user — LDAP and SAML accounts cannot authenticate via MCP.
 3. Confirm the user has the required roles and permissions for the operations being attempted.
 
 ### Tool Calls Succeed but Return Unexpected Results
@@ -70,5 +88,5 @@ To locate entries related to a specific request or session:
 
 **Symptom**: The MCP client reports an SSL certificate error when connecting to an HTTPS <code class="expression">space.vars.OIM</code> instance.
 
-**Resolution**:  
+**Resolution**:
 Refer to the [HTTPS Configuration](mcp-configuration.md#https-configuration) section for steps to trust your server's certificate in the MCP client environment.

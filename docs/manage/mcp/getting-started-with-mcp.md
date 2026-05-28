@@ -34,7 +34,11 @@ To verify whether the MCP feature is enabled on your instance:
 
 > **Note**: If the MCP feature is not enabled and you have a license that should include it, please [install](Managing_Licenses) the correct license. If you do not have a valid license, please reach out to the OpsHub Sales/Support team.
 
-> **Note**: It is recommended to create a **dedicated service user** in <code class="expression">space.vars.OIM</code> specifically for MCP access, rather than using individual user accounts. A dedicated service user improves traceability of all actions performed via MCP and limits access to only the permissions needed. To create a service user, navigate to **Administration → User Management** in <code class="expression">space.vars.OIM</code> and create a new user with the appropriate role.
+## User Requirements
+
+- A valid <code class="expression">space.vars.OIM</code> user account with appropriate roles and permissions to perform the desired operations via MCP.
+
+> **Recommendation**: Create a **dedicated service user** in <code class="expression">space.vars.OIM</code> specifically for MCP access, rather than using individual user accounts. A dedicated service user improves traceability of all actions performed via MCP and ensures access is limited to only the permissions needed. To create a service user, navigate to **Administration → User Management** in <code class="expression">space.vars.OIM</code> and create a new user with the appropriate role.
 
 ## MCP-Compatible AI Client
 
