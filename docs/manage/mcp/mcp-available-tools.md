@@ -7,7 +7,7 @@ This page lists all tools exposed by the <code class="expression">space.vars.OIM
 
 > **Note**: You do not invoke these tools directly. Your AI assistant selects and calls the appropriate tools based on your natural language prompt. This reference helps you understand what is available and what each tool does.
 
-> **Note**: Delete operations are not supported via any MCP tool. See [Known Limitations](mcp-known-limitations.md) for details.
+> **Note**: Delete operations are not supported via any MCP tool. See [Known Behaviours and Limitations](mcp-known-limitations.md) for details.
 
 ---
 

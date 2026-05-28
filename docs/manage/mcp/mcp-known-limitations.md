@@ -3,11 +3,11 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-- **Authentication**: Only basic authentication is supported. LDAP and SAML users cannot authenticate via MCP.
-  - MCP clients do not support browser-based login flows required by LDAP and SAML.
+- **MCP currently supports only basic authentication.**
+  - LDAP and SAML-based authentication methods are not supported, as MCP clients do not support browser-based authentication flows required by these mechanisms.
 
-- **Delete operations are not supported**: Only Read, Create, and Update operations are available via MCP.
-  - Deletions are irreversible in <code class="expression">space.vars.OIM</code>. To avoid accidental data loss, deletions must be performed directly from the UI.
+- **Delete operations are not supported via MCP.**
+  - Deletions are irreversible and must be performed directly through the <code class="expression">space.vars.OIM</code> UI to ensure controlled execution and prevent unintended data loss.
 
-- **Updating failed synchronization data is not supported**: The data of a failed sync record cannot be modified via MCP.
-  - It contains the original record being transferred at the time of failure. AI-driven changes could unintentionally modify the actual record and cause incorrect updates on the target system.
+- **Modification of failed synchronization records [failure XML] is not supported via MCP.**
+  - These records contain the original data captured during synchronization. Allowing updates through AI-driven or automated interactions could unintentionally alter the original synchronization data and result in incorrect updates on the target system.

@@ -8,5 +8,5 @@ if: >-
 - [Available Tools](mcp-available-tools.md)
 - [MCP Capability Matrix](mcp-capability-matrix.md)
 - [Sample Use Cases](mcp-sample-use-cases.md)
-- [Known Limitations](mcp-known-limitations.md)
+- [Known Behaviours and Limitations](mcp-known-limitations.md)
 - [Troubleshooting](mcp-troubleshooting.md)

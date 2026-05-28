@@ -40,13 +40,12 @@ Typical entries include:
 - **Tool invocations**: Logged  with prefix `Executing tool=<tool_name>` — shows the tool called and the arguments passed
 - **Tool results**: Logged  with prefix `Successfully executed MCP tool: <tool_name>` — shows the result returned
 
-### Debugging
+## Debugging
 
-- **To trace a specific tool call**: Search for `Executing tool=<tool_name>` (e.g., `Executing tool=get_integrations_list`)
-- **To verify a tool completed successfully**: Search for `Successfully executed MCP tool: <tool_name>`
-- **To find errors or failures**: Search for `ERROR` or `WARN` in the log
-- **To check tool registration on startup**: Search for `Registering MCP tool` — all tools are logged during server startup
-
+- **To verify MCP server started and tools are registered**: Search for `Registering MCP tool` — confirms the MCP server started and all tools are available.
+- **To check if an MCP request is being processed**: Search for `Executing tool=<tool_name>` (e.g., `Executing tool=get_integrations_list`) — confirms the request reached the server and processing has begun.
+- **To check the result of a processed request**: Search for `Successfully executed MCP tool: <tool_name>` — confirms the request completed and returned a result.
+- **To find failures**: Search for `ERROR` or `WARN` in the log.
 ---
 
 ## Common Issues

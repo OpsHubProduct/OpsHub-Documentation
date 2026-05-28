@@ -32,8 +32,8 @@ if: >-
       <td><a href="mcp/mcp-sample-use-cases.md">Sample Use Cases</a></td>
     </tr>
     <tr>
-      <td align="center"> <strong>Known Limitations</strong></td>
-      <td><a href="mcp/mcp-known-limitations.md">Known Limitations</a></td>
+      <td align="center"> <strong>Known Behaviours and Limitations</strong></td>
+      <td><a href="mcp/mcp-known-limitations.md">Known Behaviours and Limitations</a></td>
     </tr>
     <tr>
       <td align="center"> <strong>Troubleshooting</strong></td>

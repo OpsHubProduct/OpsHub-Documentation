@@ -8,8 +8,7 @@ This document provides an overview of the operations available through the <code
 
 Use this matrix as a quick reference to understand MCP coverage.
 
-> **Note**: Delete operations are not supported via MCP tools by design. Certain update operations on complex objects may behave as partial removals of sub-configurations and will require explicit user confirmation via the AI assistant before being applied.
-
+> **Note**: Delete operations and modification of failed synchronization records are not supported via MCP. Refer to [Known Behaviours and Limitations](mcp-known-limitations.md) for details.
 ---
 
 ## Legend
@@ -42,11 +41,11 @@ Use this matrix as a quick reference to understand MCP coverage.
 
 ### Mapping
 
-| Feature / Module          | Get | Create | Update | List | Execute | Notes                                                                                                         |
-|---------------------------|-----|--------|--------|------|---------|---------------------------------------------------------------------------------------------------------------|
-| Mapping                   | ✅  | ✅     | ✅     | ✅   | —       | —                                                                                                             |
-| Advanced Mapping Settings | ✅  | —      | ✅     | —    | —       | Conflict detection, overwrite rules                                                                           |
-| Mapping XSLT              | ✅  | —      | ✅     | —    | —       | Get and update field-level XSLT transformations; includes reference for core utility methods available in XSLT |
+| Feature / Module          | Get | Create | Update | List | Execute | Notes                                                                        |
+|---------------------------|-----|--------|--------|------|---------|------------------------------------------------------------------------------|
+| Mapping                   | ✅  | ✅     | ✅     | ✅   | —       | —                                                                            |
+| Advanced Mapping Settings | ✅  | —      | ✅     | —    | —       | Conflict detection, overwrite rules                                          |
+| Mapping XSLT              | ✅  | —      | ✅     | —    | —       | Get and update advanced mapping transformations using <code class="expression">space.vars.OIM</code> advanced methods |
 
 ### Integration
 
@@ -75,12 +74,12 @@ Use this matrix as a quick reference to understand MCP coverage.
 ### Others
 
 
-| Feature / Module | Get | Create | Update | List | Execute | Notes                     |
-|------------------|-----|--------|--------|------|--------|---------------------------|
-| Sync Report      | —   | —      | —      | ❌   | —      | Not available via MCP     |
-| Audit            | —   | —      | —      | ❌   | —      | Not available via MCP     |
-| Excel Upload     | ❌  | ❌    | ❌  | ❌   | —      | Not available via MCP      |
-| Reconcile        | ❌  | —    | —   | ❌    | —      | Not available via MCP       |
+| Feature / Module | Get | Create | Update | List | Execute | Notes                    |
+|------------------|-----|--------|--------|------|--------|--------------------------|
+| Sync Report      | —   | —      | —      | ❌   | —      | —     |
+| Audit            | —   | —      | —      | ❌   | —      | —     |
+| Excel Upload     | ❌  | ❌    | ❌  | ❌   | —      | —      |
+| Reconcile        | ❌  | —    | —   | ❌    | —      | —      |
 
 ### Health & Diagnostics
 

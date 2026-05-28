@@ -99,7 +99,7 @@
             * [Trigger Integration Execution on Demand](docs/manage/mcp/mcp-use-case-execute-integration.md)
             * [Create a New Mapping Between Two Systems](docs/manage/mcp/mcp-use-case-create-mapping.md)
             * [List and Retry Processing Failures](docs/manage/mcp/mcp-use-case-retry-failures.md)
-        * [Known Limitations](docs/manage/mcp/mcp-known-limitations.md)
+        * [Known Behaviours and Limitations](docs/manage/mcp/mcp-known-limitations.md)
         * [Troubleshooting](docs/manage/mcp/mcp-troubleshooting.md)
     * [Upgrade](docs/manage/upgrade-index.md)
       * [Upgrading Application Version](docs/manage/upgrade/upgrade-application.md)
