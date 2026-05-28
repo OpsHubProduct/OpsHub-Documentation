@@ -652,7 +652,6 @@ Dependency Groups are used to define relationships between fields that should be
 
 This configuration is useful when updating one field also requires other related fields to be sent to the target system, even if those dependent fields themselves are not detected as changed.
 
-OpsHub Integration Manager uses Dependency Groups to automatically include dependent fields in synchronization whenever the primary field changes.
 
 #### When to Use Dependency Groups
 
@@ -661,8 +660,6 @@ Dependency Groups are useful in scenarios such as:
 - Target system validators require multiple fields together.
 - APIs fail if related fields are not explicitly sent in the update payload.
 - Workflow validators or post-functions depend on related fields being part of the update request.
-- Certain fields are logically dependent on another field.
-- Field updates must be processed together to maintain consistency.
 
 #### XML Structure
 
@@ -696,13 +693,12 @@ Dependency Groups are useful in scenarios such as:
 
 #### Behavior
 
-When a field configured as a `<primaryField>` is detected as changed, all fields configured under its `<dependentFields>` are automatically included for synchronization.
+When a field configured as a `<primaryField>` is changed in the source system, all fields configured under its `<dependentFields>` are automatically included in synchronization.
 
-For dependent fields added through `<DependencyMap>` groups:
+These dependent fields are included in synchronization even if:
 
-- Source old value vs source new value comparison is skipped.
-- Source new value vs current target value comparison is skipped.
-- The dependent fields are directly included in synchronization processing once the primary field change is detected.
+- The dependent fields themselves are not changed in the source system.
+- The dependent field values in the target system are already the same as the source values.
 
 For example:
 
@@ -724,9 +720,10 @@ For example:
 
 In the above example:
 
-- If `Documentation` changes,
-- then `environment` and `labels` are automatically included for synchronization,
-- even if their values themselves are not detected as changed during comparison.
+- If `Documentation` changes in the source system,
+- then 'environment' and 'labels' are automatically included in synchronization,
+- even if 'environment' and 'labels' themselves are not changed in the source system,
+- and even if their values in the target system are already the same as the values in the source system.
 
 #### Tags Explained
 
@@ -750,6 +747,9 @@ In the above example:
 - for dependent fields added through `<DependencyMap>`, the values for `<possibleTargetValues>`, `<defaultValue>`, and `lookupBy` are not applicable, as these fields are included in synchronization regardless of their value changes.
 - Also 
 
+
+
+## Additional Configuration Examples for FieldTransitions
 
 **Example of multi-valued type field:**
 
