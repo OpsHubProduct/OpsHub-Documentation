@@ -646,14 +646,13 @@ To solve this problem, <code class="expression">space.vars.OIM</code> allows the
         * If the `<executionOrder>` attribute is not specified for a dependent field, the execution order defaults to WITH.
 
 
-### Dependency Groups
+## Dependency Groups
 
 Dependency Groups are used to define relationships between fields that should be processed together during synchronization.
 
-This configuration is useful when updating one field also requires other related fields to be sent to the target system, even if those dependent fields themselves are not detected as changed.
+This configuration is useful when updating one field also requires other related fields to be sent to the target system, even if those dependent fields themselves are not changed in source/target.
 
-
-#### When to Use Dependency Groups
+### Use cases
 
 Dependency Groups are useful in scenarios such as:
 
@@ -661,7 +660,7 @@ Dependency Groups are useful in scenarios such as:
 - APIs fail if related fields are not explicitly sent in the update payload.
 - Workflow validators or post-functions depend on related fields being part of the update request.
 
-#### XML Structure
+### XML Structure
 
 ```xml
 <DependencyMap>
@@ -691,7 +690,7 @@ Dependency Groups are useful in scenarios such as:
 </DependencyMap>
 ```
 
-#### Behavior
+### Behavior
 
 When a field configured as a `<primaryField>` is changed in the source system, all fields configured under its `<dependentFields>` are automatically included in synchronization.
 
@@ -722,10 +721,10 @@ In the above example:
 
 - If `Documentation` changes in the source system,
 - then 'environment' and 'labels' are automatically included in synchronization,
-- even if 'environment' and 'labels' themselves are not changed in the source system,
-- and even if their values in the target system are already the same as the values in the source system.
+  - even if 'environment' and 'labels' themselves are not changed in the source system,
+  - even if their values in the target system are already the same as the values in the source system.
 
-#### Tags Explained
+### Tags Explained
 
 | Tag | Description |
 |------|-------------|
@@ -736,7 +735,7 @@ In the above example:
 | `<dependentField>` | Configuration for an individual dependent field |
 | `<fieldName>` | Internal name of the dependent field |
 
-#### Notes
+### Notes
 
 - Dependency Groups are configured under the `<DependencyMap>` node inside `<FieldTransitions>`.
 - Multiple `<Group>` entries can be added.
