@@ -50,14 +50,14 @@ Typical entries include:
 
 ## Common Issues
 
-- [AI Assistant Does Not Connect to MCP Server](#ai-assistant-does-not-connect-to-mcp-server)
+- [AI Assistant does not connect to MCP Server](#ai-assistant-does-not-connect-to-mcp-server)
 - [Authentication Failure](#authentication-failure)
-- [Tool Calls Succeed but Return Unexpected Results](#tool-calls-succeed-but-return-unexpected-results)
+- [Tool calls succeed but return unexpected results](#tool-calls-succeed-but-return-unexpected-results)
 - [HTTPS / SSL Certificate Errors](#https--ssl-certificate-errors)
 
 ---
 
-### AI Assistant Does Not Connect to MCP Server
+### AI Assistant does not connect to MCP Server
 
 **Symptom**: The AI client reports that it cannot connect to the MCP server, or no OpsHub tools appear.
 
@@ -76,7 +76,7 @@ Typical entries include:
 2. Confirm the user account is a local <code class="expression">space.vars.OIM</code> user — LDAP and SAML accounts cannot authenticate via MCP.
 3. Confirm the user has the required roles and permissions for the operations being attempted.
 
-### Tool Calls Succeed but Return Unexpected Results
+### Tool calls succeed but return unexpected results
 
 **Symptom**: The AI assistant invokes tools successfully but the data returned seems stale or incorrect.
 
