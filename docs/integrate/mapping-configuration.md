@@ -744,7 +744,6 @@ In the above example:
   - a `<dependentField>` in another group.
 - Dependency groups work independently of workflow transitions.
 - for dependent fields added through `<DependencyMap>`, the values for `<possibleTargetValues>`, `<defaultValue>`, and `lookupBy` are not applicable, as these fields are included in synchronization regardless of their value changes.
-- Also 
 
 
 
