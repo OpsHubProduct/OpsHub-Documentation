@@ -30,7 +30,7 @@ Use this matrix as a quick reference to understand MCP coverage.
 | System               | ✅  | ✅     | ✅     | ✅   | —       | —                                                                                                                                    |
 | System Type          | —   | —      | —      | ✅   | —       | —                                                                                                                                    |
 | System Type Template | ✅  | —      | —      | —    | —       | —                                                                                                                                    |
-| Mapping                   | ✅  | ✅     | ✅     | ✅   | —       | Supports writing complex mapping transformation XSLTs using advanced methods provided by <code class="expression">space.vars.OIM</code> |
+| Mapping                   | ✅  | ✅     | ✅     | ✅   | —       | Includes advanced/customized mapping with XSLTs and mapped fields settings |
 | Integration                   | ✅  | ✅     | ✅     | ✅   | ✅       | —                                                                                                                                    |
 
 ### Folders & Schedules
@@ -48,7 +48,7 @@ Use this matrix as a quick reference to understand MCP coverage.
 | Global Failure       | ✅   | —      | —      | ✅   | —       | —                                                      |
 | Processing Failure   | ✅   | —      | ❌      | ✅   | —      | — |
 | Failure Notification | ❌  | ❌     | ❌     | —    | —       | —                                                              |
-| Health Checkup   | ✅  | —      | —      | —    | —       | Includes integration failure analysis, and OIM instance system configuration and resource parameters |
+| Health Checkup   | ✅  | —      | —      | —    | —       | Includes integration health analysis, failure diagnostics, and visibility into OIM instance configuration and resource utilization details |
 
 
 ### Metadata
@@ -57,7 +57,7 @@ Use this matrix as a quick reference to understand MCP coverage.
 |-------------------------|-----|--------|--------|------|---------|--------------------------------------------------------------------------------|
 | Projects                | —   | —      | —      | ✅   | —       | —                                       |
 | Entity Types            | —   | —      | —      | ✅   | —       | —                                 |
-| Fields                  | ✅  | —      | —      | —    | —       | Includes lookup values and complex field metadata (comments, attachments, relationships) |
+| Fields                  | ✅  | —      | —      | —    | —       | Includes fields, comments, attachments, relationships |
 
 ### Others
 
