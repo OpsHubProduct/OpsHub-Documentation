@@ -62,14 +62,20 @@ Refer to [Mapping Configuration](../integrate/mapping-configuration.md) for step
 
 ## Test Step Field Configuration
 
-When synchronizing Test Steps from or to Polarion, standard fields (like Step, Step Description, and Expected Result) can often be mapped directly. However, if your Polarion Test Steps contain **Additional Fields** (custom columns within the test step table), you must use Advanced Mapping (XSLT) to access and map them.
+When synchronizing Test Steps from or to Polarion, standard fields (like Step, Step Description, and Expected Result) can be mapped directly. 
 
 <p align="center">
   <img src="../assets/PolarionMappingConfigTestStep.png" />
 </p>
 
-1. In the Mapping Configuration screen, click the **Advanced Mapping** toggle for the Test Steps field.
-2. For mapping additional fields for test steps like 'Custom Column' with internal id "customColumnId" and other custom fields, advance XSLT will be modified. Add the following sample xslt in default xslt to map additional fields:
+* If a test step contains an additional/custom column in the target system, and you want to populate that column during synchronization, you can use Advanced XSLT mapping.
+* For example, assume there is an additional column named "*Custom Column*" whose internal ID is *customColumnId*. If you want to store the value of the test step's step field into this additional column, you can map it under the *additionalFields* section as shown below.
+* Similarly, values stored in additional/custom columns can also be referenced later in other mappings. 
+* In the example below, the value stored in *customColumnId* is reused to populate the test step description field.
+* In general:
+  * Fields mapped under *additionalFields* are used to populate custom/additional columns in the target system.
+  * Values available under *additionalFields* can also be read and reused when mapping standard fields such as description, expected result, or any other supported field.
+  * The source value can come either directly from a source system field (for example, step) or from another custom/additional field that is already available in the synchronization payload.
 
 ```xml
 <testSteps>
@@ -84,6 +90,10 @@ When synchronizing Test Steps from or to Polarion, standard fields (like Step, S
     </description>
 </testSteps>
 ```
+* In this example:
+    * The test step **step** value is written to the custom column **customColumnId**. 
+    * The value stored in **customColumnId** is then used to populate the **description** field.
+
 
 ### Points To Be Considered
 
