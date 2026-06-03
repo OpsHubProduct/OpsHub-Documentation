@@ -223,6 +223,30 @@ Click [Integration Configuration](../integrate/integration-configuration.md) to 
 - In case you specify this interval in 'Jama add comment interval' field, it will be added only when there are multiple comments to be added to Jama and the time difference (in milliseconds) between the last comment added and the current comment is less than the interval specified in the field. For single comment, this interval won't be added.  
 - Please use this field only when necessary as it impacts the overall performance.
 
+## Lock Handling Configuration
+
+- This configuration allows Jama users to manage how <code class="expression">space.vars.OIM</code> behaves when attempting to update the Jama item that is currently locked by other Jama users. This ensures updates can proceed without manual intervention.
+- Available Options:
+  1. **Unlock and Re-Lock**
+     - If the entity is locked at the time of update, <code class="expression">space.vars.OIM</code> will:
+       1. Unlock the entity
+       2. Perform the required update
+       3. Re-lock the item after the update is completed
+     - This option is useful when you want to preserve the original locked state after making updates. 
+     - Known behavior:
+       - If a Jama item is subsequently locked by <code class="expression">space.vars.OIM</code>, users with lower permission levels may be unable to unlock or modify it, in accordance with Jama’s standard behavior. Only users with equivalent or higher privileges—such as OIM administrators or super administrators—will be able to unlock and update the item.
+  2. **Unlock Only**
+     - If the entity is locked at the time of update, <code class="expression">space.vars.OIM</code> will:
+       1. Unlock the entity 
+       2. Perform the required update 
+       3. Leave the entity unlocked after the update
+     - Known behavior:
+       - Use this lock handling behavior with caution. Since the <code class="expression">space.vars.OIM</code> user has administrator privileges, unlocking an entity may allow broader access.
+
+<p align="center">
+  <img src="../assets/Jama_Lock_Handling.png" width="400" />
+</p>
+
 # Criteria Configuration
 
 If you want to specify conditions for synchronizing an entity between Jama and the other system to be integrated, you can use the Criteria Configuration feature.
