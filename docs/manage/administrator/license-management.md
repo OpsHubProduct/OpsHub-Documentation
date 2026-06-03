@@ -34,6 +34,14 @@ After installing, refresh the browser.
 
 **Note** : You can check the status of license and even delete the license from this window.
 
+> **Important**
+>
+> * When multiple valid licenses are installed, feature availability is determined by the license with the highest license generation number (the latest generated license). This license is treated as the active license for feature validation.
+>
+> * If a newly installed license does not include features that were available in a previously installed license, those features will no longer be available, even if the older license remains installed and valid.
+>
+> * Before installing a new license, review the feature differences carefully. A warning message will be displayed if the new license contains fewer features than the currently active license.
+
 # View License
 
 * Navigate to the Administration section and select **License Management** from the drop-down options.  
