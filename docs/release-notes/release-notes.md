@@ -1,46 +1,45 @@
-{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}  
+{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}   
 
 # New Version(s)
-* IBM Engineering Requirements Management DOORS Next: 7.1.x
-* Java Development Kit (JDK): 17.0.19
+* Angular: 16.x
+
+# New Entities(s)
+* Windchill PLM: Subtypes for Problem reports
 
 # Enhancements
 
 ## Common
-* Introduced automatic user authentication via SAML without requiring user setup in <code class="expression">space.vars.OIM</code>.
+* Improved Transitions & Dependencies to ensure dependent field validations are enforced during item updates.
 
-## Aras Innovator
-* Added support for Reference fields.
-
-## Azure DevOps Server/Services
-* Added support for skipping Automated Test Runs and Results.
-
-## Zendesk
-* Added support for Global OAuth as authentication type in Zendesk.
+## GitHub
+* Enhanced the Pull Request entity synchronization process.
 
 # Major Bug Fixes
 
 ## Common
-* Resolved an issue where inline attachment URLs were truncated when attachment names contained special characters such as '&'.
-* Resolved an issue causing inconsistent link synchronization behavior when the same target link type was configured for both default and non-default links.
+* Resolved an issue where upgrading <code class="expression">space.vars.OIM</code> to 7.225 failed on PostgreSQL databases when only an administrator account with full permissions was configured.
+* Resolved a performance issue that caused mapping configurations with more than 60 mapped fields to load slower than expected.
+* Resolved an issue where APIRequestLocker generated the error: "java.lang.IllegalArgumentException: Start value must be smaller or equal to end value".
 
 ## Aha
-* Resolved an issue where the first revision was not retrieved from Aha while fetching revisions using advanced methods such as getEntityRevisions.
+* When Aha is configured as the source: 
+  * Resolved an issue where user mentions were not correctly identified for deleted Aha users.
+  * Resolved an issue where history records for the same field were automatically grouped when updates occurred within a five-minute interval.
+  * Resolved a Null Pointer Exception that occurred when retrieving projects without receiving a successful response from Aha.
 
 ## Azure DevOps Server/Services
-* Resolved an issue causing global failures for the testcase entity when the parameterMap value was found to be undefined.
+* Resolved an issue where Owner details were not synchronized correctly in Release Pipeline entities.
+* Resolved an issue where Start Date and Finish Date values were not updated correctly for Test Plan entities.
 
-## Jira Zephyr Essential
-* Resolved an issue where TestStep entities were not synchronized to Zephyr Essential as targets. 
-
-## ServiceNow/ServiceNow Quick Connect
-* Resolved a Null Pointer Exception that occurred when the username value was null.
+## Broadcom Rally Software
+* Resolved an issue where a recovery failure triggered duplicate milestone creation requests.
 
 {% endif %}  
 
 {% if "OM4ADO" === visitor.claims.unsigned.product %}  
 
 # Major Bug Fixes
-* Resolved an issue causing global failures during testcase entity migration when the parameterMap value was found to be undefined.
+* Resolved an issue where Owner details were not migrated correctly in Release Pipeline entities.
+* Resolved an issue where Start Date and Finish Date values were not migrated correctly for Test Plan entities.
 
 {% endif %}
