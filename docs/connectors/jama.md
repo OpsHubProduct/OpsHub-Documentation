@@ -234,7 +234,7 @@ Click [Integration Configuration](../integrate/integration-configuration.md) to 
        3. Re-lock the item after the update is completed
      - This option is useful when you want to preserve the original locked state after making updates. 
      - Known behavior:
-       - If a Jama item is subsequently locked by <code class="expression">space.vars.OIM</code>, users with lower permission levels may be unable to unlock or modify it, in accordance with Jama’s standard behavior. Only users with equivalent or higher privileges—such as OIM administrators or super administrators—will be able to unlock and update the item.
+       - If a Jama item is subsequently locked by <code class="expression">space.vars.OIM</code>, users with lower permission levels may be unable to unlock or modify it, in accordance with Jama’s standard behavior. Only users with equivalent or higher privileges - such as OIM administrators or super administrators - will be able to unlock and update the item.
   2. **Unlock Only**
      - If the entity is locked at the time of update, <code class="expression">space.vars.OIM</code> will:
        1. Unlock the entity 
