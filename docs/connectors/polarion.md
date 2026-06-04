@@ -63,63 +63,10 @@ Refer to [Mapping Configuration](../integrate/mapping-configuration.md) for step
 ## Test Step Field Configuration
 
 * To synchronize Test Steps in Polarion, map the "Test Steps" field in space.vars.OIM as shown in image below.
-* Standard fields like Step, Step Description, and Expected Result are mapped directly. 
 
 <p align="center">
   <img src="../assets/PolarionMappingConfigTestStep.png" />
 </p>
-
-### Test Step Additional Fields Configuration
-
-* Additionally, Polarion supports custom/additional columns along with standard columns. 
-* To populate a custom column in the target system during test step synchronization, use **Advanced XSLT Mapping**.
-* For example, if a custom column has the internal ID *customColumnId*, you can map the test step *step* value to it under **additionalFields**.
-* Values stored in **additionalFields** can also be reused in other field mappings, such as description, expected result, or any other supported field.
-
-```xml
-<testSteps op_type="TestSteps">
-    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="SourceXML/updatedFields/Property/testSteps/com.opshub.eai.TestStep">
-        <com.opshub.eai.TestStep>
-            <order>
-                <xsl:value-of select="order"/>
-            </order>
-            <associationId>
-                <xsl:value-of select="associationId"/>
-            </associationId>
-            <id>
-                <xsl:value-of select="id"/>
-            </id>
-            <step>
-                <xsl:value-of select="step"/>
-            </step>
-            <expected>
-                <xsl:value-of select="expected"/>
-            </expected>
-            <description>
-                <xsl:value-of select="additionalFields/customColumnId"/>
-            </description>
-            <additionalFields>
-                <customColumnId>
-                    <xsl:value-of select="step"/>
-                </customColumnId>
-            </additionalFields>
-        </com.opshub.eai.TestStep>
-    </xsl:for-each>
-</testSteps>
-```
-* In above example:
-    * The **step** value is mapped to the custom column **customColumnId**. 
-    * The value stored in **customColumnId** is then reused to populate the **description** field.
-
-
-### Points To Be Considered
-
-#### Rename Standard Column Behavior
-
-If the internal name of the standard Test Step columns (such as Step, Step Description, or Expected Result) is renamed in Polarion, the following behavior will occur:
-* During synchronization from the source system to Polarion, these standard columns will remain empty. No data will be populated in them.
-* The synchronization data intended for these renamed columns will instead fall into the Additional Fields within the Test Step. You must use Advanced Mapping to extract or map them if needed.
-
 
 # Integration Configuration
 
@@ -175,8 +122,51 @@ Navigate to [Criteria Configuration](../integrate/integration-configuration.md/#
   - Replies to comments or edits in Polarion will be synced as separate comments by <code class="expression">space.vars.OIM</code>.
 - **Project Groups**:
   - Project Groups are not visible in the Project mapping list due to API limitations; projects are listed individually.
-- **Test Steps sync**:
-    - If your test steps contain custom columns, or if standard columns have been renamed [like Expected results renamed as Results], then advanced mapping needs to be performed in space.vars.OIM to sync those values. For more details, refer to this section [Test Step Additional Fields Configuration](#test-step-additional-fields-configuration).
+- **Test Steps**:
+    1. **When custom columns are added in Polarion Test Steps**
+       - Polarion supports both **standard** and **custom** columns in Test Step fields.
+       - To populate a custom column fields during synchronization, use **advanced mapping** in space.vars.OIM.
+       - For example, if your custom column has an internal ID *customColumnId*, you can access it under *additionalFields*.
+       - Values stored in *additionalFields* can also be reused in other mappings (e.g., **description, expected result, or other supported fields**), helping you avoid duplicate mapping logic.
+       - Example XSLT:
+        ```xml
+        <testSteps op_type="TestSteps">
+            <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="SourceXML/updatedFields/Property/testSteps/com.opshub.eai.TestStep">
+                <com.opshub.eai.TestStep>
+                    <order>
+                        <xsl:value-of select="order"/>
+                    </order>
+                    <associationId>
+                        <xsl:value-of select="associationId"/>
+                    </associationId>
+                    <id>
+                        <xsl:value-of select="id"/>
+                    </id>
+                    <step>
+                        <xsl:value-of select="step"/>
+                    </step>
+                    <expected>
+                        <xsl:value-of select="expected"/>
+                    </expected>
+                    <description>
+                        <xsl:value-of select="additionalFields/customColumnId"/>
+                    </description>
+                    <additionalFields>
+                        <customColumnId>
+                            <xsl:value-of select="step"/>
+                        </customColumnId>
+                    </additionalFields>
+                </com.opshub.eai.TestStep>
+            </xsl:for-each>
+        </testSteps>
+        ```
+    2. **When standard columns are renamed in Polarion Test Steps**
+       - If the internal names of standard Test Step columns (e.g., Step, Step Description, Expected Result) are changed:
+         1. During synchronization, these standard fields will **remain empty**,  by default, **sync will not populate these fields to/from Polarion**.
+         2. The data intended for these fields will instead be stored under **additionalFields**.
+       - How to handle this:
+         1. Use **advanced mapping** to extract the required values from *additionalFields*.
+         2. Map them explicitly back to the desired fields (e.g., Step, Description, Expected Result) as needed. 
 - **Links**
   - For link synchronization it is required to provide link metadata for Polarion entity types in JSON format in OpsHub Integration Manager.
     - Reason: API unavailability.
