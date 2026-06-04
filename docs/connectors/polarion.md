@@ -62,7 +62,7 @@ Refer to [Mapping Configuration](../integrate/mapping-configuration.md) for step
 
 ## Test Step Field Configuration
 
-* To synchronize Test Steps in Polarion, map the "Test Steps" field in space.vars.OIM as shown in image below.
+* To synchronize Test Steps in Polarion, map the "Test Steps" field in <code class="expression">space.vars.OIM</code> as shown in image below.
 
 <p align="center">
   <img src="../assets/PolarionMappingConfigTestStep.png" />
@@ -125,7 +125,7 @@ Navigate to [Criteria Configuration](../integrate/integration-configuration.md/#
 - **Test Steps**:
     1. **When custom columns are added in Polarion Test Steps**
        - Polarion supports both **standard** and **custom** columns in Test Step fields.
-       - To populate a custom column fields during synchronization, use **advanced mapping** in space.vars.OIM.
+       - To populate a custom column fields during synchronization, use **advanced mapping** in <code class="expression">space.vars.OIM</code>.
        - For example, if your custom column has an internal ID *customColumnId*, you can access it under *additionalFields*.
        - Values stored in *additionalFields* can also be reused in other mappings (e.g., **description, expected result, or other supported fields**), helping you avoid duplicate mapping logic.
        - Example XSLT:
