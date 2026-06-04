@@ -62,37 +62,54 @@ Refer to [Mapping Configuration](../integrate/mapping-configuration.md) for step
 
 ## Test Step Field Configuration
 
-When synchronizing Test Steps from or to Polarion, standard fields (like Step, Step Description, and Expected Result) can be mapped directly. 
+* To synchronize Test Steps in Polarion, map the "Test Steps" field in space.vars.OIM as shown in image below.
+* Standard fields like Step, Step Description, and Expected Result are mapped directly. 
 
 <p align="center">
   <img src="../assets/PolarionMappingConfigTestStep.png" />
 </p>
 
-* If a test step contains an additional/custom column in the target system, and you want to populate that column during synchronization, you can use Advanced XSLT mapping.
-* For example, assume there is an additional column named "*Custom Column*" whose internal ID is *customColumnId*. If you want to store the value of the test step's step field into this additional column, you can map it under the *additionalFields* section as shown below.
-* Similarly, values stored in additional/custom columns can also be referenced later in other mappings. 
-* In the example below, the value stored in *customColumnId* is reused to populate the test step description field.
-* In general:
-  * Fields mapped under *additionalFields* are used to populate custom/additional columns in the target system.
-  * Values available under *additionalFields* can also be read and reused when mapping standard fields such as description, expected result, or any other supported field.
-  * The source value can come either directly from a source system field (for example, step) or from another custom/additional field that is already available in the synchronization payload.
+### Test Step Additional Fields Configuration
+
+* Additionally, Polarion supports custom/additional columns along with standard columns. 
+* To populate a custom column in the target system during test step synchronization, use **Advanced XSLT Mapping**.
+* For example, if a custom column has the internal ID *customColumnId*, you can map the test step *step* value to it under **additionalFields**.
+* Values stored in **additionalFields** can also be reused in other field mappings, such as description, expected result, or any other supported field.
 
 ```xml
-<testSteps>
-    <additionalFields>
-        <customColumnId>
-            <xsl:value-of select="step"/>
-        </customColumnId>
-    </additionalFields>
-    
-    <description>
-        <xsl:value-of select="additionalFields/customColumnId"/>
-    </description>
+<testSteps op_type="TestSteps">
+    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="SourceXML/updatedFields/Property/testSteps/com.opshub.eai.TestStep">
+        <com.opshub.eai.TestStep>
+            <order>
+                <xsl:value-of select="order"/>
+            </order>
+            <associationId>
+                <xsl:value-of select="associationId"/>
+            </associationId>
+            <id>
+                <xsl:value-of select="id"/>
+            </id>
+            <step>
+                <xsl:value-of select="step"/>
+            </step>
+            <expected>
+                <xsl:value-of select="expected"/>
+            </expected>
+            <description>
+                <xsl:value-of select="additionalFields/customColumnId"/>
+            </description>
+            <additionalFields>
+                <customColumnId>
+                    <xsl:value-of select="step"/>
+                </customColumnId>
+            </additionalFields>
+        </com.opshub.eai.TestStep>
+    </xsl:for-each>
 </testSteps>
 ```
-* In this example:
-    * The test step **step** value is written to the custom column **customColumnId**. 
-    * The value stored in **customColumnId** is then used to populate the **description** field.
+* In above example:
+    * The **step** value is mapped to the custom column **customColumnId**. 
+    * The value stored in **customColumnId** is then reused to populate the **description** field.
 
 
 ### Points To Be Considered
@@ -158,8 +175,8 @@ Navigate to [Criteria Configuration](../integrate/integration-configuration.md/#
   - Replies to comments or edits in Polarion will be synced as separate comments by <code class="expression">space.vars.OIM</code>.
 - **Project Groups**:
   - Project Groups are not visible in the Project mapping list due to API limitations; projects are listed individually.
-- **Test cases Work item**:
-    - Test Steps are supported. However, if your Test Steps contain custom columns or if a standard column has been renamed, you must use Advanced Mapping (XSLT) to access and map the `additionalFields`.
+- **Test Steps sync**:
+    - If your test steps contain custom columns, or if standard columns have been renamed [like Expected results renamed as Results], then advanced mapping needs to be performed in space.vars.OIM to sync those values. For more details, refer to this section [Test Step Additional Fields Configuration](#test-step-additional-fields-configuration).
 - **Links**
   - For link synchronization it is required to provide link metadata for Polarion entity types in JSON format in OpsHub Integration Manager.
     - Reason: API unavailability.
