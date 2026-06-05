@@ -171,7 +171,7 @@ Navigate to [Criteria Configuration](../integrate/integration-configuration.md/#
 - **Project Groups**:
   - Project Groups are not visible in the Project mapping list due to API limitations; projects are listed individually.
 - **Test Steps sync**:
-    - If your test steps contain custom columns, or if standard columns have been renamed [like Expected results renamed as Results], then advanced mapping needs to be performed in space.vars.OIM to sync those values. For more details, refer to this section [Known Behaviors in Test Step Sync](#known-behaviors-in-test-step-sync).
+    - If your test steps contain custom columns, or if standard columns have been renamed [like Expected results renamed as Results], then advanced mapping needs to be performed in <code class="expression">space.vars.OIM</code> to sync those values. For more details, refer to this section [Known Behaviors in Test Step Sync](#known-behaviors-in-test-step-sync).
 - **Links**
   - For link synchronization it is required to provide link metadata for Polarion entity types in JSON format in OpsHub Integration Manager.
     - Reason: API unavailability.
