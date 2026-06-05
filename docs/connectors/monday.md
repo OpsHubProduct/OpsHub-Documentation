@@ -134,7 +134,7 @@ If the user wants to sync item and sub items with parent-child links:
 - After the soft delete operation is performed by <code class="expression">space.vars.OIM</code>, the entity will be deleted from Monday.com and it can be found in trash.
 - Configuring Delete Mode:
   - To enable **archive** operation in target, "OH Archive" field shall be mapped with default value "Yes" in the [Delete Mode](../integrate/mapping-configuration.md#delete-mode) mapping.
-  - To enable only the **logical delete** operation in the target, "OH Soft Delete" field shall be mapped with the default value "No" in the [Delete Mode](../integrate/mapping-configuration.md#delete-mode) mapping.
+  - To enable only the **logical delete** operation in the target, "OH Soft Delete" and "OH Archive" field shall be mapped with the default value "No" in the [Delete Mode](../integrate/mapping-configuration.md#delete-mode) mapping.
 
 # Integration Configuration
 

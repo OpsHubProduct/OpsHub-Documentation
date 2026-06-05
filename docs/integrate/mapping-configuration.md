@@ -77,7 +77,7 @@ Fields can be mapped for two different modes using the toggle button.
     * Follow these steps to activate the Archive Entity functionality post-upgrade:
       * Go to the **Mappings** page.
       * Remove the mapping from **None** to **OH_ARCHIVE**.
-* To perform only the Logical Delete in target, the field corresponding to the Soft Delete or Archive operation should be mapped with default value 'No'. Example, for details on how to perform the logical delete operation in "Rally" endpoint, please refer to [Soft Delete Configuration](../connectors/rally.md#mapping-for-soft-delete-configuration).
+* To perform only the Logical Delete in target, the field corresponding to the Soft Delete or Archive operation should be mapped with default value 'No'. For systems that support both Soft Delete and Archive operations, both corresponding fields must be mapped with the default value 'No'. Example, for details on how to perform the logical delete operation in "Rally" endpoint, please refer to [Soft Delete Configuration](../connectors/rally.md#mapping-for-soft-delete-configuration).
 * In [Entity Move Synchronization → Overview](entity-move-synchronization.md#overview), Deprecation will be performed in the target entity if the field corresponding to the Soft Delete or Archive operation are mapped with default value 'Yes'. If the field corresponding to Soft Delete or Archive operation is not mapped/mapped with default value "No", then the Logical delete will be performed based on the configured fields.
 
 > **Note** : In both modes, you can also filter the fields as "All Fields", "Mandatory Fields", "Read Only Fields", "Custom Fields", and "System Fields".
