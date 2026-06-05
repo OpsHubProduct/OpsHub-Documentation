@@ -272,7 +272,7 @@ Follow the steps given below to create the filter in Jama:
 > **Note**: Select the **Last Activity Date** and **Descending** option in **Sort order for results by** field for filter with any criteria storage type.
 
 ### Filter for Component/Set/Folder
-
+ 
 For Component/Set/Folder entities, we can't have specific check for entity types in filter such that only those type of entities are fetched.  
 Following needs to be done to configure filter for these entity types:
 - Select **All Item Types** in the option **Match** so that Component/Set/Folder can be filtered out. This will filter out all the entities which matches the rules provided.
@@ -284,6 +284,42 @@ Following needs to be done to configure filter for these entity types:
 <p align="center">
   <img src="../assets/Jama_Image_13a.png" width="800" />
 </p>
+
+### Criteria configuration for Releases entity
+
+- Filters are not supported for Releases in Jama (in UI and API both). Hence, to perform the conditional sync based on Releases field criteria use the OpsHub JSON query format.
+- Criteria is supported in all the fields supported by the Releases entity.
+
+### Query syntax
+
+**Syntax:**
+
+- `[{"condition":"condition","field":"fieldName","value":"Value"}]` - Specifies a query in JSON format.
+  - The `condition` defines the comparison operator to be applied, `field` specifies the Release field on which the criteria will be evaluated, and `value` represents the value to be matched.
+
+**Syntax part:**
+
+- The following comparison operators can be used while defining criteria in OpsHub query format:
+
+  - `EQUALS`
+  - `NOT_EQUALS`
+  - `GREATER_THAN`
+  - `GREATER_THAN_EQUALS`
+  - `LESS_THAN`
+  - `LESS_THAN_EQUALS`
+
+-> **Note**: While defining criteria in OpsHub query format, use the internal names of the Releases fields. The internal field name is mentioned in the below sample table. [Release entity does not contain any custom fields, hence for all system fields, we have already provided the internal name, kindly use them in the query format]
+
+### Sample criteria query:
+
+| Field name          | Field internal name | Criteria description                                       | Criteria query                                                                     |
+|---------------------|---------------------|------------------------------------------------------------|------------------------------------------------------------------------------------|
+| Release Name        | name                | Sync Releases whose name is "Customer Portal Release"      | `[{"condition":"EQUALS","field":"name","value":"Customer Portal Release"}]`        |
+| Release Description | description         | Sync Releases whose description contains "sample release"  | `[{"condition":"EQUALS","field":"description","value":"sample release"}]`          |
+| Release Date        | releaseDate         | Sync Releases whose release date is on or after 2026-01-01 | `[{"condition":"GREATER_THAN_EQUALS","field":"releaseDate","value":"2026-01-01"}]` |
+| Release ID          | id                  | Sync Releases whose ID is greater than 100                 | `[{"condition":"GREATER_THAN","field":"id","value":"100"}]`                        |
+
+**Note:** Field names, values, and comparison behavior are **case-sensitive**. In Jama, Releases can be created with names that differ only by letter casing (for example, `r1` and `R1`). As these are treated as distinct Releases, the exact field values and casing must be used when defining criteria.
 
 ### Criteria Storage Type
 
@@ -317,6 +353,7 @@ Click **Save** to save the filter.
 <p align="center">
   <img src="../assets/Jama_Image_11a.png" width="800"/>
 </p>
+
 
 ## Target Search Query
 
@@ -368,6 +405,44 @@ Jama query is based on **OR** condition when there are more than one field.
 
 ---
 
+### Target lookup query syntax for Releases entity
+
+- Filters are not supported for Releases in Jama (in UI and API both). Hence, to perform the target lookup Releases field use the OpsHub JSON query format.
+- Target lookup is supported in all the fields supported by the Releases entity.
+
+- The Target lookup query format is the same as the Criteria configuration query format. The only difference is that the `value` field contains a source field placeholder in the `@fieldName@` format instead of a static value.
+
+### Query syntax
+
+**Syntax:**
+
+- `[{"condition":"condition","field":"fieldName","value":"@sourceField@"}]` - Specifies a query in JSON format. 
+  - The `condition` defines the comparison operator to be applied, `field` specifies the target Release field on which the lookup will be performed, and `value` references a field from the source Release using the `@fieldName@` placeholder syntax.
+
+**Syntax part:**
+
+- The following comparison operators can be used while defining target lookup queries:
+
+  - `EQUALS`
+  - `NOT_EQUALS`
+  - `GREATER_THAN`
+  - `GREATER_THAN_EQUALS`
+  - `LESS_THAN`
+  - `LESS_THAN_EQUALS`
+
+-> **Note**: While defining target lookup query in OpsHub query format, use the internal names of the Releases fields. The internal field name is mentioned in the below sample table. [Release entity does not contain any custom fields, hence for all system fields, we have already provided the internal name, kindly use them in the query format]
+### Target lookup query samples
+
+| Field name          | Field internal name | Query description                                                                         | Target lookup query                                                                |
+|---------------------|---------------------|-------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| Release Name        | name                | Search for a target Releases having the same name as the source Release                   | `[{"condition":"EQUALS","field":"name","value":"@name@"}]`        |
+| Release Description | description         | Search for a target Releases having the source Release ID stored in the Description field | `[{"condition":"EQUALS","field":"description","value":"@oh_internal_id@"}]`          |
+| Release Date        | releaseDate         | Search for target Releases whose release date is on or after 2026-01-01                   | `[{"condition":"GREATER_THAN_EQUALS","field":"releaseDate","value":"2026-01-01"}]` |
+| Release ID          | id                  | Search for a target Release having the same ID as the source Release                                               | `[{"condition":"EQUALS","field":"id","value":"@id@"}]`                        |
+
+**Note:** Field names, values, and comparison behavior are **case-sensitive**. In Jama, Releases can be created with names that differ only by letter casing (for example, `r1` and `R1`). As these are treated as distinct Releases, the exact field values and casing must be used when defining target lookup.
+
+
 # Known Limitations
 
 ## Common
@@ -404,7 +479,7 @@ Jama query is based on **OR** condition when there are more than one field.
 
 # Known Behaviors
 
-## Common Behaviours
+## Common
 
 - It is advisable to have unique display name for each field in Jama.  
   **Reason:** Jama API does not provide way to differentiate changes between fields which share same display name.
@@ -436,7 +511,14 @@ Jama query is based on **OR** condition when there are more than one field.
     - [" changed from "] - No impact on revision processing
     - [" to "] - If this token comes in the new value, no impact. But if it appears in the old value, then synchronization of the value may be incorrect.
 
+
 > **Note**: In case, chances of such tokens is possible in your case, you can choose to have either [Only Current State = Yes configuration](../integrate/integration-configuration.md#sync-only-current-state) or [Overwrite=True](mapping_configuration.md#overwrite) in Field mapping for these fields. Otherwise the revisions and fields details will be synchronized properly when the fields are updated in a revision having the expected format.
+
+## Entity Specific
+
+### Releases
+
+- Comments, Attachments, Links, Entity mention & User mention are not supported by Releases entity itself in Jama. Therefore, OpsHub Integration Manager does not support them as well.
 
 ---
 

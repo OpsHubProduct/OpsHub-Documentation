@@ -267,7 +267,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>34</td>
             <td>Jama Connect</td>
             <td>Cloud/Self-Hosted: From 8.22+</td>
-            <td>All System/Custom Item Types (Defect, Epic, Persona, Test Plan, Test Cycle, Test Run, Commit, Component, Set, Folder, etc.)<br/>Not Supported: Attachment, Core</td>
+            <td>All System/Custom Item Types (Defect, Epic, Persona, Test Plan, Test Cycle, Test Run, Commit, Component, Set, Folder, Releases, etc.)<br/>Not Supported: Attachment, Core</td>
             <td></td>
         </tr>
         <tr>
