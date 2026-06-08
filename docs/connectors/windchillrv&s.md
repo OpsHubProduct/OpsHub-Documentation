@@ -39,6 +39,7 @@ One special field is required on the entity that is being synchronized. This mus
 * Required Libraries:
   * `mksapi.jar`: This jar file is available at `<Windchill RV&S Server Installation folder>\server\mks\lib` directory.
   * `ptc.jar`: This jar is to be generated from ptc webservice wsdl file.
+    * Refer steps to generate ptc.jar - [Create ptc.jar using web service WSDL](#create-ptc-jar-using-web-service-wsdl)
 
 ### Steps to configure Windchill RV&S libraries
 
@@ -49,7 +50,7 @@ One special field is required on the entity that is being synchronized. This mus
 * Start Server Service.
 * Provide the exact version when configuring Windchill RV&S.
 
-**Note**:  For version 2009, 10.7, 12.0, 12.3, 13.1 and 13.3 `ptc.jar` is already present in your <code class="expression">space.vars.OIM</code> installation directory. The user needs to place only `mksapi.jar`. Follow the steps given above if you have some different Windchill RV&S version.
+**Note**:  For version 13.3 `ptc.jar` is already present in your <code class="expression">space.vars.OIM</code> installation directory. The user needs to place only `mksapi.jar`. Follow the steps given above if you have some different Windchill RV&S version.
 
 ## Configuration for fields to be synchronized
 
@@ -722,4 +723,68 @@ Refer to the image given below:
 <p align="center">
   <img src="../assets/Windchill_Attachment_Extention.png" width="900">
 </p>
+
+## Create ptc jar using web service WSDL
+
+### Prerequisites
+
+#### Apache CXF Distribution
+Apache CXF is a tool that helps convert a web service (WSDL) into Java files.
+* Download Apache CXF 4.2.0 from: [apache-cxf-4.2.0.zip](https://cxf.apache.org/cxf-420-release-notes.html)
+* Extract to a local directory
+  * Right-click the zip file → Click Extract All
+  * Extract it to a simple location (e.g., C:\apache-cxf-4.2.0)
+
+### Step 1: Obtain the WSDL
+The WSDL file describes the web service.
+* Open a browser.
+* Enter your service URL for Windchill RV&S instance in this format:
+  * ```http://<host>:<port>/webservices/10/2/Integrity/?wsdl```
+* The WSDL will open in the browser.
+* Save it to a known location, for example: ```C:\Users\<your-name>\Downloads\service.wsdl```
+
+### Step 2: Create the JAXB Binding Customization File
+This file ensures the generated code works correctly.
+* Copy and paste the below content in a file:
+
+```
+<jaxb:bindings xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               version="3.0">
+    <jaxb:globalBindings generateElementProperty="false">
+        <jaxb:javaType name="java.util.Calendar"
+                       xmlType="xs:dateTime"
+                       parseMethod="jakarta.xml.bind.DatatypeConverter.parseDateTime"
+                       printMethod="jakarta.xml.bind.DatatypeConverter.printDateTime"/>
+    </jaxb:globalBindings>
+</jaxb:bindings>
+```
+* Save the file as **binding.xml**.
+
+### Step 3: Generate the Stubs
+Now we convert the WSDL file into Java source files.
+* Run command prompt
+* Create the following folder structure in your installation directory of <code class="expression">space.vars.OIM</code> using given command:
+  * ```mkdir <opshub installation directory>\OpsHubServer\webapps\OpsHubWS\WEB-INF\generated-stubs```
+* Paste and run the following command **(update paths in the below command based on your system)**:
+  * ```<path to apache-cxf zip>\apache-cxf-4.2.0\bin\wsdl2java.bat -d <opshub installation directory>\OpsHubServer\webapps\OpsHubWS\WEB-INF\generated-stubs -wsdlLocation "" -b <path to binding file>\binding.xml <path to wsdl file>\service.wsdl```
+  * This step will generate Java files inside the generated-stubs folder.
+
+### Step 4: Compile and Package into JAR
+Now we convert the generated files into a .jar file.
+* Open Command Prompt.
+* Create a new folder named **out** in your installation directory of <code class="expression">space.vars.OIM</code> using given command:
+  * ```mkdir <opshub installation directory>\OpsHubServer\webapps\OpsHubWS\WEB-INF\generated-stubs\out```
+* Run the command below for navigating to **<installation directory\>\OpsHubServer\webapps\OpsHubWS\WEB-INF\\** folder:
+  * cd ```<installation directory>\OpsHubServer\webapps\OpsHubWS\WEB-INF\```
+* Run the following command:
+  * ```javac -d generated-stubs\out -cp "lib\jakarta.xml.soap-api-3.0.1.jar;lib\saaj-impl-3.0.3.jar;lib\jakarta.xml.ws-api-4.0.1.jar;lib\jakarta.jws-api-3.0.0.jar;lib\jakarta.annotation-api-2.1.1.jar;lib\jakarta.xml.bind-api-4.0.1.jar" generated-stubs\com\mks\webservice\_10\_2\integrity\*.java generated-stubs\com\mks\webservice\_10\_2\Integrity\fault\*.java generated-stubs\com\mks\webservice\_10\_2\Integrity\schema\*.java generated-stubs\org\w3\www\_2005\_05\xmlmime\*.java```
+  * This step creates compiled files inside the **out** folder.
+* Run the command below for navigating to **out** folder:
+  * ```cd generated-stubs\out```
+* Run the following command to create the JAR file:
+  * ```jar cf ..\ptc.jar com\mks\webservice\_10\_2\integrity com\mks\webservice\_10\_2\integrity\fault com\mks\webservice\_10\_2\integrity\schema org\w3\_2005\_05\xmlmime```
+* Use the ptc.jar generated in **generated-stubs** folder, and follow the steps given [here](#library-configuration) to configure the jar.
+
+
 
