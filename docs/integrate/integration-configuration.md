@@ -493,6 +493,26 @@ Once you select **Yes**, the following fields will appear. You need to enter app
    * **Create new entity in the target**: Select this option if you want to create a new entity in the target field if the search query doesn't yield any matching results.
    * **Skip the event**: Select this option if you want <code class="expression">space.vars.OIM</code> to ignore the search information and not take any action.
 
+## Attachment Size Limit Configuration
+Click the **Configure Advance** icon > Go to **Advance Configuration** pop-up > Select **Override parameters for write operations (Destination)**.
+<p align="center">
+  <img src="../assets/Attachment_Limit.png" width="500"/>
+</p>
+
+This configuration defines how attachment size limits are managed for the target system to ensure compatibility and prevent processing issues. It establishes rules for handling attachments that exceed supported size thresholds. 
+
+Based on the values given in these inputs, the system determines whether to process or skip oversized attachments, ensuring consistent and controlled behavior across all scenarios, including attachments, inline images and field-level attachments and inline images.
+
+### Attachment size limit (MB)
+* Defines the maximum allowed attachment size for the target system. 
+* This limit ensures that any attachments exceeding the threshold are managed appropriately. Use the “Skip attachment if size exceeds limit” option to determine behavior.
+
+### Skip attachment if size exceeds limit
+* This option determines the behavior when an attachment exceeds the size limit defined for the target system.
+* If an attachment surpasses the allowed size during synchronization, following will be the behavior based on option selected:
+  * If **Yes** is selected: The attachment will be skipped, and the remaining data will continue to be processed successfully.
+  * If **No** is selected or **Default Behavior**: The attachment will not be skipped, and the synchronization will fail.
+
 ## Workflow Association
 
 Click the **Configure Advance** icon > Go to **Advance Configuration** pop-up > Select **Workflow Association**.
