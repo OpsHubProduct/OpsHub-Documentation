@@ -420,7 +420,7 @@ Given below are the systems supported currently by <code class="expression">spac
         <tr>
             <td>56</td>
             <td>OpenText ALM Quality Center</td>
-            <td>SaaS: 15.x<br/>On-Prem: 10.0+ to 24.x</td>
+            <td>SaaS: 15.x*<br/>On-Prem: 10.x*, 11.x*, 12.x to 24.x</td>
             <td>Defect, Requirement, Test, Test Set, Release, Cycle, Test Run, Folders, Configurations, Execution Request</td>
             <td>Micro Focus ALM/QC, HPALM</td>
         </tr>

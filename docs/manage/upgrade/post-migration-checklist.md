@@ -560,3 +560,28 @@ Update the custom workflow as described below:
 **Reason**
 
 * The prerequisite to rename Jira Xray entities has been removed.
+
+
+# Migrating <code class="expression">space.vars.OIM</code> version to 7.227 or above
+
+## Generate and replace ptc.jar
+
+**Applicable When**
+
+* Windchill RV&S is configured as one of the endpoints in the integration.
+
+**Actions**
+
+* Create a new ptc.jar file by following the steps described in the [Windchill RV&S connector guide](../../connectors/windchillrv&s.md#create-ptc-jar-using-web-service-wsdl).
+* Replace the existing ptc.jar file in your setup with the newly generated one. Follow the steps given [here](../../connectors/windchillrv&s.md#library-configuration) for configuration.
+
+
+**Reason**
+
+* Earlier versions of ptc.jar were generated using Apache Axis, which is now outdated and has known security vulnerabilities.
+To address this and align with modern standards:
+  * Now it has moved to Apache CXF, a more actively maintained and secure framework for generating web service clients from WSDL
+  * CXF enforces stronger security practices, offers better protocol support, and ensures improved compatibility with modern systems
+
+
+
