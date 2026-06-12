@@ -1,45 +1,43 @@
-{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}   
-
-# New Version(s)
-* Angular: 16.x
-
-# New Entities(s)
-* Windchill PLM: Subtypes for Problem reports
+{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}
 
 # Enhancements
+## Jama
+* Added support for synchronization of locked items in Jama.
+  * Users can now configure OpsHub Integration Manager to automatically unlock items, perform updates, and re-lock them - eliminating failures and manual intervention.
 
-## Common
-* Improved Transitions & Dependencies to ensure dependent field validations are enforced during item updates.
+  > **Note**: If an item is locked by another OpsHub integration user, only a Jama user with similar permissions or a super admin can unlock it, due to Jama’s permission model. Refer to the OpsHub documentation for [Jama connector](../connectors/jama.md#lock-handling-configuration) for more details.
 
-## GitHub
-* Enhanced the Pull Request entity synchronization process.
+* Added support for "No Storage" criteria type. Users can now define criteria in OIM to control sync in below way:
+  * When an entity meets the criteria - it is synchronized
+  * When it goes out of scope - synchronization automatically stops
 
-# Major Bug Fixes
-
-## Common
-* Resolved an issue where upgrading <code class="expression">space.vars.OIM</code> to 7.225 failed on PostgreSQL databases when only an administrator account with full permissions was configured.
-* Resolved a performance issue that caused mapping configurations with more than 60 mapped fields to load slower than expected.
-* Resolved an issue where APIRequestLocker generated the error: "java.lang.IllegalArgumentException: Start value must be smaller or equal to end value".
-
-## Aha
-* When Aha is configured as the source: 
-  * Resolved an issue where user mentions were not correctly identified for deleted Aha users.
-  * Resolved an issue where history records for the same field were automatically grouped when updates occurred within a five-minute interval.
-  * Resolved a Null Pointer Exception that occurred when retrieving projects without receiving a successful response from Aha.
+## Monday.com
+* Improved synchronization performance for Monday.com integrations:
+  * **31% improvement** when used as source
+  * **14% improvement** when used as target
 
 ## Azure DevOps Server/Services
-* Resolved an issue where Owner details were not synchronized correctly in Release Pipeline entities.
-* Resolved an issue where Start Date and Finish Date values were not updated correctly for Test Plan entities.
+* Added support for synchronization of **process parameters** for Release Pipeline entities.
 
-## Broadcom Rally Software
-* Resolved an issue where a recovery failure triggered duplicate milestone creation requests.
-
-{% endif %}  
-
-{% if "OM4ADO" === visitor.claims.unsigned.product %}  
+## Aha
+* Added support for **soft delete synchronization**. When the source entity is deleted, the corresponding entity in Aha (as target) can now be deleted in addition to logical delete [marking any field with deleted].
 
 # Major Bug Fixes
-* Resolved an issue where Owner details were not migrated correctly in Release Pipeline entities.
-* Resolved an issue where Start Date and Finish Date values were not migrated correctly for Test Plan entities.
+## Common
+* Fixed an issue where advanced configurations were not applied correctly across multiple paths in rule-based routing scenarios.
+  * **Use Case:**  Rule-based routing is used to connect one source entity to multiple target entities (for example, Jama Requirement → Jira Epic, Story, Task). Advanced workflow configurations were applied from Jira to Jama system flow.
+  * This issue is now resolved. Advanced configurations are applied consistently across all routed entity mappings.
+
+# Documentation
+* Enhanced documentation for the **Manage License** page:
+  * Clarified behavior when multiple active licenses are present
+  * Documented that OIM considers the **latest license features** to ensure consistency and avoid confusion.
+
+{% endif %}    
+{% if "OM4ADO" === visitor.claims.unsigned.product %}
+
+# Major Bug Fixes
+* Resolved an issue where service principal–based service connections were migrated as Managed Identity, causing authentication failures in Release Pipelines migration.
+* Added support for migration of **process parameters** for Release Pipeline entities.
 
 {% endif %}
