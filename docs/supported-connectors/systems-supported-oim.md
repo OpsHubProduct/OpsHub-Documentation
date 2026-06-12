@@ -512,7 +512,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>69</td>
             <td>SolarWinds Service Desk</td>
             <td>SaaS</td>
-            <td>Catalog Items, Change Catalog, Changes, Incidents, Problems, Releases, Solutions, Tasks**</td>
+            <td>Catalog Items, Change Catalog, Changes, Incidents, Problems, Releases, Solutions, Tasks</td>
             <td></td>
         </tr>
         <tr>
