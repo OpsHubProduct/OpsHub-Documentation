@@ -134,6 +134,17 @@ Refer to [Integration Configuration](../integrate/integration-configuration.md) 
 - For lookup-type fields, always use the internal field values.
     - Display values will not work in Criteria. Refer to [Get Internal Name and ID For Fields](#get-internal-name-and-id-for-fields) section for details.
 
+
+For the **Task** entity, criteria will work only on the "Complete Task" field, which denotes that the task is completed or not.
+
+### Sample criteria
+
+| Field name    | Criteria field name | Criteria description            | Criteria snippet                                         |
+|---------------|---------------------|---------------------------------|----------------------------------------------------------|
+| Complete Task | completed           | Sync tasks which are incomplete | [{"condition":"EQUALS","field":"completed","value":"0"}] |
+| Complete Task | completed           | Sync tasks which are complete   | [{"condition":"EQUALS","field":"completed","value":"1"}] |
+
+
 ## Target Lookup Configuration
 
 * Provide Query in Target Search Query field such that it is possible to search the entity in the SolarWinds Service Desk as the target system. In the target search query field, the user can provide a placeholder for the source system's field value in the '@'.
@@ -154,7 +165,7 @@ Refer to [Integration Configuration](../integrate/integration-configuration.md) 
 
 # Known Behaviors and Limitations
 
-### Common known and limitations
+### Common known behaviors and limitations
 - User will not be able to put Criteria and Target Lookup on fields such as State, date-type fields, and custom fields due to API limitations.
 - In Criteria and Target Lookup configurations, only the following operators are supported: Equals & Not Equals. 
   - Range filters such as Less Than, Less Than or Equal To, Greater Than, and Greater Than or Equal To are not available due to API limitations.
@@ -169,13 +180,17 @@ Refer to [Integration Configuration](../integrate/integration-configuration.md) 
   - If the API token is manually reset or regenerated.
   - If the API token is deleted from the SolarWinds Service Desk interface.
 
-### Entity specific known and limitations
-In addition to the common known limitations for **SolarWinds Service Desk**, the following entity-specific limitations apply:- Below-mentioned features are not supported due to API limitations.
+### Entity specific known behaviors and limitations
+In addition to the common known limitations for **SolarWinds Service Desk**, the following entity-specific limitations apply:- 
+- Below-mentioned features are not supported due to API limitations.
   - Fields
     - Solutions: Views, Likes, Dislikes, Category, Subcategory, Site, Department, State and Tags are not supported.
     - Catalog Items: Default Assignee and Default Group Assignment
   - Links are not supported for Solutions and Change Catalog
-  - History-based Synchronization are not supported for Solutions and Catalog Items
+  - History-based Synchronization are not supported for Solutions, Catalog Items and Tasks.
+- For the Task entity, the Task Description field is a multiline plain-text field and may contain newline (\n) characters. 
+  - When mapped to target fields that support multiline, HTML, Wiki, or other formatted text, no additional configuration is typically required.  
+  - However, if it is mapped to a single-line field such as Title or Name, it is recommended to use advanced mapping to remove newline characters to ensure successful synchronization.
 
 # Appendix
 
