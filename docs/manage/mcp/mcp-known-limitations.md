@@ -3,7 +3,7 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
-- **MCP currently supports only basic authentication.**
+- **MCP currently supports only basic and API key based authentication.**
   - LDAP and SAML-based authentication methods are not supported, as MCP clients do not support browser-based authentication flows required by these mechanisms.
 
 - **Delete operations are not supported via MCP.**

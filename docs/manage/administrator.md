@@ -16,6 +16,10 @@ if: >-
       <td><a href="administrator/user-management.md">User Management</a></td>
     </tr>
     <tr>
+      <td align="center"><strong>API Key Management</strong></td>
+      <td><a href="administrator/api-key-management.md">API Key Management</a></td>
+    </tr>
+    <tr>
       <td align="center"><strong>Login Server Management</strong></td>
       <td><a href="administrator/login-server-management.md">Login Server Management</a></td>
     </tr>
@@ -62,10 +66,6 @@ if: >-
     <tr>
       <td align="center"><strong>User Access Control</strong></td>
       <td><a href="administrator/user-access-control.md">User Access Control</a></td>
-    </tr>
-    <tr>
-      <td align="center"><strong>API Key Management</strong></td>
-      <td><a href="administrator/api-key-management.md">API Key Management</a></td>
     </tr>
   </tbody>
 </table> 
