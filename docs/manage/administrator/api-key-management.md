@@ -37,7 +37,7 @@ The list displays the following details for each key:
 | **Status**        | The current state of the key: **Active**, **Expired**, or **Revoked**. |
 | **Action**        | Option to revoke the key.                                              |
 
-> **Note:** For security reasons, the actual API Key value is shown only once at the time of generation and is never displayed again. This list shows only the key's details, not the key value itself.
+> **Note:** For security reasons, this list shows only the key's details, not the key value itself. The actual API Key value is shown only once at the time of creation.
 
 ---
 
