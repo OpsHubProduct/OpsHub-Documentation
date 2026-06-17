@@ -19,7 +19,7 @@ API Keys provide a secure, dedicated credential for programmatic access to the [
 1. Click **Administration**.
 2. Select **API key** from the options in the left pane. The **API key** list view opens, showing all keys you have created.
 
-> **Note:** The **My API keys / All API keys** toggle is visible only to administrators (Super Admin or users with **User Management – Write** permission). For more details, refer to [User Access Control](#user-access-control) on this page.
+> **Note:** The toggle for **My API keys / All API keys** is visible only to administrators (Super Admin or users with **User Management – Write** permission). For more details, refer to [User Access Control](#user-access-control) on this page.
 
 <p align="center">
   <img src="../../assets/APIKey_List_View.png" width="1000"/>
