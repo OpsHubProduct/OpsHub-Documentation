@@ -1,21 +1,16 @@
 
 ## Overview
 
-API Keys provide a secure, dedicated credential for programmatic access to the [Admin APIs](../api/getting-started-with-api.md) and [MCP integrations](../mcp/mcp-home.md) — without sharing a user's username and password.
+API Keys provide a secure, dedicated credential for programmatic access to the [Admin APIs](../api/getting-started-with-api.md) and [MCP integrations](../mcp/getting-started-with-mcp.md) — without sharing a user's username and password.
 
 > **Note:** API Key authentication is an additional mechanism and does not replace existing Basic Authentication.
 
-### License
-
-API Keys are available on the **Professional** and **Ultimate** editions only. To verify your edition, refer to the value shown in the footer of <code class="expression">space.vars.OIM</code>.
-
-### API Key Permissions
-
-An API Key inherits the permissions of the user who created it — it cannot be used to perform any action beyond what that user is authorized to do.
-
-### Where to Generate
-
-API Keys are generated and managed from the <code class="expression">space.vars.OIM</code> UI under **Administration → API key**, and can be revoked at any time. Refer to [Generating an API Key](#generating-an-api-key) for the steps.
+* **License** 
+  * API Keys are available on the **Professional** and **Ultimate** editions only. To verify your edition, refer to the value shown in the footer of <code class="expression">space.vars.OIM</code>.
+* **API Key Permissions**
+  * An API Key inherits the permissions of the user who created it — it cannot be used to perform any action beyond what that user is authorized to do.
+* **Where to Generate**
+  * API Keys are generated and managed from the <code class="expression">space.vars.OIM</code> UI under **Administration → API key**, and can be revoked at any time. Refer to [Generating an API Key](#generating-an-api-key) for the steps.
 
 ---
 
