@@ -71,11 +71,10 @@ The list displays the following details for each key:
 
 The same validations apply while creating or editing a key. If an entered value does not meet a rule, a warning message is shown and the key is not saved:
 
-| Field          | Rule                                   | Warning message shown on violation                     |
-|----------------|----------------------------------------|--------------------------------------------------------|
-| **Name**       | Must be unique.                        | API key name must be unique.                           |
-| **Expires on** | Must be a future date and time.        | Expiry date must be a future datetime.                 |
-| **Expires on** | Cannot be more than 1 year from today. | API key expiry cannot be set beyond 1 year from today. |
+| Field          | Rule                                                                                     | Warning message                                                                                |
+|----------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| **Name**       | Must be unique.                                                                          | API key name must be unique.                                                                   |
+| **Expires on** | • Must be a future date and time.<br>• Cannot be more than 1 year from the current date. | • Expiry date must be a future datetime.<br>• Expiration date cannot exceed 1 year from today. |
 
 ---
 
@@ -184,9 +183,7 @@ The following actions are recorded:
 - By default, only the **Super Admin** can manage API Keys across all users. Users with the **User Management – Write** permission in a custom role can also view and manage API Keys of other users. Refer to [User Access Control](user-access-control.md) for more details.
 
 
-{% hint style="info" %}
-**My keys vs. all keys:** A regular user always sees only their own keys. Users who are allowed to manage other users' keys (the **Super Admin**, or a custom role with **User Management – Write** permission) get a toggle on the **API key** list view to switch between **My API keys** (only the keys they created) and **All API keys** (keys across all users). This toggle is visible only to these privileged users — a regular user does not see it.
-{% endhint %}
+> **Note:** A regular user always sees only their own keys. Users who are allowed to manage other users' keys (the **Super Admin**, or a custom role with **User Management – Write** permission) get a toggle on the **API key** list view to switch between **My API keys** (only the keys they created) and **All API keys** (keys across all users). This toggle is visible only to these privileged users — a regular user does not see it.
 
 <p align="center">
   <img src="../../assets/APIKey_MyKeys_AllKeys_Toggle.png" width="1000"/>
