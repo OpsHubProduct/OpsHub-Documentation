@@ -265,6 +265,7 @@
         * [Package Selection Criteria](docs/mbse-sdk/oim-config/package-selection-criteria.md)
         * [Criteria Configuration](docs/mbse-sdk/oim-config/criteria-configuration.md)
         * [Owning Package Configuration](docs/mbse-sdk/oim-config/owning-package-lookup.md)
+        * [Behavior For Locked Elements](docs/mbse-sdk/oim-config/behavior-for-locked-entities.md)
 * [Release Notes](docs/release-notes/release-notes.md)
 * [Knowledge Resources](docs/knowledge-resources/knowledge-resource-index.md)
     *  [Integration Combination Examples](docs/knowledge-resources/integration-combination-examples/integration-combination-examples.md)

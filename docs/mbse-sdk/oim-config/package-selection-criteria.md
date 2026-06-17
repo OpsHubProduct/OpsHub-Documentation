@@ -51,23 +51,23 @@ The value must be provided as a JSON array of strings.
 ### Example
 
 ```json
-["**::Requirements", "02_Logical_Architecture", "03_Physical_Architecture"]
+[".*::Requirements", "02_Logical_Architecture", "03_Physical_Architecture"]
 ```
 
 ## Selection Rules
 
-| Pattern | Behavior |
-|----------|----------|
-| `packageName` | Matches the specified package at the root level. |
-| `parent::child` | Matches a specific nested package path. |
-| `**::packageName` | Matches the package at any hierarchy level. |
-| Multiple entries | All matching packages from all entries are included in synchronization. |
+| Pattern           | Behavior                                                                 |
+|-------------------|--------------------------------------------------------------------------|
+| `packageName`     | Matches the specified package at the root level.                         |
+| `parent::child`   | Matches a specific nested package path.                                  |
+| `.*::packageName` | Matches the package at any hierarchy level ending with the `packageName`. |
+| Multiple entries  | All matching packages from all entries are included in synchronization.  |
 
 ---
 
 ## Wildcard Usage
 
-- `**` can be used to match packages at any hierarchy level.
+- `.*` can be used to match packages at any hierarchy level.
 - The `::` separator represents package hierarchy.
 
 ---
@@ -77,7 +77,7 @@ The value must be provided as a JSON array of strings.
 | Criteria                      | Description                                                          |
 |-------------------------------|----------------------------------------------------------------------|
 | `["Requirements"]`            | Includes only the root-level **Requirements** package.               |
-| `["**::Requirements"]`        | Includes all packages named **Requirements** at any hierarchy level. |
+| `[".*::Requirements"]`        | Includes all packages named **Requirements** at any hierarchy level. |
 | `["System::Interfaces"]`      | Includes only the **Interfaces** package under **System**.           |
 | `["02_Logical_Architecture"]` | Includes the complete **02_Logical_Architecture** package hierarchy. |
 
@@ -96,7 +96,7 @@ The value must be provided as a JSON array of strings.
 ## Example Configuration Screen
 
 <p align="center">
-  <img src="../../assets/MBSE/MBSE_Package_Selection_Criteria.png"
+  <img src="../../assets/MBSE/MBSE_package_selection_criteria.png"
        alt="Package Selection Criteria Configuration"
        width="418" height="436"/>
 </p>
