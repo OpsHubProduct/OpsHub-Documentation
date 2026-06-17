@@ -9,15 +9,17 @@ API Keys provide a secure, dedicated credential for programmatic access to the [
   * API Keys are available on the **Professional** and **Ultimate** editions only. To verify your edition, refer to the value shown in the footer of <code class="expression">space.vars.OIM</code>.
 * **API Key Permissions**
   * An API Key inherits the permissions of the user who created it — it cannot be used to perform any action beyond what that user is authorized to do.
-* **Where to Generate**
-  * API Keys are generated and managed from the <code class="expression">space.vars.OIM</code> UI under **Administration → API key**, and can be revoked at any time. Refer to [Generating an API Key](#generating-an-api-key) for the steps.
+* **Where to Create**
+  * API Keys are created and managed from the <code class="expression">space.vars.OIM</code> UI under **Administration → API key**, and can be revoked at any time. Refer to [Create an API Key](#create-an-api-key) for the steps.
 
 ---
 
-## Accessing API Key Management
+## Access API Key Management
 
 1. Click **Administration**.
 2. Select **API key** from the options in the left pane. The **API key** list view opens, showing all keys you have created.
+
+> **Note:** The **My API keys / All API keys** toggle is visible only to administrators (Super Admin or users with **User Management – Write** permission). For more details, refer to [User Access Control](#user-access-control) on this page.
 
 <p align="center">
   <img src="../../assets/APIKey_List_View.png" width="1000"/>
@@ -39,15 +41,24 @@ The list displays the following details for each key:
 
 ---
 
-## Generating an API Key
+## Create an API Key
 
 1. Navigate to **Administration → API key**.
 2. Click the **+** button on the top right corner of the screen.
 
 3. The **Create API Key** form opens. Fill in the following details:
    - **Name** *(required)* — A unique name to identify the key.
-   - **Expires on** *(required)* — A future expiry datetime, no more than **1 year** from the current date. 
-   - Refer to [Field Validations](#field-validations) for the rules and warning messages.
+   - **Expires on** *(required)* — A future expiry datetime, no more than **1 year** from the current date.
+
+### Field Validations
+
+The same validations apply while creating or editing a key. If an entered value does not meet a rule, a warning message is shown and the key is not saved:
+
+| Field          | Validation                                                                               | Warning message                                                                                |
+|----------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| **Name**       | Must be unique.                                                                          | API key name must be unique.                                                                   |
+| **Expires on** | • Must be a future date and time.<br>• Cannot be more than 1 year from the current date. | • Expiry date must be a future datetime.<br>• Expiration date cannot exceed 1 year from today. |
+
 
 <p align="center">
   <img src="../../assets/APIKey_Create_Form.png" width="1000"/>
@@ -67,18 +78,9 @@ The list displays the following details for each key:
 **Important:** For security reasons, the API Key value is shown **only once**. After the pop-up is dismissed, the key value cannot be retrieved again. Be sure to copy and store it in a secure location. If the key is lost, you must generate a new key.
 {% endhint %}
 
-### Field Validations
-
-The same validations apply while creating or editing a key. If an entered value does not meet a rule, a warning message is shown and the key is not saved:
-
-| Field          | Rule                                                                                     | Warning message                                                                                |
-|----------------|------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
-| **Name**       | Must be unique.                                                                          | API key name must be unique.                                                                   |
-| **Expires on** | • Must be a future date and time.<br>• Cannot be more than 1 year from the current date. | • Expiry date must be a future datetime.<br>• Expiration date cannot exceed 1 year from today. |
-
 ---
 
-## Using an API Key
+## Use an API Key
 
 Once generated, an API Key can authenticate requests to the **Admin API** and **MCP** endpoints. Pass the key in one of the following request headers:
 
@@ -103,7 +105,7 @@ On a successful request, the **Last accessed** timestamp of the key is updated a
 
 ---
 
-## Editing an API Key
+## Edit an API Key
 
 An API Key can be edited only while it is in the **Active** state.
 
@@ -121,7 +123,7 @@ An API Key can be edited only while it is in the **Active** state.
 
 ---
 
-## Revoking an API Key
+## Revoke an API Key
 
 You can revoke a key from the **API key** list view by clicking the **✕** button in the **Action** column against that key.
 
