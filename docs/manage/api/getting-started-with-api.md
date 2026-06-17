@@ -42,6 +42,34 @@ Access to API will be available for your instance with URL like below:
 
 **For example** – If the application url of <code class="expression">space.vars.OIM</code> is `http://10.13.20.20:8989/OIM/`, then the Swagger UI will be available at `http://10.13.20.20:8989/OIM/rest/api/docs`.
 
+# Authentication
+
+<code class="expression">space.vars.OIM</code> API supports two authentication methods. You can use either of them in an API request:
+
+## Basic Authentication
+
+- Provide a valid <code class="expression">space.vars.OIM</code> "Username" and "Password" in each API request.
+- In API clients like [postman](https://www.postman.com/), credentials are set in the Authorization section. In the [curl](https://curl.se/) command, they are passed using the `-u` option.
+
+## API Key Authentication
+
+- Instead of sharing a username and password, you can authenticate Admin API requests using an **API Key** — a dedicated, revocable credential generated from the <code class="expression">space.vars.OIM</code> UI. This is the recommended method for automated systems and scripts.
+- Pass the API Key in any **one** of the following request headers:
+
+  ```
+  x-api-key: <api-key>
+  ```
+
+  OR
+
+  ```
+  Authorization: ApiKey <api-key>
+  ```
+
+- If the key is invalid, expired, or revoked, the request returns a **401 Unauthorized** response.
+
+>**Note**: For details on generating, using, editing, and revoking API Keys, refer to [API Key Management](../administrator/api-key-management.md).
+
 # Appendix
 
 ## Validate API feature

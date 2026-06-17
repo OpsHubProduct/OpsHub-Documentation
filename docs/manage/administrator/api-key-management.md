@@ -1,20 +1,20 @@
 
 ## Overview
 
-API Keys provide a secure, dedicated credential for programmatic access to the Admin APIs and MCP integrations — without sharing a user's username and password.
+API Keys provide a secure, dedicated credential for programmatic access to the [Admin APIs](../api/getting-started-with-api.md) and [MCP integrations](../mcp/mcp-home.md) — without sharing a user's username and password.
 
 - API Keys are generated from the <code class="expression">space.vars.OIM</code> UI and can be revoked at any time.
 - An API Key inherits the permissions of the user who created it.
 - API Keys are available on the **Professional** and **Ultimate** editions only. To verify your edition, refer to the value shown in the footer of <code class="expression">space.vars.OIM</code>.
 
-> **Note:** API Key authentication is an additional mechanism and does not replace existing Basic Authentication. After an upgrade, existing authentication flows continue to work unchanged.
+> **Note:** API Key authentication is an additional mechanism and does not replace existing Basic Authentication.
 
 ---
 
 ## Accessing API Key Management
 
 1. Click **Administration**.
-2. Select **API key** from the options. The **API key** list view opens, showing all keys you have created.
+2. Select **API key** from the options in the left pane. The **API key** list view opens, showing all keys you have created.
 
 <p align="center">
   <img src="../../assets/APIKey_List_View.png" width="1000"/>
@@ -22,16 +22,17 @@ API Keys provide a secure, dedicated credential for programmatic access to the A
 
 The list displays the following details for each key:
 
-| Column | Description |
-|--------|-------------|
-| **Name** | The unique label provided when creating the key. |
-| **Created on** | The timestamp when the key was created. |
-| **Expires on** | The configured expiry datetime of the key. |
-| **Last accessed** | The timestamp of the last successful use of the key. |
-| **Status** | The current state of the key: **Active**, **Expired**, or **Revoked**. |
-| **Action** | Option to revoke the key. |
+| Column            | Description                                                            |
+|-------------------|------------------------------------------------------------------------|
+| **Name**          | The unique label provided when creating the key.                       |
+| **Created By**    | The user who created the key**                                         |
+| **Created on**    | The timestamp when the key was created.                                |
+| **Expires on**    | The configured expiry datetime of the key.                             |
+| **Last accessed** | The timestamp of the last successful use of the key.                   |
+| **Status**        | The current state of the key: **Active**, **Expired**, or **Revoked**. |
+| **Action**        | Option to revoke the key.                                              |
 
-> **Note:** The actual API Key value is never shown here — only its metadata.
+> **Note:** The actual API Key value is never shown here — its only metadata.
 
 ---
 
@@ -84,8 +85,6 @@ On a successful request, the **Last accessed** timestamp of the key is updated a
   "stackTrace": null
 }
 ```
-
-> **Note:** An API Key inherits the permissions of the user who generated it. It cannot be used to perform any action beyond what that user is authorized to do.
 
 ---
 
@@ -140,9 +139,9 @@ A newly created key starts in the **Active** state. **Expired** and **Revoked** 
 
 ---
 
-## Auditing
+## Audits
 
-All actions performed on API Keys are logged and can be viewed from the **API key audits** screen. Each audit entry captures the **Name**, **Author**, **Change Time**, **Revision Type**, and changed field values (**Old Value** / **New Value**).
+All actions performed on API Keys are logged and can be viewed from the **API key audits** screen. Each audit entry captures the **Name**, **Author**, **Change Time**, **Revision Type**, and changed field values.
 
 The following events are audited:
 
@@ -162,10 +161,10 @@ The following events are audited:
 
 ## Known Behaviors and Limitations
 
-| Behavior | Detail |
-|----------|--------|
-| **Key shown once** | After generation, the key value cannot be retrieved. A new key must be generated if it is lost. |
-| **Revocation is immediate** | Once revoked, a key cannot be restored. A new key must be generated if needed. |
-| **No key rotation** | In-place key rotation is not supported. Generate a new key and revoke the old one. |
+| Behavior                          | Detail                                                                                             |
+|-----------------------------------|----------------------------------------------------------------------------------------------------|
+| **Key shown once**                | After generation, the key value cannot be retrieved. A new key must be generated if it is lost.    |
+| **Revocation is immediate**       | Once revoked, a key cannot be restored. A new key must be generated if needed.                     |
+| **No key rotation**               | In-place key rotation is not supported. Generate a new key and revoke the old one.                 |
 | **No per-key permission scoping** | API Keys inherit the generating user's full permissions — granular scope control is not supported. |
-| **Deleted user keys** | All API Keys of a deleted user are revoked automatically and cannot be reactivated. |
+| **Deleted user keys**             | All API Keys of a deleted user are revoked automatically and cannot be reactivated.                |

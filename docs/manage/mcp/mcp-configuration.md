@@ -18,7 +18,7 @@ Credentials can be passed in one of the following ways in your client configurat
 
 ## Option 1 — API Key header (recommended)
 
-Use an API Key generated from the <code class="expression">space.vars.OIM</code> UI. This is the most secure option as the key is dedicated, revocable, and keeps your user credentials out of configuration files entirely. Pass it via the `x-api-key` header:
+Use an API Key generated from the <code class="expression">space.vars.OIM</code> UI. Refer to [API Key Management](api-key-management.md) for details. This is the most secure option as the key is dedicated, revocable, and keeps your user credentials out of configuration files entirely. Pass it via the `x-api-key` header:
 
 ```json
 {
