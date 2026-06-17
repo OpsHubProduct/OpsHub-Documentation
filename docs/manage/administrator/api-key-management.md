@@ -46,8 +46,8 @@ The list displays the following details for each key:
 
 3. The **Create API Key** form opens. Fill in the following details:
    - **Name** *(required)* — A unique name to identify the key.
-   - **Expires on** *(required)* — A future expiry datetime, no more than **1 year** from the current date.
-   Refer to [Field Validations](#field-validations) for the rules and warning messages.
+   - **Expires on** *(required)* — A future expiry datetime, no more than **1 year** from the current date. 
+   - Refer to [Field Validations](#field-validations) for the rules and warning messages.
 
 <p align="center">
   <img src="../../assets/APIKey_Create_Form.png" width="1000"/>
