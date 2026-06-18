@@ -261,6 +261,8 @@
             * [Create Branch](docs/mbse-sdk/branch/create-branch.md)
             * [Delete Branch](docs/mbse-sdk/branch/delete-branch.md)
             * [Merge Branch](docs/mbse-sdk/branch/merge-branch.md)
+        * File APIs
+            * [Get File](docs/mbse-sdk/file/file-get.md)
     * [Register Connectors](docs/mbse-sdk/register-connectors.md)
     * [Developer Notes](docs/mbse-sdk/developer-notes.md)
     * OIM Configuration for MBSE
