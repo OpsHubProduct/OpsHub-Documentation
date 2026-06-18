@@ -15,6 +15,7 @@ There are a few limitations that are common across all connectors. The limitatio
   - The inline image from an entity of the source system synchronizes as a broken image to the target system, given that the embedded inline image URL in the source system is not accessible/reachable from the machine on which <code class="expression">space.vars.OIM</code> is installed while the entity is getting synchronized. In that case, the inline image synchronizes to the target system without transformation in the URL corresponding to the target system. As a result, the synchronized image is broken.
   - Synchronization of the height and width of the inline image is performed only for HTML-supported systems.
   - If the same image is referred to more than once with a different height and width, then only the size of the last image is synchronized with all the images on the target side.
+  - When JEditor is configured in source for any field, its upload storage must not be set to attach uploads at the entity level. Since the URI of an entity-level attachment differs from the URI of an inline image, this configuration can result in duplicate attachments being created on the target system during synchronization.
 
 - **Comment Synchronization Behaviour (Edited Comments)**
   - Consider the following scenario:
