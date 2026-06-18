@@ -38,7 +38,7 @@ Use this matrix as a quick reference to understand API coverage.
 | Processing Failure   | ✅  | —    | ✅  | ✅   | ✅ | ✅      | —                                                         |
 | Global Failure       | ✅  | —    | —   | ✅   | ✅ | —       | —                                                         |
 | Failure Notification | ✅  | ✅    | ✅  | ✅   | —  | —       | —                                                         |
-| Sync Report          | —  | —    | —   | —    | ❌ | —       | —                                                         |
+| Sync Report          | —  | —    | —   | —    | ✅ | —       | —                                                         |
 | Audits               | —  | —    | —   | —    | ❌ | —       | —                                                         |
 
 ---
