@@ -58,7 +58,7 @@ Example failure message:
 Unable to update the element with elementId: {elementId}, as is currently locked by {john.doe} user. Please retry after the element is unlocked.
 ```
 
-If multiple entities are locked, OIM displays affected element IDs and summarizes additional locked entities when applicable.
+If multiple entities are locked, OIM displays affected element IDs and summarizes additional locked entities when applicable in the processing failure error message.
 
 ---
 
@@ -82,13 +82,6 @@ This may result in:
 * Loss of in-progress edits.
 
 Select **Sync** only when uninterrupted synchronization is preferred over preserving active user modifications.
-
----
-
-## Behavior Notes
-
-* **Create Failure** is the default behavior.
-* Locked entities that fail synchronization can be retried after unlocking.
 
 ---
 
