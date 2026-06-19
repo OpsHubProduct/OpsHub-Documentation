@@ -65,7 +65,8 @@ Empty cells in the "Order of Implementation" column indicate optional APIs.
 4. Revision APIs
 5. Element CRUD APIs
 6. Relation APIs
-7. Branch APIs (if applicable)
+7. File APIs
+8. Branch APIs (if applicable)
 
 This order ensures:
 
