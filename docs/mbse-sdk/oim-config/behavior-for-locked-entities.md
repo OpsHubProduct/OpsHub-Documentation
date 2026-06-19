@@ -12,7 +12,7 @@ This configuration helps user to balance between protecting user changes and mai
 ---
 ## How to Configure
 
-1. Click on Edit Integration Page.
+1. Navigate to the integration create/edit screen as mentioned below.
     
    <p align="center">
      <img src="../../assets/MBSE/MBSE_IntegrationScreen.png" width="900" />

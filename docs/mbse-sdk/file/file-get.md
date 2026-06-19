@@ -50,13 +50,13 @@ GET: /mbse/api/1.0/content
 Connector must implement:
 
 ```java
-InputStream getFileContent(String fileLocationUri)
+void getFileContent(String fileLocationUri)
 ```
 
 ### Method Behavior
 
 * Accept `fileLocationUri` as input.
-* Return the content as `InputStream`.
+* Return the content as `InputStream` in the servlet response.
 
 
 ---
@@ -65,19 +65,18 @@ InputStream getFileContent(String fileLocationUri)
 
 1. `projectId` must be validated before retrieving content.
 2. `fileLocationUri` must be present.
-3. Connector must not modify file content.
-4. File content should be streamed directly whenever possible.
-5. Avoid loading entire files into memory for large files.
-6. If file cannot be found:
+3. File content should be streamed directly whenever possible.
+4. Avoid loading entire files into memory for large files.
+5. If file cannot be found:
 
     * Return HTTP `404 Not Found`
-7. If access is denied:
+6. If access is denied:
 
     * Return HTTP `403 Forbidden`
-8. If file retrieval fails:
+7. If file retrieval fails:
 
     * Return HTTP `500 Internal Server Error`
-9. Connector must close streams appropriately after transfer completion.
+8. Connector must close streams appropriately after transfer completion.
 
 ---
 
@@ -127,7 +126,6 @@ projectId=123
 
 * Do not transform or decode file bytes.
 * Use streaming APIs where supported.
-* Support both URL-based and file-path-based retrieval.
 * Handle large files efficiently.
 * Ensure streams are properly closed after transmission.
 
