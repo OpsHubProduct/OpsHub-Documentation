@@ -20,7 +20,6 @@ The **Behavior for Locked Entities** configuration controls how OIM responds in 
 This setting allows teams to choose between preserving active user modifications and maintaining uninterrupted synchronization.
 
 ---
-
 ## Configuration Steps
 
 1. Navigate to **Configuration Integrations**.
