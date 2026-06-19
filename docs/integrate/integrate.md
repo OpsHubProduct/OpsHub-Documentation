@@ -40,10 +40,6 @@ if: >-
       <td><a href="best-practises.md">Best Practices</a></td>
     </tr>
     <tr>
-      <td align="center"><mark style="color:#555555"><strong>📊 Integration Sync Report</strong></mark></td>
-      <td><a href="sync-report.md">Integration Sync Report</a></td>
-    </tr>
-    <tr>
       <td align="center"><mark style="color:#555555"><strong>🚫 Known Behaviours and Limitations</strong></mark></td>
       <td><a href="known-behaviours-and-limitations.md">Limitations</a></td>
     </tr>

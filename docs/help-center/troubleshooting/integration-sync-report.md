@@ -37,32 +37,43 @@ The Integration Sync Report includes:
 - **No. of Failures:** This column shows the number of failed events for a given entity. By clicking on the number, you will be navigated to failed events for that entity.  
 
 <p align="center">
-  <img src="../../assets/Report-Image-3a.png"/>
+  <img src="../../assets/Integration_Report_OneIntegration.png"/>
 </p>
 
 # Filtering an Integration Sync Report
 
 You can filter data from an Integration Sync Report by using the following parameters:
 
+- **Filter On Folder:** Search all the synced entities which belongs to current folder's integrations
+- **Select Integrations:** The dropdown where you can select multiple integrations, to search synced entities of selected integrations.
 - **Source Entity Id:** Search the entity by providing Source Entity Id  
 - **Source Project Name:** Search the records with the source project name specified in the field  
 - **Target Project Name:** Search the records with the target project as specified in the field  
 - **Last Processed Time:** Search the entities with the Last Processed time between the range specified in the **Last Processed Time From** and **Last Processes Time To** fields  
 - **Target Entity Id:** Search the entity by providing the Target Entity Id  
 - **Source Entity Sync State:** Search the records with the source entity sync [state](#state) specified in the field  
-- **Target Entity Sync State:** Search the records with the target entity sync [state](#state) specified in the field  
-
-<p align="center">
-  <img src="../../assets/Report-Image-4a.png"/>
-</p>
+- **Target Entity Sync State:** Search the records with the target entity sync [state](#state) specified in the field
 
 Enter the details in the field that you want to use for filtering the data. Then, click the **Search** button.
 
+<p align="center">
+  <img src="../../assets/multiple_integration_report_view.png" />
+</p>
+
+- If you turn on the filter on folder, below is the example.
+
+<p align="center">
+  <img src="../../assets/Filter_on_folder_report.png" />
+</p>
+
 # Some Key Points to Note
 
-- Project column remains empty for the system that doesn't have the concept of projects. If the system has the concept of projects and the project column is empty, it means the entity has not yet synchronized to the target system.  
+- Project column remains empty for the system that doesn't have the concept of projects. If the system has the concept of projects and the project column is empty, it means the entity has not yet synchronized to the target system.
+- In case of selecting multiple integration, maximum 50 integrations can be selected at a time.
+- In case of exporting synced entity data, Maximum 65000 details can be exported at a time.
 - In case of migration or up-gradation the value of the column **Last Processed Time** for already synced entity is the time at which migration runs and **Project** remains empty.  
-- In case of integration, if any entity has failure(s) on **Create event**, then **Last Updated in `<Source>` System, `<Target>` Entity Id and `<Target>` Project** columns remain empty for that record.  
+- In case of integration, if any entity has failure(s) on **Create event**, then **Last Updated in `<Source>` System, `<Target>` Entity Id and `<Target>` Project** columns remain empty for that record.
+
 
 # Glossary
 
