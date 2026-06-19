@@ -10,12 +10,12 @@ This configuration helps organizations balance between protecting user changes a
 
 ## Overview
 
-During synchronization, OIM may encounter entities in the target system that are currently locked by another user.
+During synchronization write operations, OIM may encounter entities in the system that are currently locked by non-integration user.
 
 The **Behavior for Locked Entities** configuration controls how OIM responds in this scenario:
 
 * **Create Failure (default)** — OIM stops synchronization for the locked entity and reports a processing failure.
-* **Sync** — OIM proceeds with synchronization and writes changes even if the target entity is locked.
+* **Sync** — OIM proceeds with synchronization and writes changes even if the entity is locked.
 
 This setting allows teams to choose between preserving active user modifications and maintaining uninterrupted synchronization.
 
@@ -34,21 +34,21 @@ This setting allows teams to choose between preserving active user modifications
 
 ## Available Options
 
-| Option                       | Behavior                                                                                       |
-| ---------------------------- | ---------------------------------------------------------------------------------------------- |
-| **Create Failure (Default)** | Stops synchronization when the target entity is locked and creates a processing failure.       |
-| **Sync**                     | Continues synchronization and updates the target entity even when the target entity is locked. |
+| Option                       | Behavior                                                                                                  |
+| ---------------------------- |-----------------------------------------------------------------------------------------------------------|
+| **Create Failure (Default)** | Stops synchronization when the entity is locked by non-integration user and creates a processing failure. |
+| **Sync**                     | Continues synchronization and updates the entity even when it is locked.                                  |
 
 ---
 
 ## How It Works
 
-When OIM attempts to update an entity in the target system:
+When OIM attempts to update an entity in the system:
 
 ### Create Failure (Default)
 
-* OIM checks whether the target entity is currently locked.
-* If the entity is locked by another user, synchronization for that entity is stopped.
+* OIM checks whether the entity is currently locked, by non-integration user.
+* If the entity is locked by non-integration user, synchronization for that entity is stopped.
 * A processing failure is generated.
 * Synchronization can be retried after the entity is unlocked.
 
@@ -66,7 +66,7 @@ If multiple entities are locked, OIM displays affected element IDs and summarize
 
 * OIM ignores lock validation.
 * Synchronization continues normally.
-* Changes are written to the locked target entity.
+* Changes are written to the locked entity.
 
 ---
 
@@ -74,11 +74,11 @@ If multiple entities are locked, OIM displays affected element IDs and summarize
 
 > ⚠️ **Use the Sync option carefully**
 
-When **Sync** is selected, OIM updates entities even if another user currently holds a lock in the target system.
+When **Sync** is selected, OIM updates entities even if another non-integration user currently holds a lock in the system.
 
 This may result in:
 
-* Overwriting changes actively being performed by users in the target system.
+* Overwriting changes actively being performed by users in the system.
 * Loss of in-progress edits.
 
 Select **Sync** only when uninterrupted synchronization is preferred over preserving active user modifications.
