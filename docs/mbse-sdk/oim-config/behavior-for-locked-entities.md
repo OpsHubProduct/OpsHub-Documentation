@@ -1,35 +1,34 @@
 # Behavior for Locked Entities
 
-OpsHub Integration Manager (OIM) provides a configurable option to control synchronization behavior when the target system entity is currently locked by another user.
-
-The **Behavior for Locked Entities** setting determines whether synchronization should stop with a processing failure or continue and update the target entity.
-
-This configuration helps organizations balance between protecting user changes and maintaining uninterrupted synchronization.
-
----
 
 ## Overview
 
-During synchronization write operations, OIM may encounter entities in the system that are currently locked by non-integration user.
+OpsHub Integration Manager (OIM) provides a configurable option to control synchronization behavior when the target system entity is currently locked by another user.
 
-The **Behavior for Locked Entities** configuration controls how OIM responds in this scenario:
+The **Behavior for Locked Entities** configurations helps user determine whether synchronization should wait  till the entity is unlocked or overwrite the lock and make the updates the target entity
 
-* **Create Failure (default)** — OIM stops synchronization for the locked entity and reports a processing failure.
-* **Sync** — OIM proceeds with synchronization and writes changes even if the entity is locked.
-
-This setting allows teams to choose between preserving active user modifications and maintaining uninterrupted synchronization.
+This configuration helps user to balance between protecting user changes and maintaining uninterrupted synchronization.
 
 ---
-## Configuration Steps
+## How to Configure
 
-1. Navigate to **Configuration Integrations**.
-2. Select the required integration to open the integration configuration page.
-3. Click the **Global Configuration** icon.
-4. In the **Global Level Advanced Configuration** section, locate **Behavior for Locked Entities**.
-5. Select the required synchronization behavior.
-6. Click **Save** to apply the configuration.
+1. Click on Edit Integration Page.
+    
+   <p align="center">
+     <img src="../../assets/MBSE/MBSE_IntegrationScreen.png" width="900" />
+   </p>
+2. Click the **Global Configuration** icon.
 
----
+   <p align="center">
+     <img src="../../assets/Integration_Configuration_Image_23a.png" width="900" />
+   </p>
+3. In the **Global Level Advanced Configuration** section, locate **Behavior for Locked Entities**.
+
+<p align="center">
+  <img src="../../assets/MBSE/MBSE_behavior_for_locked_entities.png"
+       alt="Package Selection Criteria Configuration"
+       width="418" height="436"/>
+</p>
 
 ## Available Options
 
@@ -39,11 +38,6 @@ This setting allows teams to choose between preserving active user modifications
 | **Sync**                     | Continues synchronization and updates the entity even when it is locked.                                  |
 
 ---
-
-## How It Works
-
-When OIM attempts to update an entity in the system:
-
 ### Create Failure (Default)
 
 * OIM checks whether the entity is currently locked, by non-integration user.
@@ -59,17 +53,11 @@ Unable to update the element with elementId: {elementId}, as is currently locked
 
 If multiple entities are locked, OIM displays affected element IDs and summarizes additional locked entities when applicable in the processing failure error message.
 
----
-
 ### Sync
 
 * OIM ignores lock validation.
 * Synchronization continues normally.
 * Changes are written to the locked entity.
-
----
-
-## Important Considerations
 
 > ⚠️ **Use the Sync option carefully**
 
@@ -82,14 +70,5 @@ This may result in:
 
 Select **Sync** only when uninterrupted synchronization is preferred over preserving active user modifications.
 
----
 
-## Example Configuration Screen
-
-<p align="center">
-  <img src="../../assets/MBSE/MBSE_behavior_for_locked_entities.png"
-       alt="Package Selection Criteria Configuration"
-       width="418" height="436"/>
-</p>
-
----
+4. Click **Save** to apply the configuration.
