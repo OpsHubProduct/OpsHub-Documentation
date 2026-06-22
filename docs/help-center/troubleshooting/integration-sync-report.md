@@ -7,6 +7,8 @@ if: >-
 
 Integration Sync Report provides the information for each entity synchronized by <code class="expression">space.vars.OIM</code>. The report gives insight into which entity from which project in the source system has synchronized to which project in the target system. The report also shows source entities ids and target entities ids. You can also navigate to the failed event of a particular entity from this report. Each integration has a separate Integration Sync Report.
 
+The Global Sync Report provides a comprehensive view of all synced entities across integrations and folders. It allows users to monitor, filter, and analyze synchronization data in one place. Users can apply filters to narrow down results or reset them to view the complete global dataset. Access to data is restricted based on user permissions
+
 # How to navigate to the Integration Sync Reports
 
 To view the report for any integration, go to an integration, click the **Show List** button. From the list, click **Last Event ID** or **Last Event Time** button.  
@@ -26,7 +28,8 @@ The integration sync report is divided into two panes:
 2. **Deprecated/Deleted Entities** : Report of the entities which are synchronized under the Delete events.
 
 The Integration Sync Report includes:  
-- **Source Entity Id:** This column shows the entity id of the source system  
+- **Integration:** This column shows the integration name of the synced entity.  
+- **Source Entity Id:** This column shows the entity id of the source system
 - **Source Project Name:** This column shows the name of the project from which entity gets polled by <code class="expression">space.vars.OIM</code>  
 - **Source Entity Sync State:** This column shows the [state](#state) of the entity in the source system  
 - **Last Updated in Source:** This column shows the last updated time for the given entity in the source system  
@@ -44,8 +47,8 @@ The Integration Sync Report includes:
 
 You can filter data from an Integration Sync Report by using the following parameters:
 
-- **Filter On Folder:** Search all the synced entities which belongs to current folder's integrations
-- **Select Integrations:** The dropdown where you can select multiple integrations, to search synced entities of selected integrations.
+- **Filter On Folder:** Search all the synced entities which belongs to current folder's integrations.
+- **Select Integrations:** The dropdown allows users to select one or more integrations to search for synchronized entities associated with the selected integrations.By default, the integration from which the user is redirected will be preselected. Users can select multiple integrations across different folders as needed. 
 - **Source Entity Id:** Search the entity by providing Source Entity Id  
 - **Source Project Name:** Search the records with the source project name specified in the field  
 - **Target Project Name:** Search the records with the target project as specified in the field  
@@ -64,6 +67,26 @@ Enter the details in the field that you want to use for filtering the data. Then
 
 <p align="center">
   <img src="../../assets/Filter_on_folder_report.png" />
+</p>
+
+# How to View Global Sync Report
+
+- To access the Global Sync Report, ensure that all filters, including the integration selection, are cleared.
+- Use the Reset option to efficiently remove all applied filters and display the complete dataset.
+- The report displays only the data for which the user has been granted appropriate access permissions.
+- Users can apply filters to view and analyze synchronized entities across various integrations and folders as required.
+
+<p align="center">
+  <img src="../../assets/global_sync_report.png" />
+</p>
+
+# Export Functionality
+
+- The report can be exported by clicking the Export button, which provides options to download the data in Excel or PDF format.
+- The exported file includes all currently displayed data across all pages, based on the selected export format.
+
+<p align="center">
+  <img src="../../assets/export_sync_report.png" />
 </p>
 
 # Some Key Points to Note
