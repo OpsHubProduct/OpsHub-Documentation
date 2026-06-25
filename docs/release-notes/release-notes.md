@@ -1,45 +1,42 @@
-{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}   
+{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}
 
-# New Version(s)
-* Angular: 16.x
+# New Entities
+## Jama
+* Bidirectionally sync the Releases entity
 
-# New Entities(s)
-* Windchill PLM: Subtypes for Problem reports
-
+## SolarWinds Service Desk
+* Bidirectionally sync the Task entity
+ 
 # Enhancements
-
 ## Common
-* Improved Transitions & Dependencies to ensure dependent field validations are enforced during item updates.
-
-## GitHub
-* Enhanced the Pull Request entity synchronization process.
-
-# Major Bug Fixes
-
-## Common
-* Resolved an issue where upgrading <code class="expression">space.vars.OIM</code> to 7.225 failed on PostgreSQL databases when only an administrator account with full permissions was configured.
-* Resolved a performance issue that caused mapping configurations with more than 60 mapped fields to load slower than expected.
-* Resolved an issue where APIRequestLocker generated the error: "java.lang.IllegalArgumentException: Start value must be smaller or equal to end value".
-
-## Aha
-* When Aha is configured as the source: 
-  * Resolved an issue where user mentions were not correctly identified for deleted Aha users.
-  * Resolved an issue where history records for the same field were automatically grouped when updates occurred within a five-minute interval.
-  * Resolved a Null Pointer Exception that occurred when retrieving projects without receiving a successful response from Aha.
+* Added support for API token-based authentication for OIM MCP Server and OIM Admin APIs  
+* Introduced a global sync report with a consolidated view across all integrations 
+	* Added OIM Admin API support to retrieve sync report data for offline analysis and reporting  
 
 ## Azure DevOps Server/Services
-* Resolved an issue where Owner details were not synchronized correctly in Release Pipeline entities.
-* Resolved an issue where Start Date and Finish Date values were not updated correctly for Test Plan entities.
+* Added support to sync process parameters for Build Pipelines  
 
-## Broadcom Rally Software
-* Resolved an issue where a recovery failure triggered duplicate milestone creation requests.
+# Major Bug Fixes
+## Common
+* Resolved an issue where field mapping could not be saved when mapping reference fields with more than 100 values
+* Resolved an issue where the entity internal ID was displayed in the Remote ID/Link reconciliation.
+
+## Jira
+* Resolved an issue where inline attachments were not synchronized when rich text fields or comment were overridden using Jeditor.
+* Resolved an edge case where work items could be linked to the wrong Jira issue during synchronization  
+  * In rare cases, when Jira delayed making newly created issues available in API.
 
 {% endif %}  
 
 {% if "OM4ADO" === visitor.claims.unsigned.product %}  
 
 # Major Bug Fixes
-* Resolved an issue where Owner details were not migrated correctly in Release Pipeline entities.
-* Resolved an issue where Start Date and Finish Date values were not migrated correctly for Test Plan entities.
+
+* Resolved an issue where Epics failed during migration when their Id matched a Release Pipeline ID in the same project  
+* Resolved an issue where Release Pipeline creation failed when projects were remapped, as it was linked to the wrong Build Pipeline. 
+* Resolved an issue where Build Pipeline creation failed when linked to a repository from another project  
+
+# Enhancements
+* Added support to sync process parameters for Build Pipelines  
 
 {% endif %}
