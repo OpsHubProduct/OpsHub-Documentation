@@ -26,7 +26,7 @@ Refer to the following screenshot with Authentication Mode as Global OAuth Refre
 
 ![Zendesk System Global OAuth Refresh Token](../assets/Zendesk_System_4.png)
 
-### Zendesk System form details
+## Zendesk System form details
 | **Field Name**                 | **When field is visible on the System form** | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                              |
 |--------------------------------|----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **System Name**                | Always                                       | Provide System name                                                                                                                                                                                                                                                                                                                                                                                                                          |
@@ -38,6 +38,30 @@ Refer to the following screenshot with Authentication Mode as Global OAuth Refre
 | **OAuth Access Token**         | OAuth Access Token mode selected             | Provide Zendesk OAuth Access Token. Refer [Generating OAuth Access Token Through UI](https://support.zendesk.com/hc/en-us/articles/4408845965210-Using-OAuth-authentication-with-your-application) or [Generating OAuth Access Token through API](https://developer.zendesk.com/documentation/ticketing/working-with-oauth/creating-and-using-oauth-tokens-with-the-api/) to generate **OAuth Access Token** in Zendesk server.              |
 | **Global OAuth Refresh Token** | Global OAuth Refresh Token mode selected     | Provide the Zendesk Global OAuth Refresh Token. Refer to [Generating Global OAuth Refresh Token](#generating-global-oauth-refresh-token) to generate the **Global OAuth Refresh Token**. Refer to [Known Limitations](#known-limitations) to understand limitation of this auth mechanism.                                                                                                                                                   |
 | **Zendesk Link Field Name**    | Always                                       | Provide the link field name that denotes the Parent - Child link. Refer to [Determine the Parent - Child Link field name](#determine-the-parent---child-link-field-name) section                                                                                                                                                                                                                                                             |
+## Authentication Policy
+
+### Overview
+
+Zendesk has updated its authentication standards to improve security and align with modern best practices. OAuth with refresh token support (Global Oauth) is the recommended authentication mechanism for secure and scalable integrations. For more details refer to [Security and authentication](https://developer.zendesk.com/documentation/api-basics/authentication/).
+
+### OpsHub New Installations
+
+All new integrations must use **Global OAuth Refresh Token** as the authentication mode.
+
+This approach ensures secure access by using short-lived tokens and automatic token refresh.
+
+### Existing Integrations
+
+The following authentication modes are now deprecated:
+
+- API Token
+- OAuth Access Token
+
+These modes will remain supported only for a limited transition period of **3 months**.
+
+After this period, they will be disabled in alignment with Zendesk's authentication updates.
+
+Customers are strongly advised to migrate to **Global OAuth Refresh Token** to avoid service disruption.
 
 If the system is deployed on HTTPS and a self-signed certificate is used, then you will have to import the SSL Certificate to be able to access the system from <code class="expression">space.vars.OIM</code>. Click [Import SSL Certificates](../getting-started/ssl-certificate-configuration.md) to learn how to import SSL certificate.
 
