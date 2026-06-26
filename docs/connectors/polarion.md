@@ -12,6 +12,21 @@ if: >-
   - You can find this file in Polarion installed directory at: 
       - `@POLARION_INSTALLATION_PATH@\polarion\configuration`
   - Refer [Polarion API Reference](https://docs.sw.siemens.com/en-US/doc/230235217/PL20241023686685479.polarion_help_sc.xid2134849/xid2137943) for more details.
+* **Library Setup for Polarion Connectivity:**
+    
+   To connect <code class="expression">space.vars.OIM</code> with Polarion, a required library needs to be added in <code class="expression">space.vars.OIM</code>'s installation folder.
+    
+    **Why this is needed:**
+    
+    The Polarion web service client used by <code class="expression">space.vars.OIM</code> depends on Apache Axis. Without this library, the connection will not work.
+    
+    **Steps:**
+    1. Download the required file 
+        * Download the **axis-1.3.jar** file from the Apache Axis 1.3 package available on Maven Repository.
+        * Download link: [axis-1.3.jar](https://mvnrepository.com/artifact/axis/axis/1.3).
+    2. Copy the file to the correct location
+        * Place the downloaded file in the following folder:
+          `<opshub_installation_directory>\OpsHubServer\bundle_config\POLARION_LIB`
 
 ## User Privileges
 * Create a user in Polarion that is dedicated for <code class="expression">space.vars.OIM</code>. This user shouldn't perform any other action from Polarion's user interface.
