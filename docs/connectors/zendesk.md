@@ -42,7 +42,7 @@ Refer to the following screenshot with Authentication Mode as Global OAuth Refre
 
 ### Overview
 
-Zendesk has updated its authentication standards to improve security and align with modern best practices. OAuth with refresh token support (Global Oauth) is the recommended authentication mechanism for secure and scalable integrations. For more details refer to [Security and authentication](https://developer.zendesk.com/documentation/api-basics/authentication/).
+Zendesk has updated its authentication standards to improve security and align with modern best practices. OAuth with refresh token support (Global Oauth) is the recommended authentication mechanism for secure and scalable integrations.
 
 ### OpsHub New Installations
 
