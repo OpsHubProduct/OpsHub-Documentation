@@ -328,7 +328,7 @@ Given below are the systems supported currently by <code class="expression">spac
         </tr>
         <tr>
             <td>43</td>
-            <td>Jira QMetry**</td>
+            <td>Jira QMetry*</td>
             <td>On Premise: QMetry 3.X, Build 4.6.1</td>
             <td>Test Case, Test Scenario, Test Run, QMetry Test Execution</td>
             <td></td>
@@ -336,7 +336,7 @@ Given below are the systems supported currently by <code class="expression">spac
         <tr>
             <td>44</td>
             <td>Jira R4J</td>
-            <td>4.4.x–4.18.4</td>
+            <td>Cloud,<br/> On Premise*: 4.4.x–4.18.4</td>
             <td>Folders, R4J Relationships (Folders ↔ Jira Issues)</td>
             <td></td>
         </tr>
@@ -356,7 +356,7 @@ Given below are the systems supported currently by <code class="expression">spac
         </tr>
         <tr>
             <td>47</td>
-            <td>Jira Stagil Assets Management</td>
+            <td>Jira Stagil Assets Management*</td>
             <td>On Premise: Stagil Assets – Advanced Link 5.0.86</td>
             <td>All Entities Supported By <code class="expression">space.vars.OIM</code> In JIRA</td>
             <td></td>
@@ -539,13 +539,13 @@ Given below are the systems supported currently by <code class="expression">spac
         <tr>
             <td>73</td>
             <td>Tricentis qTest</td>
-            <td>Cloud (All)<br/>On Premise: 8.4.2–2023.x.x</td>
+            <td>Cloud*,<br/>On Premise: 8.4.2–2023.x.x</td>
             <td>Defect, Requirement, Testcase, Testlog, Release, Test Suite, Test Run, Module, Test Cycle, Build (read only)</td>
             <td>QA Symphony</td>
         </tr>
         <tr>
             <td>74</td>
-            <td>Tricentis Tosca</td>
+            <td>Tricentis Tosca*</td>
             <td>2023.2, 2024.2 (x64) - 2025.1 (x64)</td>
             <td>TestCase, ExecutionTestCaseLog (read), ExecutionEntry, TCFolder, Requirement, RequirementSet, Issue, Module</td>
             <td></td>
