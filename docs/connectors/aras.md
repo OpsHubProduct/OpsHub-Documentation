@@ -242,6 +242,7 @@ Set polling time as the time after which the user wants to synchronize data betw
 3. Search for the ItemType that you want to make versionable.
 4. Open the Item Type in edit mode.
 5. Check the **Versionable** checkbox under Versioning.
+6. Select **Automatic** in the drop-down list of **Discipline**.
 
 <div align="center"><img src="../assets/Aras_versionable_5.png" alt="" width="1250"></div>
 
