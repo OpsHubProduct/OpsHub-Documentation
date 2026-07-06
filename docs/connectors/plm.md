@@ -235,12 +235,6 @@ The Metadata Details' field accepts configuration in JSON format. Here's a templ
 ```
 ---
 
-# Supported Entities
-
-Currently, this integration supports:
-
-- **Issue** (Soft types / Subtypes of Problem Reports)
->**Note**: Entity support will be enhanced in the future, with additional Windchill PLM objects incorporated based on evolving business needs and priorities.
 ---
 # Mapping Configuration
 
@@ -334,7 +328,6 @@ Here:
 * History-based synchronization is currently not supported. Each synchronization run captures the latest version of an item available at that time.
 * Only those attachments will be synchronized which are uploaded to the items using the `Attach new local file` option.
 * Comments and discussions' synchronization is not supported.
-* Relationship/Link information can be read and synchronized, but new relationships/links cannot be created or modified through the integration.
 * Any new items created by the integration are placed in the base folder of the product or library container.
   * Once the item is created in base folder, they cannot be moved to a different folder through integration.
 * Currently, fields that appear in an **Item's Details** tab will be synchronized.
@@ -346,6 +339,17 @@ Here:
   * Reason: Windchill PLM's API does not handle single quotes in product names correctly, leading to the errors during synchronization.
 * To prevent ambiguity during synchronization, ensure that Products and Libraries have distinct names.
   * Reason: Windchill PLM’s Search Entities API relies on container name and does not provide a mechanism to differentiate between Product and Library, resulting in Issues from both being returned when names are identical.
+* Link synchronization:
+  * Parts and their subtypes support bidirectional link synchronization. For all other supported PLM entities, only link retrieval (read) is supported due to Windchill API limitations.
+  * Issue and Change Requests: **Affected End Items** and **Affected Objects** links' read & write are not supported due to current API limitations.
+* For Parts and its subtypes:
+  * Updates to the following fields and link type are synchronized only after an additional update is made to the part:
+     * Common fields: Name, Number, Default Trace Code, Default Unit, End Item, Gathering Part, Configuration Module, and Phantom Manufacturing Part
+     * Link type: Alternate links
+         * Reason: Updating these fields and link type do not modify the part's "Last Modified" timestamp, so the synchronization process cannot detect them until a later update changes the timestamp.
+* For Engineering Materials:
+  1. Individual subtypes cannot be synchronized independently. Consequently, subtype-specific fields are not supported due to current API limitations. All subtypes will be synced as part of Parent Engineering Material integration only with its set of fields only.
+  2. Link and attachment synchronization is not supported due to current API limitations.
 ---
 
 # Appendix
