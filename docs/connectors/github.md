@@ -29,45 +29,14 @@ Refer to section [Creating Personal Access Token](#create-personal-access-token)
 
 The following set of permissions are required while creating token:
 
-<table>    
-    <th>Entity Type</th>
-    <th>Scope</th>
-    <th>Permission</th>
-    <th>Access</th>
-  <tr>
-    <td rowspan="2"><strong>Commit</strong></td>
-    <td>Repository</td>
-    <td>Commit statuses, Contents</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Members</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td rowspan="2"><strong>Pull Request</strong></td>
-    <td>Repository</td>
-    <td>Merge queues, Pull requests, Discussions</td>
-    <td>Read and write</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Members</td>
-    <td>Read and write</td>
-  </tr>
-  <tr>
-    <td rowspan="2"><strong>Issue</strong></td>
-    <td>Repository</td>
-    <td>Issues, Contents, Discussions</td>
-    <td>Read and write</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Issue fields, Issue types, Projects, Members</td>
-    <td>Read and write</td>
-  </tr>
-</table>
+| Entity Type | Scope | Permission | Access |
+|-------------|--------|------------|--------|
+| **Commit** | Repository | Commit statuses, Contents | Read-only |
+|  | Organization | Members | Read-only |
+| **Pull Request** | Repository | Merge queues, Pull requests, Discussions | Read and write |
+|  | Organization | Members | Read and write |
+| **Issue** | Repository | Issues, Contents, Discussions | Read and write |
+|  | Organization | Issue fields, Issue types, Projects, Members | Read and write |
 
 
 Refer to this GitHub document to create fine-grained token: [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
@@ -92,72 +61,18 @@ Refer to this GitHub document to create fine-grained token: [Creating a fine-gra
 
 The following set of permissions are required while registering a GitHub App:
 
-<table>    
-    <th>Entity Type</th>
-    <th>Operation</th>
-    <th>Scope</th>
-    <th>Permission</th>
-    <th>Access</th>
-  <tr>
-    <td rowspan="2"><strong>Commit</strong></td>
-    <td rowspan="2"><strong>Read</strong></td>
-    <td>Repository</td>
-    <td>Commit statuses, Contents</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Members</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td rowspan="4"><strong>Pull Request</strong></td>
-    <td rowspan="2"><strong>Read</strong></td>
-    <td>Repository</td>
-    <td>Merge queues, Pull requests, Discussions</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Members</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td rowspan="2"><strong>Write</strong></td>
-    <td>Repository</td>
-    <td>Merge queues, Pull requests, Discussions</td>
-    <td>Read and write</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Members</td>
-    <td>Read and write</td>
-  </tr>
-
-  <tr>
-    <td rowspan="4"><strong>Issue</strong></td>
-    <td rowspan="2"><strong>Read</strong></td>
-    <td>Repository</td>
-    <td>Issues, Contents, Discussions</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Issue fields, Issue types, Projects, Members</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td rowspan="2"><strong>Write</strong></td>
-    <td>Repository</td>
-    <td>Issues, Contents, Discussions</td>
-    <td>Read and write</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Issue fields, Issue types, Projects, Members</td>
-    <td>Read and write</td>
-  </tr>
-</table>
+| Entity Type | Operation | Scope | Permission | Access |
+|-------------|-----------|--------|------------|--------|
+| **Commit** | Read | Repository | Commit statuses, Contents | Read-only |
+|  |  | Organization | Members | Read-only |
+| **Pull Request** | Read | Repository | Merge queues, Pull requests, Discussions | Read-only |
+|  |  | Organization | Members | Read-only |
+|  | Write | Repository | Merge queues, Pull requests, Discussions | Read and write |
+|  |  | Organization | Members | Read and write |
+| **Issue** | Read | Repository | Issues, Contents, Discussions | Read-only |
+|  |  | Organization | Issue fields, Issue types, Projects, Members | Read-only |
+|  | Write | Repository | Issues, Contents, Discussions | Read and write |
+|  |  | Organization | Issue fields, Issue types, Projects, Members | Read and write |
 
 #### OIM Configuration:
 * Single GitHub system configuration will work for multiple organization in which GitHub App is installed.
