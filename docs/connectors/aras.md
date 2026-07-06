@@ -240,6 +240,9 @@ Set polling time as the time after which the user wants to synchronize data betw
 1. Login to the Aras Innovator with user having Administrator Privileges.
 2. Navigate to **Administration → ItemTypes**.
 3. Search for the ItemType that you want to make versionable.
+
+<div align="center"><img src="../assets/Aras_versionable_6.png" alt="" width="1250"></div>
+
 4. Open the Item Type in edit mode.
 5. Check the **Versionable** checkbox under Versioning.
 6. Select **Automatic** in the drop-down list of **Discipline**.

@@ -292,6 +292,11 @@ Set polling time as the time after which the user wants to synchronize data betw
 1. Login to ReadyOne as Administrator.
 2. Go to `Administration → ItemTypes`.
 3. Search and open your ItemType.
+
+<p align="center">
+  <img src="../assets/ReadyOne_versionable_4.png" />
+</p>
+
 4. In edit mode, check the **Versionable** checkbox. 
 5. Select **Automatic** in the drop-down list of **Discipline**.
 
