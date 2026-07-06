@@ -560,3 +560,16 @@ Update the custom workflow as described below:
 **Reason**
 
 * The prerequisite to rename Jira Xray entities has been removed.
+
+
+# Migrating <code class="expression">space.vars.OIM</code> version to 7.229 or above
+
+**Applicable When**
+* CodeBeamer is configured as one of the endpoints in the integration, and reference field are mapped from CodeBeamer to another system.
+
+**Actions**
+* If you are using custom or advanced XSLT logic with reference fields, please contact the support to ensure the advanced logic remains compatible with the updated reference field structure and to identify and make any required changes.
+<br>**Note**: If any required changes are not made, synchronization may fail.
+
+**Reason**
+* Full support for reference fields has been introduced in Codebeamer. As part of this enhancement, the reference field data structure has changed, which may impact custom or advanced XSLT logic.
