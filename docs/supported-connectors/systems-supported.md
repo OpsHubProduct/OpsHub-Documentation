@@ -568,7 +568,8 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>77</td>
             <td>Windchill PLM*</td>
             <td>13.x</td>
-            <td>Issue [Soft type/Subtype of Problem Reports]</td>
+            <td>Issue, Part, Change Request, and Engineering Material (each with associated Soft Types and Subtypes).
+            </td>
             <td>PDM Link</td>
         </tr>
         <tr>
