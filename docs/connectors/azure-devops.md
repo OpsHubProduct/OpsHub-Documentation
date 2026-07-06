@@ -301,15 +301,15 @@ Click [Mapping Configuration](../integrate/mapping-configuration.md) to learn th
 
 ## Relationship Configuration
 
-### Git Commit/Branch Link Configuration
+### Git Commit/Branch/Pull Request Link Configuration
 
-* To synchronize **Git Commit/Branch** links of an entity to other systems, the Commit/Branch links need to be mapped in <code class="expression">space.vars.OIM</code> relationship mapping.
-* When the **Git Commit/Branch** links are mapped in <code class="expression">space.vars.OIM</code>:
+* To synchronize **Git Commit/Branch/Pull Request** links of an entity to other systems, the Commit/Branch/Pull Request links need to be mapped in <code class="expression">space.vars.OIM</code> relationship mapping.
+* When the **Git Commit/Branch/Pull Request** links are mapped in <code class="expression">space.vars.OIM</code>:
   * While synchronizing a workitem, if any GIT artifact's project or repository is not found in the target system, this artifact will get skipped by `<code class="expression">space.vars.OIM</code>`.
   * If any GIT artifact is missing in target repository, workitem's artifact link will be synced with the missing object. On syncing delta changes, those links will be re-establised with an artifact object if it is found in target repository.
   * To sync delta changes from source repository to target repository, refer to this link for more details: https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository#mirroring-a-repository.
-* For syncing the link **Git Commit/Branch** with a workitem to target [TFS/VSTS] systems, you must import source repository into target repository to bring all the Git commit and branch links into target repository.
-* If Commit/Branch link has a different project name or a different repository name:
+* For syncing the link **Git Commit/Branch/Pull Request** with a workitem to target [TFS/VSTS] systems, you must import source repository into target repository to bring all the Git commit, branch and pull request links into target repository.
+* If Commit/Branch/Pull Request link has a different project name or a different repository name:
   * Provide the respective project's name or repository's name using advance XSLT.
   * For example, if source commit is found in project, 'project-xyz' and repository, 'repository-xyz', corresponding in target this commit is found in project, 'project-abc' and repository, 'repository-abc'. Therefore, to sync commit link of an entity, update the advance XSLT from this:
 

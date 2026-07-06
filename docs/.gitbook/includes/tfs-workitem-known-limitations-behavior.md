@@ -4,8 +4,8 @@
    * Reason: ADO\TFS API Limitations.
 3. If link/relationship's comment is updated in TFS/ADO, then this comment update will not be synchronized to the target system.
    * In above mentioned case, the processing failure will be observed in the <code class="expression">visitor.claims.unsigned.product</code>.
-4. Links of 'Build', 'Integrated in Release', 'Pull Request', 'Tag' (Repository Tag), 'Versioned Item', 'Wiki page', 'GitHub Commit', 'GitHub pull request' and 'GitHub Issue' are not supported.
-5. Links of 'Test Result' are supported for ADO/TFS version 2018 and above, as artifact link APIs are unavailable in earlier versions.
+4. Links of 'Integrated in Release', 'Tag' (Repository Tag), 'Versioned Item', 'Wiki page', 'GitHub Commit', 'GitHub pull request' and 'GitHub Issue' are not supported.
+5. Links of 'Test Result', 'Pull Request', 'Build', 'Found in Build' and 'Integrated in Build' are supported for ADO/TFS version 2018 and above, as artifact link APIs are unavailable in earlier versions.
 6. Synchronization of Kanban Board field is supported for ADO/TFS version 2019 and above.
 7. Comment Author details in case of 3-way integration with Team Foundation Server as middle system [System 1 -> Team Foundation Server -> System 2]
    * This limitation is only applicable only in case integrations have more than 2 systems involved. For example, if we have 1 integration from System 1 to Team Foundation Server and then Team Foundation Server to System 2.
