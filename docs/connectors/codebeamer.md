@@ -155,19 +155,6 @@ In codebeamer/codebeamerX, Associations and Reference fields will be supported a
 
 <div align="center"><img src="../assets/Codebeamer_Image_3_b.png" alt="" width="800"></div>
 
-### Reference fields
-
-* Reference fields are the fields that refer to some other codebeamer/codebeamerX entity.
-* Reference fields will be synchronized through relationships. For references, the names of the Reference fields will be shown in link type mapping of the Relationship Configuration, as shown in screenshot below:
-
-<div align="center"><img src="../assets/Codebeamer_Image_2a.png" width="800"></div>
-
-* Custom reference field's name would also be shown in the link types.
-* For synchronizing reference fields value, map the reference field as links, as shown in screenshot below:
-
-<div align="center"><img src="../assets/Codebeamer_Image_3_c.png" alt="" width="800"></div>
-
-> **Note**: Reference fields in field mapping will be read-only fields.
 
 ### Mapping for Entity mention field
 
@@ -214,7 +201,7 @@ For step-by-step instructions for configuring any-to-any transition refer: [Conf
 * When Codebeamer is configured as the source system in <code class="expression">space.vars.OIM</code>:
   * When rank change is performed on tracker item within same parent item, any field needs to be updated after changing the rank of the tracker item.
     * Reason: When rank is changed for any tracker item within the same parent, neither its **Updated** time is changed nor revision gets generated in codebeamer.
-
+    
 ## Mapping For Test Run
 
 * Codebeamer allows the creation of only a Test Run (Parent). The corresponding Test Run (Child), which contains the result information, is automatically generated.
@@ -379,8 +366,12 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
         * Importantly, the file attachment itself will not be removed from the target system entity, as it was already removed from the original entity.
 27. For Test Run type entity, `Test Step Results` field cannot be synchronized for parent test runs.
     * Reason: Parent test runs in Codebeamer/CodebeamerX act as aggregated entities and do not maintain step-level execution data. Test step execution and results are stored only at the child test run level. Therefore, <code class="expression">space.vars.OIM</code> does not support synchronization of `Test Step Results` for parent test runs.
-    * To synchronize the `Test Step Result` use test run type as child. 
-      
+    * To synchronize the `Test Step Result` use test run type as child.
+28. For Codebeamer 4.x and later and the referenced entity of **with permission** and **of type** types must be provided through JSON metadata. This is required because Codebeamer does not provide an API to retrieve the  referenced entities associated. Refer to the section [Configure Metadata JSON for reference fields](codebeamer.md#configure-metadata-json-for-reference-fields) on how to configure JSON metadata for reference fields.
+29. When Codebeamer is configured as the target system in <code class="expression">space.vars.OIM</code>:
+    * Reference entity synchronization is supported only for entities that have previously been synchronized by <code class="expression">space.vars.OIM</code> or are resolved through the Default Target ID configuration. Refer to [Synchronize default target value for reference field](../integrate/mapping-configuration.md#synchronize-default-target-value-for-reference-field) for Default Target ID configuration for reference field
+    * If a referenced entity has not been synchronized by <code class="expression">space.vars.OIM</code> then processing failure may occur.
+
 # Appendix
 
 ## Find version of codebeamer/codebeamer X Instance
@@ -828,3 +819,61 @@ Following are the steps to configure any-to-any transition:
 > **Note**: After running the command mentioned above, a `build` folder will be generated inside the extracted folder.
 
 4.  Now, navigate to the `build` folder, and you will find a file named OpsHubcodeBeamerHTMLToJSPWiki-1.0 inside the `libs` folder.
+
+## Configure Metadata JSON for reference fields
+
+* JSON Template format:
+  * Use the following template to specify the entities that a reference field can refer to:
+```JSON
+{
+  "projects": [
+    {
+      "displayName": "<display name of the project>",
+        "entities": [
+          {
+            "displayName": "<display name of the base entity>",
+              "fields": {
+                "system": [
+                  {
+                    "displayName": "<display name of the reference type of field>",
+                     "dataType": "Reference(mandatory value)",
+                     "systemSpecific": {
+                       "referredEntities(mandatory tag)": "<Comma separated list of display name of entities which are referred>"
+                     }
+                  }
+                ]
+              }
+           }
+        ]
+    }
+  ]
+}
+```
+* For a detailed explanation of each JSON tag and its purpose, refer to [Understanding Json Metadata Input](../integrate/system-configuration.md#understanding-json-metadata-input)
+* The following example shows a reference field named **Custom Multi Select** Reference type of field in the **Bugs** entity in the project **Demo Project**. The field refers to the Bugs and User Stories entities respectively.
+```JSON
+{
+  "projects": [
+    {
+      "displayName": "Demo Project",
+      "entities": [
+        {
+          "displayName": "Bugs",
+          "fields": {
+          "system": [
+            {
+              "displayName": "Custom Multi Select Reference",
+              "dataType": "Reference",
+              "systemSpecific": {
+                "referredEntities": "Bugs,User stories"
+              }
+            }
+          ]
+        }
+      }
+    ]
+   }
+  ]
+}
+```
+**Note:** The values specified in referredEntities must exactly match the display names of the entities that the reference field can refer to in the end system.
