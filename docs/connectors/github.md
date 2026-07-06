@@ -7,10 +7,13 @@ if: >-
 
 ## User privileges
 
-Create one GitHub user for the repository(s) that is a part of synchronization. User should be dedicated to **<code class="expression">space.vars.OIM</code>** and should not be used for any other operations from system's user interface.  
+* Create one GitHub user for the repository(s) that is a part of synchronization. User should be dedicated to **<code class="expression">space.vars.OIM</code>** and should not be used for any other operations from system's user interface.  
+* Once the integration user has been created, grant the required repository and organization permissions based on the selected authentication type. Refer to the supported [Authentication types](#authentication-types) and their corresponding permission requirements. 
+
+# Authentication types
 
 GitHub supports following authentication types:  
-#### Personal Access Tokens (classic)
+### Personal Access Tokens (classic)
   * The integration user should be added as a collaborator in the repository which is to be synced. Additionally, the following set of scopes are required while creating Personal Access Token for synchronization.
 
 | **Entity Type** | **Permission/Role** |
@@ -22,52 +25,21 @@ GitHub supports following authentication types:
 
 Refer to section [Creating Personal Access Token](#create-personal-access-token) of appendix on how to create Personal Access Token.
 
-#### Fine-grained Personal Access Tokens
+### Fine-grained Personal Access Tokens
 * Use a fine-grained token that is owned by the GitHub organization to enable synchronization of its repositories. 
 * For each organization included in synchronization, generate the fine-grained token by logging in with the OIM dedicated integration user in GitHub.
 * Known limitation: avoid using a user account as the resource owner when creating the token. GitHub currently imposes limitations on user-owned tokens, which may prevent compatibility with certain APIs required for synchronization, i.e. Projects and custom fields can not be accessed with user owned token. Hence, it is recommended to always use an organization owned fine-grained token.
 
 The following set of permissions are required while creating token:
 
-<table>    
-    <th>Entity Type</th>
-    <th>Scope</th>
-    <th>Permission</th>
-    <th>Access</th>
-  <tr>
-    <td rowspan="2"><strong>Commit</strong></td>
-    <td>Repository</td>
-    <td>Commit statuses, Contents</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Members</td>
-    <td>Read-only</td>
-  </tr>
-  <tr>
-    <td rowspan="2"><strong>Pull Request</strong></td>
-    <td>Repository</td>
-    <td>Merge queues, Pull requests, Discussions</td>
-    <td>Read and write</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Members</td>
-    <td>Read and write</td>
-  </tr>
-  <tr>
-    <td rowspan="2"><strong>Issue</strong></td>
-    <td>Repository</td>
-    <td>Issues, Contents, Discussions</td>
-    <td>Read and write</td>
-  </tr>
-  <tr>
-    <td>Organization</td>
-    <td>Issue fields, Issue types, Projects, Members</td>
-    <td>Read and write</td>
-  </tr>
-</table>
+| Entity Type | Scope | Permission | Access |
+|-------------|--------|------------|--------|
+| **Commit** | Repository | Commit statuses, Contents | Read-only |
+|  | Organization | Members | Read-only |
+| **Pull Request** | Repository | Merge queues, Pull requests, Discussions | Read and write |
+|  | Organization | Members | Read and write |
+| **Issue** | Repository | Issues, Contents, Discussions | Read and write |
+|  | Organization | Issue fields, Issue types, Projects, Members | Read and write |
 
 
 Refer to this GitHub document to create fine-grained token: [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
@@ -77,6 +49,36 @@ Refer to this GitHub document to create fine-grained token: [Creating a fine-gra
     * Accordingly, configure separate GitHub systems in OIM for each organization to enable repository synchronization across multiple organizations. For more details on system configuration, refer [System Configuration](#system-configuration).
 * Both classic and fine-grained tokens must be provided in the same field, named “Personal Access Token” in system configuration form. If the token expires, regenerate in GitHub and update it in the system configuration accordingly.
 
+### GitHub App Installation
+
+* Register a GitHub App under the OpsHub dedicated integration user in GitHub & install the GitHub App for each organization included in synchronization.
+  * Refer to this GitHub document to register GitHub App: [Registering a GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app)
+  * Refer to this GitHub document to install GitHub App in organization: [Installing a GitHub App](https://docs.github.com/en/apps/using-github-apps/installing-your-own-github-app)
+* After registering the GitHub App, generate the private key from the setting page of GitHub App
+  * Refer to this GitHub document to generate private key: [Generate private key](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/managing-private-keys-for-github-apps#generating-private-keys)
+* While configuring GitHub system in OIM, provide app id & private key which are available on 'General' tab of GitHub App.
+
+* Known limitation:
+  * GitHub App can be installed on both, user and organization account. There is no limitation for organization owned repositories, but user owned repositories are not supported using GitHub App authentication.
+    * GitHub currently imposes limitations on user-owned tokens generated via GitHub App, which prevents compatibility with certain APIs required for synchronization, i.e. projects and custom fields can not be accessed with user owned token.
+
+The following set of permissions are required while registering a GitHub App:
+
+| Entity Type | Operation | Scope | Permission | Access |
+|-------------|-----------|--------|------------|--------|
+| **Commit** | Read | Repository | Commit statuses, Contents | Read-only |
+|  |  | Organization | Members | Read-only |
+| **Pull Request** | Read | Repository | Merge queues, Pull requests, Discussions | Read-only |
+|  |  | Organization | Members | Read-only |
+|  | Write | Repository | Merge queues, Pull requests, Discussions | Read and write |
+|  |  | Organization | Members | Read and write |
+| **Issue** | Read | Repository | Issues, Contents, Discussions | Read-only |
+|  |  | Organization | Issue fields, Issue types, Projects, Members | Read-only |
+|  | Write | Repository | Issues, Contents, Discussions | Read and write |
+|  |  | Organization | Issue fields, Issue types, Projects, Members | Read and write |
+
+#### OIM Configuration:
+* Single GitHub system configuration will work for multiple organization in which GitHub App is installed.
 
 # System Configuration
 
@@ -85,9 +87,12 @@ Click [System Configuration](../integrate/system-configuration.md) to learn the 
 Refer to the screenshot given below:  
 
 <p align="center">
-  <img src="../assets/GithubSystemForm.png" width="1500" />
+  <img src="../assets/githubPAT.png" width="1500" />
 </p>
 
+<p align="center">
+    <img src="../assets/githubApp.png" width="1500" />
+</p>
 <br>
 
 If the system is deployed on HTTPS and a self-signed certificate is used, then you will have to import the SSL Certificate to be able to access the system from TEST MEDIAWIKI. Refer to [Import SSL Certificates](../getting-started/ssl-certificate-configuration.md) page for further details.
