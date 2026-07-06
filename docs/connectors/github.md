@@ -9,6 +9,8 @@ if: >-
 
 Create one GitHub user for the repository(s) that is a part of synchronization. User should be dedicated to **<code class="expression">space.vars.OIM</code>** and should not be used for any other operations from system's user interface.  
 
+# Authentication types
+
 GitHub supports following authentication types:  
 ### Personal Access Tokens (classic)
   * The integration user should be added as a collaborator in the repository which is to be synced. Additionally, the following set of scopes are required while creating Personal Access Token for synchronization.
@@ -84,9 +86,12 @@ Click [System Configuration](../integrate/system-configuration.md) to learn the 
 Refer to the screenshot given below:  
 
 <p align="center">
-  <img src="../assets/GithubSystemForm.png" width="1500" />
+  <img src="../assets/githubPAT.png" width="1500" />
 </p>
 
+<p align="center">
+    <img src="../assets/githubApp.png" width="1500" />
+</p>
 <br>
 
 If the system is deployed on HTTPS and a self-signed certificate is used, then you will have to import the SSL Certificate to be able to access the system from TEST MEDIAWIKI. Refer to [Import SSL Certificates](../getting-started/ssl-certificate-configuration.md) page for further details.
