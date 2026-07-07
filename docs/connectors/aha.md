@@ -156,6 +156,7 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
 | -------------- | --------------------------------------------------------------- | ------------------------ |
 | `q`            | Target lookup on entity having source entity's id in name field | q='@source _system _id@' |
 
+
 # Known Behaviour
 
 * From Aha! UI, issue type can be changed for entity. Currently, such conversions will create a new entity in the target and the previous one will be orphaned.
@@ -176,13 +177,39 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
 * **Advanced XSLT configuration is required** to synchronize complex fields (such as table and worksheet types). 
   * Refer to [Configure Advance XSLT For Complex Fields](aha.md#configure-advance-xslt-for-complex-fields) section.
 * **Only read-only synchronization is supported** for the following fields
-  * Scorecard fields 
-  * Table fields 
+  * Scorecard fields
+  * Table fields
   * Worksheet field
-  * Custom choice field
-  * Detailed estimate source for **Epic** entity
   * Votes and Submission portal field for **Idea** entity
-  * **Note**: Write support for these fields is planned for future releases.
+
+### User type field sync
+* **History synchronization is not supported** for **System user** and **Custom user** fields due to Aha! API limitations. These fields support **Current state** synchronization only.
+  * To synchronize the history of a user-type field, map the corresponding **Read-only text field** available in the mapping for every user-type field having the following naming convention:
+      ```text
+      <FieldName>.Name
+      ```
+
+      The `.Name` field stores the history of the corresponding user field as the user's **display name**.
+
+      Examples:
+
+      | **User-type field** | **Read-only text field** |
+      |---------------------|--------------------------|
+      | Owner               | Owner.Name               |
+      | Custom User         | Cusotm User.Name         |
+      | Created By          | Created By.Name          |
+
+      If history synchronization is required for a User-type field, map the corresponding `.Name` field along with User-type field.
+
+      | **Requirement**               | **Field to map**                   |
+      |-------------------------------|------------------------------------|
+      | Current state synchronization | `Assigned to`                      |
+      | History state synchronization | `Assigned to` & `Assigned to.Name` |
+
+      For History state synchronization, map both the User-type field and its corresponding `.Name` field. The User-type field is used to synchronize the current user value, while the corresponding `.Name` field provides the user's display name for history sync.
+
+
+![Read only text type field for each system and custom user type field](img.png)
 
 ## Project Selection
 
