@@ -328,13 +328,9 @@ Here:
 * History-based synchronization is currently not supported. Each synchronization run captures the latest version of an item available at that time.
 * Only those attachments will be synchronized which are uploaded to the items using the `Attach new local file` option.
 * Comments and discussions' synchronization is not supported.
-* Parts and their subtypes support both read and write operations for relationship/link information through the integration. For all other objects, relationship/link information can be read and synchronized, but new relationships/links cannot be created or modified through the integration.
-* For Change Management entities such as Issues and Change Requests, synchronization of the **Affected End Items** and **Affected Objects** links is not supported.
-  * Reason: 
-    * The API does not provide a mechanism to retrieve the link types associated with **Affected End Items**.
-    * For **Affected Objects**, the linked entity type cannot be resolved through the API.
-* For Engineering Materials, link and attachment synchronization is not supported. 
-  * Reason: No API is available to perform the corresponding link and attachment operations.
+* For Parts and their subtypes, the link relationship is supported bidirectionally. However, for other supported PLM entities, only link retrieval (read) is supported due to current API limitations.
+* **Affected End Items** and **Affected Objects** links are not supported for Issues and Change Requests because the current API does not provide the information needed to identify these link relationships correctly.
+* Engineering Materials do not support link and attachment synchronization because the required API functionality is currently unavailable.
 * Any new items created by the integration are placed in the base folder of the product or library container.
   * Once the item is created in base folder, they cannot be moved to a different folder through integration.
 * Currently, fields that appear in an **Item's Details** tab will be synchronized.
@@ -346,12 +342,12 @@ Here:
   * Reason: Windchill PLM's API does not handle single quotes in product names correctly, leading to the errors during synchronization.
 * To prevent ambiguity during synchronization, ensure that Products and Libraries have distinct names.
   * Reason: Windchill PLM’s Search Entities API relies on container name and does not provide a mechanism to differentiate between Product and Library, resulting in Issues from both being returned when names are identical.
-* For Parts (Product Management entities), updates to common attributes (Name, Number, Default Trace Code, Default Unit, End Item, Gathering Part, Configuration Module, and Phantom Manufacturing Part) are synchronized only when another attribute on the part is subsequently updated.
-  * Reason: Updates to common attributes do not modify the entity's Last Modified timestamp. As a result, the synchronization process does not detect the changes until another update modifies the Last Modified timestamp.
-* For Parts (Product Management entities), **Alternates** link updates are synchronized only when another attribute on the part is subsequently updated.
-  * Reason: Updates to **Alternates** links do not modify the entity's Last Modified timestamp. As a result, the synchronization process does not detect the changes until another update modifies the Last Modified timestamp.
-* For the Engineering Material entity type, all subtypes available in the end system are synchronized automatically. Subtype entity types cannot be excluded from synchronization and are not available as separate selections for synchronization configuration.
-  * Reason: Windchill API do not expose Engineering Material subtype metadata or subtype-specific attributes.
+* For Parts and its subtypes, changes to common fields (such as Name, Number, Default Trace Code, Default Unit, End Item, Gathering Part, Configuration Module, and Phantom Manufacturing Part) cannot be synchronized immediately. The changes are synchronized only after another update is made to the part.
+    * Reason: Changes to these fields do not update the part's Last Modified timestamp, so the synchronization process cannot detect them until a later update changes the timestamp.
+* For Parts and its subtypes, updates to **Alternate links** cannot be synchronized immediately. The updates are synchronized only after another change is made to the part.
+  * Reason: Changes to Alternate links do not update the part's Last Modified timestamp, so the synchronization process cannot detect them until a later update changes the timestamp.
+* For Engineering Materials, all available subtypes are synchronized automatically. Individual subtypes cannot be selected or excluded from synchronization.
+    * Reason: The Windchill API does not provide information about Engineering Material subtypes or their subtype-specific fields.
 ---
 
 # Appendix
