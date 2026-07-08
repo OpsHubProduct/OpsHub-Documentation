@@ -348,8 +348,8 @@ Here:
      * Link type: Alternate links
          * Reason: Updating these fields and link type do not modify the part's "Last Modified" timestamp, so the synchronization process cannot detect them until a later update changes the timestamp.
 * For Engineering Materials:
-  1. Individual subtypes cannot be synchronized independently. Consequently, subtype-specific fields are not supported due to current API limitations. All subtypes will be synced as part of Parent Engineering Material integration only with its set of fields only.
-  2. Link and attachment synchronization is not supported due to current API limitations.
+  * Individual subtypes cannot be synchronized independently. Consequently, subtype-specific fields are not supported due to current API limitations. All subtypes will be synced as part of Parent Engineering Material integration only with its set of fields only.
+  * Link and attachment synchronization is not supported due to current API limitations.
 ---
 
 # Appendix
