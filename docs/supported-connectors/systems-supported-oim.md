@@ -539,7 +539,7 @@ Given below are the systems supported currently by <code class="expression">spac
         <tr>
             <td>73</td>
             <td>Tricentis qTest</td>
-            <td>Cloud*,<br/>On Premise: 8.4.2–2023.x.x</td>
+            <td>Cloud,<br/>On Premise: 8.4.2–2023.x.x</td>
             <td>Defect, Requirement, Testcase, Testlog, Release, Test Suite, Test Run, Module, Test Cycle, Build (read only)</td>
             <td>QA Symphony</td>
         </tr>
