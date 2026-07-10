@@ -1,45 +1,44 @@
-{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}   
-
-# New Version(s)
-* Angular: 16.x
-
-# New Entities(s)
-* Windchill PLM: Subtypes for Problem reports
+{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}
 
 # Enhancements
-
-## Common
-* Improved Transitions & Dependencies to ensure dependent field validations are enforced during item updates.
+## Codebeamer / Codebeamer X
+* Enhanced reference field synchronization support to provide more comprehensive synchronization capabilities. Please refer to the [post-upgrade](../manage/upgrade/post-migration-checklist#migrating-version-to-7.229-or-above) steps for  required actions when Codebeamer is one of the integration endpoints and advanced logic is configured on reference field mappings.
 
 ## GitHub
-* Enhanced the Pull Request entity synchronization process.
+* Added support for GitHub App. Refer to [this](../connectors/github.md#github-app-installation) section for more details.
+
+## Jira Service Management [Jira Plugin]
+* Added bidirectional synchronization support for the Requestor Type field.
 
 # Major Bug Fixes
-
 ## Common
-* Resolved an issue where upgrading <code class="expression">space.vars.OIM</code> to 7.225 failed on PostgreSQL databases when only an administrator account with full permissions was configured.
-* Resolved a performance issue that caused mapping configurations with more than 60 mapped fields to load slower than expected.
-* Resolved an issue where APIRequestLocker generated the error: "java.lang.IllegalArgumentException: Start value must be smaller or equal to end value".
+* Resolved an issue where SAML-based logins to OIM failed when user attributes received from the identity provider (IdP) were  missing, resulting in a "500 internal server" error and preventing user access.
 
-## Aha
-* When Aha is configured as the source: 
-  * Resolved an issue where user mentions were not correctly identified for deleted Aha users.
-  * Resolved an issue where history records for the same field were automatically grouped when updates occurred within a five-minute interval.
-  * Resolved a Null Pointer Exception that occurred when retrieving projects without receiving a successful response from Aha.
+## Aras Innovator
+* Resolved an issue where link synchronization failed when Aras item types did not contain the `item_number` field or when multiple items shared the same Part Number value.
 
 ## Azure DevOps Server/Services
-* Resolved an issue where Owner details were not synchronized correctly in Release Pipeline entities.
-* Resolved an issue where Start Date and Finish Date values were not updated correctly for Test Plan entities.
+* Resolved an issue where Test Run synchronization failed with a global failure error message  "NullPointerException" when processing Test Results containing missing Configuration information.
+* Resolved an issue where Test Result's "Duration" field value was synchronized with incorrect execution times, resulting in higher duration values in the target system.
+* Resolved an issue where Test Result's "Completed Date" field value was not synchronized to the target system.
 
-## Broadcom Rally Software
-* Resolved an issue where a recovery failure triggered duplicate milestone creation requests.
+## IBM Engineering Test Management
+* Resolved an issue where Test Case synchronization failed with a "Requested object not found due to 404 Not Found" error in IBM HTTP Server-fronted ETM deployments.
 
-{% endif %}  
+## Jira Align
+* Resolved an issue where synchronization of Feature entity failed with a global failure where integrations configured with Jira align's Portfolio projects.
 
-{% if "OM4ADO" === visitor.claims.unsigned.product %}  
+## Monday.com
+* Resolved an issue where duplicate groups with the same name created in Monday.com when synchronizing multiple child entities belonging to the same parent. Items are now correctly associated with the existing target group.
+
+{% endif %}
+
+{% if "OM4ADO" === visitor.claims.unsigned.product %}
 
 # Major Bug Fixes
-* Resolved an issue where Owner details were not migrated correctly in Release Pipeline entities.
-* Resolved an issue where Start Date and Finish Date values were not migrated correctly for Test Plan entities.
+* Resolved an issue where Test Run migration failed with a "NullPointerException" error when processing Test Results containing missing configuration information.
+* Resolved an issue where Test Result's "Duration" field value was migrated with incorrect execution times, resulting in higher duration values in the target system.
+* Resolved an issue where Test Result's "Completed Date" was not migrated to the target system.
+* Resolved an issue where Test Run migration failed with a "NullPointerException" error when processing Test Results that did not contain associated Test Suite information.
 
 {% endif %}
