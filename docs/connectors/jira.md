@@ -8,7 +8,11 @@ if: >-
 ## User privileges
 
 * Create a user in Jira that is dedicated for <code class="expression">space.vars.OIM</code>. This user shouldn't perform any other action from Jira's user interface. 
-  **Note** This user can be part of your Jira system's Lightweight Directory Access Protocol (LDAP) or Single sign-on (SSO) provider.
+  * **Note** This user can be part of your Jira system's Lightweight Directory Access Protocol (LDAP) or Single sign-on (SSO) provider.
+* Before configuring the user permissions, ensure that the user has access to the required Jira application(s). 
+* If you want to synchronize **Jira Service Management** entities, ensure that the following prerequisites and scopes are configured based on the selected authentication mode for Jira System:
+  * **API Token**: Grant the user access to both **Jira Software** and **Jira Service Management** applications. For instructions, refer to [Grant access to Jira applications to a User](jira.md#grant-access-to-jira-applications-to-a-user).
+  * **Service User**: Ensure the service user has been granted the required scopes to synchronize JSM entities. For scope details, refer to [Scopes for Jira Service Management (JSM)](jira.md#scopes-for-jira-service-management-jsm).
 * The user should be a member of the following user groups:
   * **For on-premises instance**:
     * Jira-developers
@@ -86,9 +90,8 @@ In your Jira system, the sync user timezone determines the date-based filtering 
 
 ## Licenses required
 
-* For Jira on-premises instance, Jira Software license is required. If you want to use Jira Service Desk entities, then make sure that you have an active Jira Service Desk license.
-* For Jira cloud instance, Jira Software license is required.
-* To add a user to Jira Software or Service Desk app, refer [Grant access to Jira applications to a User](jira.md#grant-access-to-jira-applications-to-a-user)
+* For both **Jira On-Premises** and **Jira Cloud** instances, a **Jira Software** license is required. 
+* If you want to synchronize **Jira Service Management** entities, an active **Jira Service Management** license is also required along with the **Jira Software** license.
 
 ## API Token
 
@@ -135,6 +138,86 @@ When Jira instance is 'On Demand', below are the authentication type:
     * Please refer [this](https://support.atlassian.com/user-management/docs/manage-api-tokens-for-service-accounts/) link for generating API token for service user. 
   * Service User-OAuth:
     * Please refer [this](https://support.atlassian.com/user-management/docs/create-oauth-2-0-credential-for-service-accounts/) link for generating client id and client secret for service user.
+    
+### Scopes for Jira Service Management (JSM)
+
+If the service user is used for synchronizing Jira Service Management (JSM) entities, ensure that it has the following scopes based on the entities being synchronized.
+
+* Scopes for Jira Service Management Request synchronization:
+
+<table>
+  <tr>
+    <th>Scope Name</th>
+    <th>Scope Type</th>
+    <th>Operation</th>
+  </tr>
+  <tr><td>read:field:jira</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>read:issue-type:jira</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>read:servicedesk:jira-service-management</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>read:request:jira-service-management</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>read:requesttype:jira-service-management</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>read:servicedesk.property:jira-service-management</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>read:requesttype.property:jira-service-management</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>read:servicedesk-request</td><td>Classic</td><td>Read</td></tr>
+  <tr><td>write:request:jira-service-management</td><td>Granular</td><td>Write</td></tr>
+  <tr><td>write:issue:jira</td><td>Granular</td><td>Write</td></tr>
+  <tr><td>write:servicedesk-request</td><td>Classic</td><td>Write</td></tr>
+  <tr><td>manage:jira-project</td><td>Classic</td><td>Write</td></tr>
+  <tr><td>manage:jira-configuration</td><td>Classic</td><td>Write</td></tr>
+  <tr><td>manage:jira-webhook</td><td>Classic</td><td>Write</td></tr>
+  <tr><td>manage:servicedesk-customer</td><td>Classic</td><td>Write</td></tr>
+</table>
+
+* Additional scopes for link relationship synchronization:
+
+<table>
+  <tr>
+    <th>Scope Name</th>
+    <th>Scope Type</th>
+    <th>Operation</th>
+  </tr>
+  <tr><td>read:issue-link-type:jira</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>write:issue-link:jira</td><td>Granular</td><td>Write</td></tr>
+  <tr><td>delete:issue-link:jira</td><td>Granular</td><td>Write</td></tr>
+</table>
+
+* Additional scopes for comment synchronization:
+
+<table>
+  <tr>
+    <th>Scope Name</th>
+    <th>Scope Type</th>
+    <th>Operation</th>
+  </tr>
+  <tr><td>read:comment:jira</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>write:comment:jira</td><td>Granular</td><td>Write</td></tr>
+  <tr><td>delete:comment:jira</td><td>Granular</td><td>Write</td></tr>
+</table>
+
+* Additional scopes for attachment synchronization:
+
+<table>
+  <tr>
+    <th>Scope Name</th>
+    <th>Scope Type</th>
+    <th>Operation</th>
+  </tr>
+  <tr><td>read:attachment:jira</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>write:attachment:jira</td><td>Granular</td><td>Write</td></tr>
+  <tr><td>delete:attachment:jira</td><td>Granular</td><td>Write</td></tr>
+</table>
+
+* Additional scopes for watcher synchronization:
+
+<table>
+  <tr>
+    <th>Scope Name</th>
+    <th>Scope Type</th>
+    <th>Operation</th>
+  </tr>
+  <tr><td>read:watcher:jira</td><td>Granular</td><td>Read</td></tr>
+  <tr><td>write:watcher:jira</td><td>Granular</td><td>Write</td></tr>
+</table>
 
 ## Other prerequisites
 
@@ -2160,6 +2243,11 @@ For getting more information regarding field mapping configuration, refer to the
 **Known limitations** 
 The known limitations for Jira Service Desk are:
 
+**Related to Request Type/Customer Request Type field**:
+
+* For Jira On-Premise as the target system, if the project contains multiple **Request Type**/**Customer Request Type** values with the same display name and this field is mapped in <code class="expression">space.vars.OIM</code>, synchronization may select any one of the matching Request Types, which may not be the intended Request Type for synchronization.
+  * **Reason:** This is due to a Jira On-Premise API limitation, which does not provide a way to uniquely identify Request Types with duplicate display names.
+
 **Related to SLA type of fields**:
 
 * Jira Service Desk doesn't provide history for SLA type of fields. So, history state synchronization is not posisble for these fields. Also, as the historic values for SLA type of fields are not supported, conflict detection feature for SLA type of fields should be disabled during mapping configuration.
@@ -2400,10 +2488,9 @@ Before granting access or verifying that you have access, make sure you are logg
 
 **For Jira on-premise instance:**
 
-* To grant access or verify that a user has access to Jira Software or Jira Service Desk, click the **Settings** button and open the **User Management** tab.
+* To grant access click the **Settings** button and open the **User Management** tab.
 * Navigate to the user you want to grant access to or verify access for.
-* As shown in the screenshot below, verify that the user has access to **Jira Software**.
-* If the user does not have the access to Jira Software, grant access by checking the checkbox.
+* Under **Application Access**, select the required Jira application(s) (for example, **Jira Software** or **Jira Service Management**).
 
 <p align="center">
   <img src="../assets/jira-grant-access-user-app.png" width="800">
@@ -2413,7 +2500,8 @@ Before granting access or verifying that you have access, make sure you are logg
 
 * Open **User Management** tab from **Settings**.
 * Navigate to the user to grant/verify access.
-* If the user doesn't have access, click the slider button to enable access.
+* If the user does not have access, click **Invite users**. Under **Apps**, select the required Jira application(s) (for example, **Jira Software** or **Jira Service Management**) and send the invitation.
+
   
 <p align="center">
   <img src="../assets/jira-grant-access-cloud-app.png" width="800">
