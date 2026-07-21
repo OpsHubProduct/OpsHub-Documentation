@@ -437,7 +437,10 @@ Provide 'read' access to a table
             "apiUrl": "<api_url_to_be_appended_to_the_base_instance_url>",
             "methodType": "POST",
             "executionOrder": 1,
-            "queryParams": {}
+            "queryParams": {},
+            "pathParams": {
+              "<placeholder_name_used_in_apiUrl>": "<value>"
+            }
           }
         ]
       }
@@ -577,14 +580,28 @@ Provide 'read' access to a table
     "default": {
       "apiUrl": "/api/now/v1/table",
       "methodType": "POST"
-    },
-    "entityWise": []
+    }
   },
   "UPDATE_ENTITY": {
     "default": {
       "apiUrl": "/api/now/v1/table",
       "methodType": "PUT"
-    }
+    },
+    "entityWise": [
+      {
+        "entityType": "task",
+        "apiCalls": [
+          {
+            "apiUrl": "api/now/v1/table/task/{sys_id}",
+            "methodType": "PATCH",
+            "executionOrder": 1,
+            "pathParams": {
+              "sys_id": "$sys_id"
+            }
+          }
+        ]
+      }
+    ]
   },
   "ADD_COMMENT": {
     "default": {
@@ -630,9 +647,42 @@ Provide 'read' access to a table
         "apiUrl": "/api/now/v1/table/sc_item_option",
         "methodType": "PATCH"
       }
-
     }
   }
+}
+```
+
+#### Configure Path Parameters in the API URL
+
+Use Path Parameters when your API URL contains a variable value that changes for each record.
+
+Example: `api/now/v1/task/{id}`
+
+Here, `{id}` is a path parameter and will be replaced with the actual record ID during execution.
+
+>**How to Configure**
+>* Add a `pathParams` section inside the corresponding `apiCalls` entry.
+>* Define a key for each placeholder used in the `apiUrl` (without curly braces `{}`).
+>* Map the key to a source field by prefixing the field name with `$`.
+
+>**What happens?**
+>If the task's `sys_id` value is `12345`, the URL `api/now/v1/task/{sys_id}` will automatically become `api/now/v1/task/12345` before the API call is executed.
+
+**Example**: To update a ServiceNow task using the task's `sys_id`:
+
+```json
+{
+  "entityType": "task",
+  "apiCalls": [
+    {
+      "apiUrl": "api/now/v1/task/{sys_id}",
+      "methodType": "PATCH",
+      "executionOrder": 1,
+      "pathParams": {
+        "sys_id": "$sys_id"
+      }
+    }
+  ]
 }
 ```
 
