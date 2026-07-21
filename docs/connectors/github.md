@@ -57,6 +57,7 @@ Refer to this GitHub document to create fine-grained token: [Creating a fine-gra
 * After registering the GitHub App, generate the private key from the setting page of GitHub App
   * Refer to this GitHub document to generate private key: [Generate private key](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/managing-private-keys-for-github-apps#generating-private-keys)
 * While configuring GitHub system in OIM, provide app id & private key which are available on 'General' tab of GitHub App.
+  * Refer to [GitHub App Installation Token](#github-app-installation-token) section of appendix for more details.
 
 * Known limitation:
   * GitHub App can be installed on both, user and organization account. There is no limitation for organization owned repositories, but user owned repositories are not supported using GitHub App authentication.
@@ -64,18 +65,18 @@ Refer to this GitHub document to create fine-grained token: [Creating a fine-gra
 
 The following set of permissions are required while registering a GitHub App:
 
-| Entity Type | Operation | Scope | Permission | Access |
-|-------------|-----------|--------|------------|--------|
-| **Commit** | Read | Repository | Commit statuses, Contents | Read-only |
-|  |  | Organization | Members | Read-only |
-| **Pull Request** | Read | Repository | Merge queues, Pull requests, Discussions | Read-only |
-|  |  | Organization | Members | Read-only |
-|  | Write | Repository | Merge queues, Pull requests, Discussions | Read and write |
-|  |  | Organization | Members | Read and write |
-| **Issue** | Read | Repository | Issues, Contents, Discussions | Read-only |
-|  |  | Organization | Issue fields, Issue types, Projects, Members | Read-only |
-|  | Write | Repository | Issues, Contents, Discussions | Read and write |
-|  |  | Organization | Issue fields, Issue types, Projects, Members | Read and write |
+| Entity Type | Operation | Scope | Permission                                       | Access |
+|-------------|-----------|--------|--------------------------------------------------|--------|
+| **Commit** | Read | Repository | Commit statuses, Contents                        | Read-only |
+|  |  | Organization | Members                                          | Read-only |
+| **Pull Request** | Read | Repository | Merge queues, Pull requests, Discussions, Issues | Read-only |
+|  |  | Organization | Members                                          | Read-only |
+|  | Write | Repository | Merge queues, Pull requests, Discussions, Issues       | Read and write |
+|  |  | Organization | Members                                          | Read and write |
+| **Issue** | Read | Repository | Issues, Contents, Discussions                    | Read-only |
+|  |  | Organization | Issue fields, Issue types, Projects, Members     | Read-only |
+|  | Write | Repository | Issues, Contents, Discussions                    | Read and write |
+|  |  | Organization | Issue fields, Issue types, Projects, Members     | Read and write |
 
 #### OIM Configuration:
 * Single GitHub system configuration will work for multiple organization in which GitHub App is installed.
@@ -385,6 +386,26 @@ Refer to document [Search Syntax in GitHub](https://help.github.com/en/github/se
 <p align="center">
   <img src="../assets/GH6a.png"  width="1200"/>
 </p>
+
+## GitHub App Installation Token
+* While registering a GitHub App, follow below-mentioned steps:
+  * Provide GitHub App name.
+  * In 'Homepage URL', type the full URL to your GitHub app's website or type the URL of the account that owns the app.
+  * Uncheck 'Active' checkbox in Webhook section.
+<p align="center">
+  <img src="../assets/GithubWebhook.png"  width="500"/>
+</p>
+
+  * Select 'Any account'.
+<p align="center">
+  <img src="../assets/GithubPublic.png"  width="400"/>
+</p>
+
+* After generating the private key, follow below-mentioned steps:
+  * After generating private key, You will see a private key in PEM format downloaded to your computer.
+  * Remove "--BEGIN RSA PRIVATE KEY--", "--END RSA PRIVATE KEY--" & new lines.
+    * After this, your private key should look like: "MIIEogIBAAKCAQEAuflHHAj2HF.....", without breaking line.
+  * Provide this as Private key while configuring GitHub system in OIM.
 
 ## Understanding JSON Metadata Input
 
