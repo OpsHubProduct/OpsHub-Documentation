@@ -52,12 +52,12 @@ Refer to this GitHub document to create fine-grained token: [Creating a fine-gra
 ### GitHub App Installation
 
 * Register a GitHub App under the OpsHub dedicated integration user in GitHub & install the GitHub App for each organization included in synchronization.
-  * Refer to this GitHub document to register GitHub App: [Registering a GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app)
+  * Refer to [Register GitHub App](#register-github-app) section of appendix to register GitHub App.
   * Refer to this GitHub document to install GitHub App in organization: [Installing a GitHub App](https://docs.github.com/en/apps/using-github-apps/installing-your-own-github-app)
 * After registering the GitHub App, generate the private key from the setting page of GitHub App
   * Refer to this GitHub document to generate private key: [Generate private key](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/managing-private-keys-for-github-apps#generating-private-keys)
 * While configuring GitHub system in OIM, provide app id & private key which are available on 'General' tab of GitHub App.
-  * Refer to [GitHub App Installation Token](#github-app-installation-token) section of appendix for more details.
+  * Refer to [Configure Private Key in OIM](#configure-private-key-in-oim) section of appendix for more details on how to provide private key.
 
 * Known limitation:
   * GitHub App can be installed on both, user and organization account. There is no limitation for organization owned repositories, but user owned repositories are not supported using GitHub App authentication.
@@ -387,10 +387,26 @@ Refer to document [Search Syntax in GitHub](https://help.github.com/en/github/se
   <img src="../assets/GH6a.png"  width="1200"/>
 </p>
 
-## GitHub App Installation Token
-* While registering a GitHub App, follow below-mentioned steps:
+## Register GitHub App
+#### While registering a GitHub App, follow below-mentioned steps:
+  * Log in with the OIM dedicated user in GitHub.
+  * In the upper-right corner on GitHub, click your profile picture & click 'Settings'. 
+  * In the left sidebar, click 'Developer settings'. 
+  * In the left sidebar, click 'GitHub Apps' & click 'New GitHub App'.
+<p align="center">
+  <img src="../assets/GithubNewApp.png"  width="1000"/>
+</p>
+
   * Provide GitHub App name.
+<p align="center">
+  <img src="../assets/GithubName.png"  width="400"/>
+</p>
+
   * In 'Homepage URL', type the full URL to your GitHub app's website or type the URL of the account that owns the app.
+<p align="center">
+  <img src="../assets/GithubUrl.png"  width="300"/>
+</p>
+
   * Uncheck 'Active' checkbox in Webhook section.
 <p align="center">
   <img src="../assets/GithubWebhook.png"  width="500"/>
@@ -401,7 +417,10 @@ Refer to document [Search Syntax in GitHub](https://help.github.com/en/github/se
   <img src="../assets/GithubPublic.png"  width="400"/>
 </p>
 
-* After generating the private key, follow below-mentioned steps:
+  * Click 'Create GitHub App'.
+
+## Configure Private Key in OIM
+####  After generating the private key, follow below-mentioned steps:
   * After generating private key, You will see a private key in PEM format downloaded to your computer.
   * Remove "--BEGIN RSA PRIVATE KEY--", "--END RSA PRIVATE KEY--" & new lines.
     * After this, your private key should look like: "MIIEogIBAAKCAQEAuflHHAj2HF.....", without breaking line.
