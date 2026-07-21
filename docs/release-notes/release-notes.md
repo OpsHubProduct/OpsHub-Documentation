@@ -18,6 +18,7 @@
  
 ## Azure DevOps Server/Services
 * Resolved an issue where attachments associated with specific test steps within a Test Result were synced as general Test Result attachments instead of remaining linked to the individual test steps where they were originally added.
+* Resolved an issue where synced Test Result's Priority field values were not retained and were reset to None during subsequent updates performed as part of the sync.
 
 ## GitHub
 * Resolved an issue where synchronization failed when Rule-Based Routing was configured using a GitHub custom lookup field to determine the target system's work item type (Bug or Task). In this case, when OIM updated the routing field in GitHub based on the target system's work item type, synchronization failed with the error: "The single select option Id does not belong to the field".
@@ -37,5 +38,6 @@
  
 # Major Bug Fixes
 * Resolved an issue where attachments associated with specific test steps within a Test Result were migrated as general Test Result attachments instead of remaining linked to the individual test steps where they were originally added.
+* Resolved an issue where migrated Test Result's Priority field values were not retained and were reset to None during subsequent updates performed as part of the migration.
  
 {% endif %}
