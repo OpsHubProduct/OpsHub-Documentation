@@ -11,9 +11,6 @@ if: >-
   * **Note** This user can be part of your Jira system's Lightweight Directory Access Protocol (LDAP) or Single sign-on (SSO) provider.
 * Before configuring the user permissions, ensure that the user has access to the required Jira application(s). 
 * If you plan to synchronize **Jira** entities, grant the user access to the **Jira Software** application. For instructions, refer to [Grant access to Jira applications to a User](jira.md#grant-access-to-jira-applications-to-a-user).
-* If you want to synchronize **Jira Service Management** entities, ensure that the following prerequisites and scopes are configured based on the selected authentication mode for Jira System:
-  * **API Token**: Grant the user access to both **Jira Software** and **Jira Service Management** applications. For instructions, refer to [Grant access to Jira applications to a User](jira.md#grant-access-to-jira-applications-to-a-user).
-  * **Service User**: Ensure the service user has been granted the required scopes to synchronize JSM entities. For scope details, refer to [Scopes for Jira Service Management (JSM)](jira.md#scopes-for-jira-service-management-jsm).
 * The user should be a member of the following user groups:
   * **For on-premises instance**:
     * Jira-developers
@@ -69,6 +66,11 @@ For synchronizing the entities listed below, these additional permissions need t
 * Edit All Worklogs
 * Work On Issues
 * Delete All Worklogs
+
+* For synchronizing the **Jira Service Management** entities, ensure that the following prerequisites and scopes are configured based on the selected authentication mode for Jira System:
+  * **API Token**: Grant the user access to both **Jira Software** and **Jira Service Management** applications. For instructions, refer to [Grant access to Jira applications to a User](jira.md#grant-access-to-jira-applications-to-a-user).
+  * **Service User**: Ensure the service user has been granted the required scopes to synchronize JSM entities. For scope details, refer to [Scopes for Jira Service Management (JSM)](jira.md#scopes-for-jira-service-management-jsm).
+
 
 **For synchronizing the Zephyr entities**
 The following permissions are required when Jira is **Self-Managed**:
