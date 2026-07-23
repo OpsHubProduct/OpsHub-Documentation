@@ -231,7 +231,7 @@ Given below are the systems supported currently by <code class="expression">spac
         <tr>
             <td>29</td>
             <td>IBM Engineering Test Management</td>
-            <td>6.0.5 - 7.1.x</td>
+            <td>6.0.x*, 7.0.1 - 7.1.x</td>
             <td>Test Plan, Test Suite, Test Case, Test Script, Test Case Execution Record, Test Case Result, Keyword</td>
             <td></td>
         </tr>
