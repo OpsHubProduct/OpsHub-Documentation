@@ -580,10 +580,10 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
          <tr>
-            <td>78</td>
+            <td>79</td>
             <td>Zephyr Enterprise</td>
             <td>8.6.0</td>
-            <td>Folder, Phase, Test Case, Test Execution</td>
+            <td>Cycle,Folder, Phase, Phase Folder, Test Case, Test Execution</td>
             <td></td>
         </tr>
     </tbody>

@@ -95,7 +95,50 @@ Here, **Zephyr Squad** does **not** support shared steps.
     ```
 3. Set the modified workflow in the integration mentioned in step 1.
 
+## Zephyr Enterprise Configuration for Shared Step Synchronization
 
+1. Create an integration between **Zephyr Enterprise test case** and **desired entity**.
+2. Download the customized workflow from the given link and modify as per your use case mentioned below.
+
+{% file src="../../assets/Files/Custom Integration Workflow For Shared Step.xml" %}
+Custom Integration Workflow For Shared Step
+{% endfile %}
+> **Note:**
+>> You will not require workflow is Zephyr Enterprise is target and source system does not support shared step
+
+### Zephyr Enterprise as Source and Target supports Shared Step 
+Replace:
+```java
+EaiUtility.handleStepFromSharedStepToSharedStep(mappedProperties, sourceSystemClient, destinationClient,"steps","description","OH_KY_DO_NOT_EDIT:",null,"testcase-zephyr",workflowInstanceId,"keyword");
+```
+
+With
+```java
+EaiUtility.handleStepFromSharedStepToSharedStep(mappedProperties, sourceSystemClient, destinationClient,"steps","description","OH_KY_DO_NOT_EDIT:",null,"testcase",workflowInstanceId,<target-entity-type>);
+```
+
+### Zephyr Enterprise as Target and Source supports Shared Step
+Replace:
+```java
+EaiUtility.handleStepFromSharedStepToSharedStep(mappedProperties, sourceSystemClient, destinationClient,"steps","description","OH_KY_DO_NOT_EDIT:",null,"testcase-zephyr",workflowInstanceId,"keyword");
+```
+
+With:
+```java
+EaiUtility.handleStepFromSharedStepToSharedStep(mappedProperties, sourceSystemClient, destinationClient,"steps","description","OH_KY_DO_NOT_EDIT:",null,<source-entity-type>,workflowInstanceId,"testcase");
+```
+### Zephyr Enterprise as Source and Target does not support Shared Step
+Replace:
+```java
+EaiUtility.handleStepFromSharedStepToSharedStep(mappedProperties, sourceSystemClient, destinationClient,"steps","description","OH_KY_DO_NOT_EDIT:",null,"testcase-zephyr",workflowInstanceId,"keyword");
+```
+
+With
+```java
+EaiUtility.handleStepsWithSharedStepToNonSharedStep(mappedProperties, destinationClient,"steps","description","[OH_KY_DO_NOT_EDIT:");
+```
+### Zephyr Enterprise as Target and Source does not support Shared Step
+Does not require to upload any specific workflow as all steps from source will be normal steps and synchronize to Zephyr Enterprise testcase as normal steps. 
 
 ## Behavior of Shared step Synchronization
 

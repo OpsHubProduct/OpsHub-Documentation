@@ -11,17 +11,6 @@ if: >-
 - For this integration user to perform operations in Zephyr Enterprise, various permissions are required, as outlined in the [Required Permissions](#required-permissions) section.
 
 
-
-# Supported Entities
-
-The following entities are supported for synchronization between Zephyr Enterprise and other systems:
-
-* Folder
-* Phase 
-* Test Case
-* Test Execution
-
-
 # System Configuration
 
 Before you continue with the integration, you must first configure the Zephyr Enterprise system in <code class="expression">space.vars.OIM</code>.
@@ -77,9 +66,12 @@ Refer to [Mapping Configuration](../integrate/mapping-configuration.md) for step
 
 ## Folder Entity Field Configuration
 
-- Due to API limitations, **Description field must not exceed 1024 characters.** If mapped, truncate the value to 1024 characters using advanced XSLT to prevent processing failures.
+- Zephyr enterprise does not allow characters more than 1024 in **Description field.** To avoid synchronization failures, that the mapped value can be truncated to 1024 characters during field mapping.
 
+## Cycle Entity Field Configuration
 
+- Release is mandatory to create cycle so make sure OH_Release field is mapped
+- Zephyr enterprise does not allow characters more than 1024 in **Build and Environment field.** To avoid synchronization failures, that the mapped value can be truncated to 1024 characters during field mapping.
 ## Phase Entity Field Configuration
 
 - Due to API limitations, **Description field must not exceed 1024 characters.** If mapped, truncate the value to 1024 characters using advanced XSLT to prevent processing failures.
@@ -191,8 +183,9 @@ Click [Integration Configuration](../integrate/integration-configuration.md) to 
       - Attachments
       - External links
    - Update and delete operations are **not supported** at step result level in <code class="expression">space.vars.OIM</code>.
+- **Phase Limitations:**
+  - Once a phase is synced in Zephyr, its associated Cycle cannot be updated through synchronization due to API limitations
 
-# Appendix
 
 ## Required Permissions
 
