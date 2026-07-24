@@ -216,7 +216,8 @@ record_checkpoint!=-1^sys_created_by!=John
 * Synchronization of **Lookup Select Box** and **Lookup Multiple Choice** variable types is not supported, as they can be linked to dynamic fields that may reference any column.
 * Synchronization of **Masked** variable type is not supported, as the API does not return decrypted values for these fields. As a result, the actual stored data cannot be retrieved or processed.
 * History-based synchronization of catalog variables is available only for the Requested Item entity. For all other entities (e.g., Catalog Task), only current-state synchronization is supported due to API limitation.
-
+* Inline images added using the **Image Library** in ServiceNow will not be synchronized as inline images by <code class="expression">space.vars.OIM</code> due to limitations in the ServiceNow API.
+* 
 # Appendix
 
 ## Add User
