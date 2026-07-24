@@ -9,6 +9,13 @@
 ## Internet Information Services(IIS) Configurations
 {% include "../.gitbook/includes/tfs-prerequisites-IIS.md" %}
 
+## Delivery Plan Prerequisites
+
+* To synchronize the Delivery Plan entity, the OpsHub integration user must be a member of both the **Project Collection Administrators** group and the **Project Administrators** group.
+* Note: Membership in the **Project Collection Administrators** group is required to synchronize the teams associated with the Delivery Plan
+* For using the Delivery Plan entity, the Team Foundation Server below version 2022 must have the Delivery Plan Market Place Extension installed.
+  * Link to the extension: [Delivery Plan Market Place Extension](https://marketplace.visualstudio.com/items?itemName=ms.vss-plans)
+
 # System Configuration
 
 Before you continue to the integration, you must first configure Azure DevOps.
@@ -435,6 +442,12 @@ to this:
 * For **fresh installations of version 7.214 or later, no advanced workflow configuration is required**.
   * Reason: From version **7.214 onwards, Variable Groups are supported separate entities** and are handled as **reference fields in pipeline mappings**, eliminating the need for advanced workflow logic.
 
+
+## Delivery Plan Entity
+
+* Delivery Plan entities contain many complex fields that require specialized mapping and customized handling to ensure accurate synchronization and data transformation within <code class="expression">space.vars.OIM</code>.
+* For detailed mapping configurations and field mapping examples, please refer to [Delivery Plan Mapping Configuration](../knowledge-resources/integration-combination-examples/azure-devops-server-and-azure-devops-services-delivery-plan-mapping.md).
+
 # Integration Configuration
 
 In this step, set a time to synchronize data between Azure DevOps and the other system to be integrated. Also, define parameters and conditions, if any, for integration.
@@ -562,6 +575,18 @@ Refer to [Microsoft API documentation](https://{instance}/{collection}/_apis/dis
 | Name           | Synchronize all entities with the name 'TestVariableGroup' | `[{\"condition\":\"EQUALS\",\"field\":\"name\",\"value\":\"TestVariableGroup\"}]` |
 | Type           | Synchronize all entities with the type of 'Vsts'           | `[{\"condition\":\"EQUALS\",\"field\":\"type\",\"value\":\"Vsts\"}]`              |
 
+### Sample Criteria Examples for 'Delivery Plan' entity
+
+| **Field Name** | **Criteria Description**                                                                                         | **Criteria Snippet**                      |
+|----------------|------------------------------------------------------------------------------------------------------------------|-------------------------------------------|
+| Id             | Synchronize the delivery plan with id `0a793357-ea1a-4182-a73d-218916cf3fac` | `id=0a793357-ea1a-4182-a73d-218916cf3fac` |
+
+The Criteria is only supported on the Id field of Delivery Plan due to ADO API limitations. To get the Id of a delivery plan, follow the below steps:
+- Open the delivery plan from the ADO UI for which you want to get the Id.
+- Browse to the url in the address bar. The address will be containing the Id of the respective delivery plan.
+  - The delivery plan address will be having the format: `https://<server_or_instance_url>/<project_name>/_deliveryplans/plan/<Id_of_delivery_plan>`.
+  - Take the Id of the delivery plan from the address bar url.
+
 
 
 You can find more Criteria Configuration details on [Integration Configuration](Integration_Configuration/) page.
@@ -626,6 +651,12 @@ The query must be in the format:
 - `field` specifies that the lookup is performed on the **name** field
 - `condition: EQUALS` ensures an exact name match
 - `value` is the Task Group name to be searched
+
+### Supported Target Lookup Query for Delivery Plan Entity
+
+- The Delivery Plan entity supports lookup by ID only. This limitation is imposed by the ADO API.
+- The query must be in the format: id=@id@
+
 
 ### Supported Target Lookup Queries for Other Entities
 
@@ -808,6 +839,9 @@ A sample snippet of JSON is given below:
 
 ## Meta Entities (User, Group and Team, Area, Iteration)
 {% include "../.gitbook/includes/tfs-metaentities-known-limitations-behavior.md" %}
+
+## Delivery Plan Entity
+{% include "../.gitbook/includes/tfs-deliveryplan-known-limitations-behavior.md" %}
 
 ## Dashboard/Query/Widgets Entities
 {% include "../.gitbook/includes/tfs-dashboardquerywidget-known-limitations-behavior.md" %}

@@ -1,0 +1,703 @@
+<com.opshub.server.admin.mapperconfiguration.MapperConfigDataInfo>
+<objectVersion>1</objectVersion>
+<parentId>0</parentId>
+<mappingId>2</mappingId>
+<mappingName>ado-2025 [DP] - ado-cloud [DP] Scale1</mappingName>
+<direction>
+    <direction>BIDIRECTIONAL</direction>
+</direction>
+<endpoint1>
+    <endpointId>2</endpointId>
+    <mapperContext>
+        <com.opshub.eai.mapper.config.EndpointContext>
+            <key>tfsProjectName</key>
+            <value>b6b8cf0c-d72b-428c-a264-9c6a38a8fadd</value>
+        </com.opshub.eai.mapper.config.EndpointContext>
+        <com.opshub.eai.mapper.config.EndpointContext>
+            <key>issueType</key>
+            <value>Delivery Plan</value>
+        </com.opshub.eai.mapper.config.EndpointContext>
+    </mapperContext>
+</endpoint1>
+<endpoint2>
+    <endpointId>3</endpointId>
+    <mapperContext>
+        <com.opshub.eai.mapper.config.EndpointContext>
+            <key>tfsProjectName</key>
+            <value>234e873c-60c7-429d-a62b-5e310125607e</value>
+        </com.opshub.eai.mapper.config.EndpointContext>
+        <com.opshub.eai.mapper.config.EndpointContext>
+            <key>issueType</key>
+            <value>Delivery Plan</value>
+        </com.opshub.eai.mapper.config.EndpointContext>
+    </mapperContext>
+</endpoint2>
+<fields>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+        <backWardSettings>
+            <internalName>teamBacklogMappings</internalName>
+            <displayName>Teams</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </backWardSettings>
+        <forwardSettings>
+            <internalName>teamBacklogMappings</internalName>
+            <displayName>Teams</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <advanceXSL>
+                <teamBacklogMappings>
+                    <xsl:for-each
+                            xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="SourceXML/updatedFields/Property/teamBacklogMappings/list">
+                        <op_list>
+                            <xsl:for-each select="Property">
+                                <xsl:element name="{name(*)}">
+                                    <xsl:value-of select="normalize-space(*)"/>
+                                </xsl:element>
+                            </xsl:for-each>
+                        </op_list>
+                    </xsl:for-each>
+                </teamBacklogMappings>
+            </advanceXSL>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </forwardSettings>
+        <direction>
+            <direction>BIDIRECTIONAL</direction>
+        </direction>
+        <conflictStrategy>
+            <conflictStrategy>NO_CHECK</conflictStrategy>
+        </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+        <backWardSettings>
+            <internalName>Team</internalName>
+            <displayName>Team</displayName>
+            <dataType>reference</dataType>
+            <systemField>true</systemField>
+            <multiValued>true</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </backWardSettings>
+        <forwardSettings>
+            <internalName>Team</internalName>
+            <displayName>Team</displayName>
+            <dataType>reference</dataType>
+            <systemField>true</systemField>
+            <multiValued>true</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </forwardSettings>
+        <direction>
+            <direction>BIDIRECTIONAL</direction>
+        </direction>
+        <conflictStrategy>
+            <conflictStrategy>NO_CHECK</conflictStrategy>
+        </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+        <backWardSettings>
+            <internalName>tagStyleSettings</internalName>
+            <displayName>Tag colors</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </backWardSettings>
+        <forwardSettings>
+            <internalName>tagStyleSettings</internalName>
+            <displayName>Tag colors</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <advanceXSL>
+                <tagStyleSettings>
+                    <xsl:for-each
+                            xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="SourceXML/updatedFields/Property/tagStyleSettings/list">
+                        <op_list>
+                            <xsl:for-each select="Property">
+                                <xsl:choose>
+                                    <xsl:when test="*/Property">
+                                        <xsl:element name="{name(*)}">
+                                            <xsl:copy-of select="*/Property/*"/>
+                                        </xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="{name(*)}">
+                                            <xsl:value-of select="normalize-space(*)"/>
+                                        </xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:for-each>
+                        </op_list>
+                    </xsl:for-each>
+                </tagStyleSettings>
+            </advanceXSL>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </forwardSettings>
+        <direction>
+            <direction>BIDIRECTIONAL</direction>
+        </direction>
+        <conflictStrategy>
+            <conflictStrategy>NO_CHECK</conflictStrategy>
+        </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+        <backWardSettings>
+            <internalName>styleSettings</internalName>
+            <displayName>Styles</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>true</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </backWardSettings>
+        <forwardSettings>
+            <internalName>styleSettings</internalName>
+            <displayName>Styles</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>true</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </forwardSettings>
+        <direction>
+            <direction>BIDIRECTIONAL</direction>
+        </direction>
+        <conflictStrategy>
+            <conflictStrategy>NO_CHECK</conflictStrategy>
+        </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+        <backWardSettings>
+            <internalName>name</internalName>
+            <displayName>Name</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </backWardSettings>
+        <forwardSettings>
+            <internalName>name</internalName>
+            <displayName>Name</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </forwardSettings>
+        <direction>
+            <direction>BIDIRECTIONAL</direction>
+        </direction>
+        <conflictStrategy>
+            <conflictStrategy>NO_CHECK</conflictStrategy>
+        </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+        <backWardSettings>
+            <internalName>markers</internalName>
+            <displayName>Markers</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </backWardSettings>
+        <forwardSettings>
+            <internalName>markers</internalName>
+            <displayName>Markers</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <advanceXSL>
+                <markers>
+                    <xsl:for-each
+                            xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="SourceXML/updatedFields/Property/markers/list">
+                        <op_list>
+                            <xsl:for-each select="Property">
+                                <xsl:element name="{name(*)}">
+                                    <xsl:value-of select="normalize-space(*)"/>
+                                </xsl:element>
+                            </xsl:for-each>
+                        </op_list>
+                    </xsl:for-each>
+                </markers>
+            </advanceXSL>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </forwardSettings>
+        <direction>
+            <direction>BIDIRECTIONAL</direction>
+        </direction>
+        <conflictStrategy>
+            <conflictStrategy>NO_CHECK</conflictStrategy>
+        </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+        <backWardSettings>
+            <internalName>cardSettings</internalName>
+            <displayName>Fields</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </backWardSettings>
+        <forwardSettings>
+            <internalName>cardSettings</internalName>
+            <displayName>Fields</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <advanceXSL>
+                <cardSettings
+                        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                    <fields>
+                        <xsl:for-each select="SourceXML/updatedFields/Property/cardSettings/Property/fields/Property/*">
+                            <xsl:choose>
+                                <xsl:when test="list">
+                                    <xsl:element name="{name()}">
+                                        <xsl:for-each select="list">
+                                            <op_list>
+                                                <xsl:for-each select="Property">
+                                                    <xsl:element name="{name(*)}">
+                                                        <xsl:value-of select="normalize-space(*)"/>
+                                                    </xsl:element>
+                                                </xsl:for-each>
+                                            </op_list>
+                                        </xsl:for-each>
+                                    </xsl:element>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:element name="{name()}">
+                                        <xsl:value-of select="normalize-space(.)"/>
+                                    </xsl:element>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </fields>
+                </cardSettings>
+            </advanceXSL>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </forwardSettings>
+        <direction>
+            <direction>BIDIRECTIONAL</direction>
+        </direction>
+        <conflictStrategy>
+            <conflictStrategy>NO_CHECK</conflictStrategy>
+        </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+        <backWardSettings>
+            <internalName>criteria</internalName>
+            <displayName>Field criteria</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </backWardSettings>
+        <forwardSettings>
+            <internalName>criteria</internalName>
+            <displayName>Field criteria</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <advanceXSL>
+                <criteria>
+                    <xsl:for-each
+                            xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="SourceXML/updatedFields/Property/criteria/list">
+                        <op_list>
+                            <xsl:for-each select="Property">
+                                <xsl:element name="{name(*)}">
+                                    <xsl:value-of select="normalize-space(*)"/>
+                                </xsl:element>
+                            </xsl:for-each>
+                        </op_list>
+                    </xsl:for-each>
+                </criteria>
+            </advanceXSL>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </forwardSettings>
+        <direction>
+            <direction>BIDIRECTIONAL</direction>
+        </direction>
+        <conflictStrategy>
+            <conflictStrategy>NO_CHECK</conflictStrategy>
+        </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+    <com.opshub.eai.mapper.config.MapperFieldConfig>
+        <backWardSettings>
+            <internalName>description</internalName>
+            <displayName>Description</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </backWardSettings>
+        <forwardSettings>
+            <internalName>description</internalName>
+            <displayName>Description</displayName>
+            <dataType>text</dataType>
+            <systemField>true</systemField>
+            <multiValued>false</multiValued>
+            <syncWhen>
+                <syncWhen>BOTH</syncWhen>
+            </syncWhen>
+            <overwrite>false</overwrite>
+            <referenceSettings>
+                <userMentionSupported>false</userMentionSupported>
+                <entityMentionSupported>false</entityMentionSupported>
+            </referenceSettings>
+            <lookups/>
+            <oleObjectMapped>false</oleObjectMapped>
+            <pictureObjectMapped>false</pictureObjectMapped>
+            <syncReferenceOfOleFile>false</syncReferenceOfOleFile>
+            <sameAsIntegration>false</sameAsIntegration>
+            <scopeField>false</scopeField>
+            <ohCommentSettings>
+                <commentBody>@field_name@ changed from [@old_value@] to [@new_value@]</commentBody>
+                <commentType>OH_Default</commentType>
+            </ohCommentSettings>
+        </forwardSettings>
+        <direction>
+            <direction>BIDIRECTIONAL</direction>
+        </direction>
+        <conflictStrategy>
+            <conflictStrategy>NO_CHECK</conflictStrategy>
+        </conflictStrategy>
+    </com.opshub.eai.mapper.config.MapperFieldConfig>
+</fields>
+<deleteEventMappingFields/>
+<commentsConfig>
+    <enabled>
+        <direction>NONE</direction>
+    </enabled>
+    <settings/>
+    <forwardUserMentionSupported>false</forwardUserMentionSupported>
+    <backwardUserMentionSupported>false</backwardUserMentionSupported>
+    <forwardEntityMentionSupported>false</forwardEntityMentionSupported>
+    <backwardEntityMentionSupported>false</backwardEntityMentionSupported>
+</commentsConfig>
+<attachmentsConfig>
+    <enabled>
+        <direction>NONE</direction>
+    </enabled>
+    <settings/>
+</attachmentsConfig>
+<relationshipsConfig>
+    <enabled>
+        <direction>NONE</direction>
+    </enabled>
+    <settings/>
+</relationshipsConfig>
+<rulesConfigured>false</rulesConfigured>
+<entityVersion>0</entityVersion>
+<ohCommentAuthor>
+    <includeAuthorForward>false</includeAuthorForward>
+    <includeAuthorBackward>false</includeAuthorBackward>
+</ohCommentAuthor>
+<validate>true</validate>
+<endpoint1Info>
+    <objectVersion>0</objectVersion>
+    <id>2</id>
+    <name>ado-2025</name>
+    <typeId>24</typeId>
+    <type>Team Foundation Server/Azure DevOps</type>
+    <version>2025</version>
+    <parentTypeId>25</parentTypeId>
+    <entityVersion>0</entityVersion>
+</endpoint1Info>
+<endpoint2Info>
+    <objectVersion>0</objectVersion>
+    <id>3</id>
+    <name>ado-cloud</name>
+    <typeId>24</typeId>
+    <type>Team Foundation Server/Azure DevOps</type>
+    <version>2019</version>
+    <parentTypeId>25</parentTypeId>
+    <entityVersion>0</entityVersion>
+</endpoint2Info>
+</com.opshub.server.admin.mapperconfiguration.MapperConfigDataInfo>

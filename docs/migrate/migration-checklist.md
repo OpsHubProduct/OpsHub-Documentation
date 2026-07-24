@@ -187,6 +187,18 @@ Additionally:
 
 ---
 
+## Delivery Plan Migration
+
+For migrating the Delivery Plans in Azure DevOps version 2020 and below, the Delivery Plan Market Place Extension must be installed on the instance in order to perform delivery plans related operations. 
+
+Link to the extension: [Delivery Plan Market Place Extension](https://marketplace.visualstudio.com/items?itemName=ms.vss-plans)
+
+### Dependent Entities
+
+Before migrating release pipelines, migrate the Team entity first. Migrating these dependencies first helps prevent synchronization failures.
+
+---
+
 ## Release Pipeline Migration
 
 To migrate **Release Pipelines**, certain dependencies must already exist in the target project.

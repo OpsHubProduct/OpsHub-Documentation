@@ -5,6 +5,7 @@ if: >-
 
 - [Azure DevOps Server (TFS) – Micro Focus ALM Integration](azure-devops-server-and-micro-focus-alm-integration.md)  
 - [Azure DevOps Services (VSTS) – Micro Focus ALM Integration](azure-devops-services-and-micro-focus-alm-integration.md) 
+- [Delivery Plan Mapping Configuration [Azure DevOps Server (TFS) - Azure DevOps Services (ADO)]](../integration-combination-examples/azure-devops-server-and-azure-devops-services-delivery-plan-mapping.md)
 - [Release Pipeline Configuration [Azure DevOps Server (TFS) - Azure DevOps Services (ADO)]](azure-devops-server-and-azure-devops-services-releasepipeline-integration.md)
 - [IBM DOORS – Jira Integration](ibm-doors-and-jira-integration.md)  
 - [Jira – Azure DevOps Server (TFS) Integration](jira-and-azure-devops-server-Integration.md)  
