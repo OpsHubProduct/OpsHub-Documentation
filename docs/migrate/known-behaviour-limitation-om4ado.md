@@ -10,6 +10,9 @@
 ## Meta Entities (User, Group and Team, Area, Iteration)
 {% include "../.gitbook/includes/tfs-metaentities-known-limitations-behavior.md" %}
 
+## Delivery Plan Entity
+{% include "../.gitbook/includes/tfs-deliveryplan-known-limitations-behavior.md" %}
+
 ## Dashboard/Query/Widgets Entities
 {% include "../.gitbook/includes/tfs-dashboardquerywidget-known-limitations-behavior.md" %}
 
