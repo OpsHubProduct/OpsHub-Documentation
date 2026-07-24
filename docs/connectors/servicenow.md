@@ -344,6 +344,7 @@ Provide query in 'Target Search Query' such that it is possible to search the en
 * During write operation, if attachment/Inlinefile's name is greater than configured attachment filename's length in ServiceNow, it will result in processing failure or sync duplicate attachments.
 * Synchronization of any entity type created under a private application scope is not supported.
 * For history based synchronization, auto purging should be disabled for the sys_audit table.
+* Inline images added from the ServiceNow **Image Library** will not sync due to a ServiceNow API limitation.
 * In ServiceNow, system administrators can configure the specific attachment types that users are allowed to upload on the records of the instance. If an attachment with an extension from the source system is not allowed in ServiceNow, it can cause a processing failure for the entity to which the attachment belongs. (Refer to [Enable specific filename extension to upload](servicenow.md#enable-specific-filename-extension-to-upload))
 *   If the image is copied from an entity to another entity's field, there should not be more than one copied image in the field with the same name to sync such inline images.
 
