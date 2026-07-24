@@ -595,3 +595,16 @@ To address this and align with modern standards:
 
 **Reason**
 * Full support for reference fields has been introduced in Codebeamer.
+
+# Migrating <code class="expression">space.vars.OIM</code> version to 7.231 or above
+
+## Configure the Authentication User field in Tricentis Tosca system form
+
+**Applicable When**
+* Tricentis Tosca is configured as one of the endpoints in <code class="expression">space.vars.OIM</code> using **Personal Access Token(PAT)** or **Client Credentials** authentication.
+
+**Actions**
+* Enter the dedicated OpsHub synchronization username associated with the configured PAT or Client Credentials in the **Authentication User** field of the Tricentis Tosca system configuration. For more details please refer to [Tosca system configuration](../../connectors/tricentis-tosca.md#system-configuration). 
+
+**Reason**
+* <code class="expression">space.vars.OIM</code> introduces enhanced authentication handling for Tricentis Tosca integrations. As part of this change, the **Authentication User** must be specified in <code class="expression">space.vars.OIM</code> ensure reliable interaction with the Tosca system. 
