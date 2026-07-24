@@ -11,8 +11,6 @@
 
 ## Delivery Plan Prerequisites
 
-* To synchronize the Delivery Plan entity, the OpsHub integration user must be a member of both the **Project Collection Administrators** group and the **Project Administrators** group.
-* Note: Membership in the **Project Collection Administrators** group is required to synchronize the teams associated with the Delivery Plan
 * For using the Delivery Plan entity, the Team Foundation Server below version 2022 must have the Delivery Plan Market Place Extension installed.
   * Link to the extension: [Delivery Plan Market Place Extension](https://marketplace.visualstudio.com/items?itemName=ms.vss-plans)
 
@@ -445,7 +443,7 @@ to this:
 
 ## Delivery Plan Entity
 
-* Delivery Plan entities contain many complex fields that require specialized mapping and customized handling to ensure accurate synchronization and data transformation within <code class="expression">space.vars.OIM</code>.
+* Delivery Plan entities contain many complex fields that require special customized mapping handling to ensure accurate synchronization within  <code class="expression">space.vars.OIM</code>.
 * For detailed mapping configurations and field mapping examples, please refer to [Delivery Plan Mapping Configuration](../knowledge-resources/integration-combination-examples/azure-devops-server-and-azure-devops-services-delivery-plan-mapping.md).
 
 # Integration Configuration

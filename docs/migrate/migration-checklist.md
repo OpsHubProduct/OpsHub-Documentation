@@ -189,7 +189,12 @@ Additionally:
 
 ## Delivery Plan Migration
 
-For migrating the Delivery Plans in Azure DevOps version 2020 and below, the Delivery Plan Market Place Extension must be installed on the instance in order to perform delivery plans related operations. 
+The **Ultimate Edition of** <code class="expression">space.vars.OM4ADO</code> supports migration of the Delivery Plan entity.
+
+To synchronize the Delivery Plan entity, the OpsHub integration user must be a member of both the **Project Collection Administrators** group and the **Project Administrators** group.
+  * Note: Membership in the **Project Collection Administrators** group is required to synchronize the teams associated with the Delivery Plan
+
+For migrating the Delivery Plans in Azure DevOps Server version 2020 and below, the Delivery Plan Market Place Extension must be installed on the instance in order to perform delivery plans related operations. 
 
 Link to the extension: [Delivery Plan Market Place Extension](https://marketplace.visualstudio.com/items?itemName=ms.vss-plans)
 
