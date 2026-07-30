@@ -462,7 +462,7 @@ Given below are the systems supported currently by <code class="expression">spac
         <tr>
             <td>62</td>
             <td>Redmine</td>
-            <td>3.1.2+</td>
+            <td>3.1.2 to 3.4.5</td>
             <td>Redmine Issue + Custom Issue Types</td>
             <td></td>
         </tr>
