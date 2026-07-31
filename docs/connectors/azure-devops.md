@@ -474,6 +474,57 @@ To know the reference name of Azure DevOps work-item fields refer section [Find 
 | User            | Synchronize all entities which are created by 'user@domain.com' user                    | `[System.CreatedBy] = 'user@domain.com'`                                             |
 | Lookup and User | Synchronize all entities which are created by 'user@domain.com' user and primary as '1' | `[System.AssignedTo] = 'user@domain.com' and [Microsoft.VSTS.Common.Priority] = '1'` |
 
+### Criteria Based on WorkItemLinks Query (Work Item Relationships)
+
+#### Use case ####
+Use this criteria when you want to filter an entity based on fields of a linked work item, rather than fields of the entity itself.
+
+For example:
+` Return User Stories that are linked to Bugs in a specific state.
+Return Features that have linked User Stories assigned to a particular team. 
+Return Tasks that are linked to active Product Backlog Items.`
+
+Azure DevOps supports this scenario through a workItemLinks WIQL query, which allows filtering based on:
+- Source work item
+- Link relationship type
+- Target work item
+
+This enables criteria evaluation using fields from related work items instead of only the selected entity.
+
+#### Steps to configure ####
+- Configure the criteria in the existing Criteria Configuration field.
+
+- To indicate that the criteria should be evaluated against linked work items, the query must be prefixed with: `WorkItemLinks:`
+
+- Configure this in entity integration for which you want to filter on basis of its linked entity state.
+
+#### Important ####
+- This configuration is must in case you need to filter entities on the basis of their link relationships.
+- If the WorkItemLinks: prefix is not specified, OIM treats the expression as a standard work item criteria and evaluates it only against the configured entity. Linked work item fields will not be considered.
+
+Snippet of Workitem Link Query in Criteria Configuxration :
+<p align="center">
+  <img src="../assets/TFS_Link_Query_Criteria_Config.png" width="500"/>
+</p> 
+
+**General syntax:**
+
+To learn how to get/build a workitemLinks query, refer to [How to Build a WorkItemLinks Query](azure-devops.md#how-to-build-a-workitemlinks-query).
+
+Example:
+`WorkItemLinks:`(`[Source].[Field_Reference_Name]` operator `'value'`) `AND` (`[System.Links.LinkType] = 'Link_Type_Reference_Name'`) `AND` (`[Target].[Field_Reference_Name]` operator `'value'`)
+
+**Sample WorkItemLinks criteria examples:**
+
+| **Criteria Description**                                                    | **Criteria Snippet**                                                                                                                                                    |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Synchronize only Features that have at least one Active child User Story      | `WorkItemLinks:([System.Links.LinkType] = 'System.LinkTypes.Hierarchy-Forward') AND ([Target].[System.WorkItemType] = 'User Story' AND [Target].[System.State] = 'Active')` |
+| Synchronize only Bugs that are linked to a Test Case via a "Tested By" link    | `WorkItemLinks:([System.Links.LinkType] = 'Microsoft.VSTS.Common.TestedBy-Reverse') AND ([Target].[System.WorkItemType] = 'Test Case')`                                 |
+| Synchronize only User Stories whose parent Feature is in the 'Doing' state    | `WorkItemLinks:([System.Links.LinkType] = 'System.LinkTypes.Hierarchy-Reverse') AND ([Target].[System.WorkItemType] = 'Feature' AND [Target].[System.State] = 'Doing')` |
+| Synchronize only Tasks that are related to a Bug with priority '1'            | `WorkItemLinks:([System.Links.LinkType] = 'System.LinkTypes.Related') AND ([Target].[System.WorkItemType] = 'Bug' AND [Target].[Microsoft.VSTS.Common.Priority] = '1')` |
+
+> **Note**: By default, criteria is processed as a workitems query. If the `WorkItemLinks:` tag is not present.
+
 ### Sample Criteria Examples for 'Test Suite' entity (Team Foundation Server version < 2013)
 
 | **Field Type** | **Criteria Description**                                               | **Criteria Snippet**                      |
@@ -605,6 +656,33 @@ Provide a query in **Target Search Query** such that it is possible to search th
 * Target Lookup query based on AreaPath field:
   `[System.AreaPath] under '@AreaPathValue@'`
 
+### Target Lookup query based on WorkItemLinks
+
+Use this when you want to map an entity based on fields of a linked work item, rather than fields of the entity itself.
+
+For example:
+Map User Story in target where linked Feature has a field containing id for source User Story.
+
+#### Steps to configure ####
+- Configure the target lookup in the existing Target Lookup field.
+
+- To indicate that the target lookup should be evaluated against linked work items, the query must be prefixed with: `WorkItemLinks:`
+
+- Configure this in entity integration for which you want to filter on basis of its linked entity state.
+
+#### Important ####
+If the WorkItemLinks: prefix is not specified, OIM treats the expression as a standard work item query and evaluates it only against the configured entity. Linked work item fields will not be considered.
+
+Snippet of Workitem Link Query in Criteria Configuration :
+<p align="center">
+  <img src="../assets/TFS_Link_Query_Target_Lookup_Snippet.png" width="500"/>
+</p> 
+
+Example: 
+* Target Lookup query to find the Feature linked as parent of a Source's matching User Story:
+  `WorkItemLinks:([System.Links.LinkType] = 'System.LinkTypes.Hierarchy-Reverse') AND ([Target].[System.WorkItemType] = 'Feature' AND [Target].[System.Title] = '@Title@')`
+
+To learn how to get/build a workitemLinks query, refer to [How to Build a WorkItemLinks Query](azure-devops.md#how-to-build-a-workitemlinks-query).
 
 ### Supported Target Lookup Query for Query Entity
 
@@ -666,6 +744,37 @@ The query must be in the format:
   `GroupName=@Name@`
 * **Teams:** Teams can only be queried by name:
   `Name=@Name@`
+
+## How to Build a WorkItemLinks Query
+
+To use the WorkItemLinks query format in [Criteria Based on WorkItemLinks Query (Work Item Relationships)](azure-devops.md#criteria-based-on-workitemlinks-query-work-item-relationships) or [Target Lookup query based on WorkItemLinks](azure-devops.md#target-lookup-query-based-on-workitemlinks) Configuration, you need the native Azure DevOps WorkItemLinks WIQL query.
+The easiest and recommended way to get this query is:
+
+1. Create and validate your Work Item Links query in the Azure DevOps web interface using below steps.
+    <p align="center">
+      <img src="../assets/TFS_Link_Query_Save.png" width="1100"/>
+    </p> 
+2. Use the Azure DevOps REST API[GET] to retrieve the generated WIQL query text from browser only.
+   * **Cloud:** `GET https://dev.azure.com/{organization}/{project}/_apis/wit/queries/{queryId}?$expand=wiql`
+   * **On-Premises:** `GET https://{server}/{collection}/{project}/_apis/wit/queries/{queryId}?$expand=wiql`  
+    <p align="center">
+      <img src="../assets/TFS_Link_Query_Browser.png" width="1100"/>
+    </p>
+3. Copy the returned workItemLinks WIQL, modify as per below steps and use it in your configuration.
+   1. In the API response, locate the **`wiql`** field. It contains the complete native query with the `SELECT`, `FROM` and `WHERE` clauses. 
+   2. Copy the portion of the query **after the `WHERE` clause** untill before **order by clause**
+    For Example:
+  `(Source.[System.TeamProject] = 'DemoProject1' and Source.[System.WorkItemType] = 'Bug') and ([System.Links.LinkType] = 'Microsoft.VSTS.Common.Affects-Reverse') and (Target.[System.TeamProject] = 'DemoProject1' and Target.[System.WorkItemType] = 'Task' and Target.[System.State] = 'Active')`
+   3. Trim Source.[System.TeamProject],Target.[System.TeamProject] and Source.[System.WorkItemType] predicates from the query.
+   For Example:
+   `([System.Links.LinkType] = 'Microsoft.VSTS.Common.Affects-Reverse') and (Target.[System.WorkItemType] = 'Task' and Target.[System.State] = 'Active')`
+   4. Prefix it with the `WorkItemLinks:` tag, use it as the input for Criteria Configuration or Target Search Query. 
+   5. For example:
+   `WorkItemLinks:([System.Links.LinkType] = 'Microsoft.VSTS.Common.Affects-Reverse') and (Target.[System.WorkItemType] = 'Task' and Target.[System.State] = 'Active')`
+> **Note**: This is the recommended approach as it does not require manually looking up reference names of fields or link types, requires only a single API call, and produces an error-free query.
+
+For more details refer to azure devops official doc for workitem link query
+[https://learn.microsoft.com/en-us/azure/devops/boards/queries/wiql-syntax?view=azure-devops#query-for-links-between-work-items](https://learn.microsoft.com/en-us/azure/devops/boards/queries/wiql-syntax?view=azure-devops#query-for-links-between-work-items)
 
 ## Configuring Rich Text Field Format for Write Operations
 
