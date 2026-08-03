@@ -176,6 +176,7 @@ Map the fields between Tosca and the other system to be integrated to ensure tha
   <img src="../assets/Tosca_System_mapping_5.png" width="900" />
 </p>
 
+> **Note**: For **TestCase**, **Issue**, **TCFolder**, **RequirementSet**, and **XModule** entities, TCFolder is a mandatory parent because these entities can only be created within a TCFolder in Tosca. Therefore, configure either the **Parent Folder** field mapping or the **ParentFolder** relationship mapping to ensure smooth synchronization. Refer to the following section for configuring the relationship in Tosca.
 
 ## Relationship Configuration
 
@@ -183,9 +184,9 @@ In Tosca, Associations will be supported as Relationships.
 
 ### Mandatory Links
 
-* For TestCase, Issue, TCFolder and RequirementSet type of entities, the TCFolder is a mandatory relationship linkage as those entities can only be created inside the TCFolder.
 * For ExecutionEntry type of entities, TCFolder And TestCase are the mandatory relationship linkages as ExecutionEntry can only be created under TCFolder by giving TestCase reference.
 * For Requirement type of entities, RequirementSet is the mandatory relationship linkage as Requirement can only be created inside the RequirementSet.
+
 
 # Integration Configuration
 
