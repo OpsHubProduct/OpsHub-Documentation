@@ -1,45 +1,37 @@
-{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}   
-
-# New Version(s)
-* Angular: 16.x
-
-# New Entities(s)
-* Windchill PLM: Subtypes for Problem reports
-
+{% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}
+# New Entities
+* Azure DevOps Server/Services: Delivery Plan
+* Zephyr Enterprise: Phase
+ 
 # Enhancements
-
-## Common
-* Improved Transitions & Dependencies to ensure dependent field validations are enforced during item updates.
-
-## GitHub
-* Enhanced the Pull Request entity synchronization process.
-
-# Major Bug Fixes
-
-## Common
-* Resolved an issue where upgrading <code class="expression">space.vars.OIM</code> to 7.225 failed on PostgreSQL databases when only an administrator account with full permissions was configured.
-* Resolved a performance issue that caused mapping configurations with more than 60 mapped fields to load slower than expected.
-* Resolved an issue where APIRequestLocker generated the error: "java.lang.IllegalArgumentException: Start value must be smaller or equal to end value".
-
-## Aha
-* When Aha is configured as the source: 
-  * Resolved an issue where user mentions were not correctly identified for deleted Aha users.
-  * Resolved an issue where history records for the same field were automatically grouped when updates occurred within a five-minute interval.
-  * Resolved a Null Pointer Exception that occurred when retrieving projects without receiving a successful response from Aha.
-
 ## Azure DevOps Server/Services
-* Resolved an issue where Owner details were not synchronized correctly in Release Pipeline entities.
-* Resolved an issue where Start Date and Finish Date values were not updated correctly for Test Plan entities.
-
-## Broadcom Rally Software
-* Resolved an issue where a recovery failure triggered duplicate milestone creation requests.
-
-{% endif %}  
-
-{% if "OM4ADO" === visitor.claims.unsigned.product %}  
-
+* Added support for Defect-to-Test Result relationship synchronization.
+ 
+## ReadyOne
+* Enhanced ReadyOne Poly Item reference synchronization to prevent failures when the referenced entity has not yet been synchronized.
+ 
+## Tricentis Tosca
+* Added support for Tosca workspaces using the Tricentis Server repository type, in addition to SQL Server repositories.
+* Enhanced Personal Access Token (PAT) authentication by adding an authentication user input to the Tosca system configuration.
+ 
 # Major Bug Fixes
-* Resolved an issue where Owner details were not migrated correctly in Release Pipeline entities.
-* Resolved an issue where Start Date and Finish Date values were not migrated correctly for Test Plan entities.
-
+## Common
+* Resolved an issue where the Metrics & Trends dashboard displayed the following error for a newly created integration that had not yet been executed: `OH-API-0002: java.lang.NullPointerException: Cannot invoke "java.util.Date.getTime()" because "lastRefreshedDate" is null`
+* Resolved an issue where Metrics & Trends dashboard refresh operations failed in PostgreSQL-based OIM deployments with the following error: `ERROR: column "last_refreshed_at" does not exist`
+* Resolved an issue where renewed SSL certificates for cloud-based systems were not automatically installed after editing and saving the system configuration.
+ 
+## Jira
+* Resolved an issue where inline images embedded in Jira rich text fields were not rendered correctly in HTML rich text fields in the target system.
+* Resolved an issue where Jira Service Management Request Type values were not synchronized when multiple Jira fields shared the same schema identifier. This caused OIM to retrieve values from an incorrect field during synchronization.
+* Resolved an issue where issue statuses were not updated correctly during failure retry processing after a previously unavailable Jira workflow transition became available.
+ 
+# Documentation
+## Jira Service Management
+* Updated the Jira connector documentation to include the additional permissions required when configuring Jira Service Management as a source or target system.
+{% endif %}
+ 
+{% if "OM4ADO" === visitor.claims.unsigned.product %}
+# Major Bug Fixes
+* Resolved an issue where Area Path migration failed with the following error when the target Azure DevOps project name contained parentheses: `VS402485: The Area/Iteration name is not recognized: Demo Project (ID)`
+* Resolved an issue where HTML fields in Azure DevOps Server 2020 and later versions were incorrectly processed as text fields during migration.
 {% endif %}
