@@ -383,13 +383,12 @@ Result:
 #### Synchronization Behavior
 * Enabled:
   * PLM as source:
-    * One mapping synchronizes the selected entity and all its subtypes.
-    * The same field mappings apply to all subtypes. 
-  * PLM as target system:
-    * When PLM is the target, records are created as the configured entity type.
-  * If bidirectional integration is configured,
-    * After the initial synchronization, updates continue to sync correctly between linked records. 
-    * New created records from the other system will be processed as the mapped entity not as subtype record.
+    * A single mapping synchronizes the selected entity and all its subtypes. [Like Part, Electrical Part, Mechanical Part]
+  * PLM as target:
+    * Records are created as the configured entity type [as Part will be synced, not Electrical or Mechanical ]
+  * Bidirectional synchronization:
+    * After the initial synchronization from PLM to target, updates continue to sync between PLM and subtypes records. 
+    * New records created in the target system are synchronized to PLM as the configured entity type, not as a specific subtype. For example, if Part is configured, a new Epic record from the other system will be created as Part in the PLM system, not as Electrical Part.
 
 * Disabled:
   * Only the selected entity is synchronized.
