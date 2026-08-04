@@ -257,7 +257,7 @@ Set a time to synchronize data between Windchill PLM and the other system to be 
 <p align="center"><img alt="Windchill PLM Integration Config Screenshot" src="../assets/PLMIntegrationConfig.png" width="1500"/></p>
 
 
-### Criteria Configuration
+## Criteria Configuration
 
 If the user wants to specify conditions for synchronizing an entity from Windchill PLM as source system to the other system, the criteria must be configured. Refer to Criteria Configuration section on [Integration Configuration](../integrate/integration-configuration.md) page for details.
 
@@ -295,7 +295,7 @@ For more information about query options, Refer to [Windchill PLM's Query Parame
 - Check [Windchill PLM's documentation on navigational properties](https://support.ptc.com/help/windchill_rest_services/r2.7/en/#page/windchill_rest_services/WCCG_RESTAPIsConfiguringNavigationalProperties.html) for more details.
 
 
-### Target Lookup Configuration
+## Target Lookup Configuration
 
 * Provide Query in Target Search Query field such that it is possible to search the entity in the Windchill PLM as the target system. In the target search query field, the user can provide a placeholder for the source system's field value in the '@'.
 
@@ -320,6 +320,107 @@ Here:
 - `comTestUpstreamItem` is the Windchill PLM field to search.
 - `@ID@` will be replaced with the actual ID value from the source system.
 - The integration will look for a Windchill PLM item where `comTestUpstreamItem` matches the source ID.
+
+## Include Subtypes in Synchronization
+
+The 'Include Subtypes in Synchronization' option is available in the integration configuration under entity level advanced configuration.
+
+<p align="center"><img alt="Windchill PLM Subtype Config Screenshot" src="../assets/PLM_Subtype.png" width="1500"/></p>
+
+#### Overview
+* Use this option when you want to synchronize an entity type along with all of its subtypes using a single entity mapping and integration configuration. This helps reduce configuration effort when multiple subtypes share the same synchronization behavior.
+
+#### Default Behavior
+
+By default, subtype synchronization is disabled (Include Subtypes in Synchronization = No). Only the selected entity type is synchronized. Subtypes require separate mappings.
+* Example:
+  * Assume the following entity hierarchy in Windchill:
+    * Part 
+      * Electrical Part 
+      * Mechanical Part 
+  * If the entity mapping is configured for Part and Include Subtypes in Synchronization = No:
+  
+    | **Entity Type** | **Synchronized** |
+    |-----------------|------------------|
+    | Part            | Yes              |
+    | Electrical Part | No               |
+    | Mechanical Part | No               |
+
+  * To synchronize Electrical Part and Mechanical Part, separate entity mappings must be created.
+
+**Use Case 1: Subtypes have different fields (common + additional)**
+
+Use the default behavior when subtypes have different fields.
+
+***Example:***
+
+* Part → Common fields
+* Electrical Part → Common fields + Electrical-specific fields
+* Mechanical Part → Common fields + Mechanical-specific fields
+
+Recommended configuration (Configure separate mappings):
+
+| **Mapping** | **Entity Type** |
+|-------------|-----------------|
+| Mapping A   | Part             |
+| Mapping B   | Electrical Part             |
+| Mapping C   | Mechanical Part             |
+
+Result:
+* Each subtype is synchronized independently using its own mapping.
+
+**Use Case 2: Subtypes share the same fields**
+
+Use this option when Part, Electrical Part, and Mechanical Part require the same mapping and synchronization rules.
+
+Configuration:
+* Entity Type: Part
+* Include Subtypes in Synchronization: Yes
+
+Result:
+* A single mapping synchronizes Part, Electrical Part, and Mechanical Part, reducing configuration and maintenance effort.
+
+#### Synchronization Behavior
+* Enabled:
+  * PLM as source:
+    * One mapping synchronizes the selected entity and all its subtypes.
+    * The same field mappings apply to all subtypes. 
+  * PLM as target system:
+    * When PLM is the target, records are created as the configured entity type.
+  * If bidirectional integration is configured,
+    * After the initial synchronization, updates continue to sync correctly between linked records. 
+    * New created records from the other system will be processed as the mapped entity not as subtype record.
+
+* Disabled:
+  * Only the selected entity is synchronized.
+  * Each subtype requires its own mapping.
+  * Different mappings can be maintained for each subtype.
+
+#### Important: Switching from a single mapping to separate subtype mappings
+
+When an implementation moves from a single consolidated mapping (subtype synchronization enabled) to separate subtype mappings (subtype synchronization disabled), existing synchronized records should be carefully reviewed.
+
+Initial Configuration: 
+* Part (+ Subtypes) → Jira Epic
+* Include Subtypes in Synchronization = Yes
+* Under this configuration:
+  * Part, Electrical Part, and Mechanical Part are all synchronized as Epic in Jira through a single mapping.
+
+Updated Configuration:
+* Part → Jira Epic (Include Subtypes = No)
+* Electrical Part → Jira feature
+
+Impact:
+* Records previously synchronized as Epic are tracked under the original Part mapping. When separate subtype mappings are introduced, Electrical Parts will be treated as new records.
+* As a result, duplicate entities can be created in the target system for the same source entity.
+
+Example:
+* Electrical Part A, previously synchronized as Jira Epic: EPIC-101
+* After creating a dedicated Electrical Part mapping:
+  * Electrical Part A may be synchronized again as ELEC-001 (Feature).
+  * As a result, both EPIC-101 and ELEC-001 may represent the same source record, potentially creating two replicas entities in the target system.
+
+> **Note**: Enable 'Include Subtypes in Synchronization' when all subtypes share the same synchronization requirements. Keep the default behavior when different subtypes require different mappings, business rules, or target-system behavior.
 
 ---
 
