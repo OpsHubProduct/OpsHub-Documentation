@@ -182,7 +182,7 @@ Given below are the systems supported currently by <code class="expression">spac
         <tr>
             <td>22</td>
             <td>GitHub</td>
-            <td>GitHub Enterprise - From 2.7 to 2.20<br/>SaaS - 2.1</td>
+            <td>GitHub Enterprise - From 2.7 till 3.18.x<br/>SaaS - 2.1</td>
             <td>Issue, Commit Information (read only), Pull Request (read only)</td>
             <td></td>
         </tr>
