@@ -11,7 +11,6 @@
   ```docker run --rm -t -v <Base_VolumeName>:/from -v <BackUp_VolumeName>:/to alpine ash -c "cd /from ; cp -av . /to"```
 
 * Ensure that the backup has been taken correctly.
-* Ensure that the OIM_DB_TYPE in Input.json is empty.
 
 * Comment out the line mounting the database connector jar by adding `#` symbol before the line in `docker-compose-OIM.yml` file:  
   ```# - "@PATH_TO_LOCAL_CONNECTOR_JAR_FILE@:/home/OpsHub_OIM/@CONNECTOR_JAR_IN_DOCKER@"```
