@@ -30,6 +30,7 @@ if: >-
   `<add key="ATTACHMENT_PATH" value="C:\EAAttachments"/>`
 * Set the value to a folder location where the local system has **write** access. (This step can be skipped if the user's local system has adequate write permissions in the local drive C). Attachments synchronizing from/to Enterprise Architect need to be saved locally. This folder will be used for saving the attachments locally.
   * This configuration is required even when attachment's synchronization is disabled.
+* Configure automatic closing of Enterprise Architect error pop-ups to prevent synchronization interruptions. Refer to [Configure Automatic Closing of Enterprise Architect Pop-Ups](#configure-automatic-closing-of-enterprise-architect-pop-ups) for more details.
 * Go to `<code class="expression">space.vars.OIM</code>_INSTALLATION_PATH>\OpsHubEAService` folder, and run `EAService.exe` in administrator mode to start OpsHubEAWindowsService.
 * Test the web service by opening this URL in browser: `http://<hostname>:9393/EAService`.\
   E.g. `http://localhost:9393/EAService`
@@ -585,3 +586,23 @@ Follow any one of the steps below to configure auto login:
 3. To enable auto login from registry editor, refer to [Microsoft Docs – Turn on automatic logon](https://learn.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon).
 
 > **Note**: It is recommended to use the first method (**netplwiz**) to configure auto login because the password for the administrator is stored in plain text in the registry, which can lead to security issues. Netplwiz stores the password in encrypted form.
+
+## Configure Automatic Closing of Enterprise Architect Pop-Ups
+* During synchronization, Enterprise Architect may display pop-up messages when an error occurs. If these pop-ups remain open, synchronization for Enterprise architect application can stop.
+* OpsHubEAService can automatically detect and close pop-up windows, allowing synchronization to continue without manual intervention. By default, it closes pop-ups that appear within 30 minutes of sending a request.
+* To modify these settings, edit the AppConfig.json file located in the folder where OpsHubEAService is extracted.
+  ```json
+    {
+      "AUTO_CLOSE_EA_POP_UP": true,
+      "POPUP_CLOSE_TIME_MINUTES": 30
+    }
+  ```
+  * **AUTO_CLOSE_EA_POP_UP:** Turns automatic pop-up closing on or off.
+    * Supported values:
+      * **true (default):** OpsHubEAService automatically closes Enterprise Architect pop-ups.
+      * **false:** Pop-ups must be closed manually.
+    * **Note**: The value must be a valid JSON Boolean values. Specify **true** or **false** without quotation marks.
+  * **POPUP_CLOSE_TIME_MINUTES:** Defines how long OpsHubEAService monitors and closes Enterprise Architect pop-ups.
+    * The value must be a positive number representing the duration in minutes. 
+    * The default value is 30 minutes.
+    * This configuration applies only when AUTO_CLOSE_EA_POP_UP is set to true.
