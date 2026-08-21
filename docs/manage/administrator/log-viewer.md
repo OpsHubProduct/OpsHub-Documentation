@@ -11,6 +11,7 @@ There are different logs maintained and stored under **<code class="expression">
 | ConnectionModeConf.log | Log related to the Connection Mode Configuration.                                                            |
 | OpsHub.log             | <code class="expression">visitor.claims.unsigned.product</code> Application log file for all the migrations/integrations |
 | OpsHubTFSService.log   | Common log file for TFS API interaction                                                                      |
+| MCPServer.log          | Logs related to MCP Server (Tool registerations, Tool Call requests, Tool Call responses)                                |
 | Integrations           | Folder contains the files for the logs of each migrations/integrations                                       |
 
 {% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}  
@@ -26,6 +27,8 @@ To navigate to System log
 <p align="center">
   <img src="../../assets/systemlog2-a.png" width="1000"/>
 </p>
+
+> **Note**: The Global Log screen also has an **MCP Logs** toggle to view MCP Server logs. Refer to [MCP Logs](log-viewer.md#mcp-logs) below for details.
 
 
 ## Settings
@@ -109,4 +112,16 @@ Click on Word Wrap to enable/disable the word wrapping behavior in the log viewe
 * Word wrap is enabled by default.
 * When word wrap is enabled, long log entries are wrapped, making them easier to read without horizontal scrolling.
 * When word wrap is disabled, log entries remain on a single line, preserving the visual alignment of timestamps and structure. However, horizontal scrolling may be needed.
+
+## MCP Logs
+
+To view MCP Server logs (tool registrations, tool call requests and responses), go to **Administration → Global Log** and switch on the **MCP Logs** toggle.
+
+<p align="center">
+  <img src="../../assets/mcp-logs-toggle.png" width="400"/>
+</p>
+
+> **Note**: To view MCP logs, the user needs the same permission required for Global logs - **Server Management** admin permission with **Read** access. Super Administrator has this by default. If the current license does not include the MCP Server feature, the **MCP Logs** toggle is disabled.
+
+The **Settings** and **Export Logs** options work the same way for MCP Logs as they do for Global logs - you can apply log settings and export/download MCP logs from the same screen.
 {% endif %}  
