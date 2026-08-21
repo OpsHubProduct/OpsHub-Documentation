@@ -21,18 +21,22 @@ C:\Program Files\OpsHub\AppData\logs\MCPServer.log
 
 > **Note**: The installation directory may differ depending on the path chosen during setup.
 
+> **Tip**: These logs can also be viewed directly from the <code class="expression">space.vars.OIM</code> UI using the **MCP Logs** toggle on the Global Log screen, without needing server file access. Refer to [MCP Logs](../administrator/log-viewer.md#mcp-logs) for details, including the log format, correlation ID, sensitive data masking, and permissions required.
+
 ### What the logs contain
 
 Each log entry follows this format:
 
 ```
-<Timestamp> <Log Level> [<Thread>] <Class> - <Message>
+<Timestamp> <Log Level> [<Thread>] <Class> - [User:<username>] [ReqId:<correlation_id>] <Message>
 ```
+
+The `[User:<username>]` and `[ReqId:<correlation_id>]` prefixes identify the user who made the tool call and a unique correlation ID assigned to that call, which is useful for tracing a single call end-to-end when multiple calls are logged concurrently. See [Correlation ID (ReqId)](../administrator/log-viewer.md#correlation-id-reqid) for more details.
 
 For example:
 ```
-2026-05-27 14:55:22.194+05:30 DEBUG [boundedElastic-3] co.op.mc.McpToolRegistrar - Executing tool=get_schema with arguments={toolName=update_system}
-2026-05-27 14:55:40.301+05:30 DEBUG [boundedElastic-3] co.op.mc.McpToolRegistrar - Successfully executed MCP tool: update_system, Tool Call Result: ...
+2026-08-13 10:38:26.570+05:30 DEBUG [boundedElastic-1] co.op.mc.McpToolRegistrar - [User:admin] [ReqId:448d8ff2-dab5-4da6-ba8a-24bdde8e57c9] Executing tool=get_schema with arguments={toolName=update_system}
+2026-08-13 10:38:26.701+05:30 DEBUG [boundedElastic-1] co.op.mc.McpToolRegistrar - [User:admin] [ReqId:448d8ff2-dab5-4da6-ba8a-24bdde8e57c9] Successfully executed MCP tool: update_system, Tool Call Result: ...
 ```
 
 Typical entries include:
@@ -40,11 +44,14 @@ Typical entries include:
 - **Tool invocations**: Logged  with prefix `Executing tool=<tool_name>` — shows the tool called and the arguments passed
 - **Tool results**: Logged  with prefix `Successfully executed MCP tool: <tool_name>` — shows the result returned
 
+> **Note**: Any credential-like values (passwords, tokens, API keys, secrets) present in tool call arguments or results are masked as `********` before being written to the log.
+
 ## Debugging
 
 - **To verify MCP server started and tools are registered**: Search for `Registering MCP tool` — confirms the MCP server started and all tools are available.
 - **To check if an MCP request is being processed**: Search for `Executing tool=<tool_name>` (e.g., `Executing tool=get_integrations_list`) — confirms the request reached the server and processing has begun.
 - **To check the result of a processed request**: Search for `Successfully executed MCP tool: <tool_name>` — confirms the request completed and returned a result.
+- **To trace a single tool call end-to-end**: Search the log for its `[ReqId:<id>]` correlation ID — this returns the request, the response, and any error logged for that call. If a tool call fails, the same correlation ID is also included in the error returned to the client.
 - **To find failures**: Search for `ERROR` or `WARN` in the log.
 ---
 
