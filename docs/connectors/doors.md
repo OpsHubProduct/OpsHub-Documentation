@@ -144,6 +144,8 @@ Set configure criteria to as per requirement of integration.
 * Query
   * Query in DOORS system is the valid filter query on any attribute.
   * Query in OIM should be given as expected in DOORS
+
+> **Note**: Criteria is not supported for the [Module entity](#module-entity), as DOORS does not allow a native query for modules through the API.
     
 ## Sample Query Snippets
 
@@ -163,6 +165,84 @@ Where, **attr:** The display name of the attribute .
   * Example: `(attribute 'Object Heading' == 'This object contains `\`' in Heading').`
   * Here, the query for **Object Heading** in DOORS is: **This object contains ' in Heading'**, but the query to be used in <code class="expression">space.vars.OIM</code> is: **This object contains `\`' in Heading'**.
 
+
+# Module Entity
+
+<code class="expression">space.vars.OIM</code> supports the **Module** entity of DOORS. No additional system configuration or DOORS permission is required; the Module entity is configured within the existing DOORS system setup.
+
+This section describes only the behavior that is **specific to the Module entity**. Anything not mentioned here follows the standard DOORS connector behavior described in the sections above.
+
+## Scope and Entity Selection
+
+The entities available for an integration depend on the level of the path selected in the project scope.
+
+| **Selected scope path** | **Entities available** | **What gets synchronized** |
+|    -|    -|    -|
+| Project or Folder level | Only **Module** | Every module under the selected project/folder |
+| Module level | **Module** and **Object (Requirement)** | Only the selected module |
+
+Supported path formats:
+
+* **Project or Folder level**: `Project`, `Project/Project`, `Project/Folder`, `Project/Folder1/Folder2`
+* **Module level**: `Project/Module`, `Project/Folder/Module`
+
+### Use Cases
+
+Select a **Project or Folder level** path when you want to synchronize the modules under that project/folder along with their attributes. Select a **Module level** path when you want to synchronize the requirements inside one specific module, or that single module itself.
+
+Multiple projects can be mapped within the same integration. The prerequisite is that all the modules under those projects must have the **same set of custom fields**.
+
+All the paths mapped within the same integration must be of the **same level**. That is, either map multiple Project/Folder level paths, or map multiple Module level paths. A Module level path and a Project/Folder level path cannot be mapped together in the same integration.
+
+## Metadata Loading
+
+For the Module entity, field metadata is derived from a module present under the selected scope:
+
+* When a Project or Folder is selected as the scope, the **first available module** (first created) under that scope is loaded, and both **system** and **custom** module attributes from it are exposed for mapping.
+* When a Module is selected as the scope, that module's own **system** and **custom** attributes are exposed for mapping.
+* If no module exists under the selected Project/Folder, only the standard system fields are exposed. No custom fields are available, as there is no module from which the metadata can be collected.
+
+> **Note**: It is assumed that all modules under the same Project/Folder have the same set of custom attributes. During polling, each module is processed independently, and if a mapped custom field does not exist in a particular module, that field is skipped for that module so that the polling continues successfully.
+
+## Relationships
+
+IBM DOORS does not support creating or updating links between a Module and an Object, or between two Modules, through the DXL API. Hence, **write support for module relationships is not available**. Read support is provided through the following custom relationship types:
+
+| **Relationship Type** | **Source Entity** | **Target Entity** | **Read** | **Write** | **Description** |
+|    -|    -|    -|    -|    -|    -|
+| **OH_Child_Object** | Module | Object (Requirement) | Yes | No | Returns all the child objects contained within the module. |
+| **OH_Parent_Module** | Object (Requirement) | Module | Yes | No | Reverse relationship of OH_Child_Object. Returns the parent module to which the object belongs. |
+
+* `OH_Child_Object` links are polled only if the relationship is mapped in the configuration.
+
+> **Note**: Fetching all the requirements of every module through `OH_Child_Object` is a heavy operation. It is recommended to map `OH_Parent_Module` on the Requirement entity instead, as the module information is already available with the requirement.
+
+## Target Lookup
+
+Target lookup is supported only on the **Module ID** field. Provide the Module ID in the lookup query, for example `@id@`.
+
+## Known Limitations
+
+* **Name field**
+  * **Name** is set only while the module is being created and cannot be updated afterwards.
+  * It is synchronized only during creation. If it is mapped and present in an update, it is skipped and a warning is logged, while the rest of the update is applied as usual.
+
+* **Start at field**
+  * **Start at** is set only while the module is being created and cannot be updated afterwards.
+  * It is synchronized only during creation. If it is mapped and present in an update, it is skipped and a warning is logged, while the rest of the update is applied as usual.
+  * The value of **Start at** cannot be read back from DOORS. Because of this, if the **Start at** field is mapped, **recovery will not work**. Hence, if recovery is expected to work, **do not map the Start at field**.
+  * When it is not mapped, DOORS assigns its default value, i.e., **1** — the same as the DOORS user interface, where creating a module without a value for Start at sets it to 1.
+
+* **Module creation scope**
+  * A module can be created only when the configured scope is a **Project** or a **Folder**.
+  * If the configured scope is a module itself, the create operation fails with an error, as a module cannot be created inside another module.
+
+* **Rich Text and OLE**
+  * Similar to the Requirement entity, rich text (including OLE) is supported only for reading.
+  * When DOORS is the target system, the value is written as normal text.
+
+* **Attachments**
+  * Attachment synchronization is not supported, as DOORS does not provide an attachment mechanism for modules.
 
 # Configure OpsHub's DOORS Remote Services
 
