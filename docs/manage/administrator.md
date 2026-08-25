@@ -67,6 +67,10 @@ if: >-
       <td align="center"><strong>User Access Control</strong></td>
       <td><a href="administrator/user-access-control.md">User Access Control</a></td>
     </tr>
+    <tr>
+      <td align="center"><strong>Configure Additional XStream Allowed Classes</strong></td>
+      <td><a href="administrator/configure-additional-XStream-allowed-classes.md">Configure Additional XStream Allowed Classes</a></td>
+    </tr>
   </tbody>
 </table> 
 

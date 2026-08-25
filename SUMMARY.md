@@ -70,6 +70,7 @@
             * [User Role Association](docs/manage/administrator/user-role-association.md)
             * [Role Configuration](docs/manage/administrator/role-configuration.md)
         * [License Installation](docs/manage/administrator/license_installation.md)
+        * * [Configure Additional XStream Allowed Classes](docs/manage/administrator/configure-additional-XStream-allowed-classes.md)
     * [Advanced Utilities](docs/manage/advanced-utilities.md)
         * [Usage Report Manual](docs/manage/advanced-utilities/usage-reports.md)
         * [Migrating Database](docs/manage/advanced-utilities/database-migration.md)
