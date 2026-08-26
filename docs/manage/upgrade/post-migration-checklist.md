@@ -608,3 +608,27 @@ To address this and align with modern standards:
 
 **Reason**
 * <code class="expression">space.vars.OIM</code> introduces enhanced authentication handling for Tricentis Tosca integrations. As part of this change, the **Authentication User** must be specified in <code class="expression">space.vars.OIM</code> ensure reliable interaction with the Tosca system. 
+
+
+# Migrating <code class="expression">space.vars.OIM</code> version to 7.235 or above
+
+**Applicable When**
+* ReadyOne is configured as one of the endpoints in the integration.
+
+**What changes after upgrading to OIM 7.235?**
+* Starting with OIM 7.235, ReadyOne authentication is migrated from the basic authentication to OAuth authentication and ReadyOne service dependency is removed.
+
+**Migration behavior for existing ReadyOne systems in OIM**
+* The OAuth Grant Type is automatically set to Password Based.
+* Existing Username and Password values configured for the ReadyOne system are retained and used for OAuth authentication.
+* The Client ID is automatically set to IOMApp, which is the default Client ID provided by ReadyOne.
+* If your ReadyOne environment uses a custom Client ID configured in OAuth.configin ReadyOne system installation folder, update the Client ID field in the ReadyOne system form in OIM accordingly.
+* If you want to use `Refresh token based` instead of `Password based` as the OAuth Grant Type:
+  1. Select `Refresh token based` as the **OAuth Grant Type**.
+  2. Provide a valid ReadyOne **Refresh Token** in the **Refresh Token** field.
+  3. Refer to [Generate Refresh Token](../../connectors/readyone.md#Generate-Refresh-token) to learn how to generate a refresh token.
+
+**Why this change?**
+* ReadyOne authentication has been migrated to OAuth to:
+  * Eliminate the dependency on the ReadyOne service.
+  * Align with modern security and authentication standards.
