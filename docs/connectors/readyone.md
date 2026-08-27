@@ -22,20 +22,7 @@ if: >-
 
 - For any Item Type in ReadyOne, the versions/history for the item gets generated only when the item is versionable. Hence for <code class="expression">space.vars.OIM</code> to synchronize the items with their revisions, they need to be versionable.
 - In case they are not versionable, <code class="expression">space.vars.OIM</code> will synchronize the item as per the current state of that item, available at the time of synchronization.
-Follow [Make Item Type Versionable](#make-item-type-versionable) in the Appendix section to learn how to make item types versionable.
-
-## Hosting Opshub ReadyOne Service
-
-- <code class="expression">space.vars.OIM</code> requires this service to communicate with ReadyOne server. It acts as a communication layer between ReadyOne and <code class="expression">space.vars.OIM</code>.
-
-### System Prerequisites
-
-- Configure <code class="expression">space.vars.OIM</code> Aras Service on a machine that has .NET Framework version 4.7.2 or a higher version installed.
-- Please refer to the following [link](https://docs.microsoft.com/en-us/dotnet/framework/get-started/system-requirements) for information on software and hardware requirements for installing .NET Framework 4.7.2.
-
-### Installation Steps
-
-{% include "../.gitbook/includes/aras-installtion-steps.md" %}
+  Follow [Make Item Type Versionable](#make-item-type-versionable) in the Appendix section to learn how to make item types versionable.
 
 # System Configuration
 
@@ -45,17 +32,19 @@ Before the user continues with the integration, he/she must first configure Read
   <img src="../assets/ReadyOne_System.png" width="1100px" />
 </p>
 
-| **Field Name**               | **Description**                                                                                                                                                                                |
-|------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **System Name**              | Provide a unique name to the ReadyOne System                                                                                                                                                   |
-| **Version**                  | Provide version for ReadyOne Instance. Check [Get ReadyOne Version](#get-readyone-version) in the Appendix section to learn how to get ReadyOne version                                        |
-| **ReadyOne Instance URL**    | Provide URL for ReadyOne Instance. Example:- <hostname>/InnovatorServer/Server/InnovatorServer.aspx                                                                                            |
-| **ReadyOne User Name**       | Provide username of the user dedicated for <code class="expression">space.vars.OIM</code>. Please ensure that user has the necessary permissions. Refer to [User privileges](#user-privileges) |
-| **ReadyOne User Password**   | Provide password of user dedicated for <code class="expression">space.vars.OIM</code> - use plain text if FIPS is disabled, or MD5-hashed if FIPS is enabled.                                  |
-| **ReadyOne Database name**   | Provide ReadyOne Database name to which the connection needs to be done. Refer to [Get Database Name](#get-database-name) to learn how to get Database name                                    |
-| **ReadyOne Web Service URL** | Provide URL for the hosted OpsHubArasService. Refer to [Hosting opshub Aras service](#hosting-opshub-readyone-service)                                                                         |
-| **Base URL for Remote Link** | Provide different Instance URL of the ReadyOne Instance. This URL is used for generating the Remote Link. <br>If empty, the Server URL will be used.                                           |
-| **Metadata Details**         | Override default entity properties using metadata configuration.. Refer to [Understanding JSON Input](readyone.md#understanding-json-input) to learn how to specify the metadata details.      |
+| **Field Name**               | **Description**                                                                                                                                                                                                                                                                                                                                                                |
+|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **System Name**              | Provide a unique name to the ReadyOne System                                                                                                                                                                                                                                                                                                                                   |
+| **Version**                  | Provide version for ReadyOne Instance. Check [Get ReadyOne Version](#get-readyone-version) in the Appendix section to learn how to get ReadyOne version                                                                                                                                                                                                                        |
+| **Instance URL**             | Provide URL for ReadyOne Instance. Example:- <hostname>/InnovatorServer/Server/InnovatorServer.aspx                                                                                                                                                                                                                                                                            |
+| **User Name**                | Provide username of the user dedicated for <code class="expression">space.vars.OIM</code>. Please ensure that user has the necessary permissions. Refer to [User privileges](#user-privileges)                                                                                                                                                                                 |
+| **Client Id**                | Provide the Client ID configured for the ReadyOne instance. Refer to [Get Client Id](#get-client-id) to learn how to get the Client ID.                                                                                                                                                                                                                                        |
+| **OAuth Grant Type**         | Specify the OAuth grant type to be used for authentication. Supported grant types are Password based and Refresh token based.                                                                                                                                                                                                                                                  |
+| **Password**                 | If OAuth Grant Type is set to `Password`, provide the password of the user dedicated to the ReadyOne instance. The password must be entered in its original form; MD5 or any other hashed/encrypted value should not be provided.                                                                                                                                              |
+| **Refresh Token**            | If OAuth Grant Type is set to `Refresh Token`, provide the refresh token generated from ReadyOne. The refresh token needs to be renewed and updated in the **System configuration form** whenever the existing token expires to ensure uninterrupted synchronization. Refer to [Retrieve Refresh Token](#retrieve-refresh-token) to learn how to generate a new refresh token. |
+| **Database Name**            | Provide ReadyOne Database name to which the connection needs to be done. Refer to [Get Database Name](#get-database-name) to learn how to get Database name                                                                                                                                                                                                                    |
+| **Base URL for Remote Link** | Provide different Instance URL of the ReadyOne Instance. This URL is used for generating the Remote Link. <br>If empty, the Server URL will be used.                                                                                                                                                                                                                           |
+| **Metadata Details**         | Override default entity properties using metadata configuration.. Refer to [Understanding JSON Input](readyone.md#understanding-json-input) to learn how to specify the metadata details.                                                                                                                                                                                      |
 
 - If the system is deployed on HTTPS and a self-signed certificate is used, then the user should import the SSL Certificate to be able to access the system from <code class="expression">space.vars.OIM</code>. Check [Import SSL Certificates](../getting-started/ssl-certificate-configuration.md) to learn how to import SSL certificate.
 
@@ -115,7 +104,7 @@ Set polling time as the time after which the user wants to synchronize data betw
 
 ## Criteria Configuration
 
-- If the user wants to specify conditions for synchronizing an entity between ReadyOne and the other system to be integrated, refer to this **Criteria Configuration** feature section.  
+- If the user wants to specify conditions for synchronizing an entity between ReadyOne and the other system to be integrated, refer to this **Criteria Configuration** feature section.
 - To configure criteria in ReadyOne, integration needs to be created with ReadyOne as the source system. The user can set a query on a particular ItemType.
 - Go to Criteria Configuration section on [Integration Configuration](../integrate/integration-configuration.md) page to learn more.
 - ReadyOne Query format is:
@@ -139,21 +128,21 @@ Set polling time as the time after which the user wants to synchronize data betw
 
 # Target LookUp Configuration
 
-* Provide Query in **Target Search Query** field so that it is possible to search the entity in ReadyOne when it is the target system.  
-* Go to **Search in Target Before Sync** section on [[Integration Configuration]] page to learn in detail about how to configure Target LookUp.  
+* Provide Query in **Target Search Query** field so that it is possible to search the entity in ReadyOne when it is the target system.
+* Go to **Search in Target Before Sync** section on [[Integration Configuration]] page to learn in detail about how to configure Target LookUp.
 * Target LookUp configuration is similar to the [[Criteria Configuration](#criteria-configuration) where in the Target Search Query field, the user can provide a placeholder for the source system’s field value in-between `@`.
 
-**Example** — Target Look Up Query based on internal id of source itemtype:  
+**Example** — Target Look Up Query based on internal id of source itemtype:
 ```json
 [{"condition":"EQUALS","field":"custom_testing_text","value":"@oh_internal_id@"}]
 ```
 
 # Known Behaviors
 
-**Remote ID Synchronization**  
+**Remote ID Synchronization**
 * In ReadyOne, custom entity types don't have an *Item Number* (which stores Display Id) field by default.  
   → In such cases, `<code class="expression">space.vars.OIM</code>` will use the entity's **Internal Id** as **Remote Id**.  
-  → To show the Display Id as Remote Id, add the **Item Number** field in ReadyOne. Refer to [Add Item Number Field](#set-item-number-for-custom-entity) for more details.  
+  → To show the Display Id as Remote Id, add the **Item Number** field in ReadyOne. Refer to [Add Item Number Field](#set-item-number-for-custom-entity) for more details.
 * In ReadyOne, the *project concept* is only supported for the `Requirement` Item Type (`req_Requirement`).
 
 **Reference Field Lookup Behavior**
@@ -167,15 +156,15 @@ Set polling time as the time after which the user wants to synchronize data betw
 * If the attachment filename contains **Windows special characters** (`/`, `\`, `"`, `:`, `*`, `?`, `<`, `>`), then the file will not be added in ReadyOne (processing failure occurs).  
   → This is a ReadyOne limitation.  
   → See [[OH-Aras-1502|Synchronise file with Windows special characters]] for how to handle such attachments.
-
+* For reference fields, only the first 1,000 lookup values are displayed in the OIM mapping screen. To map additional lookup values, use the **Excel Sheet** option for value mapping.
 
 ## Limitations to be Resolved in Upcoming Releases of `<code class="expression">space.vars.OIM</code>`
 
 * To synchronize **File as Attachment** to an ItemType, there must be a **unique relationship type** between ItemType and File.
 * **Comments with attachments** are not supported.
 * Synchronization of **Inline image** in a **Formatted text field** is:
-  - ✅ **Supported** for **External Files of Image type**
-  - ❌ **Not supported** for **ReadyOne's Internal Images**
+    - ✅ **Supported** for **External Files of Image type**
+    - ❌ **Not supported** for **ReadyOne's Internal Images**
 
 
 
@@ -192,32 +181,6 @@ Set polling time as the time after which the user wants to synchronize data betw
 <p align="center">
   <img src="../assets/ReadyOne_User_Add_7.png" />
 </p>
-
----
-
-## How to Change the Port of Service
-
-1. Open File Explorer → Go to folder:  
-   `C:\Program Files\OpsHub\Other_Resources\Resources\OpsHubArasService`
-2. Open `ArasService.exe.config` in a text editor.
-3. Find `<baseAddresses>` section.  
-   Modify the port number inside `<add baseAddress>` (e.g., change `9494` to your desired port), then save.
-
-<p align="center">
-  <img src="../assets/ReadyOne_SERVICE_PORT_CHANGE_3.png" />
-</p>
-
----
-
-## How to Check Availability of Port 9494
-
-1. Open **Command Prompt** as administrator.
-2. Run:  
-   ```sh
-   netstat -ano | findStr "9494"
-   ```
-3. If output is empty → port is available.  
-   If output shows a process → check the **PID** in the last column to identify the app.
 
 ---
 
@@ -265,8 +228,8 @@ Set polling time as the time after which the user wants to synchronize data betw
 2. Go to `Administration → ItemTypes`.
 3. Open your ItemType and go to the **Permissions** tab.
 4. Use:
-   - ➕ to select existing permission
-   - ➕ to create new permission
+    - ➕ to select existing permission
+    - ➕ to create new permission
 5. See [Add Identities to Permissions](#add-identities-to-permissions) for identity assignment.
 
 <p align="center">
@@ -292,7 +255,12 @@ Set polling time as the time after which the user wants to synchronize data betw
 1. Login to ReadyOne as Administrator.
 2. Go to `Administration → ItemTypes`.
 3. Search and open your ItemType.
-4. In edit mode, check the **Versionable** checkbox. 
+
+<p align="center">
+  <img src="../assets/ReadyOne_versionable_4.png" />
+</p>
+
+4. In edit mode, check the **Versionable** checkbox.
 5. Select **Automatic** in the drop-down list of **Discipline**.
 
 <p align="center">
@@ -322,9 +290,9 @@ Set polling time as the time after which the user wants to synchronize data betw
 2. Open `ItemTypes` page.
 3. Open desired Entity Type in edit mode.
 4. Under **Properties**, add a new row:
-   - Name: `item_number`
-   - Data type: `Sequence`
-   - `Keyed Name Order`: `1`
+    - Name: `item_number`
+    - Data type: `Sequence`
+    - `Keyed Name Order`: `1`
 
 ---
 
@@ -365,6 +333,99 @@ Set polling time as the time after which the user wants to synchronize data betw
 
 ---
 
+## Get Client Id
+
+Client Id can be obtained from the ReadyOne installation directory.
+
+- Navigate to the following path:
+  `<ReadyOne installation directory>/Innovator/OAuthServer/OAuth.config`
+- Open the `OAuth.config` file and locate the client registry entry.
+- For example:
+
+```xml
+<clientRegistry id="IOMApp" enabled="true">
+    <allowedScopes>
+        <scope name="openid"></scope>
+        <scope name="Innovator"></scope>
+        <scope name="offline_access"></scope>
+    </allowedScopes>
+    <allowedGrantTypes>
+        <grantType name="password"></grantType>
+    </allowedGrantTypes>
+    <tokenLifetime accessTokenLifetime="3600" authorizationCodeLifetime="300"
+                   refreshTokenSlidingLifetime="36000" refreshTokenOneTimeOnly="true"
+                   refreshTokenAbsoluteExpiration="false">
+    </tokenLifetime>
+</clientRegistry>
+```
+
+- In this example, `IOMApp` is the Client id.
+- Use `IOMApp` as the **Client id** in the **System configuration form** while creating the ReadyOne system in OIM.
+- Ensure that the Client Id entered in the **System configuration form** matches the `id` configured in the `OAuth.config` file.
+
+## Get Refresh Token
+
+A refresh token can be generated using the ReadyOne OAuth token API. The generated refresh token must be provided in the **System Form** while creating or updating the ReadyOne system in OIM.
+
+### Prerequisites
+
+Before generating the refresh token, ensure that:
+
+- The Client ID has the following scopes configured:
+    - `Innovator`
+    - `offline_access`
+- The client has a configured refresh token lifetime.
+- The ReadyOne user account used to generate the token must have the required permissions for the ItemTypes being integrated/migrated. Refer to the [ReadyOne User Privileges](#User-Privileges) section for the required permissions.
+- The following details are available:
+    - ReadyOne OAuth Server URL
+    - Client ID
+    - ReadyOne username
+    - ReadyOne password
+
+### Generate Refresh token
+
+1. Send a `POST` request to the ReadyOne OAuth token endpoint:
+
+```text
+<ReadyOne URL>/oauthserver/connect/token
+```
+2. Set the following request header:
+
+```text
+Content-Type: application/x-www-form-urlencoded
+```
+
+
+3. Provide the following parameters in the request body:
+
+| Parameter    | Value                                                        |
+|--------------|--------------------------------------------------------------|
+| `grant_type` | `password`                                                   |
+| `client_id`  | Client ID configured in `OAuth.config`, for example `IOMApp` |
+| `username`   | Username of the dedicated ReadyOne user                      |
+| `password`   | Password of the dedicated ReadyOne user                      |
+| `scope`      | `openid Innovator offline_access`                            |
+
+4. If the request is successful, the response will contain following values.
+```text
+{
+    "access_token": "<access_token>",
+    "token_type": "Bearer",
+    "expires_in": "<expiry time>",
+    "refresh_token": "<refresh_token>"
+}
+```
+
+5. Update System Form
+
+From the token response:
+
+- Copy the value of the `refresh_token` field.
+- Enter the copied `refresh_token` value in the **Refresh Token** field of the **System configuration form** while creating or updating the ReadyOne system in OIM.
+
+**Note:** The refresh token is valid only for the configured refresh token lifetime. Once the refresh token expires, generate a new refresh token using the above API and update the **Refresh Token** field in the **System configuration form** with the newly generated token.
+
+
 ## Check Administration Tab
 
 1. Login to ReadyOne.
@@ -374,3 +435,4 @@ Set polling time as the time after which the user wants to synchronize data betw
 <p align="center">
   <img src="../assets/ReadyOne_Administration_Tab_1.png" />
 </p>
+
