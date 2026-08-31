@@ -574,22 +574,25 @@ Update the custom workflow as described below:
 **Reason**
 * Full support for reference fields has been introduced in Codebeamer. As part of this enhancement, the reference field data structure has changed, which may impact custom or advanced XSLT logic.
 
-
 # Migrating <code class="expression">space.vars.OIM</code> version to 7.235 or above
 
 **Applicable When**
 * ReadyOne is configured as one of the endpoints in the integration.
 
-**Actions**
-* After migration to OIM 7.235 or above, the service dependency for ReadyOne will be eliminated, and ReadyOne will use OAuth for authentication.
-* For existing ReadyOne systems, the **OAuth Grant Type** will be set to `Password based` by default.
-* The existing **Username** and **Password** configured for the ReadyOne system will be retained and used for OAuth authentication.
-* The **Client Id** will be set to `IOMApp` by default, which is the default Client Id for ReadyOne.
-* If a custom Client Id has been configured in the ReadyOne `OAuth.config`, update the **Client Id** in the System Form accordingly.
+**What changes after upgrading to OIM 7.235**
+* Starting with OIM 7.235, ReadyOne authentication is migrated from the basic authentication to OAuth authentication.
+
+**Migration behavior for existing ReadyOne systems in OIM**
+* The OAuth Grant Type is automatically set to Password Based.
+* Existing Username and Password values configured for the ReadyOne system are retained and used for OAuth authentication.
+* The Client ID is automatically set to IOMApp, which is the default Client ID provided by ReadyOne.
+* If your ReadyOne environment uses a custom Client ID configured in OAuth.configin ReadyOne system installation folder, update the Client ID field in the ReadyOne system form in OIM accordingly.
 * If you want to use `Refresh token based` instead of `Password based` as the OAuth Grant Type:
   1. Select `Refresh token based` as the **OAuth Grant Type**.
   2. Provide a valid ReadyOne **Refresh Token** in the **Refresh Token** field.
   3. Refer to [Generate Refresh Token](../../connectors/readyone.md#Generate-Refresh-token) to learn how to generate a refresh token.
 
-**Reason**
-* ReadyOne authentication has been migrated from the service-based approach to OAuth, eliminating the dependency on the ReadyOne service.
+**Why this change?**
+* ReadyOne authentication has been migrated to OAuth to:
+  * Eliminate the dependency on the ReadyOne service.
+  * Align with modern security and authentication standards.

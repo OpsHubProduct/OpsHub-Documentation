@@ -32,19 +32,19 @@ Before the user continues with the integration, he/she must first configure Read
   <img src="../assets/ReadyOne_System.png" width="1100px" />
 </p>
 
-| **Field Name**               | **Description**                                                                                                                                                                                                                                                                                                                                                                |
-|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **System Name**              | Provide a unique name to the ReadyOne System                                                                                                                                                                                                                                                                                                                                   |
-| **Version**                  | Provide version for ReadyOne Instance. Check [Get ReadyOne Version](#get-readyone-version) in the Appendix section to learn how to get ReadyOne version                                                                                                                                                                                                                        |
-| **Instance URL**             | Provide URL for ReadyOne Instance. Example:- <hostname>/InnovatorServer/Server/InnovatorServer.aspx                                                                                                                                                                                                                                                                            |
-| **User Name**                | Provide username of the user dedicated for <code class="expression">space.vars.OIM</code>. Please ensure that user has the necessary permissions. Refer to [User privileges](#user-privileges)                                                                                                                                                                                 |
-| **Client Id**                | Provide the Client ID configured for the ReadyOne instance. Refer to [Get Client Id](#get-client-id) to learn how to get the Client ID.                                                                                                                                                                                                                                        |
-| **OAuth Grant Type**         | Specify the OAuth grant type to be used for authentication. Supported grant types are Password based and Refresh token based.                                                                                                                                                                                                                                                  |
-| **Password**                 | If OAuth Grant Type is set to `Password`, provide the password of the user dedicated to the ReadyOne instance. The password must be entered in its original form; MD5 or any other hashed/encrypted value should not be provided.                                                                                                                                              |
-| **Refresh Token**            | If OAuth Grant Type is set to `Refresh Token`, provide the refresh token generated from ReadyOne. The refresh token needs to be renewed and updated in the **System configuration form** whenever the existing token expires to ensure uninterrupted synchronization. Refer to [Retrieve Refresh Token](#retrieve-refresh-token) to learn how to generate a new refresh token. |
-| **Database Name**            | Provide ReadyOne Database name to which the connection needs to be done. Refer to [Get Database Name](#get-database-name) to learn how to get Database name                                                                                                                                                                                                                    |
-| **Base URL for Remote Link** | Provide different Instance URL of the ReadyOne Instance. This URL is used for generating the Remote Link. <br>If empty, the Server URL will be used.                                                                                                                                                                                                                           |
-| **Metadata Details**         | Override default entity properties using metadata configuration.. Refer to [Understanding JSON Input](readyone.md#understanding-json-input) to learn how to specify the metadata details.                                                                                                                                                                                      |
+| **Field Name**               | **Description**                                                                                                                                                                                                                                                                                                                                                                      |
+|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **System Name**              | Provide a unique name to the ReadyOne System                                                                                                                                                                                                                                                                                                                                         |
+| **Version**                  | Provide version for ReadyOne Instance. Check [Get ReadyOne Version](#get-readyone-version) in the Appendix section to learn how to get ReadyOne version                                                                                                                                                                                                                              |
+| **Instance URL**             | Provide URL for ReadyOne Instance. Example:- <hostname>/InnovatorServer/Server/InnovatorServer.aspx                                                                                                                                                                                                                                                                                  |
+| **User Name**                | Provide username of the user dedicated for <code class="expression">space.vars.OIM</code>. Please ensure that user has the necessary permissions. Refer to [User privileges](#user-privileges)                                                                                                                                                                                       |
+| **Client Id**                | Provide the Client ID configured for the ReadyOne instance. Refer to [Get Client Id](#get-client-id) to learn how to get the Client ID.                                                                                                                                                                                                                                              |
+| **OAuth Grant Type**         | Specify the OAuth grant type to be used for authentication. Supported grant types are Password based and Refresh token based.                                                                                                                                                                                                                                                        |
+| **Password**                 | If the OAuth Grant Type is set to `Password based`, enter the password of the integration user account associated with the ReadyOne instance. Use the actual password value and not an MD5 hash or any other encrypted/hashed version of the password.                                                                                                                                 |
+| **Refresh Token**            | If OAuth Grant Type is set to `Refresh token based`, provide the refresh token generated from ReadyOne. The refresh token needs to be renewed and updated in the **System configuration form** whenever the existing token expires to ensure uninterrupted synchronization. Refer to [Retrieve Refresh Token](#retrieve-refresh-token) to learn how to generate a new refresh token. |
+| **Database Name**            | Provide ReadyOne Database name to which the connection needs to be done. Refer to [Get Database Name](#get-database-name) to learn how to get Database name                                                                                                                                                                                                                          |
+| **Base URL for Remote Link** | Provide different Instance URL of the ReadyOne Instance. This URL is used for generating the Remote Link. <br>If empty, the Server URL will be used.                                                                                                                                                                                                                                 |
+| **Metadata Details**         | Override default entity properties using metadata configuration.. Refer to [Understanding JSON Input](readyone.md#understanding-json-input) to learn how to specify the metadata details.                                                                                                                                                                                            |
 
 - If the system is deployed on HTTPS and a self-signed certificate is used, then the user should import the SSL Certificate to be able to access the system from <code class="expression">space.vars.OIM</code>. Check [Import SSL Certificates](../getting-started/ssl-certificate-configuration.md) to learn how to import SSL certificate.
 
@@ -365,26 +365,27 @@ Client Id can be obtained from the ReadyOne installation directory.
 
 ## Get Refresh Token
 
-A refresh token can be generated using the ReadyOne OAuth token API. The generated refresh token must be provided in the **System Form** while creating or updating the ReadyOne system in OIM.
+A refresh token can be generated using the ReadyOne OAuth token API. The generated refresh token must be provided in the **system form** if Oauth grant type is refresh token.
 
-### Prerequisites
+### Before you begin
 
-Before generating the refresh token, ensure that:
+Make sure the following prerequisites are met:
 
 - The Client ID has the following scopes configured:
     - `Innovator`
     - `offline_access`
-- The client has a configured refresh token lifetime.
-- The ReadyOne user account used to generate the token must have the required permissions for the ItemTypes being integrated/migrated. Refer to the [ReadyOne User Privileges](#User-Privileges) section for the required permissions.
-- The following details are available:
-    - ReadyOne OAuth Server URL
-    - Client ID
-    - ReadyOne username
-    - ReadyOne password
+- The Client ID is configured with a Refresh Token Lifetime.
+- The ReadyOne user account used to generate the token must have the required permissions for the ItemTypes being integrated or migrated. Refer to the [ReadyOne User Privileges](#User-Privileges) section for the required permissions.
+- Sync user ?
+    - You have the following information:
+        - ReadyOne OAuth Server URL
+        - Client ID
+        - ReadyOne username
+        - ReadyOne password
 
-### Generate Refresh token
+### Generate the Refresh token
 
-1. Send a `POST` request to the ReadyOne OAuth token endpoint:
+1. Send a POST request to the following endpoint:
 
 ```text
 <ReadyOne URL>/oauthserver/connect/token
@@ -396,7 +397,7 @@ Content-Type: application/x-www-form-urlencoded
 ```
 
 
-3. Provide the following parameters in the request body:
+3. Include the following parameters in the request body:
 
 | Parameter    | Value                                                        |
 |--------------|--------------------------------------------------------------|
@@ -406,7 +407,7 @@ Content-Type: application/x-www-form-urlencoded
 | `password`   | Password of the dedicated ReadyOne user                      |
 | `scope`      | `openid Innovator offline_access`                            |
 
-4. If the request is successful, the response will contain following values.
+4. If the request is successful, a response similar to the following is returned:
 ```text
 {
     "access_token": "<access_token>",
@@ -416,15 +417,11 @@ Content-Type: application/x-www-form-urlencoded
 }
 ```
 
-5. Update System Form
-
-From the token response:
-
+5. Configure the Refresh Token in OIM
 - Copy the value of the `refresh_token` field.
-- Enter the copied `refresh_token` value in the **Refresh Token** field of the **System configuration form** while creating or updating the ReadyOne system in OIM.
+- While creating or updating the ReadyOne system in OIM, paste the token into the **Refresh Token** field in the System Configuration form.
 
-**Note:** The refresh token is valid only for the configured refresh token lifetime. Once the refresh token expires, generate a new refresh token using the above API and update the **Refresh Token** field in the **System configuration form** with the newly generated token.
-
+**Note:** Refresh tokens remain valid only for the configured refresh token lifetime. If the token expires, generate a new refresh token using the same API and update the Refresh Token field in OIM with the new value.
 
 ## Check Administration Tab
 
