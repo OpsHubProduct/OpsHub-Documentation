@@ -138,6 +138,47 @@ In this step, set a time to synchronize data between DOORS and the other system 
     1. When object is purged from DOORS.
     2. When baseline is deleted from DOORS.
 
+# Module Entity
+<code class="expression">space.vars.OIM</code> supports the **Module** entity of DOORS. No additional system configuration or DOORS permission is required; the Module entity is configured within the existing DOORS system setup.
+
+This section describes only the behavior that is **specific to the Module entity**. Anything not mentioned here follows the standard DOORS connector behavior described in the sections above.
+
+## Ways to Set Up a Module Integration
+
+There are two ways to set up a Module integration in <code class="expression">space.vars.OIM</code>, depending on the path you select as the scope of your DOORS system. The entity that becomes available depends on the level of the selected path:
+
+| **Selected scope path** | **Entity available** | **What gets synchronized** |
+|    -|    -|    -|
+| Project or Folder | **Module** | Every module under the selected project/folder |
+| Module | **Module** and **Object (Requirement)** | The selected module (and, if needed, the requirements inside it) |
+
+Supported path formats:
+
+* **Project or Folder**: `Project`, `Project/Project`, `Project/Folder`, `Project/Folder1/Folder2`
+* **Module**: `Project/Module`, `Project/Folder/Module`
+
+### Use Case 1 — Sync Modules to/from DOORS Projects/Folders, given the Modules in the same project have the same fields
+
+* **Prerequisite**: All modules under the selected project/folder should have the **same set of custom fields**. The easiest way to ensure this is to create your modules from a **common DOORS template (master module)**, so every new module comes with the same fields.
+* **Field mapping**: For mapping, we show you the fields of the **first module** under the selected project or folder — both its system and custom fields.
+* **Integration**: You can add more than one project or folder in the same integration. All the paths in one integration must be at the **same level** — you cannot mix a Project/Folder path and a Module path in the same integration.
+* **Known behavior**: If there is no module yet under the selected project/folder, only the standard system fields are shown for mapping (no custom fields), as there is no module whose fields we can show.
+
+### Use Case 2 — Sync specific Modules, given the fields are defined module-wise (per module)
+
+* **Prerequisite**: If you add multiple modules together, they should share the **same set of custom fields**.
+* **Field mapping**: For mapping, we show you the fields of the selected module itself — both its system and custom fields.
+* **Integration**: You can add more than one module in the same integration, as long as all the paths are at the **Module** level.
+* **Known behavior**: A new module **cannot be created** in this setup, because DOORS does not allow creating a module inside another module. So, configure the mapping to sync **only update events, not create events**, using the [Sync When](../integrate/mapping-configuration.md#sync-when) option.
+
+> **Note**: It is assumed that all modules under the same project/folder have the same set of custom fields. When DOORS is the **source**, each module is handled on its own during synchronization — if a mapped custom field is missing in a particular module, that field is simply skipped for that module and synchronization continues. When DOORS is the **target**, however, this is not skipped: if a mapped field does not exist in the module being written to, the write **fails** at that point, and the change is not synchronized for that module.
+
+## Target Lookup
+
+Target lookup for a module is available on the **Module ID** field only; provide the Module ID in the lookup query (for example, `@id@`). For more details on how to configure target lookup, refer to the [Search in Target Before Sync](../integrate/integration-configuration.md#search-in-target-before-sync).
+
+> **Note**: For behavior specific to the Module entity, see [Module Entity Behavior](#module-entity-behavior) under Known Synchronization Behavior.
+
 # Criteria Configuration
 Set configure criteria to as per requirement of integration.
 
@@ -145,7 +186,7 @@ Set configure criteria to as per requirement of integration.
   * Query in DOORS system is the valid filter query on any attribute.
   * Query in OIM should be given as expected in DOORS
 
-> **Note**: Criteria is not supported for the [Module entity](#module-entity), as DOORS does not allow a native query for modules through the API.
+> **Note**: Criteria is not supported for the [Module entity](#module-entity), as DOORS does not allow a native query to retrieve the modules via API.
     
 ## Sample Query Snippets
 
@@ -154,7 +195,7 @@ Where, **attr:** The display name of the attribute .
 **text:** attribute value .  
 
 | **Syntax** | **Description** | **Snippet** |
-|    |     --|    -|
+| --- | --- | --- |
 | (attribute 'attr' operator 'text') | Syntax for attribute comparison on 'Status'(Lookup type), 'Last Modified On'(Date type) and 'Created By'(User type) fields | (attribute 'Status' == 'Active')  <br><br> (attribute 'Last Modified On' > '05/25/2018')  <br><br> ((attribute 'Status' == 'Active') && (attribute 'Created By' == 'User1'))  <br><br> ((attribute 'Status' == 'Active') \|\| (attribute 'Created By' == 'User1')) |
 | includes(attribute 'attr', 'text') | Syntax for multi-valued attribute | includes(attribute 'MultiProject','Project1') |
 | excludes(attribute 'attr', 'text') | Syntax for multi-valued attribute | excludes(attribute 'MultiProject','Project1') |
@@ -165,84 +206,6 @@ Where, **attr:** The display name of the attribute .
   * Example: `(attribute 'Object Heading' == 'This object contains `\`' in Heading').`
   * Here, the query for **Object Heading** in DOORS is: **This object contains ' in Heading'**, but the query to be used in <code class="expression">space.vars.OIM</code> is: **This object contains `\`' in Heading'**.
 
-
-# Module Entity
-
-<code class="expression">space.vars.OIM</code> supports the **Module** entity of DOORS. No additional system configuration or DOORS permission is required; the Module entity is configured within the existing DOORS system setup.
-
-This section describes only the behavior that is **specific to the Module entity**. Anything not mentioned here follows the standard DOORS connector behavior described in the sections above.
-
-## Scope and Entity Selection
-
-The entities available for an integration depend on the level of the path selected in the project scope.
-
-| **Selected scope path** | **Entities available** | **What gets synchronized** |
-|    -|    -|    -|
-| Project or Folder level | Only **Module** | Every module under the selected project/folder |
-| Module level | **Module** and **Object (Requirement)** | Only the selected module |
-
-Supported path formats:
-
-* **Project or Folder level**: `Project`, `Project/Project`, `Project/Folder`, `Project/Folder1/Folder2`
-* **Module level**: `Project/Module`, `Project/Folder/Module`
-
-### Use Cases
-
-Select a **Project or Folder level** path when you want to synchronize the modules under that project/folder along with their attributes. Select a **Module level** path when you want to synchronize the requirements inside one specific module, or that single module itself.
-
-Multiple projects can be mapped within the same integration. The prerequisite is that all the modules under those projects must have the **same set of custom fields**.
-
-All the paths mapped within the same integration must be of the **same level**. That is, either map multiple Project/Folder level paths, or map multiple Module level paths. A Module level path and a Project/Folder level path cannot be mapped together in the same integration.
-
-## Metadata Loading
-
-For the Module entity, field metadata is derived from a module present under the selected scope:
-
-* When a Project or Folder is selected as the scope, the **first available module** (first created) under that scope is loaded, and both **system** and **custom** module attributes from it are exposed for mapping.
-* When a Module is selected as the scope, that module's own **system** and **custom** attributes are exposed for mapping.
-* If no module exists under the selected Project/Folder, only the standard system fields are exposed. No custom fields are available, as there is no module from which the metadata can be collected.
-
-> **Note**: It is assumed that all modules under the same Project/Folder have the same set of custom attributes. During polling, each module is processed independently, and if a mapped custom field does not exist in a particular module, that field is skipped for that module so that the polling continues successfully.
-
-## Relationships
-
-IBM DOORS does not support creating or updating links between a Module and an Object, or between two Modules, through the DXL API. Hence, **write support for module relationships is not available**. Read support is provided through the following custom relationship types:
-
-| **Relationship Type** | **Source Entity** | **Target Entity** | **Read** | **Write** | **Description** |
-|    -|    -|    -|    -|    -|    -|
-| **OH_Child_Object** | Module | Object (Requirement) | Yes | No | Returns all the child objects contained within the module. |
-| **OH_Parent_Module** | Object (Requirement) | Module | Yes | No | Reverse relationship of OH_Child_Object. Returns the parent module to which the object belongs. |
-
-* `OH_Child_Object` links are polled only if the relationship is mapped in the configuration.
-
-> **Note**: Fetching all the requirements of every module through `OH_Child_Object` is a heavy operation. It is recommended to map `OH_Parent_Module` on the Requirement entity instead, as the module information is already available with the requirement.
-
-## Target Lookup
-
-Target lookup is supported only on the **Module ID** field. Provide the Module ID in the lookup query, for example `@id@`.
-
-## Known Limitations
-
-* **Name field**
-  * **Name** is set only while the module is being created and cannot be updated afterwards.
-  * It is synchronized only during creation. If it is mapped and present in an update, it is skipped and a warning is logged, while the rest of the update is applied as usual.
-
-* **Start at field**
-  * **Start at** is set only while the module is being created and cannot be updated afterwards.
-  * It is synchronized only during creation. If it is mapped and present in an update, it is skipped and a warning is logged, while the rest of the update is applied as usual.
-  * The value of **Start at** cannot be read back from DOORS. Because of this, if the **Start at** field is mapped, **recovery will not work**. Hence, if recovery is expected to work, **do not map the Start at field**.
-  * When it is not mapped, DOORS assigns its default value, i.e., **1** — the same as the DOORS user interface, where creating a module without a value for Start at sets it to 1.
-
-* **Module creation scope**
-  * A module can be created only when the configured scope is a **Project** or a **Folder**.
-  * If the configured scope is a module itself, the create operation fails with an error, as a module cannot be created inside another module.
-
-* **Rich Text and OLE**
-  * Similar to the Requirement entity, rich text (including OLE) is supported only for reading.
-  * When DOORS is the target system, the value is written as normal text.
-
-* **Attachments**
-  * Attachment synchronization is not supported, as DOORS does not provide an attachment mechanism for modules.
 
 # Configure OpsHub's DOORS Remote Services
 
@@ -273,6 +236,26 @@ When user wants to install OpsHub's DOORS Remote Services on any machine (which 
   * Run `OpsHubDoorsRemoteServiceUtility.bat`.
 
 # Known Synchronization Behavior
+
+## Module Entity Behavior
+
+The behavior below is specific to the **Module** entity. Any other known synchronization behavior remains the same as for all the other entities. The limitations are of two kinds — those that come from **DOORS itself**, and those that come from the **DOORS API** that <code class="expression">space.vars.OIM</code> uses.
+
+**Not supported by DOORS**
+
+* **Module name cannot be changed**: In DOORS, a module's name is fixed once the module is created and cannot be changed afterwards. The name is therefore synchronized only while the module is being created. If the name is changed later and comes in as an update, the change is not applied and a message is logged noting that the name update was skipped.
+* **Attachments**: Attachments are not synchronized, because DOORS does not provide an attachment mechanism for modules.
+
+**Not available through the DOORS API**
+
+The following are not supported because the DOORS API does not provide them:
+
+1. **History-based synchronization**: DOORS does not expose module history through the API.
+2. **Criteria for the Module entity**: The DOORS API does not allow a native query to retrieve modules, so you cannot use the Criteria Configuration of the integration screen to provide a criteria for modules.
+3. **Statistics tab fields**: The fields shown on the module's Statistics tab are not returned by the DOORS API, so they do not appear in the field list and cannot be mapped.
+4. **Rich Text and OLE**: Rich text (including OLE) is supported for reading only. When DOORS is the target system, the value is written as plain text.
+5. **Recovery for the 'Start at' field**: Recovery is not supported for the **Start at** field, because this field cannot be read from DOORS.
+
 ## Picture Object as Inline Image
 
 * Picture Object as Inline Image is only supported for DOORS as Source system.
