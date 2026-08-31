@@ -359,7 +359,7 @@ Client Id can be obtained from the ReadyOne installation directory.
 </clientRegistry>
 ```
 
-- In this example, `IOMApp` is the Client id.
+- In this example, the required Client id is the value of the `id` attribute of the `<clientRegistry>` tag which is `IOMApp`.
 - Use `IOMApp` as the **Client id** in the **System configuration form** while creating the ReadyOne system in OIM.
 - Ensure that the Client Id entered in the **System configuration form** matches the `id` configured in the `OAuth.config` file.
 
