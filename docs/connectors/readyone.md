@@ -359,9 +359,9 @@ Client Id can be obtained from the ReadyOne installation directory.
 </clientRegistry>
 ```
 
-- In this example, the required Client id is the value of the `id` attribute of the `<clientRegistry>` tag which is `IOMApp`.
-- Use `IOMApp` as the **Client id** in the **System configuration form** while creating the ReadyOne system in OIM.
-- Ensure that the Client Id entered in the **System configuration form** matches the `id` configured in the `OAuth.config` file.
+- In this example, the required Client ID is the value of the `id` attribute of the `<clientRegistry>` tag which is `IOMApp`.
+- Use `IOMApp` as the **Client ID** in the **System configuration form** while creating the ReadyOne system in OIM.
+- Ensure that the Client ID entered in the **System configuration form** matches the `id` configured in the `OAuth.config` file.
 
 ## Get Refresh Token
 
@@ -371,9 +371,7 @@ A refresh token can be generated using the ReadyOne OAuth token API. The generat
 
 Make sure the following prerequisites are met:
 
-- The Client ID has the following scopes configured:
-    - `Innovator`
-    - `offline_access`
+- The Client ID is configured as described in the [Get Client ID](#get-client-id) section. Ensure that the Client ID is configured with the required `Innovator offline_access` scope.
 - The Client ID is configured with a Refresh Token Lifetime.
 - The ReadyOne user account used to generate the token must have the required permissions for the ItemTypes being integrated or migrated. Refer to the [ReadyOne User Privileges](#User-Privileges) section for the required permissions.
 - Sync user ?
@@ -399,13 +397,13 @@ Content-Type: application/x-www-form-urlencoded
 
 3. Include the following parameters in the request body:
 
-| Parameter    | Value                                                        |
-|--------------|--------------------------------------------------------------|
-| `grant_type` | `password`                                                   |
+| Parameter    | Value                                                 |
+|--------------|-------------------------------------------------------|
+| `grant_type` | `password`                                            |
 | `client_id`  | Client ID configured in `OAuth.config`, for example `IOMApp` |
-| `username`   | Username of the dedicated ReadyOne user                      |
-| `password`   | Password of the dedicated ReadyOne user                      |
-| `scope`      | `openid Innovator offline_access`                            |
+| `username`   | Username of the dedicated ReadyOne user               |
+| `password`   | Password of the dedicated ReadyOne user               |
+| `scope`      | `Innovator offline_access`                            |
 
 4. If the request is successful, a response similar to the following is returned:
 ```text
