@@ -74,7 +74,7 @@ Before the user continues with the integration, he/she must first configure Read
 > Separate configurations can be defined for different item types.
 
 ```json
-{    
+{
   "Part": {
     "PrimaryNameField": "name"
   },
@@ -383,37 +383,35 @@ Make sure the following prerequisites are met:
 
 ### Generate the Refresh token
 
-1. Send a POST request to the following endpoint:
+1. Open Postman and create a new POST request.
+2. Enter the following URL:
 
 ```text
 <ReadyOne URL>/oauthserver/connect/token
 ```
-2. Set the following request header:
+3. In the Headers tab, add the following header:
 
 ```text
 Content-Type: application/x-www-form-urlencoded
 ```
 
 
-3. Include the following parameters in the request body:
+4. In the Body tab, select x-www-form-urlencoded.
+5. Add the following parameters:
 
-| Parameter    | Value                                                 |
-|--------------|-------------------------------------------------------|
-| `grant_type` | `password`                                            |
+| Parameter    | Value                                                        |
+|--------------|--------------------------------------------------------------|
+| `grant_type` | `password`                                                   |
 | `client_id`  | Client ID configured in `OAuth.config`, for example `IOMApp` |
-| `username`   | Username of the dedicated ReadyOne user               |
-| `password`   | Password of the dedicated ReadyOne user               |
-| `scope`      | `Innovator offline_access`                            |
+| `username`   | Username of the dedicated ReadyOne user                      |
+| `password`   | Password of the dedicated ReadyOne user                      |
+| `scope`      | `Innovator offline_access`                                   |
+
+![Request body for generating refresh token](refresh_token_request_readyone.png)
 
 4. If the request is successful, a response similar to the following is returned:
-```text
-{
-    "access_token": "<access_token>",
-    "token_type": "Bearer",
-    "expires_in": "<expiry time>",
-    "refresh_token": "<refresh_token>"
-}
-```
+
+![Response for successful request of generating refresh token](refresh_token_response_readyone.png)
 
 5. Configure the Refresh Token in OIM
 - Copy the value of the `refresh_token` field.
