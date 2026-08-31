@@ -2,6 +2,8 @@
 
 <code class="expression">space.vars.OIM</code> supports the synchronization of images and files across end systems in fields, comments, and as attachments on the entity.
 
+> **Note:** Images and files added in fields, comments or as an attachments on the entity must have name, otherwise it will result in synchronization failures indicating that name must not be empty.
+
 * There are certain types of end systems based on how they add images/ files on their entity fields and comments.
 
 1. **Entity Storage:**
