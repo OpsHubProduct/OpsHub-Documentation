@@ -253,7 +253,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>32</td>
             <td>IBM Rational DOORS</td>
             <td>9.1–9.7.2</td>
-            <td>Requirement, Baseline (read only)</td>
+            <td>Requirement, Module, Baseline (read only)</td>
             <td></td>
         </tr>
         <tr>
