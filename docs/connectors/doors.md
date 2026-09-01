@@ -150,7 +150,7 @@ There are two ways to set up a Module integration in <code class="expression">sp
 | **Selected scope path** | **Entity available** | **What gets synchronized** |
 |    -|    -|    -|
 | Project or Folder | **Module** | Every module under the selected project/folder |
-| Module | **Module** and **Object (Requirement)** | The selected module (and, if needed, the requirements inside it) |
+| Module | **Module** and **Object (Requirement)** | The selected module (and, if required, its requirements) |
 
 Supported path formats:
 
@@ -166,7 +166,7 @@ Supported path formats:
 
 ### Use Case 2 — Sync specific Modules, given the fields are defined module-wise (per module)
 
-* **Prerequisite**: If you add multiple modules together, they should share the **same set of custom fields**.
+* **Prerequisite**: If you configure multiple modules together under same integration, they should share the **same set of custom fields**.
 * **Field mapping**: For mapping, we show you the fields of the selected module itself — both its system and custom fields.
 * **Integration**: You can add more than one module in the same integration, as long as all the paths are at the **Module** level.
 * **Known behavior**: A new module **cannot be created** in this setup, because DOORS does not allow creating a module inside another module. So, configure the mapping to sync **only update events, not create events**, using the [Sync When](../integrate/mapping-configuration.md#sync-when) option.
