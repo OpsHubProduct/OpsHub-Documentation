@@ -5,6 +5,9 @@
 * For Team Foundation Server as the target system, if the attachment file name contains **Windows invalid file name characters** (`<`, `>`, `:`, `"`, `/`, `\`, `|`, `?`, `*`), then the invalid Windows characters will be replaced by an underscore (`_`).
    * Reason: ADO\TFS API Limitations.
    * To avoid this replacement, it is recommended to follow file naming conventions as mentioned in [Microsoft File Naming Conventions](https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#naming-conventions).
+* For attachment synchronization, the attachment URL must start with the same server URL configured in system form.
+  * Attachment URLs remain unchanged even when an attachment is copied or referenced from another instance. For example, an attachment created using dev.azure.com/<organization> will continue to point to the same URL even if it is copied or referenced from an instance using <organization>.visualstudio.com. If the attachment URL does not match the configured server URL, the attachment is synchronized as an external link.
+  * A matching server URL does not guarantee successful attachment synchronization. The sync user must also have access to the collection, project, or location containing the attachment. If the required access is not available, the API request to retrieve the attachment may fail, resulting in an event failure.
 * For the rich text type of field (HTML) or comments:
    * Entity mention synchronization is not supported for entity type(s) Test Suite, and Test Plan.
    * Entity mention synchronization is not supported for the Team Foundation Server ALM with version < 2015.
