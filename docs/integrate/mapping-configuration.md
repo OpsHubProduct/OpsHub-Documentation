@@ -1200,6 +1200,7 @@ Rank Synchronization is supported by following connectors:
 3. [**Verisium Manager**](../connectors/vManager.md#rank)
 4. [**Codebeamer**](../connectors/codebeamer.md#rank)
 5. [**IBM Rational Doors**](../connectors/doors.md#rank)
+6. [**OpenText ALM Quality Center**](../connectors/micro-focus-alm-qc.md#rank)
 
 ## Configuration
 

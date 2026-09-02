@@ -269,6 +269,19 @@ The above mapping can be changed to the  below mentioned advanced mapping to syn
  </xsl:for-each>
 ```
 
+## Rank
+
+* Micro Focus ALM/QC allows to organize the requirements in tree structure. To synchronize the requirements maintaining the tree structure, below configurations need to be performed in <code class="expression">space.vars.OIM</code>.
+  * Configure the **Child** and **Parent** relationship as per the standard [relationship configuration](../integrate/mapping-configuration.md#relationships).
+  * Enable the rank synchronization, as described in [Rank configuration](../integrate/mapping-configuration.md#configuration) section.
+
+**Known Limitations**:
+
+* When Micro Focus ALM/QC is configured as the source system in <code class="expression">space.vars.OIM</code>:
+  * When rank change is performed on requirement, any field needs to be updated after changing the rank of the requirement.
+    * Reason: When rank is changed for any requirement, neither its **Modified** time is changed nor revision gets generated in Micro Focus ALM/QC.
+* Rank synchronization is supported for Micro Focus ALM/QC version 11 and above, for requirement entity.
+
 # Integration Configuration  
 Set a time to synchronize data between Micro Focus ALM/QC and the other system to be integrated. Also, define parameters and conditions, if any, for integration.
 
