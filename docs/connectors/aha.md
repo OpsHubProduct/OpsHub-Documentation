@@ -263,6 +263,10 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
   * For synchronizing updates of **Proxy votes** and **Submission portal details** fields for Idea entities, an additional field update is required. This is because changes to these fields do not update the entity's last modified time.
   * **Custom Key Result** field is treated as a **text** field due to API unavailability.
   * Attachment field: If Aha! is the target system and the attachment mapping is configured to use field-type attachments, at least one attachment should be present in the corresponding field.
+  * **Hierarchical relationship limitation for Goal and Initiative:**
+  * The **"Contains goals"** relationship for **Goal** entities is not available through the Aha! API and therefore cannot be synchronized.
+  * The **"Child initiatives"** relationship for **Initiative** entities is not available through the Aha! API and therefore cannot be synchronized.
+  * **Hierarchical relationship limitation for Release:** The **"Sub-releases"** relationship is not available through the Aha! API and therefore cannot be synchronized.
 * For Aha! as the target system, the fields below will not unset via <code class="expression">space.vars.OIM</code> due to Aha!'s API limitation: **Effort, Value, Duration Source, Progress Source, Status, Type, Complete by date (internal), Round date to, Complete by date (external), Presented, and Description.**
 * **To-dos** present at user level will not synced by <code class="expression">space.vars.OIM</code>. **To-dos** present in other entities can only be synchronized.
 
