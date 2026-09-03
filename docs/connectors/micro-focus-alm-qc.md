@@ -565,6 +565,7 @@ Micro Focus ALM/QC comments work on the following underlying assumptions:
   <img src="../assets/Comment_Splitting_Regex_Field_With_Value.png" alt="Comment Splitting Regex"/>
 </p>
 
+* If you encounter any issues while synchronizing Comments, or if the Audit API is disabled for **Micro Focus ALM/QC**, refer to [Disabling Audit API Usage in Integration](#disabling-audit-api-usage-in-integration) in the **Appendix**.
 ---
 
 ## Check if entity has history
@@ -580,4 +581,36 @@ For finding if a Micro Focus entity has history or not, follow the steps below:
 * Go to **Audit Log** tab → check for changes.  
 * Go to the 'Audit Log' tab and check for changes;
 * If history is not present for an entity, then there will not be any changes present in the 'Audit Log'.
+
+---
+
+## Disabling Audit API Usage in Integration
+
+### Usecase for Disabling Audit API Usage
+
+If **Micro Focus ALM/QC** is configured as the source system, you can disable the use of the Audit API in the following scenarios:
+
+- If the Audit API is disabled for **Micro Focus ALM/QC**.
+- If you encounter any issues while fetching Audit/History information.
+
+### Steps to Disable
+
+Perform the following steps to disable Audit API usage:
+
+1. Navigate to the **Entity Level Advanced Configuration** section at the integration level.
+2. Locate the **Is Audit API Enabled?** field.
+3. Set the **Is Audit API Enabled?** field to **No**. The default value of this field is **Yes**.
+
+### Image
+
+<p align="center">
+  <img src="../assets/ALM_AuditDisable.png" alt="History Tab"/>
+</p>
+
+### Known Behaviour
+
+After setting the **Is Audit API Enabled?** field to **No**, the following behavior is expected:
+
+- If you update any previously synchronized Comment, the update will not be synchronized to the target system.
+- If you backdate the current integration, you might observe duplicate Comments in the target system.
 
