@@ -266,7 +266,7 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
   * **Hierarchical relationship limitation for Goal, Initiative and Release entity:**
     * The **"Contains goals"** relationship for **Goal** entities is not available through the Aha! API and therefore cannot be synchronized.
     * The **"Child initiatives"** relationship for **Initiative** entities is not available through the Aha! API and therefore cannot be synchronized.
-    *The **"Sub-releases"** relationship for **Release** entities is not available through the Aha! API and therefore cannot be synchronized.
+    * The **"Sub-releases"** relationship for **Release** entities is not available through the Aha! API and therefore cannot be synchronized.
 * For Aha! as the target system, the fields below will not unset via <code class="expression">space.vars.OIM</code> due to Aha!'s API limitation: **Effort, Value, Duration Source, Progress Source, Status, Type, Complete by date (internal), Round date to, Complete by date (external), Presented, and Description.**
 * **To-dos** present at user level will not synced by <code class="expression">space.vars.OIM</code>. **To-dos** present in other entities can only be synchronized.
 
