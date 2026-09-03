@@ -578,6 +578,7 @@ Micro Focus ALM/QC comments work on the following underlying assumptions:
   <img src="../assets/Comment_Splitting_Regex_Field_With_Value.png" alt="Comment Splitting Regex"/>
 </p>
 
+* If you encounter any issues while synchronizing Comments, or if the Audit API is disabled for **Micro Focus ALM/QC**, refer to [Disable Audit API Usage for Comment Sync](#disable-audit-api-usage-for-comment-sync) in the **Appendix**.
 ---
 
 ## Check if entity has history
@@ -594,3 +595,34 @@ For finding if a Micro Focus entity has history or not, follow the steps below:
 * Go to the 'Audit Log' tab and check for changes;
 * If history is not present for an entity, then there will not be any changes present in the 'Audit Log'.
 
+---
+
+## Disable Audit API Usage for Comment Sync
+
+### When to Use
+
+If **Micro Focus ALM/QC** is configured as the source system, you may disable the use of the Audit API in the following scenarios:
+
+- Audit/History tracking is disabled in **Micro Focus ALM/QC**.
+- You encounter synchronization issues while synchronizing comments.
+
+### Steps
+
+Perform the following steps to disable Audit API usage:
+
+1. Navigate to the **Entity Level Advanced Configuration** section at the integration level.
+2. Locate the **Audit API Enabled** field.
+3. Set the **Audit API Enabled** field to **No**. By default, the value of this field is **Yes**. Set it to **No** based on the use cases described above.
+
+### Image
+
+<p align="center">
+  <img src="../assets/ALM_AuditDisable.png" alt="Disable Audit API Usage"/>
+</p>
+
+### Known Behaviour
+
+When the Audit API is disabled, **Micro Focus ALM/QC** does not provide sufficient information to reliably identify updates made to previously synchronized comments. As a result:
+
+- Updates to previously synchronized comments will not be synchronized to the target system.
+- If the integration is backdated, duplicate comments may be created in the target system because comment changes cannot be accurately distinguished from new comments.
