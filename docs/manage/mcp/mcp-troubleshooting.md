@@ -3,6 +3,43 @@ if: >-
   visitor.claims.unsigned.product !== "OM4ADO" && visitor.claims.unsigned.product !== "OAM"
 ---
 
+## Audit Origin
+
+<code class="expression">space.vars.OIM</code> records an audit entry for every configuration change made in the application, capturing the entity that was changed, the user who changed it, when the change was made, the type of change, and the field-level values that changed.
+
+Along with these details, every audit entry records the **Origin** of the change - the channel through which the change was made. As the same user can make changes from the <code class="expression">space.vars.OIM</code> UI, through the Admin API, or through an MCP client, **Origin** makes it clear which of these was used, and allows the changes made through MCP to be reviewed separately.
+
+Audits are available for all audited entities, such as **Systems**, **Integrations**, **Mappings**, **Workflows**, **Users**, **Roles**, **Login Servers**, **Excel Uploads**, **Job Schedules**, **API Keys**, and **Processing Failures**. To view them, click the audit icon on the top right corner of the respective list view. The **Origin** column and its filter are available on all these audit screens.
+
+<p align="center">
+  <img src="../../assets/mcp-audit-origin.png" width="1000"/>
+</p>
+
+### Origin values
+
+| Value   | Description                                                                                 |
+|---------|---------------------------------------------------------------------------------------------|
+| **UI**  | The change was made from the <code class="expression">space.vars.OIM</code> user interface.  |
+| **API** | The change was made through the [Admin API](../api/getting-started-with-api.md).             |
+| **MCP** | The change was made through an [MCP](getting-started-with-mcp.md) client.                    |
+
+> **Note**: **Origin** always reflects the channel from which the change was originally initiated. For example, a change initiated from an MCP client is always recorded as **MCP**, irrespective of how it is processed internally.
+
+### Filter and sort audits by Origin
+
+- The **Origin** filter is available on every audit screen, placed after the **Author** filter and before the **Revision Type** filter. Select a value to view only the changes made through that channel - for example, select **MCP** to review all the changes made from an MCP client. Click **Reset** to restore the default view.
+- The **Origin** column can be sorted in the same way as the other columns, which is useful to group all the changes of a channel together.
+- Filtering and sorting on the existing columns remain unchanged.
+
+### Notes
+
+- **Historical audits are backfilled with the Origin value `UI`.** Audit entries created before this upgrade do not have a recorded channel, as **Origin** was not captured at that time. To keep the audit trail complete and consistent, all such existing entries are displayed with **Origin** as **UI**.
+- All the changes made after the upgrade - from the UI, the Admin API, or an MCP client - carry their actual **Origin**.
+- Changes made through an MCP client or the Admin API after the upgrade are recorded against the user whose credentials are used and are displayed on the audit screens, along with their **Origin**. Such changes recorded before the upgrade continue to remain as they are and are not displayed.
+- The audit records the <code class="expression">space.vars.OIM</code> user whose credentials are used. If a shared or a service account is used for MCP or API access, that account is recorded as the **Author**. Use individual user accounts or per-user [API Keys](../administrator/api-key-management.md) where the attribution of an individual person is required.
+
+---
+
 ## MCP logs
 
 The <code class="expression">space.vars.OIM</code> MCP server writes its activity to a dedicated log file. The log file captures all incoming MCP requests and tool invocations.
