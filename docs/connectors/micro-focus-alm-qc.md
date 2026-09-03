@@ -593,7 +593,7 @@ If **Micro Focus ALM/QC** is configured as the source system, you can disable th
 - If the Audit API is disabled for **Micro Focus ALM/QC**.
 - If you encounter any issues while fetching Audit/History information.
 
-### Steps to Disable
+### Steps
 
 Perform the following steps to disable Audit API usage:
 
