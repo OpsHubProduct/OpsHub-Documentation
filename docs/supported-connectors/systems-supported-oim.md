@@ -586,6 +586,13 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Cycle,Folder, Phase, Phase Folder, Test Case, Test Execution</td>
             <td></td>
         </tr>
+<tr>
+            <td>80</td>
+            <td>Zephyr Scale</td>
+            <td>15.6.0</td>
+            <td>Test Case, Test Plan, Test Cycle, Test Execution, Folder, Environment</td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 
