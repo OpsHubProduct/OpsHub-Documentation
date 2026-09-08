@@ -23,11 +23,10 @@ Audits are available for all audited entities, such as **Systems**, **Integratio
 | **API** | The change was made through the [Admin API](../api/getting-started-with-api.md).             |
 | **MCP** | The change was made through an [MCP](getting-started-with-mcp.md) client.                    |
 
-> **Note**: **Origin** always reflects the channel from which the change was originally initiated. For example, a change initiated from an MCP client is always recorded as **MCP**, irrespective of how it is processed internally.
 
 ### Filter and sort audits by Origin
 
-- The **Origin** filter is available on every audit screen, placed after the **Author** filter and before the **Revision Type** filter. Select a value to view only the changes made through that channel - for example, select **MCP** to review all the changes made from an MCP client. Click **Reset** to restore the default view.
+- The **Origin** filter is available on every audit screen. Select a value to view only the changes made through that channel - for example, select **MCP** to review all the changes made from an MCP client. Click **Reset** to restore the default view.
 - The **Origin** column can be sorted in the same way as the other columns, which is useful to group all the changes of a channel together.
 - Filtering and sorting on the existing columns remain unchanged.
 
