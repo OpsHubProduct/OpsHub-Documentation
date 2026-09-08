@@ -99,6 +99,7 @@
             * [Trigger On-Demand Integration Execution](docs/manage/mcp/mcp-use-case-execute-integration.md)
             * [View Configured Systems and Project Counts](docs/manage/mcp/mcp-use-case-get-systems-and-projects.md)
             * [View and Retry Failed Synchronizations](docs/manage/mcp/mcp-use-case-retry-failures.md)
+        * [MCP Audits](docs/manage/mcp/mcp-audits.md)
         * [Troubleshooting](docs/manage/mcp/mcp-troubleshooting.md)
         * [Known Behaviours and Limitations](docs/manage/mcp/mcp-known-limitations.md)
     * [Upgrade](docs/manage/upgrade-index.md)
