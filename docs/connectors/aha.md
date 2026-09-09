@@ -181,6 +181,8 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
   * Table fields
   * Worksheet field
   * Votes and Submission portal field for **Idea** entity
+* **End-system Storage Criteria** is not supported in Aha, because of API limitations.
+* **Status** field for **To-dos**, **Approval** and **WorkRequest** entities will synchronize in current state only.
 
 ### User type field sync
 * **History synchronization is not supported** for **System user** and **Custom user** fields due to Aha! API limitations. These fields support **Current state** synchronization only.
@@ -273,8 +275,16 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
     * **Goal** – **"Belongs to goal"**
     * **Initiative** – **"Belongs to initiative"**
     * **Reason**: Due to Aha! API limitations, the corresponding reverse link operations are not supported.
-* For Aha! as the target system, the fields below will not unset via <code class="expression">space.vars.OIM</code> due to Aha!'s API limitation: **Effort, Value, Duration Source, Progress Source, Status, Type, Complete by date (internal), Round date to, Complete by date (external), Presented, and Description.**
-* **To-dos** present at user level will not synced by <code class="expression">space.vars.OIM</code>. **To-dos** present in other entities can only be synchronized.
+  * For Aha! as the target system, the fields below will not unset via <code class="expression">space.vars.OIM</code> due to Aha!'s API limitation: **Effort, Value, Duration Source, Progress Source, Status, Type, Complete by date (internal), Round date to, Complete by date (external), Presented, and Description.**
+  * **To-dos** and **Approval** present at user level will not be synchronized by <code class="expression">space.vars.OIM</code>.
+  * **Recurring field** for **To-dos** is not supported for synchronization.
+  * Write support for **"Partially Complete"** status for **To-dos**, **Approval** and **WorkRequest** entities is not supported.
+  * Write support for **Status** of individual approver is not supported for **Approval** and **WorkRequest** entity.
+  * **"Approve", "Approve with changes" and "Reject"** status values for **Approval** and **WorkRequest** entity will not be synchronized.
+  * **Approval Group** field for **Approval** entity will not be synchronized.
+  * **WorkRequest** entity limitations:
+    * **Assigned to** field will synchronize in current state only.
+    * **Request For** link type is read-only.
 
 
 ## Troubleshooting Guide
