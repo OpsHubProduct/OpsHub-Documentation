@@ -825,7 +825,9 @@ Following are the steps to configure any-to-any transition:
 
 1. Download the zip file from [here](https://opshubtrial-my.sharepoint.com/:u:/g/personal/support_opshub_com/ES82OMoxmvJKvZ-P72JL-ScBeg6_W_38JGyU-KXm7FqJKQ) and extract it.
 2. Open the extracted folder and locate the `gradle.properties` file. In this file, for the `cbHome` parameter, specify the path to your **codebeamer / codebeamer X** installation directory.
-3. Open the command prompt (it is recommended to run as Administrator) inside the extracted folder and execute the command:
+> **Note**: For Codebeamer 3.3 and later, the conversion JAR should be built with Java 25 (reference download [here](https://www.azul.com/downloads/?package=jdk#zulu)) and Gradle 9.2 or later (reference download [here](https://gradle.org/install/)). You may use any Java 25-compatible JDK distribution; the download links are provided for reference only. Ensure that Gradle is configured to use the Java 25 installation (for example, through the JAVA_HOME environment variable) before running the build.This requirement applies only to Codebeamer 3.3 and later. For earlier releases (3.2 and below), use the Java version supported by that corresponding Codebeamer release.
+3. Verify the configuration using `java -version` and `gradle -version` prior to building the JAR with required version.
+4. Open the command prompt (it is recommended to run as Administrator) inside the extracted folder and execute the command:
 
     ```
     gradlew build
@@ -835,7 +837,7 @@ Following are the steps to configure any-to-any transition:
 
 > **Note**: After running the command mentioned above, a `build` folder will be generated inside the extracted folder.
 
-4.  Now, navigate to the `build` folder, and you will find a file named OpsHubcodeBeamerHTMLToJSPWiki-1.0 inside the `libs` folder.
+5. Now, navigate to the `build` folder, and you will find a file named OpsHubcodeBeamerHTMLToJSPWiki-1.0 inside the `libs` folder.
 
 ## Configure Metadata JSON for reference fields
 
