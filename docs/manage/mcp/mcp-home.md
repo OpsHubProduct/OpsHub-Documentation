@@ -9,5 +9,6 @@ if: >-
 - [MCP Capability Matrix](mcp-capability-matrix.md)
 - [Sample Use Cases](mcp-sample-use-cases.md)
 - [MCP Audits](mcp-audits.md)
+- [FAQs](mcp-faq.md)
 - [Known Behaviours and Limitations](mcp-known-limitations.md)
 - [Troubleshooting](mcp-troubleshooting.md)

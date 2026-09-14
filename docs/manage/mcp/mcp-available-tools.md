@@ -24,6 +24,9 @@ Planner tools guide the AI assistant through the correct sequence of steps befor
 | `schedules_planner` | Provides a step-by-step execution plan for schedule operations (create, update, list, get). |
 | `health_checkup_planner` | Guides the AI assistant through a comprehensive multi-stage health checkup of the <code class="expression">space.vars.OIM</code> instance — covering integrations, systems, mappings, failures, and instance resource parameters. Produces a visual dashboard with colour-coded health status and prioritised recommendations. |
 | `failure_resolution_planner` | Guides the AI assistant through a structured diagnostic process to identify the root cause of integration failures. Covers integration configuration, mapping, system connectivity, and permissions, and produces a step-by-step resolution plan. |
+| `reconciliation_planner` | Provides a step-by-step execution plan for reconciliation operations (get, switch to reconcile mode, switch back to integration mode, change status, configure reconcile rules). Establishes the prerequisites a reconciliation needs and ensures the impact is stated to you before anything is changed. |
+| `failure_notification_planner` | Provides a step-by-step execution plan for failure notification operations (create, update, get). Resolves the mail system and the notification conditions before a notification is configured. |
+| `reporting_planner` | Provides a step-by-step execution plan for reporting operations (sync report, usage export, metrics export). Distinguishes *answering a question* about synchronised data from *producing a file*, so that a question is answered from sync data rather than by generating a report. |
 
 ---
 
@@ -129,6 +132,74 @@ XSLT tools provide reference guidance that the AI assistant uses when generating
 | `get_processing_failures_list` | Lists processing failures with search, filter, and sort capabilities. Processing failures are record-level failures where a specific item failed to sync. |
 | `get_processing_failure` | Retrieves full details of a specific processing failure by its ID. Can optionally include dependent failure records. |
 | `retry_processing_failures` | Retries one or more processing failures, re-queuing the failed records for synchronization. |
+
+---
+
+## Failure notification tools
+
+Failure notifications email a configured set of recipients when an integration starts failing. A notification is configured per integration and sends through a mail system (**SMTP Mail Client**) already configured in <code class="expression">space.vars.OIM</code>.
+
+| Tool | Description |
+|------|-------------|
+| `get_failure_notification` | Retrieves the failure notification configured for an integration. An integration with no notification configured is a valid state, and is reported as such rather than as an error. |
+| `create_failure_notification` | Creates a failure notification for an integration, covering the recipients, the failure conditions, and the directions the notification applies to. |
+| `update_failure_notification` | Updates the failure notification configured for an integration. |
+
+> **Note**: Updating a notification replaces its configuration rather than merging into it. The AI assistant reads the existing configuration first so that recipients and conditions you did not mention are carried forward. Confirm the final recipient list when the assistant presents it.
+
+> **Note**: Deleting a failure notification is not supported via MCP. To remove one, use the <code class="expression">space.vars.OIM</code> UI.
+
+---
+
+## Reconciliation tools
+
+Reconciliation compares entities that are already in sync between two systems and applies the differences it finds, according to the reconcile rules configured on the mapping.
+
+| Tool | Description |
+|------|-------------|
+| `get_reconciliation` | Retrieves the reconciliation details for an integration group, including the entity pairs configured for reconciliation and their current state. |
+| `switch_to_reconcile_mode` | Switches integrations into reconciliation mode. The integration must be inactive, reconcile rules must already be configured on the field mappings of the entity pairs, and a reconciliation workflow must exist. |
+| `switch_to_integration_mode` | Switches integrations back to normal synchronisation. This stops any reconciliation currently in progress. |
+| `update_reconciliation_status` | Changes the status of one or more reconciliations — including activating a reconciliation so that it starts running. |
+
+> **Note**: Switching an integration into reconciliation mode stops it synchronising normally until it is switched back. Reconciliation also covers comments, attachments, and links where these are configured on the mapping, not only the mapped fields. The AI assistant states both before asking you to confirm.
+
+> **Note**: Moving a reconciliation to **EXPIRED** cannot be undone. The AI assistant asks for explicit confirmation before doing so.
+
+> **Note**: Reconcile rules are configured on the **mapping**, not on the reconciliation. Ask the AI assistant to configure reconcile rules on the mapping first if they are not already in place.
+
+---
+
+## Reporting tools
+
+Reporting tools answer questions about what has synchronised, and produce the usage and metrics reports as downloadable files.
+
+| Tool | Description |
+|------|-------------|
+| `get_sync_report_list` | Retrieves synchronised entity information with search, filter, and sort capabilities. Each record pairs a source entity with its target entity and carries both IDs, both entity types, both project names, both sync states, the last read and last processed times, and the failure count. Use this to answer questions such as how many items have synced, which entity maps to which, whether an entity was deleted, and what synced over a given period. |
+| `get_chart_filter_values` | Retrieves the filter values available for metrics reporting — the systems, projects, and entity types that can be filtered on. Called before exporting the metrics report to discover valid filter values. |
+| `export_usage_report` | Exports the usage report as a ZIP file containing the last-six-months and last-one-year usage workbooks. Takes no filters. |
+| `export_chart_report` | Exports the metrics report as a spreadsheet file, for the supplied filters. |
+
+> **Note**: The two export tools return a **file to download, not data the AI assistant can read**. If you ask a question about synchronised data, the assistant answers it from `get_sync_report_list` rather than by generating a report and attempting to read it.
+
+> **Note**: How a returned file is presented depends on your MCP client. See [Receiving exported files](#receiving-exported-files) below.
+
+---
+
+## Receiving exported files
+
+The usage and metrics reports are returned over MCP as file content. MCP clients differ in how they present a returned file, so each export is returned in more than one form and your client uses whichever it supports:
+
+| Form | What it is |
+|------|------------|
+| Text summary | The file name, type, and size, stated in the assistant's reply. Every client shows this. |
+| Download link | A link to the equivalent <code class="expression">space.vars.OIM</code> REST endpoint, provided where the report is reachable through one. Available for the usage report. |
+| Attached file | The file content itself, attached to the tool result. |
+
+Clients that render attachments — such as Claude Code — save the file directly. Clients that do not render binary attachments still show the text summary and the download link, and you can retrieve the report from there or from the <code class="expression">space.vars.OIM</code> UI.
+
+> **Note**: An export above the size limit supported over MCP is refused with a message rather than truncated. Narrow the filters, or take the report from the <code class="expression">space.vars.OIM</code> UI.
 
 ---
 
