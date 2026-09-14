@@ -808,6 +808,7 @@ Following are the steps to configure any-to-any transition:
 
 1. Download the zip file from [here](https://opshubtrial-my.sharepoint.com/:u:/g/personal/support_opshub_com/ES82OMoxmvJKvZ-P72JL-ScBeg6_W_38JGyU-KXm7FqJKQ) and extract it.
 2. Open the extracted folder and locate the `gradle.properties` file. In this file, for the `cbHome` parameter, specify the path to your **codebeamer / codebeamer X** installation directory.
+> **Note**: To build the conversion JAR file for version 3.3 or later, Java 25 and Gradle 9.2 or later are required. Ensure that both prerequisites are installed and properly configured in your environment before starting the build process.
 3. Open the command prompt (it is recommended to run as Administrator) inside the extracted folder and execute the command:
 
     ```
