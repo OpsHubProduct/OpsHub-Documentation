@@ -11,7 +11,7 @@ API Name: Element – Create
 
 # Overview
 
-This API creates a new element in the specified project (and optional branch).
+This API creates a new [element](../getting-started/mbse-sdk-connector-apis.md#glossary) in the specified project (and optional branch).
 
 MBSE Core uses this API to:
 

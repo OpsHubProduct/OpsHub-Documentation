@@ -114,6 +114,17 @@ These APIs are required only if:
 
 ---
 
+## Glossary
+
+### Element
+
+An **element** is any entity synchronized through the Element APIs (Get, Add, Update, Query). It covers two kinds:
+
+- **Model element** — the default kind of element. It has revision history.
+- **Project element** — the Project itself, synchronized via the reserved `project` element type id (see [Get Server Info](../metadata/server-info.md)'s `isProjectSupported` flag).
+
+---
+
 ## Related Pages
 
 - [SDK API URI Structure](mbse-sdk-api-uri-structure.md)

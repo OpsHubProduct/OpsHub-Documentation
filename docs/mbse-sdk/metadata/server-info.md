@@ -39,11 +39,12 @@ GET: /mbse/api/1.0/server-info
 
 ## Root Level Parameters
 
-| Name                | Required | Type    | Description |
-|---------------------|----------|---------|-------------|
-| timeZone            | No       | String  | Time zone of the end system. Examples: `"America/Los_Angeles"`, `"GMT-8:00"`, `"UTC"`. Return blank if timezone is embedded in date values returned by the system. |
+| Name                | Required | Type    | Description                                                                                                                                                                                                                                    |
+|---------------------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| timeZone            | No       | String  | Time zone of the end system. Examples: `"America/Los_Angeles"`, `"GMT-8:00"`, `"UTC"`. Return blank if timezone is embedded in date values returned by the system.                                                                             |
 | maxResults          | Yes      | Integer | Maximum number of records that can be returned in a single paginated API response. If the end system does not support pagination natively, the connector must implement in-memory pagination and provide the maximum supported page size here. |
-| integrationUserInfo | Yes      | Object  | Information about the integration user configuration. |
+| isProjectSupported  | No       | Boolean | Whether this deployment exposes **Project as an entity type**. Defaults to `false`. When `true`, MBSE Core treats `project` as an entity type                                                                                                  |
+| integrationUserInfo | Yes      | Object  | Information about the integration user configuration.                                                                                                                                                                                          |
 
 ---
 
@@ -63,6 +64,7 @@ GET: /mbse/api/1.0/server-info
 {
   "timeZone": "UTC",
   "maxResults": 50,
+  "isProjectSupported": true,
   "integrationUserInfo": {
     "userDataType": "USERNAME_AS_USER",
     "fieldInternalName": "userName",
@@ -82,6 +84,7 @@ GET: /mbse/api/1.0/server-info
 3. `timeZone` must be provided if timestamps do not contain timezone information.
 4. `fieldInternalName` must match a field defined in the Connector Metadata API.
 5. `fieldValue` should only be populated when the integration user is not configurable via UI.
+6. `isProjectSupported` must be set to `true` only if the connector implements the Element APIs (Get, Query, Create, Update) for the reserved `project` entity type id. If `false` or omitted, MBSE Core will not support Project as an entity type.
 
 ---
 
@@ -92,5 +95,6 @@ This API ensures MBSE Core can:
 - Interpret timestamps correctly.
 - Enforce safe pagination limits.
 - Identify integration user context consistently.
+- Determine whether Project can be synchronised as an entity.
 
 Accurate server configuration is critical for reliable synchronization and data integrity.
