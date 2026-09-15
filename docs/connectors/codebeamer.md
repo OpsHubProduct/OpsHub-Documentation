@@ -306,7 +306,7 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
 
     3. **Formatting within hyperlinks:** Hyperlink text styling such as **bold**, *italic*, or underline applied to hyperlink text will not be preserved in synchronization.
 
-   **Impact:** Formatting or hyperlink information may change or be lost during synchronization. If the field is synchronized back to the other system, these changes may overwrite the original content or formatting there as well.
+   **Impact:** The specified formatting may be lost during synchronization. If the field is synchronized back to the other system, these changes may overwrite the original content or formatting there as well.
 
 6. When codebeamer is the source system in <code class="expression">space.vars.OIM</code>, and the content or name of inline image/file in JSPWiki field contains special characters like `â€¢, â‚¬, Â£, Â¥, Â©, Â®, â„¢, Âµ, Î±, Î², Ï€, Î©, Î£, Â°, Î”, â˜º, â™¥, â‚¹, Â¿, Â¡, â€¦, Ã€, Ã , Ã‚, Ãƒ, Ã„, Ã…, Ã†, Ã‡, Ãˆ, Ã‰, ÃŠ, Ã‹, ÃŒ, Ã , ÃŽ, Ã , Ã‘, Ã’, Ã“, Ã”, Ã•, Ã–, Ã™, Ãš, Ã›, Ãœ, ÃŸ, Ã , Ã¡, Ã¢, Ã£, Ã¤, Ã¥, Ã¦, Ã§, Ã¨, Ã©, Ãª, Ã«, Ã¬, Ã­, Ã®, Ã¯, Ã±, Ã², Ã³, Ã´, Ãµ, Ã¶, Ã¹, Ãº, Ã», Ã¼, Ã¿, Äž, ÄŸ, Ä°, Ä±, Å’, Å“, Åž, ÅŸ, Å¸,` etc, then due to API limitations, such characters might get lost during the synchronization. Additionally, formatting of the content will also not be preserved.
 7. Lookup values for **Repository Choice field** will not be loaded. If the field is mapped and contains a value, then its value will be synchronized as plain text.
