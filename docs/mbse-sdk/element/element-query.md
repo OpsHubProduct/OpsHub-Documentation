@@ -11,7 +11,7 @@ API Name: Elements – Query
 
 # Overview
 
-This API searches and retrieves elements based on filtering, hierarchy scope, time range, and pagination.
+This API searches and retrieves [elements](../getting-started/mbse-sdk-connector-apis.md#glossary) based on filtering, hierarchy scope, time range, and pagination.
 
 MBSE Core uses this API for:
 

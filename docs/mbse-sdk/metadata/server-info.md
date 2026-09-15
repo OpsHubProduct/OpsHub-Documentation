@@ -53,7 +53,6 @@ GET: /mbse/api/1.0/server-info
 |-------------------|----------|--------|-------------|
 | fieldInternalName | Yes      | String | Internal name of the field used in the system configuration screen to capture the integration username or email. This must match the corresponding field defined in the Connector Metadata API. |
 | userDataType      | Yes      | Enum   | Data type of the integration user field. Valid values:<br>- `EMAIL_AS_USER`<br>- `USERNAME_AS_USER` |
-| fieldValue        | No       | String | Actual value of the integration user. Provide this only if the integration user is fixed and not captured via a configuration field. |
 
 ---
 
@@ -65,8 +64,7 @@ GET: /mbse/api/1.0/server-info
   "maxResults": 50,
   "integrationUserInfo": {
     "userDataType": "USERNAME_AS_USER",
-    "fieldInternalName": "userName",
-    "fieldValue": "john.doe"
+    "fieldInternalName": "userName"
   }
 }
 ```
@@ -81,7 +79,6 @@ GET: /mbse/api/1.0/server-info
     - `maxResults` must reflect the enforced page size.
 3. `timeZone` must be provided if timestamps do not contain timezone information.
 4. `fieldInternalName` must match a field defined in the Connector Metadata API.
-5. `fieldValue` should only be populated when the integration user is not configurable via UI.
 
 ---
 

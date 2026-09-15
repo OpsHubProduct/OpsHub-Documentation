@@ -11,7 +11,7 @@ API Name: Element – Get
 
 # Overview
 
-This API retrieves a single element from the end system.
+This API retrieves a single [element](../getting-started/mbse-sdk-connector-apis.md#glossary) from the end system.
 
 MBSE Core uses this API to:
 

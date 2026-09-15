@@ -114,6 +114,17 @@ These APIs are required only if:
 
 ---
 
+## Glossary
+
+### Element
+
+An **element** is anything that gets synced using the Element APIs (Get, Add, Update, Query). There are two kinds:
+
+- **Model element** — an item created inside a container (project), like a requirement or a block.
+- **Project element** — the Project (container) is also treated as an element type. For the [Element APIs](../element/element-get.md) CRUD calls to the connector, `project` will be passed as the `elementTypeId`.
+
+---
+
 ## Related Pages
 
 - [SDK API URI Structure](mbse-sdk-api-uri-structure.md)
