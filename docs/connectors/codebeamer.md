@@ -298,7 +298,7 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
    * **Timekeeping tracker types (Worklogs)** will not be supported.
 3. Currently, Table type fields are not supported.
 4. Adding an association does not change the modified time of the entity. Hence, entity's associations will not synchronize until the next update on the entity updates its modified time.
-5. JSPWiki fields will be shown as HTML in <code class="expression">space.vars.OIM</code>.
+5. JSPWiki fields will be shown as HTML in <code class="expression">space.vars.OIM</code>. For details about the known limitations of Rich Text field synchronization, refer to the [Known Limitations for Rich Text Fields](#known-limitations-for-rich-text-fields) section on this page.
 6. When codebeamer is the source system in <code class="expression">space.vars.OIM</code>, and the content or name of inline image/file in JSPWiki field contains special characters like `â€¢, â‚¬, Â£, Â¥, Â©, Â®, â„¢, Âµ, Î±, Î², Ï€, Î©, Î£, Â°, Î”, â˜º, â™¥, â‚¹, Â¿, Â¡, â€¦, Ã€, Ã , Ã‚, Ãƒ, Ã„, Ã…, Ã†, Ã‡, Ãˆ, Ã‰, ÃŠ, Ã‹, ÃŒ, Ã , ÃŽ, Ã , Ã‘, Ã’, Ã“, Ã”, Ã•, Ã–, Ã™, Ãš, Ã›, Ãœ, ÃŸ, Ã , Ã¡, Ã¢, Ã£, Ã¤, Ã¥, Ã¦, Ã§, Ã¨, Ã©, Ãª, Ã«, Ã¬, Ã­, Ã®, Ã¯, Ã±, Ã², Ã³, Ã´, Ãµ, Ã¶, Ã¹, Ãº, Ã», Ã¼, Ã¿, Äž, ÄŸ, Ä°, Ä±, Å’, Å“, Åž, ÅŸ, Å¸,` etc, then due to API limitations, such characters might get lost during the synchronization. Additionally, formatting of the content will also not be preserved.
 7. Lookup values for **Repository Choice field** will not be loaded. If the field is mapped and contains a value, then its value will be synchronized as plain text.
 8. Currently, only Wiki is supported as Description format.
@@ -877,3 +877,13 @@ Following are the steps to configure any-to-any transition:
 }
 ```
 **Note:** The values specified in referredEntities must exactly match the display names of the entities that the reference field can refer to in the end system.
+
+## Known Limitations for Rich Text Fields
+
+When Codebeamer/CodebeamerX is the target system in <code class="expression">space.vars.OIM</code>, the following limitations may be observed when synchronizing Rich Text fields:
+
+1. **Font Size, Font Family, and Text Alignment:** Custom font size, font family, and text alignment formatting may not be preserved after synchronization. These formatting options are also not supported by the Codebeamer UI.
+
+2. **Hyperlinks Without HTTP/HTTPS Scheme:** Links that do not include `http://` or `https://` may open an internal Codebeamer document URL instead of the intended destination. This behavior is consistent with the Codebeamer UI.
+
+3. **Formatting Within Hyperlinks:** Text formatting such as **bold**, *italic*, or underline applied to text within a hyperlink may not be preserved after synchronization. This behavior is also observed when the same content is displayed in the Codebeamer UI.
