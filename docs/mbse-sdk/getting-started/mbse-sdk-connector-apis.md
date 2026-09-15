@@ -118,10 +118,10 @@ These APIs are required only if:
 
 ### Element
 
-An **element** is any entity synchronized through the Element APIs (Get, Add, Update, Query). It covers two kinds:
+An **element** is anything that gets synced using the Element APIs (Get, Add, Update, Query). There are two kinds:
 
-- **Model element** — the default kind of element. It has revision history.
-- **Project element** — the Project itself, synchronized via the reserved `project` element type id (see [Get Server Info](../metadata/server-info.md)'s `isProjectSupported` flag).
+- **Model element** — an item created inside a container (project), like a requirement or a block.
+- **Project element** — if the connector sends `supportsProjectAsElement` as `true` in [Get Server Info](../metadata/server-info.md), then the Project (container) is also treated as an element type. By default this is off. For the CRUD API calls to the connector, `project` will be passed as the `elementTypeId`.
 
 ---
 

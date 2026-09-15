@@ -18,13 +18,14 @@ MBSE Core uses this API to:
 - Understand system time zone behavior
 - Determine maximum supported page size
 - Identify integration user configuration
+- Identify if Project should also be treated as an element
 
 Connector responsibility:
 
 - Provide accurate server configuration details.
 - Return pagination limits supported by the system.
 - Return integration user configuration metadata.
-
+- Return whether Project should be treated as an element.
 ---
 
 ## API URI
@@ -43,7 +44,7 @@ GET: /mbse/api/1.0/server-info
 |---------------------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | timeZone            | No       | String  | Time zone of the end system. Examples: `"America/Los_Angeles"`, `"GMT-8:00"`, `"UTC"`. Return blank if timezone is embedded in date values returned by the system.                                                                             |
 | maxResults          | Yes      | Integer | Maximum number of records that can be returned in a single paginated API response. If the end system does not support pagination natively, the connector must implement in-memory pagination and provide the maximum supported page size here. |
-| isProjectSupported  | No       | Boolean | Whether this deployment exposes **Project as an entity type**. Defaults to `false`. When `true`, MBSE Core treats `project` as an entity type                                                                                                  |
+| supportsProjectAsElement | No       | Boolean | Send `true` if Project should also be treated as an element. Send `false` (or nothing) if not. Default is `false`. See [Element](../getting-started/mbse-sdk-connector-apis.md#glossary).  |
 | integrationUserInfo | Yes      | Object  | Information about the integration user configuration.                                                                                                                                                                                          |
 
 ---
@@ -54,7 +55,6 @@ GET: /mbse/api/1.0/server-info
 |-------------------|----------|--------|-------------|
 | fieldInternalName | Yes      | String | Internal name of the field used in the system configuration screen to capture the integration username or email. This must match the corresponding field defined in the Connector Metadata API. |
 | userDataType      | Yes      | Enum   | Data type of the integration user field. Valid values:<br>- `EMAIL_AS_USER`<br>- `USERNAME_AS_USER` |
-| fieldValue        | No       | String | Actual value of the integration user. Provide this only if the integration user is fixed and not captured via a configuration field. |
 
 ---
 
@@ -64,11 +64,10 @@ GET: /mbse/api/1.0/server-info
 {
   "timeZone": "UTC",
   "maxResults": 50,
-  "isProjectSupported": true,
+  "supportsProjectAsElement": true,
   "integrationUserInfo": {
     "userDataType": "USERNAME_AS_USER",
-    "fieldInternalName": "userName",
-    "fieldValue": "john.doe"
+    "fieldInternalName": "userName"
   }
 }
 ```
@@ -83,8 +82,7 @@ GET: /mbse/api/1.0/server-info
     - `maxResults` must reflect the enforced page size.
 3. `timeZone` must be provided if timestamps do not contain timezone information.
 4. `fieldInternalName` must match a field defined in the Connector Metadata API.
-5. `fieldValue` should only be populated when the integration user is not configurable via UI.
-6. `isProjectSupported` must be set to `true` only if the connector implements the Element APIs (Get, Query, Create, Update) for the reserved `project` entity type id. If `false` or omitted, MBSE Core will not support Project as an entity type.
+5. Send `supportsProjectAsElement` as `true` only when the connector's Element APIs (Get, Query, Create, Update) also work for Project. If you send `false`, or send nothing, Project will not be treated as an element.
 
 ---
 
@@ -95,6 +93,6 @@ This API ensures MBSE Core can:
 - Interpret timestamps correctly.
 - Enforce safe pagination limits.
 - Identify integration user context consistently.
-- Determine whether Project can be synchronised as an entity.
+- Identify whether Project should be treated as an element.
 
 Accurate server configuration is critical for reliable synchronization and data integrity.

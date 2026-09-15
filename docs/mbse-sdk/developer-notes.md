@@ -7,8 +7,8 @@ if: >-
 
 | SDK Server                                                                                                                                | OIM                 | Remarks                                                                                                                                                                                                                                                                                                        |
 |-------------------------------------------------------------------------------------------------------------------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1.5.0 | \>=7.236            | <ul><li>Added isProjectSupported flag in the Server Info API</li></ul>                                                                                                                                                                                                                                         |
-| [1.4.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgAmBLUYkxc7TLy8PeyTr4dnARHu0hXkm4wA7lggMZ6JMkg?e=dD3QZy) | \>=7.226 and <7.236 | <ul><li>Added rich text support for Documentation Field</li><li>Added filtering based on MetaType and identifiedStereotypes in the Owning Package field</li></ul>                                                                                                                                              |
+| 1.5.0 | \>=7.237            | <ul><li>Added support for Project as an entity type</li></ul>                                                                                                                                                                            |
+| [1.4.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgAmBLUYkxc7TLy8PeyTr4dnARHu0hXkm4wA7lggMZ6JMkg?e=dD3QZy) | \>=7.226 and <7.237 | <ul><li>Added rich text support for Documentation Field</li><li>Added filtering based on MetaType and identifiedStereotypes in the Owning Package field</li></ul>                                                                                                                                              |
 | [1.3.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgCsdqhXFbV6TLPomLgyftNRAQp_GlC1o0Ip-wQET79hxJU?e=UdySEM) | \>=7.224 and <7.226 | <ul><li>Added support for query-based filtering using name and GUID.</li><li>Redesigned the Element Types JSON configuration for improved structure and flexibility.</li><li>Enabled support for polling entities from the first revision.</li><li>Added support for Item Flow and reference fields.</li></ul> |
 | [1.2.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgA_ObXHl2RjS5Yq_8K0A5HFAeEH1uGYq2-r-cZ0vAdsl40?e=OHy4aE) | \>=7.218 and <7.224 | Support for Generalization and Usage relationship, along with renaming of realization relationship                                                                                                                                                                                                             |
 | [1.1.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgASwZ7wO5lsQZXpQozVIq6kAUcbJWqBEpV5QEZxTJ4NlYk?e=p0Brbr) | \>=7.218 and <7.224 | Batching and parallel processing implemented for getting list of elements on latest state and at given revision.                                                                                                                                                                                               
@@ -17,8 +17,8 @@ if: >-
 
 # Developer Notes
 ## MBSE SDK Release 1.5.0
-**Breaking API changes**
-- Added support for Project as an entity type, along with the isProjectSupported flag in the Server Info API.
+**Backward Compatible Changes**
+- Added support for Project as an entity type
 
 ## MBSE SDK Release 1.4.0
 **Backward Compatible Changes**
