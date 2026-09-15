@@ -47,7 +47,7 @@ Use this matrix as a quick reference to understand MCP coverage.
 |----------------------|-----|--------|--------|------|---------|--------------------------------------------------------|
 | Global Failure       | ✅   | —      | —      | ✅   | —       | —                                                      |
 | Processing Failure   | ✅   | —      | ❌      | ✅   | —      | — |
-| Failure Notification | ❌  | ❌     | ❌     | —    | —       | —                                                              |
+| Failure Notification | ✅  | ✅     | ✅     | —    | —       | Configured per integration. Update replaces the configuration rather than merging into it |
 | Health Checkup   | ✅  | —      | —      | —    | —       | Includes integration health analysis, failure diagnostics, and visibility into OIM instance configuration and resource utilization details |
 
 
@@ -59,11 +59,24 @@ Use this matrix as a quick reference to understand MCP coverage.
 | Entity Types            | —   | —      | —      | ✅   | —       | —                                 |
 | Fields                  | ✅  | —      | —      | —    | —       | Includes fields, comments, attachments, relationships |
 
+### Reconciliation
+
+| Feature / Module | Get | Create | Update | List | Execute | Notes |
+|------------------|-----|--------|--------|------|---------|-------|
+| Reconciliation   | ✅  | —      | ✅     | —    | ✅      | Switch into reconciliation mode and back, and change reconciliation status. The integration must be inactive, and reconcile rules must be configured on the mapping beforehand |
+| Reconcile Rules  | ✅  | —      | ✅     | —    | —       | Configured on the **mapping**, through the mapping tools |
+
+### Reporting & exports
+
+| Feature / Module | Get | Create | Update | List | Execute | Notes |
+|------------------|-----|--------|--------|------|---------|-------|
+| Sync Report      | —   | —      | —      | ✅   | —       | Answers questions about synchronised entities — counts, entity pairing, sync state, and activity over a period |
+| Usage Report     | —   | —      | —      | —    | ✅      | Exported as a ZIP of the last-six-months and last-one-year workbooks. Returned as a file to download, not as data the AI assistant can read |
+| Metrics Report   | —   | —      | —      | —    | ✅      | Exported as a spreadsheet for the supplied filters. Returned as a file to download, not as data the AI assistant can read |
+
 ### Others
 
 | Feature / Module | Get | Create | Update | List | Execute | Notes                    |
 |------------------|-----|--------|--------|------|--------|--------------------------|
-| Sync Report      | —   | —      | —      | ❌   | —      | —     |
-| Audit            | —   | —      | —      | ❌   | —      | —     |
+| Audit            | —   | —      | —      | ❌   | —      | Audits of changes made through MCP are viewed in the <code class="expression">space.vars.OIM</code> UI. See [MCP Audits](mcp-audits.md)     |
 | Excel Upload     | ❌  | ❌    | ❌  | ❌   | —      | —      |
-| Reconcile        | ❌  | —    | —   | ❌    | —      | —      |
