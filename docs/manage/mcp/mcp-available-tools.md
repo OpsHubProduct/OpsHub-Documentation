@@ -137,23 +137,21 @@ XSLT tools provide reference guidance that the AI assistant uses when generating
 
 ## Failure notification tools
 
-Failure notifications email a configured set of recipients when an integration starts failing. A notification is configured per integration and sends through a mail system (**SMTP Mail Client**) already configured in <code class="expression">space.vars.OIM</code>.
+Failure notifications email a configured set of recipients when an integration starts failing. Each integration can have its own notification, sent through a mail system that's configured in <code class="expression">space.vars.OIM</code>.
 
-| Tool | Description |
-|------|-------------|
-| `get_failure_notification` | Retrieves the failure notification configured for an integration. An integration with no notification configured is a valid state, and is reported as such rather than as an error. |
+| Tool | Description                                                                                                                                         |
+|------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `get_failure_notification` | Retrieves the failure notification configured for an integration. An integration with no notification configured is returned as is.                 |
 | `create_failure_notification` | Creates a failure notification for an integration, covering the recipients, the failure conditions, and the directions the notification applies to. |
-| `update_failure_notification` | Updates the failure notification configured for an integration. |
+| `update_failure_notification` | Updates the failure notification configured for an integration.                                                                                     |
 
-> **Note**: Updating a notification replaces its configuration rather than merging into it. The AI assistant reads the existing configuration first so that recipients and conditions you did not mention are carried forward. Confirm the final recipient list when the assistant presents it.
+> **Note**: Updating a notification replaces its configuration rather than merging into it. The AI assistant reads the existing configuration first so that recipients and conditions that were not mentioned are carried forward. It's still a good idea to double-check the final recipient list when the assistant presents it.
 
-> **Note**: Deleting a failure notification is not supported via MCP. To remove one, use the <code class="expression">space.vars.OIM</code> UI.
+> **Note**: Deleting a failure notification is not supported via MCP.
 
 ---
 
 ## Reconciliation tools
-
-Reconciliation compares entities that are already in sync between two systems and applies the differences it finds, according to the reconcile rules configured on the mapping.
 
 | Tool | Description |
 |------|-------------|
@@ -162,7 +160,7 @@ Reconciliation compares entities that are already in sync between two systems an
 | `switch_to_integration_mode` | Switches integrations back to normal synchronisation. This stops any reconciliation currently in progress. |
 | `update_reconciliation_status` | Changes the status of one or more reconciliations - including activating a reconciliation so that it starts running. |
 
-> **Note**: Switching an integration into reconciliation mode stops it synchronising normally until it is switched back. Reconciliation also covers comments, attachments, and links where these are configured on the mapping, not only the mapped fields.
+> **Note**: Switching an integration into reconciliation mode stops its synchronisation normally until it is switched back. Reconciliation also covers comments, attachments, and links where these are configured on the mapping in addition to the mapped fields.
 
 > **Note**: Moving a reconciliation to **EXPIRED** cannot be undone.
 
@@ -181,7 +179,7 @@ Reporting tools answer questions about what has synchronised, and produce the us
 | `export_usage_report` | Exports the usage report as a ZIP file containing the last-six-months and last-one-year usage workbooks. |
 | `export_chart_report` | Exports the metrics report as a spreadsheet file, for the supplied filters. |
 
-> **Note**: The two export tools return a **file to download, not data the AI assistant can read**. If you ask a question about synchronised data, the assistant answers it from `get_sync_report_list` rather than by generating a report and attempting to read it.
+> **Note**: The two export tools return a **file to download, rather than data the AI assistant can read**. So if a question about synchronised data is asked, the assistant will typically answer it using `get_sync_report_list` instead of generating a report and trying to read it.
 
 > **Note**: How a returned file is presented depends on your MCP client. See [Receiving exported files](#receiving-exported-files) below.
 
@@ -196,8 +194,6 @@ The usage and metrics reports are returned over MCP as file content. MCP clients
 | Text summary | The file name, type, and size, stated in the assistant's reply. Every client shows this. |
 | Download link | A link to the equivalent <code class="expression">space.vars.OIM</code> REST endpoint, provided where the report is reachable through one. Available for the usage report. |
 | Attached file | The file content itself, attached to the tool result. |
-
-Clients that render attachments - such as Claude Code - save the file directly. Clients that do not render binary attachments still show the text summary and the download link, and you can retrieve the report from there or from the <code class="expression">space.vars.OIM</code> UI.
 
 > **Note**: An export above the size limit supported over MCP is refused with a message rather than truncated. Narrow the filters, or take the report from the <code class="expression">space.vars.OIM</code> UI.
 
