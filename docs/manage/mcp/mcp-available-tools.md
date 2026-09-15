@@ -160,13 +160,13 @@ Reconciliation compares entities that are already in sync between two systems an
 | `get_reconciliation` | Retrieves the reconciliation details for an integration group, including the entity pairs configured for reconciliation and their current state. |
 | `switch_to_reconcile_mode` | Switches integrations into reconciliation mode. The integration must be inactive, reconcile rules must already be configured on the field mappings of the entity pairs, and a reconciliation workflow must exist. |
 | `switch_to_integration_mode` | Switches integrations back to normal synchronisation. This stops any reconciliation currently in progress. |
-| `update_reconciliation_status` | Changes the status of one or more reconciliations — including activating a reconciliation so that it starts running. |
+| `update_reconciliation_status` | Changes the status of one or more reconciliations - including activating a reconciliation so that it starts running. |
 
-> **Note**: Switching an integration into reconciliation mode stops it synchronising normally until it is switched back. Reconciliation also covers comments, attachments, and links where these are configured on the mapping, not only the mapped fields. The AI assistant states both before asking you to confirm.
+> **Note**: Switching an integration into reconciliation mode stops it synchronising normally until it is switched back. Reconciliation also covers comments, attachments, and links where these are configured on the mapping, not only the mapped fields.
 
-> **Note**: Moving a reconciliation to **EXPIRED** cannot be undone. The AI assistant asks for explicit confirmation before doing so.
+> **Note**: Moving a reconciliation to **EXPIRED** cannot be undone.
 
-> **Note**: Reconcile rules are configured on the **mapping**, not on the reconciliation. Ask the AI assistant to configure reconcile rules on the mapping first if they are not already in place.
+> **Note**: Reconcile rules are configured on the **mapping**, not on the reconciliation. 
 
 ---
 
@@ -177,8 +177,8 @@ Reporting tools answer questions about what has synchronised, and produce the us
 | Tool | Description |
 |------|-------------|
 | `get_sync_report_list` | Retrieves synchronised entity information with search, filter, and sort capabilities. Each record pairs a source entity with its target entity and carries both IDs, both entity types, both project names, both sync states, the last read and last processed times, and the failure count. Use this to answer questions such as how many items have synced, which entity maps to which, whether an entity was deleted, and what synced over a given period. |
-| `get_chart_filter_values` | Retrieves the filter values available for metrics reporting — the systems, projects, and entity types that can be filtered on. Called before exporting the metrics report to discover valid filter values. |
-| `export_usage_report` | Exports the usage report as a ZIP file containing the last-six-months and last-one-year usage workbooks. Takes no filters. |
+| `get_chart_filter_values` | Retrieves the filter values available for metrics reporting - the systems, projects, and entity types that can be filtered on. Called before exporting the metrics report to discover valid filter values. |
+| `export_usage_report` | Exports the usage report as a ZIP file containing the last-six-months and last-one-year usage workbooks. |
 | `export_chart_report` | Exports the metrics report as a spreadsheet file, for the supplied filters. |
 
 > **Note**: The two export tools return a **file to download, not data the AI assistant can read**. If you ask a question about synchronised data, the assistant answers it from `get_sync_report_list` rather than by generating a report and attempting to read it.
@@ -197,7 +197,7 @@ The usage and metrics reports are returned over MCP as file content. MCP clients
 | Download link | A link to the equivalent <code class="expression">space.vars.OIM</code> REST endpoint, provided where the report is reachable through one. Available for the usage report. |
 | Attached file | The file content itself, attached to the tool result. |
 
-Clients that render attachments — such as Claude Code — save the file directly. Clients that do not render binary attachments still show the text summary and the download link, and you can retrieve the report from there or from the <code class="expression">space.vars.OIM</code> UI.
+Clients that render attachments - such as Claude Code - save the file directly. Clients that do not render binary attachments still show the text summary and the download link, and you can retrieve the report from there or from the <code class="expression">space.vars.OIM</code> UI.
 
 > **Note**: An export above the size limit supported over MCP is refused with a message rather than truncated. Narrow the filters, or take the report from the <code class="expression">space.vars.OIM</code> UI.
 
