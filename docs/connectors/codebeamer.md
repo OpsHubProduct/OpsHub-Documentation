@@ -298,16 +298,24 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
    * **Timekeeping tracker types (Worklogs)** will not be supported.
 3. Currently, Table type fields are not supported.
 4. Adding an association does not change the modified time of the entity. Hence, entity's associations will not synchronize until the next update on the entity updates its modified time.
-5. JSPWiki fields will be shown as HTML in <code class="expression">space.vars.OIM</code>. Due to limitations or existing behavior in the Codebeamer UI and API, the following Rich Text field limitations may be observed:
+5. **Rich text field sync limitations in Codebeamer**
 
-    1. **Font size, font family, and text alignment:** Custom font size, font family, and text alignment may not be preserved when the Rich Text field is synchronized to Codebeamer.
+    * **OIM mapping:** JSPWiki fields will be shown as HTML in OpsHub Integration Manager.
 
-    2. **Hyperlinks without HTTP/HTTPS scheme:** Hyperlinks without an `http://` or `https://` scheme may be redirected to an internal Codebeamer document URL instead of the intended URL.
+    * **Sync behaviour**
+        - Due to current behaviour and limitations in the Codebeamer UI and APIs, the following rich text formatting will not be fully preserved during synchronization:
 
-    3. **Formatting within hyperlinks:** Hyperlink text styling such as **bold**, *italic*, or underline applied to hyperlink text will not be preserved in synchronization.
+            - **Font formatting:** Custom font size, font family, and text alignment will not be retained when content is synchronized to Codebeamer.
 
-   **Impact:** The specified formatting may be lost during synchronization. If the field is synchronized back to the other system, these changes may overwrite the original content or formatting there as well.
+            - **Hyperlinks without a URL scheme:** Links that do not include `http://` or `https://` will be converted to internal Codebeamer document links rather than the intended destination.
 
+            - **Formatting within hyperlinks:** Text styling applied to hyperlinks, such as bold, italic, or underline, will be lost during synchronization.
+
+    * **Impact**
+
+        - Any unsupported formatting may be lost during synchronization. If the content is subsequently synchronized back to the source system from Codebeamer, the updated content from Codebeamer can overwrite the original content of the source and can distrub their content formatting as well.
+
+    * **Example:** If you increase the font size of a heading to **20px** in the source system, the heading will not retain the **20px** font size after synchronization to Codebeamer. If the same content is later synchronized back to the source system, the version from Codebeamer may overwrite the original content with the formatting changes.
 6. When codebeamer is the source system in <code class="expression">space.vars.OIM</code>, and the content or name of inline image/file in JSPWiki field contains special characters like `â€¢, â‚¬, Â£, Â¥, Â©, Â®, â„¢, Âµ, Î±, Î², Ï€, Î©, Î£, Â°, Î”, â˜º, â™¥, â‚¹, Â¿, Â¡, â€¦, Ã€, Ã , Ã‚, Ãƒ, Ã„, Ã…, Ã†, Ã‡, Ãˆ, Ã‰, ÃŠ, Ã‹, ÃŒ, Ã , ÃŽ, Ã , Ã‘, Ã’, Ã“, Ã”, Ã•, Ã–, Ã™, Ãš, Ã›, Ãœ, ÃŸ, Ã , Ã¡, Ã¢, Ã£, Ã¤, Ã¥, Ã¦, Ã§, Ã¨, Ã©, Ãª, Ã«, Ã¬, Ã­, Ã®, Ã¯, Ã±, Ã², Ã³, Ã´, Ãµ, Ã¶, Ã¹, Ãº, Ã», Ã¼, Ã¿, Äž, ÄŸ, Ä°, Ä±, Å’, Å“, Åž, ÅŸ, Å¸,` etc, then due to API limitations, such characters might get lost during the synchronization. Additionally, formatting of the content will also not be preserved.
 7. Lookup values for **Repository Choice field** will not be loaded. If the field is mapped and contains a value, then its value will be synchronized as plain text.
 8. Currently, only Wiki is supported as Description format.
