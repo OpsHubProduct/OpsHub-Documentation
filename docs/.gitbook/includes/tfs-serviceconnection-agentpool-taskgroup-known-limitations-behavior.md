@@ -19,6 +19,8 @@ Following are the limitations and behaviors specific to the individual entities 
 
 **Known Behaviour and Limitations:**
 * After a successful synchronization of the Service Connection, you need to enter the password manually in the target project as Microsoft API does not expose this sensitive data due to security concerns.
+* During synchronization, a GitHub service connection with **Azure Pipelines App** authentication will be created in the target project as a GitHub service connection with **Personal Access Token** authentication.
+  * Reason: Azure DevOps does not provide an API to create GitHub service connections with Azure Pipelines App authentication.
 * Service Connections of type **Azure Resource Manager** cannot be synchronized from **Azure DevOps Services** to **Azure DevOps Server**.
   * Reason: There is a template mismatch in Azure Resource Manager between Azure DevOps Services (cloud) and Azure DevOps Server (TFS). Due to these template differences and API limitations, this service connection will not be synced from ADO Cloud to TFS.
 * Service Connections configured with **Azure Resource Manager** type and **Service Principal Key** credential type cannot be synchronized Azure DevOps Server (TFS) to Azure DevOps Services (ADO).
