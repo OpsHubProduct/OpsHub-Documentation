@@ -88,28 +88,148 @@ Each release has a dedicated folder containing the corresponding reports.
 
 ### Vulnerabilities Resolved in Release 7.234
 
-| Category | Severity | Summary | Impacted Area | Reported In Release | Fixed In Release |
-|---|---|---|---|---|---|
-| Third party security | High | Spring Framework Denial of Service via Versioned Resources in Spring MVC and WebFlux ([CVE-2026-41842](https://github.com/advisories/GHSA-x23c-287f-qqv5)) | Not directly impacted | 7.232 | 7.234 |
-| Third party security | High | Spring Framework Cross-site Scripting via JavaScriptUtils ([CVE-2026-41845](https://github.com/advisories/GHSA-3chg-m5w7-qfv5)) | Not directly impacted | 7.232 | 7.234 |
-| Application security | High | File upload endpoint did not require authentication | Not directly impacted | 7.228 | 7.234 |
-| Application security | High | An endpoint that could modify files on the server did not properly enforce authorization | Not directly impacted | 7.228 | 7.234 |
-| Application security | High | Certain administrative functions could be accessed without authorization | Not directly impacted | 7.228 | 7.234 |
-| Application security | High | Certain database queries did not adequately validate input, which could allow SQL/HQL injection | Not directly impacted | 7.228 | 7.234 |
-| Application security | High | Pathway existed that could allow unauthorized commands to run on the server | Not directly impacted | 7.228 | 7.234 |
+<table>
+    <thead>
+        <tr>
+            <th width="130">Category</th>
+            <th width="70">Severity</th>
+            <th>Summary</th>
+            <th width="200">Impacted Area</th>
+            <th width="110">Reported In Release</th>
+            <th width="100">Fixed In Release</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>Spring Framework Denial of Service via Versioned Resources in Spring MVC and WebFlux (<a href="https://github.com/advisories/GHSA-x23c-287f-qqv5">CVE-2026-41842</a>)</td>
+            <td>Not directly impacted</td>
+            <td>7.232</td>
+            <td>7.234</td>
+        </tr>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>Spring Framework Cross-site Scripting via JavaScriptUtils (<a href="https://github.com/advisories/GHSA-3chg-m5w7-qfv5">CVE-2026-41845</a>)</td>
+            <td>Not directly impacted</td>
+            <td>7.232</td>
+            <td>7.234</td>
+        </tr>
+        <tr>
+            <td>Application security</td>
+            <td>High</td>
+            <td>File upload endpoint did not require authentication</td>
+            <td>OpsHub Server file upload endpoint / server storage</td>
+            <td>7.228</td>
+            <td>7.234</td>
+        </tr>
+        <tr>
+            <td>Application security</td>
+            <td>High</td>
+            <td>An endpoint that could modify files on the server did not properly enforce authorization</td>
+            <td>OpsHub Server file system</td>
+            <td>7.228</td>
+            <td>7.234</td>
+        </tr>
+        <tr>
+            <td>Application security</td>
+            <td>High</td>
+            <td>Certain administrative functions could be accessed without authorization</td>
+            <td>OpsHub Server administrative/configuration endpoints</td>
+            <td>7.228</td>
+            <td>7.234</td>
+        </tr>
+        <tr>
+            <td>Application security</td>
+            <td>High</td>
+            <td>Certain database queries did not adequately validate input, which could allow SQL/HQL injection</td>
+            <td>OpsHub Server database (SQL/HQL query layer)</td>
+            <td>7.228</td>
+            <td>7.234</td>
+        </tr>
+        <tr>
+            <td>Application security</td>
+            <td>High</td>
+            <td>Pathway existed that could allow unauthorized commands to run on the server</td>
+            <td>OpsHub Server host OS (command execution)</td>
+            <td>7.228</td>
+            <td>7.234</td>
+        </tr>
+    </tbody>
+</table>
 
 ### Open / In Progress Vulnerabilities
 
-| Category | Severity | Summary | Impacted Area | Reported In Release | ETA |
-|---|---|---|---|---|---|
-| Third party security | High | Hibernate vulnerable to SQL Injection | Not directly impacted | 7.234 | Sep 2026 |
-| Third party security | High | Apache cxf-core: No restriction on attachment headers per message | Not directly impacted | 7.234 | Sep 2026 |
-| Third party security | High | Apache HttpComponents Core HTTP/1 header parsing can cause memory-exhaustion denial of service | Not directly impacted | 7.234 | Sep 2026 |
-| Third party security | High | Spring Security SAML2 Service Provider: unbounded writer inflates the compressed SAML payload into memory (DoS) | Not directly impacted | 7.234 | Sep 2026 |
-| Third party security | High | Spring Security SAML2 Service Provider: RelyingPartyRegistration may run arbitrary code on HTML forms generated by Spring Security filters | Not directly impacted | 7.234 | Sep 2026 |
-| Third party security | High | Little CMS (lcms2) through 2.18: integer overflow in CubeSize in cmslut.c | Not directly impacted | 7.234 | Sep 2026 |
-| Third party security | High | Vulnerability in Oracle Java SE / Oracle GraalVM for JDK / Oracle GraalVM Enterprise Edition (Libraries component) | Not directly impacted | 7.234 | Sep 2026 |
-| Third party security | High | mchange-commons-java susceptible to abuse via JNDI injection and deserialization gadgets | Not directly impacted | 7.234 | Sep 2026 |
+<table>
+    <thead>
+        <tr>
+            <th width="130">Category</th>
+            <th width="70">Severity</th>
+            <th>Summary</th>
+            <th width="200">Impacted Area</th>
+            <th width="90">ETA</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>Hibernate vulnerable to SQL Injection</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>Apache cxf-core: No restriction on attachment headers per message</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>Apache HttpComponents Core HTTP/1 header parsing can cause memory-exhaustion denial of service</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>Spring Security SAML2 Service Provider: unbounded writer inflates the compressed SAML payload into memory (DoS)</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>Spring Security SAML2 Service Provider: RelyingPartyRegistration may run arbitrary code on HTML forms generated by Spring Security filters</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>Little CMS (lcms2) through 2.18: integer overflow in CubeSize in cmslut.c</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>Vulnerability in Oracle Java SE / Oracle GraalVM for JDK / Oracle GraalVM Enterprise Edition (Libraries component)</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party security</td>
+            <td>High</td>
+            <td>mchange-commons-java susceptible to abuse via JNDI injection and deserialization gadgets</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+    </tbody>
+</table>
  
 ---
 
