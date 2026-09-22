@@ -183,6 +183,10 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
   * Votes and Submission portal field for **Idea** entity
 * **End-system Storage Criteria** is not supported in Aha, because of API limitations.
 * **Status** field for **To-dos**, **Approval** and **WorkRequest** entities will synchronize in current state only.
+* **Criteria** and **target lookup** processing will not work for **Requirement** entity, because of API limitations.
+* Renaming a custom link type will not update the previously synchronized link with old name.
+  * For example, if name of the custom link is **goals** and few links are synchronized under link type **goals**.
+  * If the link type is changed from **goals** to **custom_goals** then all the links will be synchronized as new link type, and the old links will not be updated.
 
 ### User type field sync
 * **History synchronization is not supported** for **System user** and **Custom user** fields due to Aha! API limitations. These fields support **Current state** synchronization only.
@@ -283,10 +287,16 @@ Set the **Query** as per Aha! encoded query format. Criteria is only applicable 
   * **"Approve", "Approve with changes" and "Reject"** status values for **Approval** and **WorkRequest** entity will not be synchronized.
   * **Approval Group** field for **Approval** entity will not be synchronized.
   * **WorkRequest** entity limitations:
-    * **Assigned to** field will synchronize in current state only.
-    * **Request For** link type is read-only.
-
-
+      * **Assigned to** field will synchronize in current state only.
+      * **Request For** link type is read-only.
+  * **Requirement** entity limitations:
+    * **Date range** values limitations:
+      * **Date range source (ways by which we can set start date and end date in Aha)** like **Enter manually** and **Set from feature** will not be synchronized.
+      * When Aha is the target system, the **Date range** field (start date and end date) will be synchronized only when it is set to **Enter manually**.
+    * **Delivery risks** field will not be synchronized.
+  * **To-do** entity limitations:
+    * When Aha is the target system, a to-do entity will be marked as **complete** only if it has at least one assignee present in the entity.
+  
 ## Troubleshooting Guide
 
 If you are getting an **Internal Server Error** with **Status Code: 500**, then you should retry the failures. There is a limitation of the Aha! API that if we perform updates on entities from same project at the same time, deadlocks occur in their database. It can cause the above-mentioned error.
