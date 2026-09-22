@@ -133,6 +133,7 @@ Following are the limitations and behaviors specific to the individual entities 
 
 * REST API–based synchronization is not supported for on-premises instances of Azure DevOps Server prior to version 2020.
 * Test Run and Test Result will migrate current state. Any changes in the target system after synchronization may show inconsistency in data in both end points.
+* The **Duration** of a **Test Run** is automatically calculated by ADO/TFS based on the `Run.DateStarted` and `Run.DateCompleted` fields. To make sure the correct Run.DateCompleted value is synchronized for the Test Run, you need to reconcile the Run.DateCompleted field after all Test Results have been synchronized. This ensures that the Test Run duration is calculated correctly.
 * Following Test Result and Test Run will not synchronize (these Run and Result are logged in <code class="expression">visitor.claims.unsigned.product</code> logs).
   * Run and Result created with Test Suite not existing in the source.
   * Run and Result created with Test Case not associated with the Test Suite while synchronization was performed.
