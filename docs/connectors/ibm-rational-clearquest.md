@@ -300,7 +300,25 @@ Below is the JSON syntax for the criteria query: {"query":"Personal Queries/", "
       * Active ClearQuest Session Threshold
       * Maximum Active Servers
     * Refer to following document for details: [Modifying MBean attributes by using the Site Configuration window](https://www.ibm.com/docs/en/rational-clearquest/8.0.0?topic=ccws-modifying-mbean-attributes-by-using-site-configuration-window)
-
+* **Multiline Text Truncation in IBM Rational ClearQuest**
+  * By default, the IBM Rational ClearQuest OSLC API returns a maximum of 2000 characters for multiline text fields. If a field contains content beyond this limit, the additional text is truncated and is not available for synchronization through OpsHub.
+  * **Impact**
+    * Long comments, descriptions, notes, and other multiline fields may be partially synchronized. 
+    * OpsHub can only synchronize the data returned by the ClearQuest API.
+  * **Resolution**
+    * Update the max.multiline.text.length property in the ClearQuest cqrest.properties file.
+    * Property file location:
+      * \<CQWebProfile\>\installedApps\dfltCell\TeamEAR.ear\cqweb.war\WEB-INF\classes\cqrest.properties
+      * Example: C:\Program Files\IBM\ClearQuest\cqweb\cqwebprofile\installedApps\dfltCell\TeamEAR.ear\cqweb.war\WEB-INF\classes\cqrest.properties
+    * Modify the following property:
+      * com.ibm.rational.cm.web.component.max.multiline.text.length=2000      //Default
+      * Increase the limit:
+        * com.ibm.rational.cm.web.component.max.multiline.text.length=5000
+      * or disable truncation:
+        * com.ibm.rational.cm.web.component.max.multiline.text.length=0
+        * Setting the value to 0 returns the complete multiline content but may increase memory usage and impact query performance for large result sets.
+    * Restart the ClearQuest server after updating the configuration.
+  > **Note** : This is a ClearQuest OSLC API configuration limitation. OpsHub can synchronize the complete multiline field content only when it is returned by the ClearQuest server.
 ***
 
 # Known Limitations
