@@ -113,40 +113,40 @@ Each release has a dedicated folder containing the corresponding reports.
         <tr>
             <td>Application</td>
             <td>High</td>
-            <td>File upload endpoint did not require authentication</td>
-            <td>OpsHub server file upload endpoint / server storage</td>
+            <td>Arbitrary File Upload</td>
+            <td>File upload functionality</td>
             <td>7.228</td>
             <td>7.234</td>
         </tr>
         <tr>
             <td>Application</td>
             <td>High</td>
-            <td>An endpoint that could modify files on the server did not properly enforce authorization</td>
-            <td>OpsHub server file system</td>
+            <td>File Modification Vulnerability</td>
+            <td>File storage</td>
             <td>7.228</td>
             <td>7.234</td>
         </tr>
         <tr>
             <td>Application</td>
             <td>High</td>
-            <td>Certain administrative functions could be accessed without authorization</td>
-            <td>OpsHub server administrative/configuration endpoints</td>
+            <td>Unauthenticated Administrative Actions</td>
+            <td>Administrative configuration functions</td>
             <td>7.228</td>
             <td>7.234</td>
         </tr>
         <tr>
             <td>Application</td>
             <td>High</td>
-            <td>Certain database queries did not adequately validate input, which could allow SQL/HQL injection</td>
-            <td>OpsHub server database (SQL/HQL query layer)</td>
+            <td>SQL Injection Vulnerabilities</td>
+            <td>OpsHub server database [query processing layer]</td>
             <td>7.228</td>
             <td>7.234</td>
         </tr>
         <tr>
             <td>Application</td>
             <td>High</td>
-            <td>Pathway existed that could allow unauthorized commands to run on the server</td>
-            <td>OpsHub server host OS (command execution)</td>
+            <td>Remote Command Execution (RCE)</td>
+            <td>OpsHub server's hosted OS [command execution]</td>
             <td>7.228</td>
             <td>7.234</td>
         </tr>
