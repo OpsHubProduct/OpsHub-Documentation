@@ -99,6 +99,96 @@ Check [Mapping Configuration](../integrate/mapping-configuration.md) to learn th
 
 <div align="center"><img src="../assets/Aras_System_mapping_5.png" alt="" width="1250"></div>
 
+## Version Control of Aras Innovator Items (OH_Version)
+
+Aras Innovator creates a new version (generation) of a versionable item every time the item is edited. As <code class="expression">space.vars.OIM</code> edits the item for every change it synchronizes, it adds a generation to the item's version history in Aras Innovator. Map the **OH_Version** field if the versions in Aras Innovator are to be controlled.
+
+### About the OH_Version Field
+
+* **OH_Version** is available in the list of fields for every item type.
+* It is a **boolean** field and it is **not mandatory** to map it. If it is not mapped, the items are versioned by default and it creates a version for every change.
+* It is not an actual property of the item type in Aras Innovator, and no value is stored against it in Aras Innovator. Its value only decides whether the write performed by <code class="expression">space.vars.OIM</code> creates a new generation of the item, or updates the current generation of the item.
+* The item type should be versionable for this field to have any effect. Refer to [Versionable Item Type](aras.md#versionable-item-type) section.
+
+| **Value resolved for OH_Version**             | **Behaviour in Aras Innovator**                                                                                                                                     |
+|-----------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Field is not mapped (or resolves to no value) | A new generation of the item is created. This is the default behaviour.                                                                                             |
+| `true`                                        | A new generation of the item is created.                                                                                                                            |
+| `false` or `0`                                | The change is written to the current generation of the item. The item is updated, i.e. its 'Modified On' and 'Modified By' change, but no new generation is created. |
+
+
+### Operations for Which OH_Version is Considered
+
+| **Operation performed by OpsHub Integration Manager**                              | **Does the operation create a new generation?**                     | **Is OH_Version considered?**                                                                                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------ |---------------------------------------------------------------------| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Create an entity                                                                                       | The item is created with generation 1                               | Not applicable. A create always results in generation 1.                                                                                                                                                                                               |
+| Update field values                                                                                    | Yes                                                                 | Yes                                                                                                                                                                                                                                                    |
+| Add or remove a relationship                                                                           | Yes                                                                 | Yes                                     |
+| Add an attachment                                                                                      | Yes                                                                 | Yes                                                                                                                                                                                                                                                    |
+| Delete an attachment                                                                                   | No. Only the relationship between the item and the file is deleted. | Not applicable                                                                                                                                                                                                                                         |
+| Add a comment                                                                                          | No                                                                  | Not applicable                                                                                                                                                                                                                                         |
+| Change the state, i.e. Life Cycle transition                                                           | No. The item is promoted, it is not edited.                         | Not applicable                                                                                                                                                                                                                                         |
+
+### When to Use the OH_Version Field
+
+Map the **OH_Version** field when:
+
+* Versions in Aras Innovator are to be created only for the changes made by the users, and not for every change synchronized by <code class="expression">space.vars.OIM</code>.
+* A single change in the source system should not create multiple versions in Aras Innovator. For example, a change that updates fields and also adds a relationship or an attachment is written as separate edits, and each edit creates a version.
+* The rule for creating a version is specific to the organization. The value can be a fixed `true` or `false`, or it can be decided for each entity using an Advanced XSLT script.
+
+### Configure the OH_Version Field in the Mapping
+
+1. Open the mapping with Aras Innovator as the target system.
+2. Select **OH_Version** from the list of the target fields and keep the source field as **--NONE--**.
+3. Configure the value of the field in one of the following ways:
+   * **Same behaviour for all the entities:** Configure **false** as the value using [Default Value Mapping](../integrate/mapping-configuration.md#default-value-mapping), so that the changes are always written to the current generation of the item.
+   * **Decision for each entity:** Click ![XSLT Icon](../assets/XSLT_icon_blue.png) for this field and configure the Advanced XSLT for it. Refer to [View/Edit XSLT Configurations options](../integrate/mapping-configuration.md#view-edit-xslt-configurations-options) and [Advance Mapping Utility](../integrate/advance-mapping-utility.md) for the utilities which can be used in the XSLT script. The XSLT script has to return `false` when the change is to be written to the current generation of the item, and `true` when the item is to be versioned.
+4. Save the mapping.
+
+**Sample XSLT script**
+
+The following XSLT script writes the change to the current generation of the item when the item was last modified by the user configured in the Aras Innovator system in <code class="expression">space.vars.OIM</code>, and lets Aras Innovator create a new generation when a user has changed the item since the last synchronization.
+
+```xml
+<OH_Version xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <!-- The integration user, as its value can appear in the 'modified_by_id' field of the item -->
+  <!-- Replace the value of ohIntegrationUser with the user configured in the Aras Innovator system in OpsHub Integration Manager. -->
+  <xsl:variable name="ohIntegrationUser" select="'<integration_user_id>'"/>
+  <xsl:variable name="ohEventType" select="translate(normalize-space(string(SourceXML/opshubEventType)), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+  <xsl:choose>
+    <!-- Create: the item is created with generation 1 in this synchronization, so the relationships and the
+         attachments added right after it should not version it -->
+    <xsl:when test="$ohEventType = 'CREATE'">false</xsl:when>
+    <xsl:otherwise>
+      <!-- Find the Aras Innovator item to which the source entity is synchronized -->
+      <xsl:variable name="ohTargetInfo" xmlns:utils="http://com.opshub.eai.core.utility.OIMCoreUtility" select="utils:getTargetEntityInfoBySourceEntityId(string($sourceSystemId), string(SourceXML/opshubEntityId), string($targetSystemId), '', '')"/>
+      <xsl:choose>
+        <!-- The entity is not synchronized to Aras Innovator yet: version the item -->
+        <xsl:when test="count($ohTargetInfo) = 0">true</xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="ohArasId" xmlns:entityInfo="http://com.opshub.dao.eai.OIMEntityInfo" select="string(entityInfo:getEntityInternalId($ohTargetInfo))"/>
+          <xsl:variable name="ohLastModifiedBy" xmlns:utils="http://com.opshub.eai.core.utility.OIMCoreUtility" select="normalize-space(string(utils:getEntityFieldValue(string($workflowId), string($targetSystemId), '', '', $ohArasId, 'modified_by_id')))"/>
+          <xsl:choose>
+            <!-- The item could not be read: version the item -->
+            <xsl:when test="$ohLastModifiedBy = ''">true</xsl:when>
+            <!-- The last change on the item was written by the integration: update the current generation -->
+            <xsl:when test="contains($ohIntegrationUser, $ohLastModifiedBy)">false</xsl:when>
+            <!-- A user has changed the item since the last synchronization: version the item -->
+            <xsl:otherwise>true</xsl:otherwise>
+          </xsl:choose>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:otherwise>
+  </xsl:choose>
+</OH_Version>
+```
+
+**Points to consider while writing the XSLT script**
+
+* A blank value means 'create a version'. If the XSLT script should decide 'do not create a version' by default, return `false` explicitly using `xsl:otherwise`, instead of leaving the output empty.
+* On a create event, the entity does not exist in Aras Innovator yet, so any condition which reads the target item returns a blank value. Handle the create event explicitly, the way it is handled in the sample XSLT script.
+
 # Integration Configuration
 
 Set polling time as the time after which the user wants to synchronize data between Aras Innovator and the other system to be integrated. Also, define parameters and conditions, for integration, if any. Check [Integration Configuration](../integrate/integration-configruation.md) to learn the step-by-step process to configure integration between two systems.
@@ -141,6 +231,15 @@ Set polling time as the time after which the user wants to synchronize data betw
 **Reference Field Lookup Behavior**
 * For reference fields, if the referenced entity uses a field other than the standard name field, configure the correct field in Metadata details (JSON) using PrimaryNameField.
 
+## Version Control in Bidirectional Integrations
+
+* When **OH_Version** is mapped to `false` without any condition, every change synchronized by <code class="expression">space.vars.OIM</code> is written to the current generation of the item. As no new generation is created, the values which the item had before that write are not retained in any generation of the item.
+* Hence, in a bidirectional setup, if a user changes the item in Aras Innovator and that change is not yet polled by the integration in which Aras Innovator is the source system, the next write from <code class="expression">space.vars.OIM</code> updates the same generation of the item, and the user's change is not available as a separate generation to be picked up from the version history.
+* In such a setup, it is recommended to configure any one of the following:
+  * Map **OH_Version** with a condition, so that the item is versioned when it is changed by a user and the current generation is updated only when the last change on the item was written by <code class="expression">space.vars.OIM</code>. Refer to the sample script in [Configure the OH_Version Field in the Mapping](aras.md#configure-the-oh_version-field-in-the-mapping) section.
+  * Run the integration, in which Aras Innovator is the source system, in the **Current State** mode. In this mode, <code class="expression">space.vars.OIM</code> compares the current state of the item with the state which it had synchronized earlier, instead of reading the changes from the version history. Hence, the changes made by the users are synchronized even when they are written in the same generation. Refer to [Sync Only Current State](../integrate/integration-configuration.md#sync-only-current-state).
+
+
 # Known Limitations
 
 * Only English alphabets(A-Z,a-z), numeric digits(0-9) and special characters (Example:- :,<,?,>,],\[,!,@ etc.) are supported for Criteria Configuration.
@@ -148,6 +247,7 @@ Set polling time as the time after which the user wants to synchronize data betw
 * "No Related" Relationship Type is not supported.
 * For Aras Innovator as Target System, if the attachment filename contains Windows special characters (/,,",:,\*,?,<,>), then file will not be added in Aras Innovator. As a result, the user will encounter a processing failure. This is because Aras Innovator does not support Windows special characters in filename.
   Please check [Synchronise file with Windows special characters](../help-center/troubleshooting/errors/aras/oh-aras-1502.md) to find how to synchronise attachment with Windows special characters in filename.
+* The **OH_Version** field is not considered for the values which <code class="expression">space.vars.OIM</code> writes back into the Aras Innovator item apart from the synchronized data, i.e. remote id, remote link and sync status. Such writes always create a new generation of the item. Configure these fields at the integration level, only when the additional generations are acceptable.
 
 ## Limitations to be Resolved in Upcoming Releases of <code class="expression">space.vars.OIM</code>
 
@@ -240,9 +340,6 @@ Set polling time as the time after which the user wants to synchronize data betw
 1. Login to the Aras Innovator with user having Administrator Privileges.
 2. Navigate to **Administration → ItemTypes**.
 3. Search for the ItemType that you want to make versionable.
-
-<div align="center"><img src="../assets/Aras_versionable_6.png" alt="" width="1250"></div>
-
 4. Open the Item Type in edit mode.
 5. Check the **Versionable** checkbox under Versioning.
 6. Select **Automatic** in the drop-down list of **Discipline**.
