@@ -306,17 +306,19 @@ In the above configuration, the filter given is `{"condition":"=","field":"Custo
 > **Note**: For all the custom field(s) used in **Module Filter Query** input, those custom field(s) are required as a field(s) in the end system for the artifact type for which integration is configured, as artifact type of module entities could be different than the integration's entity type.  
 For example, the integration configured for the "User Requirement (Text)" and all those requirements are created in modules which are of type "Structure Requirement(Module)" then all the custom field(s) used in this query is required in end system for the entity type "User Requirement" too, otherwise 'global failure for the field not found' error will occur.
 
-## Synchronize order changes of artifacts from module(s)
+## Synchronize order/rank changes of artifacts from module(s)
 
-- The artifacts are organized in hierarchical order within the module, and <code class="expression">space.vars.OIM</code> supports the synchronization of artifacts, maintaining the Hierarchical ordering to target with the help of [Hierarchy configuration](Mapping Configuration#Hierarchy).
-- When the Hierarchical ordering is updated (Artifacts rearranged) within a module, this change neither updates the Artifact "Modified On" nor generates a "Revision" for this change. Hence by default, this order change operation gets processed with the synchronization of the next update operation (operation which updates either "Modified On" or generates the "Revision") of the artifact.
-- To avoid this wait time and manual additional updates on the artifact, <code class="expression">space.vars.OIM</code> can process the hierarchical order change by reading the module history in which this reordering is performed.  
-To benefit from this functionality, the user can set the value **Yes** for the option, **Read module history to detect an artifact order change** available in the integration configuration when DOORS Next acts as a source endpoint.  
-By default, this option is considered **No**, which means <code class="expression">space.vars.OIM</code> will not read the module history, and the user can expect the ordering change to be synchronized with the next update operation on the artifact.
-
-<p align="center">
-  <img src="../assets/DoorsNg_modulehistory.png" width="1100"/>
-</p>
+- The artifacts in DOORS Next can be organized in hierarchical order within the modules.
+- To synchronize order/rank of the artifacts, user need to do following configurations:
+  - Configure `Child (Hierarchy)` and `Parent (Hierarchy)` relationships as per the standard [Relationships Configuration](../integrate/mapping-configuration.md#relationships). 
+  - User should enable the [Rank configuration](../integrate/mapping-configuration.md#configuration).
+- To capture an artifact's position within the hierarchy, map the `OH Rank Value` field to any editable field in the target system. 
+  - Mapping this field is not required for synchronizing hierarchy, order, or rank changes between systems.
+  - Example values are given below:
+    - `1` : A top-level artifact under a Heading 
+    - `1.1`, `1.2`, `1.3` : Child artifacts placed under a Heading artifact (1.1 = first child, 1.2 = second child, and so on)
+    - `1-1`, `1-2` : Top-level artifacts that are not Headings 
+    - `1-2.0-1`, `1-2.0-2` : Child artifacts placed under a non-Heading artifact (here, children of the artifact at 1-2)
 
 
 ## Criteria Configuration

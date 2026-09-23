@@ -1195,12 +1195,14 @@ In the above image, the respective Ranks of entities, PROJ3-883, and PROJ3-884 w
 
 Rank Synchronization is supported by following connectors:
 
-1. [**Windchill RV&S**](../connectors/windchillrv&s.md#rank)
-2. [**Jira R4J Plugin**](../connectors/jira.md#rank-r4j-plugin)
-3. [**Verisium Manager**](../connectors/vManager.md#rank)
-4. [**Codebeamer**](../connectors/codebeamer.md#rank)
-5. [**IBM Rational Doors**](../connectors/doors.md#rank)
-6. [**OpenText ALM Quality Center**](../connectors/micro-focus-alm-qc.md#rank)
+1. [**Codebeamer**](../connectors/codebeamer.md#rank)
+2. [**IBM Engineering Requirements Management DOORS Next**](../connectors/ibm-rational-doors-next-generation.md#synchronize-order-changes-of-artifacts-from-modules)
+3. [**IBM Rational Doors**](../connectors/doors.md#rank)
+4. [**Jira R4J Plugin**](../connectors/jira.md#rank-r4j-plugin)
+5. [**OpenText ALM Quality Center**](../connectors/micro-focus-alm-qc.md#rank)
+6. [**Verisium Manager**](../connectors/vManager.md#rank)
+7. [**Windchill RV&S**](../connectors/windchillrv&s.md#rank)
+
 
 ## Configuration
 
