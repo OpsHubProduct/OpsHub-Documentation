@@ -238,7 +238,7 @@ Given below are the systems supported currently by <code class="expression">spac
         <tr>
             <td>30</td>
             <td>IBM Engineering Workflow Management</td>
-            <td>5.0.2, 6.0.1, 6.0.2, 6.0.3, 7.0.1, 7.0.2</td>
+            <td>5.0.2, 6.0.x, 7.0.x</td>
             <td>Process Template/All Custom Entities</td>
             <td>Rational Team Concert</td>
         </tr>
