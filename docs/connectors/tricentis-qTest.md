@@ -108,10 +108,12 @@ To configure an integration based on criteria, follow the steps given below:
 
 ## Requirement and Test Case
 
-* For Requirement and Test Case sync, the Module entity needs to be configured as a **mandatory Parent link** in the relationship mapping of the 'Requirement' and 'Test Case' entities.  
-    * **Reason:** In qTest, the Requirement and Test Case can only be created inside the Module.  
-    * **Note**: It is recommended to have the "Fail event if linked entity does not exist" option enabled in the Relationship mapping of the Requirement and Test Case entities.
- As from the Module entity, there is no way to sync the link to Requirement and Test cases, due to qTest APIs. Hence, if the Module is not synced yet and for Requirement or Test Case the linkage gets updated, then this action can cause the wrong Module linkage sync. By enabling the "Fail event if linked entity does not exist" option the wrong linkages sync can be prevented in case of parallel sync of the Module and Requirement/Test Cases.
+* For Requirement and Test Case sync, the Module entity needs to be configured as a **mandatory Parent link** in the relationship mapping of the 'Requirement' and 'Test Case' entities.
+  * **Reason:** In qTest, the Requirement and Test Case can only be created inside the Module.
+  * **Note**: It is recommended to have the "Fail event if linked entity does not exist" option enabled in the Relationship mapping of the Test Case entities.
+    As from the Module entity, there is no way to sync the link to Test cases, due to qTest APIs. Hence, if the Module is not synced yet and for Test Case the linkage gets updated, then this action can cause the wrong Module linkage sync. By enabling the "Fail event if linked entity does not exist" option the wrong linkages sync can be prevented in case of parallel sync of the Module and Test Cases.
+* **Module-to-Requirement (child-requirement) link deletion is not supported.**
+  * **Reason:** Due to qTest end-system behavior, a Requirement can only exist within a Module. Therefore, removing the Module-to-Requirement link would leave the Requirement without its mandatory Module association, which is not supported by qTest.
 
 * For qTest as the target system and the Test Case entity, if the user wants to approve the Test Case based on pre-condition, user needs to map Boolean field `OH_Approve_Test_Case` in <code class="expression">space.vars.OIM</code>. Here, the user needs to provide true/false value based on the use case.
 
