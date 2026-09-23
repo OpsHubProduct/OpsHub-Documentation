@@ -449,7 +449,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>60</td>
             <td>Polarion</td>
             <td>On Premise: ALM 2506<br/>SaaS*</td>
-            <td>User Story, Requirement, Epic, Task, Test Case, Issue, Change Request, Release, all system-defined work items, and custom work items</td>
+            <td>User Story, Requirement, Epic, Task, Test Case, Issue, Change Request, Release, all system-defined work items,custom work items, Plan and Test Run</td>
             <td></td>
         </tr>
         <tr>

@@ -55,15 +55,15 @@ Refer to the screenshot below:
 
 ## Polarion System Form Details
 
-| Field Name                   | When is the field visible  | Description                                                                                                                                                                                                                                                    |
-|:-----------------------------|----------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **System Name**              | Always                     | Provide a unique name for the Polarion system.                                                                                                                                                                                                                 |
-| **Instance URL**             | Always                     | Provide the Server URL of the Polarion instance. <br> Format: `http://[host name]:[port no]` or `http://[your_domain_name]`. <br> Example: `http://10.13.27.200:8080`.                                                                                         |
-| **User Name**                | Always                     | Provide the username of the dedicated user for Polarion API communication.                                                                                                                                                                                     |
-| **Personal Access Token**    | Always                     | Provide the **Personal Access Token** for the user specified in the "User Name" field. <br> Refer to [Access API Token](#get-api-token) section for details.                                                                                                   |
-| **Instance Time Zone**       | Always                     | Provide the time zone of the host machine where Polarion is installed.                                                                                                                                                                                         |
-| **Link Metadata JSON**       | Always                     | Provide link metadata for Polarion entity types in JSON format. For more details refer to [Link Metadata Configuration](#link-metadata-configuration).                                                                                                         |
-| **Base URL for Remote Link** | Always                     | Provide a different instance URL of the Polarion instance. This URL will be used for generating the Remote Link. <br> Note: If "Base URL for Remote Link" is empty, it will use default **Instance URL** to generate remote link if configured on integration. |
+| Field Name                   | When is the field visible  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+|:-----------------------------|----------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **System Name**              | Always                     | Provide a unique name for the Polarion system.                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Instance URL**             | Always                     | Provide the Server URL of the Polarion instance. <br> Format: `http://[host name]:[port no]` or `http://[your_domain_name]`. <br> Example: `http://10.13.27.200:8080`.                                                                                                                                                                                                                                                                                                |
+| **User Name**                | Always                     | Provide the username of the dedicated user for Polarion API communication.                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Personal Access Token**    | Always                     | Provide the **Personal Access Token** for the user specified in the "User Name" field. <br> Refer to [Access API Token](#get-api-token) section for details.                                                                                                                                                                                                                                                                                                          |
+| **Instance Time Zone**       | Always                     | Provide the time zone of the host machine where Polarion is installed.                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Metadata JSON**            | Always                     | Provide link metadata for Polarion workitem type in JSON format. For more details refer to [Link Metadata Configuration](#link-metadata-configuration). <br/> This same field is also used to declare custom fields for the **Plan** entity (refer to [Plan Field Configuration](#plan-field-configuration)) and to override the data type of **Rich Text** custom fields on a **Test Run** (refer to [Test Run Field Configuration](#test-run-field-configuration)). |
+| **Base URL for Remote Link** | Always                     | Provide a different instance URL of the Polarion instance. This URL will be used for generating the Remote Link. <br> Note: If "Base URL for Remote Link" is empty, it will use default **Instance URL** to generate remote link if configured on integration.                                                                                                                                                                                                        |
 
 # Mapping Configuration
 
@@ -130,6 +130,128 @@ Refer to [Mapping Configuration](../integrate/mapping-configuration.md) for step
         1. Use **advanced mapping** to extract the required values from *additionalFields*.
         2. Map them explicitly back to the desired fields (e.g., Step, Description, Expected Result) as needed.
 
+## Plan Field Configuration
+
+Polarion does not provide any API to list the custom fields configured on a **Plan**. Because of this,
+if you want to synchronize a Plan custom field, you must declare it yourself in the **Metadata
+JSON** field on the Polarion system form.
+
+### Understanding Metadata JSON Input for Plan Custom Fields
+
+This JSON is to be added in system form. Refer to section [System Form configuration](#Polarion-System-Form-Details)
+Add each Plan custom field as an entry under `entities` → `plan` → `fields` → `custom`:
+
+```json
+{
+  "entities": [
+    {
+      "internalName": "plan",
+      "fields": {
+        "custom": [
+          {
+            "internalName": "customRichText",
+            "displayName": "customRichText",
+            "dataType": "html",
+            "mandatory": false,
+            "readOnly": false,
+            "systemSpecific": {
+              "systemNativeDataType": "richText"
+            }
+          },
+          {
+            "internalName": "customLookup",
+            "displayName": "customLookup",
+            "dataType": "lookup",
+            "mandatory": false,
+            "readOnly": false,
+            "lookUpValues": {
+              "windows": "MS Windows",
+              "linux": "Linux",
+              "osx": "Mac OS X",
+              "other": "Other"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+| Property | Description                                                                                                                                                                         |
+|---|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `internalName` | Internal name (id) of the custom field, exactly as configured in Polarion. Refer to [Get Custom Fields for Plan](#get-custom-fields-for-plan) to find this value.                   |
+| `displayName` | Name shown for the field in <code class="expression">space.vars.OIM</code>'s mapping screen.                                                                                        |
+| `dataType` | The field's type. Supported values: `text`, `numeric`, `boolean`, `date` , `date_string`, `lookup`, `html`, `wiki`, `user`, `link`, `reference`.                                    |
+| `mandatory` | Set to `true` if the field is required in Polarion. Defaults to `false`.                                                                                                            |
+| `readOnly` | Set to `true` if the field cannot be written to. Defaults to `false`.                                                                                                               |
+| `systemSpecific.systemNativeDataType` | Only needed for rich text fields — set to `richText` so the value is sent to Polarion as HTML.                                                                                      |
+| `lookUpValues` | Only needed when `dataType` is `lookup` — a list of `"<internal id>": "<display value>"` pairs, since Polarion does not expose an API to fetch a custom field's option list either. |
+
+### Template Field
+
+The **Template** field of a Plan can only be set when the Plan is created — Polarion does not allow it
+to be changed afterwards. While mapping the Template field, set its **Sync When?** option to **Create**
+(not the default **Both**). Refer to [Sync When](../integrate/mapping-configuration.md#sync-when) for
+steps.
+
+> **Note**: If **Sync When?** is left as **Both**, every update sync for that Plan will fail with a
+> Polarion error.
+
+## Test Run Field Configuration
+
+Polarion custom fields configured on a **Test Run** are discovered automatically — you do
+not need to declare them in the Metadata JSON.
+
+**Exception — Rich Text fields:** Polarion's API response reports a rich text (HTML) custom field
+the same way it reports a plain text custom field, so <code class="expression">space.vars.OIM</code>
+cannot tell the two apart on its own. If a Test Run custom field is Rich Text in Polarion, you must
+override its data type in the **Metadata JSON** field on the Polarion system form so it is synchronized
+as HTML instead of plain text.
+
+### Understanding Metadata JSON Input for Test Run Rich Text Fields
+This JSON is to be added in system form. Refer to section [System Form configuration](#Polarion-System-Form-Details)
+Add an entry for the field under `entities` → `testRun` → `fields` → `custom`, with `dataType` set to
+`html`:
+
+```json
+{
+  "entities": [
+    {
+      "internalName": "testRun",
+      "fields": {
+        "custom": [
+          {
+            "internalName": "customRichText",
+            "dataType": "html",
+            "systemSpecific": {
+              "systemNativeDataType": "richText"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+| Property | Description |
+|---|---|
+| `internalName` | Internal name (id) of the Rich Text custom field, exactly as configured in Polarion. Refer to [Get Custom Fields for Test Run](#get-custom-fields-for-test-run) to find this value. |
+| `dataType` | Set to `html` to override the field's discovered type. |
+| `systemSpecific.systemNativeDataType` | Set to `richText` so the value is sent to Polarion as HTML. |
+
+> **Note**: Only fields that are Rich Text in Polarion need to be listed here.
+
+### Template Field
+
+The **Template** field of a Test Run can only be set when the Test Run is created — Polarion does not
+allow it to be updated later. While mapping the Template field, set its **Sync When?** option to
+**Create** (not the default **Both**). Refer to [Sync When](../integrate/mapping-configuration.md#sync-when)
+for steps.
+
+> **Note**: If **Sync When** flag is configured as **Both**, every update sync for that Test Run will fail with a
+> Polarion error.
 
 # Integration Configuration
 
@@ -191,6 +313,11 @@ Navigate to [Criteria Configuration](../integrate/integration-configuration.md/#
   - For link synchronization it is required to provide link metadata for Polarion entity types in JSON format in OpsHub Integration Manager.
     - Reason: API unavailability.
   - The Suspect and Revision properties of a link will not be explicitly synchronized due to API limitations as these properties are auto-populated by Polarion when links are added.
+- **Plan**:
+  - Attachments and comments are not supported for Plan, as Polarion does not provide them for this entity.
+  - Custom fields on a Plan must be declared using the Metadata JSON field, since Polarion provides no API to fetch them. Refer to [Plan Field Configuration](#plan-field-configuration).
+- **Test Run**:
+  - Polarion reports a Rich Text custom field the same way it reports a plain text one, so a Rich Text custom field on a Test Run must be declared in the Metadata JSON field, otherwise it will be synchronized as plain text instead of HTML. Refer to [Test Run Field Configuration](#test-run-field-configuration).
 
 # Appendix
 
@@ -296,6 +423,26 @@ To get the field internal names:
     <p align="center">
       <img src="../assets/PolarionAppendix_FieldInternalName3.png" width="936"  alt=""/>
     </p>
+
+## Get Custom Fields for Plan
+
+To get the internal names of Plan's custom fields:
+1. Log in to your Polarion account.
+2. Go to the 'Administration' section by clicking on the settings icon in the top left-hand corner of your screen, then click 'Plans' -> 'Plan Custom Fields' in the left pane.
+3. The column named 'ID' contains internal names of the field. Refer to the screenshot below:
+   <p align="center">
+     <img src="../assets/Polarion_Plan_Custom_Fields.png" width="936"  alt=""/>
+   </p>
+
+## Get Custom Fields for Test Run
+
+To get the internal names of Test Run's custom fields:
+1. Log in to your Polarion account.
+2. Go to the 'Administration' section by clicking on the settings icon in the top left-hand corner of your screen, then click 'Testing' -> 'Test Run Custom Fields' in the left pane.
+3. The column named 'ID' contains internal names of the field. Refer to the screenshot below:
+   <p align="center">
+     <img src="../assets/Polarion_Test_Run_Custom_Fields.png" width="936"  alt=""/>
+   </p>
 
 ## Link Metadata Configuration
 This section includes a sample Link Metadata JSON template used for configuring links in Polarion. Modify the template according to your requirements
