@@ -174,14 +174,14 @@ Add each Plan custom field as an entry under `entities` → `plan` → `fields` 
 }
 ```
 
-| Property | Description |
-|---|---|
-| `internalName` | Internal name (id) of the custom field, exactly as configured in Polarion. Refer to [Get Custom Fields for Plan](#get-custom-fields-for-plan) to find this value. |
-| `displayName` | Name shown for the field in <code class="expression">space.vars.OIM</code>'s mapping screen. |
-| `dataType` | The field's type. Supported values: `text`, `numeric`, `boolean`, `date` / `date_string`, `lookup`, `html`, `wiki`, `user`, `link`, `reference`. |
-| `mandatory` | Set to `true` if the field is required in Polarion. Defaults to `false`. |
-| `readOnly` | Set to `true` if the field cannot be written to. Defaults to `false`. |
-| `systemSpecific.systemNativeDataType` | Only needed for rich text fields — set to `richText` so the value is sent to Polarion as HTML. |
+| Property | Description                                                                                                                                                                         |
+|---|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `internalName` | Internal name (id) of the custom field, exactly as configured in Polarion. Refer to [Get Custom Fields for Plan](#get-custom-fields-for-plan) to find this value.                   |
+| `displayName` | Name shown for the field in <code class="expression">space.vars.OIM</code>'s mapping screen.                                                                                        |
+| `dataType` | The field's type. Supported values: `text`, `numeric`, `boolean`, `date` , `date_string`, `lookup`, `html`, `wiki`, `user`, `link`, `reference`.                                    |
+| `mandatory` | Set to `true` if the field is required in Polarion. Defaults to `false`.                                                                                                            |
+| `readOnly` | Set to `true` if the field cannot be written to. Defaults to `false`.                                                                                                               |
+| `systemSpecific.systemNativeDataType` | Only needed for rich text fields — set to `richText` so the value is sent to Polarion as HTML.                                                                                      |
 | `lookUpValues` | Only needed when `dataType` is `lookup` — a list of `"<internal id>": "<display value>"` pairs, since Polarion does not expose an API to fetch a custom field's option list either. |
 
 ### Template Field
@@ -196,7 +196,7 @@ steps.
 
 ## Test Run Field Configuration
 
-Unlike Plan, Polarion custom fields configured on a **Test Run** are discovered automatically — you do
+Polarion custom fields configured on a **Test Run** are discovered automatically — you do
 not need to declare them in the Metadata JSON.
 
 **Exception — Rich Text fields:** Polarion's field discovery reports a rich text (HTML) custom field
