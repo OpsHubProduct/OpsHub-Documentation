@@ -46,7 +46,7 @@ Our security practices are aligned with widely accepted standards and frameworks
 </table>
 
 ### Open Vulnerabilities
-
+ 
 <table>
     <thead>
         <tr>
@@ -54,6 +54,7 @@ Our security practices are aligned with widely accepted standards and frameworks
             <th width="60">Severity</th>
             <th>Summary</th>
             <th width="150">Impacted Area</th>
+            <th width="90">Reported In Release</th>
             <th width="80">ETA</th>
         </tr>
     </thead>
@@ -63,6 +64,7 @@ Our security practices are aligned with widely accepted standards and frameworks
             <td>High</td>
             <td>Hibernate vulnerable to SQL Injection</td>
             <td>Not directly impacted</td>
+            <td>7.223</td>
             <td>Sep 2026</td>
         </tr>
         <tr>
@@ -70,6 +72,7 @@ Our security practices are aligned with widely accepted standards and frameworks
             <td>High</td>
             <td>Apache cxf-core: No restriction on attachment headers per message</td>
             <td>Not directly impacted</td>
+            <td>7.233</td>
             <td>Sep 2026</td>
         </tr>
         <tr>
@@ -77,6 +80,7 @@ Our security practices are aligned with widely accepted standards and frameworks
             <td>High</td>
             <td>Little CMS (lcms2) through 2.18: integer overflow in CubeSize in cmslut.c</td>
             <td>Not directly impacted</td>
+            <td>7.234</td>
             <td>Sep 2026</td>
         </tr>
         <tr>
@@ -84,6 +88,7 @@ Our security practices are aligned with widely accepted standards and frameworks
             <td>High</td>
             <td>Vulnerability in Oracle Java SE / Oracle GraalVM for JDK / Oracle GraalVM Enterprise Edition (Libraries component)</td>
             <td>Not directly impacted</td>
+            <td>7.234</td>
             <td>Sep 2026</td>
         </tr>
     </tbody>
