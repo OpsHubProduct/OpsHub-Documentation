@@ -7,6 +7,92 @@ if: >-
 OpsHub is committed to ensuring that <code class="expression">space.vars.OIM</code> is designed, developed, and delivered following industry-standard security practices. Our approach includes secure development practices, application security testing, third-party component monitoring, vulnerability management, and continuous patching of security issues.
 
 Our security practices are aligned with widely accepted standards and frameworks such as OWASP and CWE, and security validation is incorporated throughout the product development lifecycle.
+
+---
+
+## Security Update
+
+### Resolved Vulnerabilities
+ 
+<table>
+    <thead>
+        <tr>
+            <th width="100">Category</th>
+            <th width="60">Severity</th>
+            <th>Summary</th>
+            <th width="150">Impacted Area</th>
+            <th width="90">Reported In Release</th>
+            <th width="90">Fixed In Release</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Third party</td>
+            <td>Critical</td>
+            <td>Apache Tomcat: HTTP/2 request headers not validated(<a href="https://github.com/advisories/GHSA-r29c-68gh-xp6x">CVE-2026-41293</a>)</td>
+            <td>Not directly impacted</td>
+            <td>7.235</td>
+            <td>7.236</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>mchange-commons-java susceptible to abuse via JNDI injection and deserialization gadgets (<a href="https://github.com/advisories/GHSA-h84g-69h7-mw6v">CVE-2026-55153</a>)</td>
+            <td>Not directly impacted</td>
+            <td>7.234</td>
+            <td>7.236</td>
+        </tr>
+    </tbody>
+</table>
+
+### Open Vulnerabilities
+ 
+<table>
+    <thead>
+        <tr>
+            <th width="100">Category</th>
+            <th width="60">Severity</th>
+            <th>Summary</th>
+            <th width="150">Impacted Area</th>
+            <th width="90">Reported In Release</th>
+            <th width="80">ETA</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Hibernate vulnerable to SQL Injection</td>
+            <td>Not directly impacted</td>
+            <td>7.223</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Apache cxf-core: No restriction on attachment headers per message</td>
+            <td>Not directly impacted</td>
+            <td>7.233</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Little CMS (lcms2) through 2.18: integer overflow in CubeSize in cmslut.c</td>
+            <td>Not directly impacted</td>
+            <td>7.234</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Vulnerability in Oracle Java SE / Oracle GraalVM for JDK / Oracle GraalVM Enterprise Edition (Libraries component)</td>
+            <td>Not directly impacted</td>
+            <td>7.234</td>
+            <td>Sep 2026</td>
+        </tr>
+    </tbody>
+</table>
  
 ---
 
