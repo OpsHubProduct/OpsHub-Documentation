@@ -20,7 +20,7 @@ Our security practices are aligned with widely accepted standards and frameworks
             <th width="100">Category</th>
             <th width="60">Severity</th>
             <th>Summary</th>
-            <th width="220">Impacted Area</th>
+            <th width="150">Impacted Area</th>
             <th width="90">Reported In Release</th>
             <th width="90">Fixed In Release</th>
         </tr>
