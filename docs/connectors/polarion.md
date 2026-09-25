@@ -135,6 +135,7 @@ JSON** field on the Polarion system form.
 
 ### Understanding Metadata JSON Input for Plan Custom Fields
 
+This JSON is to be added in system form. Refer to section [System Form configuration](#Polarion-System-Form-Details)
 Add each Plan custom field as an entry under `entities` → `plan` → `fields` → `custom`:
 
 ```json
@@ -199,14 +200,14 @@ steps.
 Polarion custom fields configured on a **Test Run** are discovered automatically — you do
 not need to declare them in the Metadata JSON.
 
-**Exception — Rich Text fields:** Polarion's field discovery reports a rich text (HTML) custom field
+**Exception — Rich Text fields:** Polarion's API response reports a rich text (HTML) custom field
 the same way it reports a plain text custom field, so <code class="expression">space.vars.OIM</code>
 cannot tell the two apart on its own. If a Test Run custom field is Rich Text in Polarion, you must
 override its data type in the **Metadata JSON** field on the Polarion system form so it is synchronized
 as HTML instead of plain text.
 
 ### Understanding Metadata JSON Input for Test Run Rich Text Fields
-
+This JSON is to be added in system form. Refer to section [System Form configuration](#Polarion-System-Form-Details)
 Add an entry for the field under `entities` → `testRun` → `fields` → `custom`, with `dataType` set to
 `html`:
 
@@ -237,17 +238,16 @@ Add an entry for the field under `entities` → `testRun` → `fields` → `cust
 | `dataType` | Set to `html` to override the field's discovered type. |
 | `systemSpecific.systemNativeDataType` | Set to `richText` so the value is sent to Polarion as HTML. |
 
-> **Note**: Only fields that are actually Rich Text in Polarion need to be listed here — every other
-> custom field on a Test Run is discovered and mapped automatically.
+> **Note**: Only fields that are Rich Text in Polarion need to be listed here.
 
 ### Template Field
 
 The **Template** field of a Test Run can only be set when the Test Run is created — Polarion does not
-allow it to be changed afterwards. While mapping the Template field, set its **Sync When?** option to
+allow it to be updated later. While mapping the Template field, set its **Sync When?** option to
 **Create** (not the default **Both**). Refer to [Sync When](../integrate/mapping-configuration.md#sync-when)
 for steps.
 
-> **Note**: If **Sync When?** is left as **Both**, every update sync for that Test Run will fail with a
+> **Note**: If **Sync When** flag is configured as **Both**, every update sync for that Test Run will fail with a
 > Polarion error.
 
 # Integration Configuration
