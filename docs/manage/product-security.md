@@ -4,17 +4,98 @@ if: >-
 ---
 # Product Security
 
-OpsHub is committed to ensuring that <code class="expression">space.vars.OIM</code> is designed, developed, and delivered following industry-standard security practices. Our approach includes secure development practices, Application testing, third-party component monitoring, vulnerability management, and continuous patching of security issues.
+OpsHub is committed to ensuring that <code class="expression">space.vars.OIM</code> is designed, developed, and delivered following industry-standard security practices. Our approach includes secure development practices, application security testing, third-party component monitoring, vulnerability management, and continuous patching of security issues.
 
 Our security practices are aligned with widely accepted standards and frameworks such as OWASP and CWE, and security validation is incorporated throughout the product development lifecycle.
+
+---
+
+## Security Update
+
+### Resolved Vulnerabilities
+ 
+<table>
+    <thead>
+        <tr>
+            <th width="100">Category</th>
+            <th width="60">Severity</th>
+            <th>Summary</th>
+            <th width="220">Impacted Area</th>
+            <th width="90">Reported In Release</th>
+            <th width="90">Fixed In Release</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Third party</td>
+            <td>Critical</td>
+            <td>Apache Tomcat: HTTP/2 request headers not validated(<a href="https://github.com/advisories/GHSA-r29c-68gh-xp6x">CVE-2026-41293</a>)</td>
+            <td>Not directly impacted</td>
+            <td>7.235</td>
+            <td>7.236</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>mchange-commons-java susceptible to abuse via JNDI injection and deserialization gadgets (<a href="https://github.com/advisories/GHSA-h84g-69h7-mw6v">CVE-2026-55153</a>)</td>
+            <td>Not directly impacted</td>
+            <td>7.234</td>
+            <td>7.236</td>
+        </tr>
+    </tbody>
+</table>
+
+### Open Vulnerabilities
+
+<table>
+    <thead>
+        <tr>
+            <th width="100">Category</th>
+            <th width="60">Severity</th>
+            <th>Summary</th>
+            <th width="150">Impacted Area</th>
+            <th width="80">ETA</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Hibernate vulnerable to SQL Injection</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Apache cxf-core: No restriction on attachment headers per message</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Little CMS (lcms2) through 2.18: integer overflow in CubeSize in cmslut.c</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Vulnerability in Oracle Java SE / Oracle GraalVM for JDK / Oracle GraalVM Enterprise Edition (Libraries component)</td>
+            <td>Not directly impacted</td>
+            <td>Sep 2026</td>
+        </tr>
+    </tbody>
+</table>
  
 ---
 
-## Application
+## Application Security
 
 OpsHub applies a multi-layered approach to ensure the security of OpsHub Integration Manager.
 
-- Application vulnerability testing is conducted for every release using an industry-leading web Application testing provider.
+- Application vulnerability testing is conducted for every release using an industry-leading web application security testing provider.
 - Security testing ensures that OpsHub Integration Manager and its deployment environment are protected against external attacks.
 - Secure coding practices and validation are implemented in accordance with OWASP guidelines.
 
@@ -76,154 +157,6 @@ All release-related security artifacts are available here:
 [Security Reports Repository](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgD2uaOzmshMT7EV7ULZBVSKAeJvTIW5Qs-hY3pzQlP605U?e=CsAdEx)
 
 Each release has a dedicated folder containing the corresponding reports.
-
-## Security Update
-
-
-### Vulnerabilities Resolved
-
-<table>
-    <thead>
-        <tr>
-            <th width="100">Category</th>
-            <th width="60">Severity</th>
-            <th>Summary</th>
-            <th width="220">Impacted Area</th>
-            <th width="90">Reported In Release</th>
-            <th width="90">Fixed In Release</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Spring Framework Denial of Service via Versioned Resources in Spring MVC and WebFlux (<a href="https://github.com/advisories/GHSA-x23c-287f-qqv5">CVE-2026-41842</a>)</td>
-            <td>Not directly impacted</td>
-            <td>7.232</td>
-            <td>7.234</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Spring Framework Cross-site Scripting via JavaScriptUtils (<a href="https://github.com/advisories/GHSA-3chg-m5w7-qfv5">CVE-2026-41845</a>)</td>
-            <td>Not directly impacted</td>
-            <td>7.232</td>
-            <td>7.234</td>
-        </tr>
-        <tr>
-            <td>Application</td>
-            <td>High</td>
-            <td>Arbitrary File Upload</td>
-            <td>File upload functionality</td>
-            <td>7.228</td>
-            <td>7.234</td>
-        </tr>
-        <tr>
-            <td>Application</td>
-            <td>High</td>
-            <td>File Modification Vulnerability</td>
-            <td>File storage</td>
-            <td>7.228</td>
-            <td>7.234</td>
-        </tr>
-        <tr>
-            <td>Application</td>
-            <td>High</td>
-            <td>Unauthenticated Administrative Actions</td>
-            <td>Administrative configuration functions</td>
-            <td>7.228</td>
-            <td>7.234</td>
-        </tr>
-        <tr>
-            <td>Application</td>
-            <td>High</td>
-            <td>SQL Injection Vulnerabilities</td>
-            <td>OpsHub server database [query processing layer]</td>
-            <td>7.228</td>
-            <td>7.234</td>
-        </tr>
-        <tr>
-            <td>Application</td>
-            <td>High</td>
-            <td>Remote Command Execution (RCE)</td>
-            <td>OpsHub server's hosted OS [command execution]</td>
-            <td>7.228</td>
-            <td>7.234</td>
-        </tr>
-    </tbody>
-</table>
-
-### Open / In Progress Vulnerabilities
-
-<table>
-    <thead>
-        <tr>
-            <th width="100">Category</th>
-            <th width="60">Severity</th>
-            <th>Summary</th>
-            <th width="150">Impacted Area</th>
-            <th width="80">ETA</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Hibernate vulnerable to SQL Injection</td>
-            <td>Not directly impacted</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Apache cxf-core: No restriction on attachment headers per message</td>
-            <td>Not directly impacted</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Apache HttpComponents Core HTTP/1 header parsing can cause memory-exhaustion denial of service</td>
-            <td>Not directly impacted</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Spring Security SAML2 Service Provider: unbounded writer inflates the compressed SAML payload into memory (DoS)</td>
-            <td>Not directly impacted</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Spring Security SAML2 Service Provider: RelyingPartyRegistration may run arbitrary code on HTML forms generated by Spring Security filters</td>
-            <td>Not directly impacted</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Little CMS (lcms2) through 2.18: integer overflow in CubeSize in cmslut.c</td>
-            <td>Not directly impacted</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Vulnerability in Oracle Java SE / Oracle GraalVM for JDK / Oracle GraalVM Enterprise Edition (Libraries component)</td>
-            <td>Not directly impacted</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>mchange-commons-java susceptible to abuse via JNDI injection and deserialization gadgets</td>
-            <td>Not directly impacted</td>
-            <td>Sep 2026</td>
-        </tr>
-    </tbody>
-</table>
  
 ---
 
@@ -233,5 +166,3 @@ OpsHub continuously monitors publicly disclosed vulnerabilities related to core 
 
 - Security advisories related to Apache Tomcat and Java are actively monitored and patches are applied when required.
 - If a severe security issue is reported by a customer or discovered internally by OpsHub, it is patched as soon as reasonably feasible.
- 
----
