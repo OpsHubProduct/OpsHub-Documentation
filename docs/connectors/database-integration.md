@@ -9,9 +9,28 @@ if: >-
 - A dedicated user should be created for the database integration. This user must have read and write access on the database table and read access on the view that needs to be integrated.  
 - This user should not be used to perform any other operations on the database.
 
+  **Example grant statements**:
+  ```sql
+  -- MySQL / MariaDB
+  GRANT SELECT, INSERT, UPDATE, DELETE ON db_name.table_name TO 'oim_user'@'%';
+  GRANT SELECT ON db_name.view_name TO 'oim_user'@'%';
+
+  -- MS SQL Server / Azure SQL
+  GRANT SELECT, INSERT, UPDATE, DELETE ON dbo.table_name TO oim_user;
+  GRANT SELECT ON dbo.view_name TO oim_user;
+
+  -- Oracle
+  GRANT SELECT, INSERT, UPDATE, DELETE ON table_name TO oim_user;
+  GRANT SELECT ON view_name TO oim_user;
+
+  -- PostgreSQL
+  GRANT SELECT, INSERT, UPDATE, DELETE ON table_name TO oim_user;
+  GRANT SELECT ON view_name TO oim_user;
+  ```
+
 ## When database integration is required to communicate to a new database server
 If a database system is needed to be integrated with a database type other than the type of database on which <code class="expression">space.vars.OIM</code> is deployed, follow the steps given below:
-- Download the required database driver on which new database connection is to be created. Refer [this](Installation_Prerequisites#Download-Database-Connector-jar) to get the link of database connector jar.
+- Download the required database driver on which new database connection is to be created. Refer to the [Download Database Connector jar](../getting-started/prerequisites.md#download-database-connector-jar) section to get the link of database connector jar.
 - Stop the <code class="expression">space.vars.OIM</code>.
 - Copy the downloaded driver into `Opshub installation directory]\OpsHubServer\lib` folder.
 - Start <code class="expression">space.vars.OIM</code>.
@@ -42,7 +61,7 @@ Here is the screenshot:
 | **Field Name**            | **Description**                                                                                                                                                                                                                                                                                       |
 |---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **System Name**           | Provide the system's name                                                                                                                                                                                                                                                                             |
-| **Database Type**         | Select the database type for which you want to create a new database system. Currently supported databases are: 1. MySQL 2. MS SQL Server/Azure SQL 3. Oracle 4. PostgreSQL 5. MariaDB                                                                                                                |
+| **Database Type**         | Select the database type for which you want to create a new database system. Currently supported databases are: 1. MySQL 2. MS SQL Server/Azure SQL 3. Oracle 4. PostgreSQL 5. MariaDB. See [Supported Database Versions](#supported-database-versions) for the version list.                         |
 | **Database Host Name**    | The name of the host machine where the database server is deployed                                                                                                                                                                                                                                    |
 | **Database Port**         | Port number on which database server is deployed. Generally, default ports for MySQL/MariaDB is 3306, MS SQL Server/Azure SQL is 1433, Oracle is 1521, and PostgreSQL is 5432                                                                                                                         |
 | **Instance Name**         | Instance name of the MS SQL Server/Azure SQL, if it is a named instance. Applicable to MS SQL Server only                                                                                                                                                                                             |
@@ -53,6 +72,18 @@ Here is the screenshot:
 | **Timezone**              | Select the timezone for date and time values. If not selected, UTC timezone will be considered by default                                                                                                                                                                                             |
 | **Hibernate Mapping XML** | XML mapping required to map the columns of database table with some properties. For more details, refer to [Understanding Hibernate XML Input](#understanding-hibernate-xml-input) section.                                                                                                           |
 | **Metadata**              | Provide Json to configure links, comments, attachments, extra fields, or overwrite metadata for fields mentioned in [HBM](#understanding-hibernate-xml-input). Refer to the [Understanding Metadata JSON Input](#understanding-metadata-json-input) section for details on format and JSON structure. |
+
+## Supported Database Versions
+
+Supported versions for each database type are maintained in one place — [Database Prerequisites](../getting-started/prerequisites.md#database-prerequisites) — to avoid duplicated version lists going stale:
+
+| Database                  | Supported Versions                                                                          |
+|---------------------------|---------------------------------------------------------------------------------------------|
+| MySQL                     | See [MySQL Server](../getting-started/prerequisites.md#1-mysql-server)                      |
+| MS SQL Server / Azure SQL | See [MS SQL/Azure SQL Server](../getting-started/prerequisites.md#2-ms-sqlazure-sql-server) |
+| Oracle                    | See [Oracle](../getting-started/prerequisites.md#3-oracle)                                  |
+| PostgreSQL                | See [PostgreSQL Server](../getting-started/prerequisites.md#4-postgresql-server)            |
+| MariaDB                   | 10.2.6 or above                                                                             |
 
 ## Understanding Hibernate XML Input
 
@@ -145,7 +176,7 @@ An example input for the metadata JSON:
   * These configured fields will be available for mapping once configured.
 ## Inline File Support
 * Prerequisite: Configure the attachment table and ensure attachment configuration is enabled.
-* Inline files are supported for both read and write operations. It is supported for fields with data type `text`, `html` or `wiki`. Refer to [Field JSON Configuration](#json-configuration) to understand how to configure field's data type.
+* Inline files are supported for both read and write operations. It is supported for fields with data type `html` or `wiki`. Refer to [Field JSON Configuration](#json-configuration) to understand how to configure field's data type.
 * <code class="expression">space.vars.OIM</code> stores image references in following URI template `file:/{attachmentIdColumn value}` where `{attachmentIdColumn value}` is the id of the record in the attachment table.
 Examples:
 ```html
@@ -225,6 +256,7 @@ Here is the screenshot:
 * For Attachment sync, attachment file names must not contain characters that are unsupported by the operating system on which the <code class="expression">space.vars.OIM</code> is installed.  
   For example, on Windows, characters such as `\ / : * ? " < > |` are not allowed in file names.
 * Only write operations are supported for `OH_History` field and extra fields (stored in `OH_Additional_Fields`); they cannot be used in criteria or target lookup.
+* User mentions and entity mentions are not supported by the Database Connector. Entity mention synchronization is supported only when the source system is Team Foundation Server/Azure DevOps Services, Codebeamer, CodebeamerX, Rally, Jira, or GitHub — Database is not in this list.
 
 # Appendix
 
