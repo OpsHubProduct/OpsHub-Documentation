@@ -32,9 +32,9 @@ Connector responsibility:
 ## API URI
 
 ```bash
-GET: /mbse/api/1.0/revisions/{revisionId}/elements
+POST: /mbse/api/1.0/revisions/{revisionId}/elements
     ?projectId={projectId}
-    &elementIds={elementIds}
+    &elementTypeIds={elementTypeIds}
     &branchId={branchId}
     &expand=PROPERTIES,TAGS,FILES,RELATIONS
     &tags={tags}
@@ -53,15 +53,30 @@ GET: /mbse/api/1.0/revisions/{revisionId}/elements
 
 ## URI Parameters
 
-| Name       | Mandatory | Type          | Description |
-|------------|-----------|--------------|-------------|
-| projectId  | True      | String       | ID of the project. |
-| elementIds | True      | List<String> | List of element IDs whose state is required. |
-| branchId   | False     | String       | ID of the branch. If omitted, default branch behavior of the end system should apply. |
-| expand     | False     | List<String> | Controls which additional information should be included in the response. Possible values: `PROPERTIES`, `TAGS`, `FILES`, `RELATIONS`. |
-| tags       | False     | List<String> | List of tag IDs to be included in the response. Applicable only if `TAGS` is included in `expand`. |
-| properties | False     | List<String> | List of property IDs to be included in the response. Applicable only if `PROPERTIES` is included in `expand`. |
+| Name           | Mandatory | Type          | Description                                                                                                                            |
+|----------------|-----------|--------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| projectId      | True      | String       | ID of the project.                                                                                                                     |
+| elementTypeIds | True      | List<String> | List of element Type Ids defined in `element-types` JSON configuration. Only changes related to these element types must be returned.  |
+| branchId       | False     | String       | ID of the branch. If omitted, default branch behavior of the end system should apply.                                                  |
+| expand         | False     | List<String> | Controls which additional information should be included in the response. Possible values: `PROPERTIES`, `TAGS`, `FILES`, `RELATIONS`. |
+| tags           | False     | List<String> | List of tag IDs to be included in the response. Applicable only if `TAGS` is included in `expand`.                                     |
+| properties     | False     | List<String> | List of property IDs to be included in the response. Applicable only if `PROPERTIES` is included in `expand`.                          |
 
+---
+
+## Request Body
+```json
+[
+  {
+    "elementId": "block_101",
+    "changeType": "ADD"
+  },
+  {
+    "elementId": "requirement_55",
+    "changeType": "UPDATE"
+  }
+]
+```
 ---
 
 ## Expand Parameter Behavior
@@ -108,48 +123,59 @@ The API returns a list of element objects.
 ```json
 [
   {
-    "elementId": "block_101",
-    "name": "System Block",
-    "elementTypeId": "Block",
-    "qualifiedName": "Model::System::Block",
-    "projectId": "123",
-    "createdBy": "john.doe",
-    "updatedBy": "jane.smith",
-    "createdDate": "2026-02-14T08:15:30.000Z",
-    "updatedDate": "2026-02-14T10:10:15.000Z",
-    "parentElementId": "package_1",
-    "properties": {
-      "status": "Approved",
-      "version": "1.2"
-    },
-    "tags": {
-      "criticality": "High"
-    },
-    "relations": [
-      {
-        "relationType": "dependency",
-        "targetElementId": "requirement_55",
-        "targetElementTypeId": "Requirement",
-        "projectId": "123"
-      }
-    ],
-    "files": [
-      {
-        "fileId": "file_001",
-        "fileName": "block-diagram.png",
-        "filePath": "/attachments/block-diagram.png",
-        "downloadUrl": "https://example.com/download/file_001",
-        "label": "Diagram",
-        "contentType": "image/png",
-        "contentLength": 204800,
-        "author": "john.doe",
-        "fileType": "IMAGE",
-        "lastModifiedDate": "2026-02-14T09:00:00.000Z"
-      }
-    ]
+    "elementResolverId" : "block_101",
+    "mbseElement" : {
+      "elementId": "block_101",
+      "name": "System Block",
+      "elementTypeId": "Block",
+      "qualifiedName": "Model::System::Block",
+      "projectId": "123",
+      "createdBy": "john.doe",
+      "updatedBy": "jane.smith",
+      "createdDate": "2026-02-14T08:15:30.000Z",
+      "updatedDate": "2026-02-14T10:10:15.000Z",
+      "parentElementId": "package_1",
+      "properties": {
+        "status": "Approved",
+        "version": "1.2"
+      },
+      "tags": {
+        "criticality": "High"
+      },
+      "relations": [
+        {
+          "relationType": "dependency",
+          "targetElementId": "requirement_55",
+          "targetElementTypeId": "Requirement",
+          "projectId": "123"
+        }
+      ],
+      "files": [
+        {
+          "fileId": "file_001",
+          "fileName": "block-diagram.png",
+          "filePath": "/attachments/block-diagram.png",
+          "downloadUrl": "https://example.com/download/file_001",
+          "label": "Diagram",
+          "contentType": "image/png",
+          "contentLength": 204800,
+          "author": "john.doe",
+          "fileType": "IMAGE",
+          "lastModifiedDate": "2026-02-14T09:00:00.000Z"
+        }
+      ]
+    }
   }
 ]
 ```
+
+---
+
+## Response Object Structure
+| Name              | Required | Type              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|-------------------|----------|-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| elementResolverId | True     | String            | Identifier used to resolve the corresponding mbseElement. In the usual case, this is the ID of the MBSE element itself. For connectors where the MBSE element is resolved through an associated tag, comment, property, or other object, this contains the ID of that object, while mbseElement.elementId contains the ID of the actual MBSE element.                                                                                                                                                                          |
+| mbseElement       | True     | String            | The MBSE element associated with the resolved identifier. This object represents the actual MBSE model element discovered by the connector, regardless of whether the element was resolved directly using its own ID or indirectly through an associated object such as a tag, comment, property, or other metadata. The object contains the element's identity, type, project context, metadata, properties, tags, relations, and attached files, depending on the requested expansion and the capabilities of the connector. |
 
 ---
 
@@ -211,7 +237,7 @@ The API returns a list of element objects.
 ```bash
 GET /mbse/api/1.0/revisions/rev_20260214_002/elements?
 projectId=123
-&elementIds=block_101,requirement_55
+&elementTypeIds=block,requirement
 &expand=PROPERTIES,TAGS
 ```
 
@@ -222,9 +248,10 @@ projectId=123
 1. If detailed property/tag diff is already provided in Revision – Diff API, this API does not need to be implemented.
 2. If diff is not provided, connector must:
     - Retrieve full element state at revision.
-    - Return only requested elements.
+    - Return only requested elements, whose elementType falls in the provided list of elementTypeIds.
 3. Connector must ensure:
     - Revision-consistent state.
+    - Filtering the response based on the elementTypeIds list.
     - No mixing of data from other revisions.
     - Accurate filtering of properties and tags.
 

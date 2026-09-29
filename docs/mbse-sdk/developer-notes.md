@@ -7,7 +7,8 @@ if: >-
 
 | SDK Server                                                                                                                                | OIM                 | Remarks                                                                                                                                                                                                                                                                                                        |
 |-------------------------------------------------------------------------------------------------------------------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1.5.0 | \>=7.237            | <ul><li>Added support for Project as an entity type</li></ul>                                                                                                                                                                            |
+| 1.6.0                                                                                                                                     | \>=7.238            | <ul><li>Updated 'Get elements at revision' API to POST method with request body and updated response structure</li><li>Made elementTypeIds parameter optional in Revision Diff API</li></ul>                                                    |
+| [1.5.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgAmBLUYkxc7TLy8PeyTr4dnARHu0hXkm4wA7lggMZ6JMkg?e=dD3QZy) | \>=7.237 and <7.238 | <ul><li>Added support for Project as an entity type</li></ul>                                                                                                                                                                            |
 | [1.4.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgAmBLUYkxc7TLy8PeyTr4dnARHu0hXkm4wA7lggMZ6JMkg?e=dD3QZy) | \>=7.226 and <7.237 | <ul><li>Added rich text support for Documentation Field</li><li>Added filtering based on MetaType and identifiedStereotypes in the Owning Package field</li></ul>                                                                                                                                              |
 | [1.3.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgCsdqhXFbV6TLPomLgyftNRAQp_GlC1o0Ip-wQET79hxJU?e=UdySEM) | \>=7.224 and <7.226 | <ul><li>Added support for query-based filtering using name and GUID.</li><li>Redesigned the Element Types JSON configuration for improved structure and flexibility.</li><li>Enabled support for polling entities from the first revision.</li><li>Added support for Item Flow and reference fields.</li></ul> |
 | [1.2.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgA_ObXHl2RjS5Yq_8K0A5HFAeEH1uGYq2-r-cZ0vAdsl40?e=OHy4aE) | \>=7.218 and <7.224 | Support for Generalization and Usage relationship, along with renaming of realization relationship                                                                                                                                                                                                             |
@@ -16,6 +17,18 @@ if: >-
 ---
 
 # Developer Notes
+## MBSE SDK Release 1.6.0
+**Breaking API changes**
+- Updated the **Get elements at revision** API:
+  - Changed HTTP method from `GET` to `POST` (`/mbse/api/1.0/revisions/{revisionId}/elements`).
+  - Added `elementTypeIds` as a mandatory query parameter.
+  - Added a JSON request body containing the list of elements (`elementId` and `changeType`) whose state is to be retrieved.
+  - Updated the response structure: each item now wraps the MBSE element with `elementResolverId` and `mbseElement`.
+
+**Backward Compatible Changes**
+- In the **Revision Diff** API (`/mbse/api/1.0/revisions/diff`), the `elementTypeIds` parameter is now optional, denotes filtering of changes by `elementTypeIds` is made optional.
+- Added support for indirect element resolution via `elementResolverId` (e.g., when the MBSE element is resolved through an associated tag, comment, property, or other metadata object).
+
 ## MBSE SDK Release 1.5.0
 **Backward Compatible Changes**
 - Added support for Project as an entity type

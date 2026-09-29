@@ -30,7 +30,7 @@ Connector implementation must:
 
 - Compare `parentRevisionId` and `revisionId`
 - Return only elements that were changed between these two revisions
-- Filter changes based on provided `elementTypeIds`
+- Filtering changes based on provided `elementTypeIds` is optional
 - Return results in the expected MBSE change format
 
 ---
@@ -53,7 +53,7 @@ GET: /mbse/api/1.0/revisions/diff
 | Name              | Mandatory | Type          | Description |
 |-------------------|-----------|--------------|-------------|
 | projectId         | True      | String       | ID of the project. |
-| elementTypeIds    | True      | List<String> | List of element type IDs defined in `element-types` JSON configuration. Only changes related to these element types must be returned. |
+| elementTypeIds    | False     | List<String> | List of element type IDs defined in `element-types` JSON configuration. Only changes related to these element types must be returned. |
 | branchId          | False     | String       | ID of the branch. If omitted, default branch behavior of the end system should apply. |
 | revisionId        | True      | String       | Target revision ID for which diff is required. |
 | parentRevisionId  | True      | String       | Source (previous) revision ID from which the diff must be calculated. |
@@ -65,17 +65,15 @@ GET: /mbse/api/1.0/revisions/diff
 1. The API must return elements changed between:
     - `parentRevisionId` → `revisionId`
 
-2. Only changes affecting the provided `elementTypeIds` must be returned.
+2. If no changes are found, return an empty list.
 
-3. If no changes are found, return an empty list.
-
-4. The API must return only:
+3. The API must return only:
     - Added elements
     - Updated elements
 
-5. If the underlying system supports deletion tracking and deletion needs to be supported, the connector may extend `changeType` accordingly.
+4. If the underlying system supports deletion tracking and deletion needs to be supported, the connector may extend `changeType` accordingly.
 
-6. This API must not return full element data. It only returns change metadata.
+5. This API must not return full element data. It only returns change metadata.
 
 ---
 
