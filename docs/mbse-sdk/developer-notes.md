@@ -26,8 +26,7 @@ if: >-
   - Updated the response structure: each item now wraps the MBSE element with `elementResolverId` and `mbseElement`.
 
 **Backward Compatible Changes**
-- In the **Revision Diff** API (`/mbse/api/1.0/revisions/diff`), the `elementTypeIds` parameter is now optional, denotes filtering of changes by `elementTypeIds` is made optional.
-- Added support for indirect element resolution via `elementResolverId` (e.g., when the MBSE element is resolved through an associated tag, comment, property, or other metadata object).
+- In the **Revision Diff** API (`/mbse/api/1.0/revisions/diff`), the `elementTypeIds` parameter is now optional.If the end system does not support filtering by element type, OIM will handle the filtering. 
 
 ## MBSE SDK Release 1.5.0
 **Backward Compatible Changes**

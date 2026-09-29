@@ -30,7 +30,7 @@ Connector implementation must:
 
 - Compare `parentRevisionId` and `revisionId`
 - Return only elements that were changed between these two revisions
-- Filtering changes based on provided `elementTypeIds` is optional
+- Filtering changes based on provided `elementTypeIds` is optional. If the end system does not support filtering by element type, OIM will handle the filtering.
 - Return results in the expected MBSE change format
 
 ---
