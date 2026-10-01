@@ -12,6 +12,8 @@ Best of breed tools such as ServiceNow and Azure DevOps Services (VSTS) bring ri
   <img src="../../assets/ServiceNow-Azure_DevOps_Services_entities.png" width="1100"/>
 </p>
 
+**[Check the official ServiceNow - Azure DevOps on Visual Studio marketplace.](https://marketplace.visualstudio.com/items?itemName=vs-publisher-1455028.oim-ServiceNow-adointegration&utm_source=Snow+ado+integration+under+Azure+category+%28vsts+marketplace%29+on+opshub+giteabook&utm_medium=referral&utm_campaign=Snow+ado+integration+under+Azure+category+%28vsts+marketplace%29+on+opshub+giteabook)**
+
 # System Prerequisites
 
 Configuring [system pre-requisites](../../integrate/integration-prerequisites.md) is mandatory for successful system configuration. Check out the pre-requisites for [ServiceNow](../../connectors/servicenow.md#prerequisites) and [Azure DevOps Services (VSTS)](../../connectors/azure-devops.md#prerequisites) systems before you proceed with the integration.
