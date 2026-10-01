@@ -1,37 +1,61 @@
 {% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}
+
+# New Versions
+
+* EWM: 7.0.3
+
 # New Entities
-* Azure DevOps Server/Services: Delivery Plan
-* Zephyr Enterprise: Phase
- 
+
+* MBSE: Project
+* Polarion: Plan and Test Run
+
 # Enhancements
-## Azure DevOps Server/Services
-* Added support for Defect-to-Test Result relationship synchronization.
- 
-## ReadyOne
-* Enhanced ReadyOne Poly Item reference synchronization to prevent failures when the referenced entity has not yet been synchronized.
- 
-## Tricentis Tosca
-* Added support for Tosca workspaces using the Tricentis Server repository type, in addition to SQL Server repositories.
-* Enhanced Personal Access Token (PAT) authentication by adding an authentication user input to the Tosca system configuration.
- 
+
+## GitHub
+
+* Added support for GitHub Pull Request state history, enabling synchronization of state changes with their corresponding timestamps and user information.
+
+## Aras Innovator
+
+* Added configurable versioning control for Aras synchronization through the new **OH_Version** mapping field.
+    * This field allows users to skip creating new versions and update the current version based on custom mapping conditions.
+    * Reference documentation: [OH_Version](../connectors/aras.md#version-control-of-aras-innovator-items-oh_version)
+
+## IBM Engineering Requirements Management DOORS Next
+
+* Added support to synchronize the hierarchy and ordering of artifacts in DOORS Next Modules, enabling the structure and artifact order to be preserved in the target system.
+
+## MBSE
+
+* Improved MBSE tag and link synchronization performance by approximately 91% by reducing redundant API calls.
+
 # Major Bug Fixes
-## Common
-* Resolved an issue where the Metrics & Trends dashboard displayed the following error for a newly created integration that had not yet been executed: `OH-API-0002: java.lang.NullPointerException: Cannot invoke "java.util.Date.getTime()" because "lastRefreshedDate" is null`
-* Resolved an issue where Metrics & Trends dashboard refresh operations failed in PostgreSQL-based OIM deployments with the following error: `ERROR: column "last_refreshed_at" does not exist`
-* Resolved an issue where renewed SSL certificates for cloud-based systems were not automatically installed after editing and saving the system configuration.
- 
+
+## IBM Engineering Test Management
+
+* Improved synchronization performance when entities contain multiple lookup fields.
+
 ## Jira
-* Resolved an issue where inline images embedded in Jira rich text fields were not rendered correctly in HTML rich text fields in the target system.
-* Resolved an issue where Jira Service Management Request Type values were not synchronized when multiple Jira fields shared the same schema identifier. This caused OIM to retrieve values from an incorrect field during synchronization.
-* Resolved an issue where issue statuses were not updated correctly during failure retry processing after a previously unavailable Jira workflow transition became available.
- 
+
+* Resolved a global failure where synchronization failed with an **ArrayIndexOutOfBoundsException** when Jira history contained sprint names with commas.
+
+## qTest
+
+* Resolved a processing failure stating **"Module does not exist"**, where synchronization to qTest as a target system failed while updating the qTest Module hierarchy when a source Folder containing Requirements was moved to a different parent Folder.
+
 # Documentation
-## Jira Service Management
-* Updated the Jira connector documentation to include the additional permissions required when configuring Jira Service Management as a source or target system.
+
+## IBM Rational ClearQuest
+
+* Added documentation for the ClearQuest API character limit on multi-line text fields.
+    * Reference: [ClearQuest Documentation](../connectors/ibm-rational-clearquest.md#api-response-length-setting-for-multiline-text-fields)
+
 {% endif %}
- 
+
 {% if "OM4ADO" === visitor.claims.unsigned.product %}
+
 # Major Bug Fixes
-* Resolved an issue where Area Path migration failed with the following error when the target Azure DevOps project name contained parentheses: `VS402485: The Area/Iteration name is not recognized: Demo Project (ID)`
-* Resolved an issue where HTML fields in Azure DevOps Server 2020 and later versions were incorrectly processed as text fields during migration.
+
+* Resolved an issue where changes to numeric-looking values in plain text fields, such as 1 to 01, 1.0, or values with leading spaces, were not synchronized correctly.
+
 {% endif %}
