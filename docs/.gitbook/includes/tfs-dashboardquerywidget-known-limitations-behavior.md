@@ -58,16 +58,18 @@ Following are the limitations and behaviors specific to the individual entities 
       **Id values mentioned in WIQL**
 
       * In WIQL, an id of a work item can be referred in the field value.
-      * Azure DevOps End point Format - `[ID] [=, <, >, <=, >=, <>, in] [Source entity id].` **Example:** `[ID] = [12345]`
+      * Azure DevOps End point Format - `[ID] [=, <, >, <=, >=, <>, In, Not In, Was Ever] [Source entity id].` **Example:** `[ID] = [12345]`
       * Format being used for processing/synchronization - `[ID] = [12345]`
-        [No change is done here and hence the source work item id will be synchronized/visible in the target end point]
-          * In case, you want the Source workitem id to be replaced with its corresponding target id [Which is synchronized by <code class="expression">visitor.claims.unsigned.product</code>], please use a customized workflow - **Default Integration Workflow - TFS to TFS - Query.xml**
+        [By default no change is done here and hence the source id will be synchronized/visible in the target end point]
+          * If an ID-related value in the WIQL, such as **ID, Parent ID, Area/Iteration ID, or Team ID in Area Path/Iteration Path**, needs to be transformed to the corresponding target entity ID, the workflow **Default Integration Workflow - TFS to TFS - Query.xml** is required to be configured.
+          * If the corresponding target entity is not found, the workflow throws an error by default. This behavior can be configured through the workflow.
+
         **For example **
         Consider a WIQL:
-        `select [System.ID], [System.WorkItemType] from WorkItems where [System.ID] = 1234 and [System.AssignedTo]`
+        `select [System.ID], [System.WorkItemType] from WorkItems where [System.ID] = 1234 and [System.Parent] = 5678 and [System.IterationPath] = @currentIteration(['Project]\\Team <id:9012>')`
         This will be synchronized as:
-        `select [System.ID], [System.WorkItemType] from WorkItems where [System.ID] = 6789 and [System.AssignedTo]`
-        Here, "1234" is the source workitem id and "6789" is the corresponding target work item id.
+        `select [System.ID], [System.WorkItemType] from WorkItems where [System.ID] = 6789 and [System.Parent] = 7890 and [System.IterationPath] = @currentIteration('[Project]\\Team <id:3456>')`
+            Here, `1234` is the source work item ID and `6789` is the corresponding target work item ID, `5678` is the source Parent ID and `7890` is the corresponding target Parent ID, and `9012` is the source Team ID and `3456` is the corresponding target Team ID.
 * Azure DevOps is configured as target:
   * **Folder synchronization**
     * In Azure DevOps, **Query** entities can be organized in different folders.
