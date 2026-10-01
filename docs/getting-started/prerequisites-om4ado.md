@@ -73,15 +73,13 @@ Note: If the database is hosted on a separate Windows machine, the operating sys
 
 ## Download Database Connector jar
 
-| Database Type  | Database Version | Download Link                                                                                                               |
-| -------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| **MySQL**      | All              | [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j)                                                            |
-|  **MSSQL**     | 2012 and lower   | [Download Link](https://www.microsoft.com/en-in/download/details.aspx?id=11774)                                             |
+| Database Type  | Database Version | Download Link                                                                                                              |
+| -------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **MySQL**      | All              | [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j)                                                           |
+|  **MSSQL**     | 2012 and lower   | [Download Link](https://www.microsoft.com/en-in/download/details.aspx?id=11774)                                            |
 |  | 2014 onward      | [Release Notes](https://learn.microsoft.com/en-us/sql/connect/jdbc/release-notes-for-the-jdbc-driver?view=sql-server-ver16) |
-| **Oracle**     | 11g              | [Oracle JDBC 11g](https://www.oracle.com/jp/technical-resources/articles/features/jdbc/jdbc.html)                           |
-|                | 12c              | [Oracle JDBC 12c](https://www.oracle.com/technetwork/database/features/jdbc/jdbc-drivers-12c-download-1958347.html)         |
-|                | 19c              | [Oracle JDBC 19c](https://www.oracle.com/database/technologies/appdev/jdbc-ucp-19c-downloads.html)                          |
-| **PostgreSQL** | All              | [PostgreSQL JDBC](https://jdbc.postgresql.org/download/)                                                                    |
+| **Oracle**     | 19c              | [Oracle JDBC 19c](https://www.oracle.com/database/technologies/appdev/jdbc-ucp-19c-downloads.html)                        |
+| **PostgreSQL** | All              | [PostgreSQL JDBC](https://jdbc.postgresql.org/download/)                                                                   |
 
 
 ## Team Foundation Server/Azure DevOps Prerequisites
