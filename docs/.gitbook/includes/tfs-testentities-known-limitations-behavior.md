@@ -53,28 +53,18 @@ Following are the limitations and behaviors specific to the individual entities 
           * The user will be transformed to corresponding target end system user as per user mentions mapping of field **Query Text** .  
             {% endif %}
         * **Id values mentioned in Query Text**
-          * In the **Query Text** field, an id clause can refer to a particular or set of a work item of type Test Case.
-          * The synchronized test case will have a different id in target system than the source entity. Henceforth it is required to transform the id clause as per the target end system to avoid mismatch in the association of Test Case(s) with Test Suite between the source system and target system. By default, the Query Text field with ID field clause will not be changed as per target entity id. Perform following configuration(s) in order to transform ID as per the target end system.  
-            {% if "OM4ADO" === visitor.claims.unsigned.product %}
-            * Create a custom field with the name as **Source Workitem ID** and type as Integer for the Test Case entity in the target system prior to migration to transform the ID as per the target entity. So, target query-based test suite gets populated with the desired test cases.
-            * In the absence of this custom field Source Workitem ID in the target end system the Query based test suite will be migrated as static suite.
-            * If a Custom field named?"Source Workitem ID"?exists before migration for Test Case entity in target endpoint, then Query Text field with ID field Clause will be migrated as "Source Workitem ID" clause instead ID clause in Query Text. For Example, [ID] = 1234 is the id clause in the source end system, then this id clause migrated in target as [Source Workitem ID] = 1234.
-            * It is recommended to have?the "Source Workitem ID"?field in Test Case for the target entity with Type?"Integer"?to avoid mismatch in the association of Test Case(s) with Test Suite between the source endpoint and target endpoint after migration
-            * If the Type of the field?"Source Workitem ID" is?"String", then migration of Query Text field with ID clause is restricted to synchronize certain operators which are compatible with String type of field. For example, >, <, =, <=, >=, <>, In, Not In etc. The operator(s) which are only compatible with the Integer type of field and not compatible with the String type of field will cause the sync failure for Test Suite. Such incompatible operators are `[=Field]`, `[>Filed]`, `[>=Field]`, `[<=Field]`, `[<>Field]`, etc. The custom field used to replace ID field is of?String?type requires compatible operator and value.
-              {% endif %}  
-              {% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}  
-            * Create a custom field with any name but type as Integer for the Test Case entity in the target system.
-            * Configure the Remote Id field for Test Case integration using above created custom field prior to synchronize Test Case(s).
-            * Configure the following advance mapping for field Query Text to replace ID field with created custom field. Later in this documentation the sample advance mapping to replace ID field with custom field named "Source Workitem ID" is given.
-            * If the Type of the above created custom field is "String" then
-              * The synchronization of Query Text field with ID clause is restricted to synchronize certain operators which are compatible with String type of field. For example, >, <, =, <=, >=, <>, In, Not In etc. The operator(s) which are only compatible with the Integer type of field and not compatible with the String type of field will cause the sync failure for Test Suite. Such incompatible operators are [=Field], [>Filed], [>=Field], [<=Field], [<>Field], etc. The custom field used to replace ID field is of?String?type requires compatible operator and value.
-              * It is requires to use the advance workflow of **Default Integration Workflow For TFS to TFS Test Suit.xml** to synchronize the Query Text with ID clause when target end system has custom field "Source Workitem ID" is of String type.
-          * **Sample Advance Mapping to replace ID field to custom id field name Source Workitem ID**
-      ```xml
-      <Query-space-Text  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-        <xsl:value-of select="utils:transformIdMentioned('Query Text',SourceXML/updatedFields/Property/Query-space-Text,'(\\[ID\\])','[Source Workitem ID]')"/>
-      </Query-space-Text>
-      ```
+          * In the **Query Text** field, an id clause can refer to a particular work item or a set of work items.
+          * The synchronized work item will have a different id in target system than the source entity. Henceforth, it is required to transform the ID clause as per the target end system to avoid a mismatch in the reference to the work item between the source and target systems. By default, the Query Text field with an ID-related clause will not be changed as per the target entity ID.
+          * The transformation of IDs mentioned in Query Text is handled through the **Default Integration Workflow For TFS to TFS Test Suit.xml**. The workflow currently supports transformation of the following ID values:
+            * **ID / Parent ID**
+            * **Team ID** mentioned in **Area Path** or **Iteration Path**, including `@currentIteration` and `@teamAreas` macros
+            * **Area ID / Iteration ID**
+          * The built-in Query Text handling supports the following operators for **ID, Parent ID, Area ID, and Iteration ID**:
+            * `=`, `<>`, `<`, `>`, `<=`, `>=`, `In`, `Not In`, and `Was Ever`
+          * For **Team ID** mentioned in Area Path or Iteration Path through `@currentIteration` and `@teamAreas`, the transformation is supported for all applicable operators.
+          * Therefore, no separate advance mapping is required for the above-mentioned ID values when the **Default Integration Workflow For TFS to TFS Test Suit.xml** is configured.
+          * If the Query Text contains any other ID-related value or pattern that is not covered by the above built-in handling, additional workflow configuration may be required to transform the value to the corresponding target entity ID.
+          * Since Query-based Test Suites depend on the Test Cases referenced by the Query Text, **Test Cases must be synchronized before the corresponding Query-based Test Suites** so that the target entity IDs are available when the Query Text is transformed.
 
     * **Transform the field clause of Query Text field having different source and target field value(s)**
       * Scenario: Different lookups of field in source and target end system for test case entity.
