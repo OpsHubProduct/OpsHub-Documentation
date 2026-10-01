@@ -1,5 +1,5 @@
 
-* **Supported versions:** From 5.7.18 or above
+* **Supported versions:** From 8.0 or above
 * **Wait time for connection pool** should be set to 8 hours.
 
 **User permission pre-requisites list:**
