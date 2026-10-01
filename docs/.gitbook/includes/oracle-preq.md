@@ -1,4 +1,4 @@
-- **Supported versions:** 11g (Release 2), 12c and 19c
+- **Supported versions:** 19c
 
 <span style="color:blue">**User permission pre-requisites list:**</span>
 
