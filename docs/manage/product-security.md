@@ -29,18 +29,42 @@ Our security practices are aligned with widely accepted standards and frameworks
         <tr>
             <td>Third party</td>
             <td>Critical</td>
-            <td>Apache Tomcat: HTTP/2 request headers not validated(<a href="https://github.com/advisories/GHSA-r29c-68gh-xp6x">CVE-2026-41293</a>)</td>
+            <td>Bouncy Castle: Name Constraints bypass via trailing dot in rfc822Name and URI (<a href="https://github.com/advisories/GHSA-9pwp-9qqc-pr26">CVE-2026-8763</a>)</td>
             <td>Not directly impacted</td>
-            <td>7.235</td>
-            <td>7.236</td>
+            <td>7.237</td>
+            <td>7.237</td>
         </tr>
         <tr>
             <td>Third party</td>
             <td>High</td>
-            <td>mchange-commons-java susceptible to abuse via JNDI injection and deserialization gadgets (<a href="https://github.com/advisories/GHSA-h84g-69h7-mw6v">CVE-2026-55153</a>)</td>
+            <td>Bouncy Castle: Lazy ASN.1 sequence forcing resets nesting-depth guard (<a href="https://github.com/advisories/GHSA-qp49-qgx5-5m26">CVE-2026-13506</a>)</td>
+            <td>Not directly impacted</td>
+            <td>7.237</td>
+            <td>7.237</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Apache cxf-core: No restriction on attachment headers per message (<a href="https://github.com/advisories/GHSA-ghvc-7hp8-2g2v">CVE-2026-50645</a>)</td>
+            <td>Not directly impacted</td>
+            <td>7.233</td>
+            <td>7.237</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Little CMS (lcms2) through 2.18: integer overflow in CubeSize in cmslut.c (<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41254">CVE-2026-41254</a>)</td>
             <td>Not directly impacted</td>
             <td>7.234</td>
-            <td>7.236</td>
+            <td>7.237</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Vulnerability in Oracle Java SE / Oracle GraalVM for JDK / Oracle GraalVM Enterprise Edition (Libraries component) (<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-47063">CVE-2026-47063</a>)</td>
+            <td>Not directly impacted</td>
+            <td>7.234</td>
+            <td>7.237</td>
         </tr>
     </tbody>
 </table>
@@ -65,31 +89,7 @@ Our security practices are aligned with widely accepted standards and frameworks
             <td>Hibernate vulnerable to SQL Injection</td>
             <td>Not directly impacted</td>
             <td>7.223</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Apache cxf-core: No restriction on attachment headers per message</td>
-            <td>Not directly impacted</td>
-            <td>7.233</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Little CMS (lcms2) through 2.18: integer overflow in CubeSize in cmslut.c</td>
-            <td>Not directly impacted</td>
-            <td>7.234</td>
-            <td>Sep 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Vulnerability in Oracle Java SE / Oracle GraalVM for JDK / Oracle GraalVM Enterprise Edition (Libraries component)</td>
-            <td>Not directly impacted</td>
-            <td>7.234</td>
-            <td>Sep 2026</td>
+            <td>Oct 2026</td>
         </tr>
     </tbody>
 </table>
