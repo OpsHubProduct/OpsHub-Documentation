@@ -4,6 +4,7 @@ if: >-
 ---
 
 Jira is a popular bug tracking, issue tracking, and project management functions whereas ServiceNow provides service management software as a service by way of a single data model enterprise cloud platform. The integration of Jira with ServiceNow helps the customer service and development teams communicate efficiently, in real time. This, in turn, helps resolve the customer issues faster.
+<br>**[Check the official ServiceNow-Jira app on Atlassian marketplace.](https://marketplace.atlassian.com/apps/1236368/servicenow-integration-for-jira-bidirectional-sync?hosting=cloud&tab=overview&utm_source=Snow+jira+integration+Atlassian+listing+on+opshub+giteabook&utm_medium=referral&utm_campaign=Snow+jira+integration+Atlassian+listing+on+opshub+giteabook)**</br>
 
 ## Use Case: Jira-ServiceNow integration
 
