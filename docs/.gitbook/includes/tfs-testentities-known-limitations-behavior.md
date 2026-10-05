@@ -68,7 +68,9 @@ Following are the limitations and behaviors specific to the individual entities 
             {% endif %}
         * **Id values mentioned in Query Text**
           * In the **Query Text** field, an id clause can refer to a particular work item or a set of work items.
+            {% if "OM4ADO" !== visitor.claims.unsigned.product && "OAM" !== visitor.claims.unsigned.product %}
           * The synchronized work item will have a different id in target system than the source entity. Henceforth, it is required to transform the ID clause as per the target end system to avoid a mismatch in the reference to the work item between the source and target systems. By default, the Query Text field with an ID-related clause will not be changed as per the target entity ID.
+            {% endif %}
           * The transformation of IDs mentioned in Query Text is handled through the **Default Integration Workflow For TFS to TFS Test Suit.xml**. The workflow currently supports transformation of the following ID values:
             * **ID / Parent ID**
             * **Team ID** mentioned in **Area Path** or **Iteration Path**, including `@currentIteration` and `@teamAreas` macros
