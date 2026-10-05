@@ -23,4 +23,10 @@
 <div align="center"><img src="../../assets/tfs_mapping_field_defaultVal3.PNG" alt="" width="900"></div>
 
 8. For Team Foundation Server with version equal to or above 2017, the Remote URL will be different from the remote URLs of the older versions of Team Foundation Server. Also, for Azure DevOps, the Remote URLs will be different.
-
+9. Entity's project move or type change
+   * If an entity is moved to a different project or its type is changed (given that old project/entity integration is not there), updates made while it belonged to the previous project or type may not be synchronized. As a result, the target system may not contain the entity's complete history.
+   * Reason: ADO/TFS stores change history separately for each project and entity type. 
+   * Example:
+     * If a User Story is moved from Project A to Project B, and there is no integration configured for Project A, updates made while the User Story was in Project A cannot be synchronized. Only updates available after it is moved to Project B can be synchronized.
+     * Similarly, if a Bug is changed to a User Story, updates made while it was a Bug may not be synchronized if the Bug type is not part of the integration scope. 
+   * Note: If integrations for both the old and new project/entity type are running at the same time, updates from both can be synchronized. The move or type change will then be handled according to the target system's behavior.
