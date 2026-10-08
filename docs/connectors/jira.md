@@ -1876,8 +1876,6 @@ Also, the user can rename the "Default Folder" as per his/her liking.
   * **Reason:** Test steps can only be added in the Xray Test from UI and API when the test type is set to Manual.
 * For Test Run synchronization, the user must configure `Xray Test` & `Test Execution` links and sync these entities (associated with Test Run) before running Test Run integration. Without it, the syncing process cannot be completed.
 * For Test Run entities, in `iteration` field, step result `Defects` type of links from source will be synced at the entity level in target system.
-* For `Xray Test` and `Test Run` entities, step-level inline attachments/images will be synced at entity level when Jira is the target system.
-* For `Xray Test` and `Test Run` entities, step-level attachments will be synced at entity level when Jira is the target system.
 
 ## QMetry plugin entities
 
