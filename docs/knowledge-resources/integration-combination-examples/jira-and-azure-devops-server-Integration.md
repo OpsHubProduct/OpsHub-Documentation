@@ -11,7 +11,7 @@ Best-of-breed systems such as Jira and Azure DevOps Server (TFS) bring rich func
   <img src="../../assets/Jira-TFS.PNG" width="1000">
 </p>
 
-[Check the official Azure DevOps - Jira app on Atlassian marketplace.](https://marketplace.atlassian.com/apps/1234612/bidirectional-azure-devops-integration-for-jira?hosting=cloud&tab=overview&utm_source=ado+jira+integration+Atlassian+listing+on+opshub+giteabook&utm_medium=referral&utm_campaign=ado+jira+integration+Atlassian+listing+on+opshub+giteabook)
+[Check the Azure DevOps - Jira app on Atlassian marketplace.](https://marketplace.atlassian.com/apps/1234612/bidirectional-azure-devops-integration-for-jira?hosting=cloud&tab=overview&utm_source=ado+jira+integration+Atlassian+listing+on+opshub+giteabook&utm_medium=referral&utm_campaign=ado+jira+integration+Atlassian+listing+on+opshub+giteabook)
 # System Prerequisites
 Configuring [system pre-requisites](../../integrate/integration-prerequisites.md) is mandatory for successful system configuration. Check out the pre-requisites for [Jira](../../connectors/jira.md#prerequisites) and [Azure DevOps Server](../../connectors/azure-devops.md#prerequisites)  systems before you proceed with the integration. 
 
