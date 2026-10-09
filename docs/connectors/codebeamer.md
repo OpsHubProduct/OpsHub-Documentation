@@ -935,7 +935,7 @@ Use this input to expose a reference field's downstream link type on the referre
 {
   "projects": [
     {
-      "internalName": "<internal name (id) of the project>",
+      "internalName": "<internal name of the project>",
       "entities": [
         {
           "internalName": "<internal name of the referred entity>",
@@ -956,7 +956,7 @@ Use this input to expose a reference field's downstream link type on the referre
 
 | **JSON Tag**                  | **Description**                                                                                   |
 | ----------------------------- | ------------------------------------------------------------------------------------------------ |
-| `projects[].internalName`     | Internal name (id) of the codebeamer/codebeamer X project the configuration applies to.           |
+| `projects[].internalName`     | Internal name of the codebeamer/codebeamer X project the configuration applies to.                 |
 | `entities[].internalName`     | Internal name of the referred entity on which the downstream link type should be made available.   |
 | `linkTypes[].linkType`        | The downstream link type to add as a valid link type on the referred entity.                       |
 | `linkTypes[].reverseLinkType` | The original reference field on the main entity that this downstream link type reverses.           |
