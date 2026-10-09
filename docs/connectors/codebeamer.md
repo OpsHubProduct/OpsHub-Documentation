@@ -156,6 +156,34 @@ In codebeamer/codebeamerX, Associations and Reference fields will be supported a
 <div align="center"><img src="../assets/Codebeamer_Image_3_b.png" alt="" width="800"></div>
 
 
+### Reference Fields
+
+* A reference field added on one entity (the "main" entity) points to another entity (the "referred" entity).
+* In codebeamer/codebeamer X, when a reference field is created on the main entity, the referred entity automatically shows a corresponding **downstream reference** back to the main entity.
+* On the <code class="expression">space.vars.OIM</code> User Interface, for a reference field two link types are shown on the main entity:
+  * `<reference_field_name>`
+  * `<reference_field_name> (Downstream)`
+
+#### Downstream Reference Linkage
+
+By default, a reference-field relationship can be configured only from the **main** entity side (the entity that owns the reference field). The **downstream** direction - configuring the same relationship from the **referred** entity side - is not available automatically, because codebeamer/codebeamer X does not expose, through its API, the downstream reference back to the main entity while loading link metadata for the referred entity.
+
+To make the downstream link type available on the referred entity, provide the downstream reference link metadata as input configuration. During link metadata loading, <code class="expression">space.vars.OIM</code> will:
+
+* Identify the current project context.
+* Apply the matching configuration for that project and entity.
+* Add the configured `(Downstream)` link type as a valid link type on the referred entity.
+
+This configuration is:
+
+* **Optional** - required only when you want to configure the relationship from both the main and the referred entity sides.
+* **Applicable to reference-type links only** - it does not affect generic association links.
+* **Project-specific** - add an entry for each project that needs it, so the mapping stays correct when projects have different entity relationships.
+
+Refer to the section [Configure Downstream Reference Link Metadata](codebeamer.md#configure-downstream-reference-link-metadata) for the input format and an example.
+
+> **Note**: If a main entity syncs before the referred entity and the downstream side is not configured, the link is created from the main entity side only. Configuring the downstream link metadata lets the relationship be resolved from either side, regardless of sync order.
+
 ### Mapping for Entity mention field
 
 * When codebeamer/codebeamerX is configured as source system in the integration and its field/comment type is rich text (HTML), then the entity mention synchronization is supported.
@@ -896,3 +924,66 @@ Following are the steps to configure any-to-any transition:
 }
 ```
 **Note:** The values specified in referredEntities must exactly match the display names of the entities that the reference field can refer to in the end system.
+
+## Configure Downstream Reference Link Metadata
+
+Use this input to expose a reference field's downstream link type on the referred entity, so the relationship can be configured from the referred entity side as well. Refer to the section [Downstream Reference Linkage](codebeamer.md#downstream-reference-linkage) for the behavior.
+
+* JSON Template format:
+
+```JSON
+{
+  "projects": [
+    {
+      "internalName": "<internal name (id) of the project>",
+      "entities": [
+        {
+          "internalName": "<internal name of the referred entity>",
+          "relationship": {
+            "linkTypes": [
+              {
+                "linkType": "<downstream link type to expose on the referred entity>",
+                "reverseLinkType": "<the original reference field on the main entity>"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+| **JSON Tag**                  | **Description**                                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------------------------ |
+| `projects[].internalName`     | Internal name (id) of the codebeamer/codebeamer X project the configuration applies to.           |
+| `entities[].internalName`     | Internal name of the referred entity on which the downstream link type should be made available.   |
+| `linkTypes[].linkType`        | The downstream link type to add as a valid link type on the referred entity.                       |
+| `linkTypes[].reverseLinkType` | The original reference field on the main entity that this downstream link type reverses.           |
+
+* The following example exposes the downstream link type `BugInRetina (Downstream Reference)` on the **bug** entity in the project with internal name **19**, reversing the `BugInRetina` reference field defined on the main entity.
+
+```JSON
+{
+  "projects": [
+    {
+      "internalName": "19",
+      "entities": [
+        {
+          "internalName": "bug",
+          "relationship": {
+            "linkTypes": [
+              {
+                "linkType": "BugInRetina (Downstream Reference)",
+                "reverseLinkType": "BugInRetina"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Note:** The values provided for `linkType` and `reverseLinkType` must exactly match the link type and reference field names as shown in the end system.
