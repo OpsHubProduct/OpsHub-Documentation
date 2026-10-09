@@ -961,13 +961,13 @@ Use this input to expose a reference field's downstream link type on the referre
 | `linkTypes[].linkType`        | The downstream link type to add as a valid link type on the referred entity.                       |
 | `linkTypes[].reverseLinkType` | The original reference field on the main entity that this downstream link type reverses.           |
 
-* The following example exposes the downstream link type `BugInRetina (Downstream Reference)` on the **bug** entity in the project with internal name **19**, reversing the `BugInRetina` reference field defined on the main entity.
+* The following example exposes the downstream link type `BugInRetina (Downstream Reference)` on the **bug** entity in the project with internal name **<internal name>**, reversing the `BugInRetina` reference field defined on the main entity.
 
 ```JSON
 {
   "projects": [
     {
-      "internalName": "19",
+      "internalName": "<internal name>",
       "entities": [
         {
           "internalName": "bug",
