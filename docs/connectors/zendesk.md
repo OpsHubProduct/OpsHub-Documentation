@@ -202,7 +202,7 @@ The above behavior with <code class="expression">space.vars.OIM</code> sync refl
   * **Client kind**: Select **Confidential**. This is mandatory for OAuth Access Token authentication in <code class="expression">space.vars.OIM</code>. A **Public** client is not supported, because it has no Client Secret and must use PKCE. For more information, refer to [Understanding client kinds](https://support.zendesk.com/hc/en-us/articles/4408845965210-Using-OAuth-authentication-with-your-application#topic_ycb_ztl_m2c) in the Zendesk documentation.
   * **Scopes**: Leave this field blank to allow all scopes. If you restrict the scopes, ensure that the client has at least **read** and **write** scopes.
 * Click **Save**. Zendesk displays a pre-populated **Secret** field.
-* Copy the **Secret** and store it securely. Zendesk displays the full secret only once,
+* Copy the **Secret** and store it securely. Zendesk displays the full secret only once.
 * Click **Save** again to complete the client configuration.
 * Provide the **Unique identifier** as **Client ID** and the **Secret** as **Client Secret** in the Zendesk System form with Authentication Mode as **OAuth Access Token**.
 
