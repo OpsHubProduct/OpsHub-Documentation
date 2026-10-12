@@ -589,7 +589,7 @@ Given below are the systems supported currently by <code class="expression">spac
 <tr>
             <td>80</td>
             <td>Zephyr Scale</td>
-            <td>15.6.0</td>
+            <td>15.6.0 and above</td>
             <td>Test Case, Test Plan, Test Cycle, Test Execution, Folder, Environment</td>
             <td></td>
         </tr>
