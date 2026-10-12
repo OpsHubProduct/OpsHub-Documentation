@@ -35,7 +35,8 @@ Refer to the following screenshot with Authentication Mode as Global OAuth Refre
 | **Authentication Mode**        | Always                                       | Select the authentication mode you would like to use to communicate with the Zendesk server. If you have **single sign on** enabled for Zendesk server, select **API Token** as authentication mode. If you have **OAuth Client App** configured to communicate with APIs, select **OAuth Access Token** as the authentication mode. To authenticate using a Global OAuth, select **Global OAuth Refresh Token** as the authentication mode. |
 | **User Name**                  | When Authentication Mode selected            | Provide Zendesk system user with administrator privilege.                                                                                                                                                                                                                                                                                                                                                                                    |
 | **API Token**                  | API Token mode selected                      | Provide Zendesk user API Token. Refer [this](https://support.zendesk.com/hc/en-us/articles/226022787-Generating-a-new-API-token) for generating **API Token** in Zendesk server.                                                                                                                                                                                                                                                             |
-| **OAuth Access Token**         | OAuth Access Token mode selected             | Provide Zendesk OAuth Access Token. Refer [Generating OAuth Access Token Through UI](https://support.zendesk.com/hc/en-us/articles/4408845965210-Using-OAuth-authentication-with-your-application) or [Generating OAuth Access Token through API](https://developer.zendesk.com/documentation/ticketing/working-with-oauth/creating-and-using-oauth-tokens-with-the-api/) to generate **OAuth Access Token** in Zendesk server.              |
+| **Client ID**                  | OAuth Access Token mode selected             | Provide the Client ID (Unique identifier) of the Confidential OAuth client created in Zendesk. Refer to [Creating Confidential OAuth Client and Generating Client ID and Client Secret](#creating-confidential-oauth-client-and-generating-client-id-and-client-secret).                                                                                                                                                                      |
+| **Client Secret**              | OAuth Access Token mode selected             | Provide the Client Secret of the same Confidential OAuth client. Zendesk shows the secret only once, at the time of creation. Refer to [Creating Confidential OAuth Client and Generating Client ID and Client Secret](#creating-confidential-oauth-client-and-generating-client-id-and-client-secret).                                                                                                                                      |
 | **Global OAuth Refresh Token** | Global OAuth Refresh Token mode selected     | Provide the Zendesk Global OAuth Refresh Token. Refer to [Generating Global OAuth Refresh Token](#generating-global-oauth-refresh-token) to generate the **Global OAuth Refresh Token**. Refer to [Known Limitations](#known-limitations) to understand limitation of this auth mechanism.                                                                                                                                                   |
 | **Zendesk Link Field Name**    | Always                                       | Provide the link field name that denotes the Parent - Child link. Refer to [Determine the Parent - Child Link field name](#determine-the-parent---child-link-field-name) section                                                                                                                                                                                                                                                             |
 
@@ -188,6 +189,22 @@ The above behavior with <code class="expression">space.vars.OIM</code> sync refl
 <p align="center">
   <img src="../assets/Zendesk_LinkField_2.png" width="900"/>
 </p>
+
+## Creating Confidential OAuth Client and Generating Client ID and Client Secret
+
+* Login to Zendesk as an administrator.
+* Go to **Admin Center** → **Apps and integrations** → **APIs** → **OAuth Clients**.
+* Click **Add OAuth client**.
+* Fill the client details:
+  * **Name**: Provide an appropriate name, for example, the name of the integration user or <code class="expression">space.vars.OIM</code>.
+  * **Description**, **Company**, **Logo**: These fields are optional.
+  * **Unique identifier**: Zendesk automatically populates this field based on the client name. This value serves as the **Client ID**. Note it down for later use.
+  * **Client kind**: Select **Confidential**. This is mandatory for OAuth Access Token authentication in <code class="expression">space.vars.OIM</code>. A **Public** client is not supported, because it has no Client Secret and must use PKCE. For more information, refer to [Understanding client kinds](https://support.zendesk.com/hc/en-us/articles/4408845965210-Using-OAuth-authentication-with-your-application#topic_ycb_ztl_m2c) in the Zendesk documentation.
+  * **Scopes**: Leave this field blank to allow all scopes. If you restrict the scopes, ensure that the client has at least **read** and **write** scopes.
+* Click **Save**. Zendesk displays a pre-populated **Secret** field.
+* Copy the **Secret** and store it securely. Zendesk displays the full secret only once,
+* Click **Save** again to complete the client configuration.
+* Provide the **Unique identifier** as **Client ID** and the **Secret** as **Client Secret** in the Zendesk System form with Authentication Mode as **OAuth Access Token**.
 
 ## Generating Global OAuth Refresh Token
 
