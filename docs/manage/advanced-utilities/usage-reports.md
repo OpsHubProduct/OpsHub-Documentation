@@ -12,7 +12,7 @@ By default, the exported report is provided as a **Usage Reports.zip** file, whi
 - **Usage Report (Last 6 Months)**
 - **Usage Report (Last 1 Year)**
 
-Administrators can also download the usage report for a period of their choice, from the **last 1 month** up to the **last 12 months**. In this case, a single Excel report, **Usage Report (Last N Months)**, is downloaded directly, without a ZIP file. For example, choosing 1 month downloads **Usage Report (Last 1 Month).xlsx**. This is useful for periodic reporting, such as a monthly usage review.
+Administrators can also download the usage report for a period of their choice, from the **last 1 month** up to the **last 12 months**. In this case, a single Excel report, **Usage Report (Last N Months)**, is downloaded directly. For example, choosing 1 month downloads **Usage Report (Last 1 Month).xlsx**. This is useful for periodic reporting, such as a monthly usage review.
 
 Each report includes both **summary and detailed insights** about activity across integrated systems. The reports provide information such as unique users, integrated projects, integrated entity types, synced data, and detailed information about processed users across systems.
 
@@ -37,9 +37,13 @@ To access and download the reports, the user must:
 
 # Report Period
 
-Every usage report starts at the **same date and time, N months before** the report is downloaded, and ends at the **time of download**. The default reports follow the same rule, with N = 6 for the **Last 6 Months** report and N = 12 for the **Last 1 Year** report.
+The report period is the time range that a usage report covers. You can choose a period from **1 to 12 months**.
 
-For example, if the report is downloaded on **15-Oct-2026 at 10:30**:
+A report covers the chosen number of months, counted back from the moment you download it. It starts on the **same date and at the same time, N months earlier**, and ends when you download it. For example, if you choose 1 month and download the report on 15-Oct-2026 at 10:30, the report starts on 15-Sep-2026 at 10:30.
+
+The default reports work the same way: the **Last 6 Months** report covers 6 months, and the **Last 1 Year** report covers 12 months.
+
+The table below shows the period covered by different reports downloaded on **15-Oct-2026 at 10:30**:
 
 | Report | Period covered |
 |--------|----------------|
@@ -48,12 +52,15 @@ For example, if the report is downloaded on **15-Oct-2026 at 10:30**:
 | Last 6 months (default) | 15-Apr-2026 10:30 to 15-Oct-2026 10:30 |
 | Last 1 year (default) | 15-Oct-2025 10:30 to 15-Oct-2026 10:30 |
 
-- If the same date does not exist in the earlier month, the last day of that month is used. For example, a 1 month report downloaded on 31-Mar starts on 28-Feb (29-Feb in a leap year).
-- The period is calculated in the time zone of the server.
-- Choosing 6 months gives the same numbers as the default **Last 6 Months** report, and choosing 12 months gives the same numbers as the default **Last 1 Year** report.
-- The exact **From** and **To** dates of a report are shown on its **Summary** sheet.
+- **Month-end dates:** If the start date does not exist in the earlier month, the last day of that month is used. For example, a 1 month report downloaded on 31-Mar starts on 28-Feb (or 29-Feb in a leap year).
+- **Time zone:** Dates and times are based on the server's time zone.
+- **Same results as the default reports:** Choosing 6 months gives the same numbers as the default **Last 6 Months** report. Choosing 12 months gives the same numbers as the default **Last 1 Year** report.
+- **Dates in the report:** The exact **From** and **To** dates of a report are shown on its **Summary** sheet.
 
-> **Note**: A report always ends at the time of download, so it cannot be generated again later for a past period. If you need a usage report for each month, download the **Last 1 month** report at the same date and time every month, for example on the 1st of every month, and save each file. Each month's report then continues from where the previous one ended, without any gap or overlap.
+> **Note**:
+>
+> - A report always ends at the time of download. So, a report for a past period cannot be downloaded later. For example, in November you cannot download a report that covers only September.
+> - To keep a usage report for every month, download the **Last 1 month** report on the same date and at the same time every month, and save each file. For example, a report downloaded on 01-Nov at 10:00 covers 01-Oct 10:00 to 01-Nov 10:00, and the next one, downloaded on 01-Dec at 10:00, covers 01-Nov 10:00 to 01-Dec 10:00. Each report starts where the previous one ended, so no period is missed or counted twice.
 
 ---
 
@@ -65,20 +72,21 @@ Follow these steps to download the usage reports from the application:
 1. Navigate to the **Licenses** screen.
 2. Locate the **Download usage reports** button on the screen, as shown in the image below. The button is highlighted with a red rectangular box.
 3. Click the **Download usage reports** button. The **Download Usage Reports** dialog opens.
-4. Choose the report to download:
-    - To download the default **Last 6 Months** and **Last 1 Year** reports, leave the **Last [ ] month(s)** field empty.
-    - To download the report for a period of your choice, enter a whole number from **1** to **12** in the **Last [ ] month(s)** field. The period covered by the report is shown below the field, for example **From 15-Sep-2026 10:30 to the time of download.**
-5. Click **Download**.
-    - If the field is empty, the **Usage Reports.zip** file is downloaded to your browser’s default download location. Extract the ZIP file to access the reports.
-    - If a number of months is entered, the **Usage Report (Last N Months).xlsx** file is downloaded to your browser’s default download location.
-
 <p align="center">
 <img src="../../assets/UsageReports/export_button.png" alt="Download Usage Reports Button"/>
 </p>
 
+4. Choose the report to download:
+    - To download the default **Last 6 Months** and **Last 1 Year** reports, leave the **Last [ ] month(s)** field empty.
+    - To download the report for a period of your choice, enter a whole number from **1** to **12** in the **Last [ ] month(s)** field. The period covered by the report is shown below the field. For example, **From 13-May-2026 15:57 to the time of download.**
 <p align="center">
 <img src="../../assets/UsageReports/download_usage_reports_dialog.png" alt="Download Usage Reports Dialog"/>
 </p>
+
+5. Click **Download**.
+    - If the field is empty, the **Usage Reports.zip** file is downloaded to your browser’s default download location. Extract the ZIP file to access the reports.
+    - If a number of months is entered, the **Usage Report (Last N Months).xlsx** file is downloaded to your browser’s default download location.
+
 
 > **Note**: If the value entered is not a whole number from 1 to 12, an error message is shown below the field and the **Download** button is disabled. Correct the value, or clear the field to download the default reports.
 
@@ -109,8 +117,6 @@ GET `/export/usage-reports`
 - With the `months` parameter, returns the **Usage Report (Last N Months).xlsx** file, without a ZIP file.
 - If the value of `months` is not a whole number from 1 to 12, the API returns an error with HTTP status **400 (Bad Request)** and the following message, and no file is downloaded:
   `Invalid value '<value>' for months. Please enter a whole number between 1 and 12.`
-
-<p align="center"><img src="../../assets/UsageReports/admin_api.png" alt="Admin Api For Usage Report"/></p>
 
 ## Using MCP
 
