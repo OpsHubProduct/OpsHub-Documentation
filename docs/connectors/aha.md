@@ -26,18 +26,28 @@ Refer to the following screenshot for reference:
 
 
 | **Field Name**               | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ---------------------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **System Name**              | Provide the system's name                                                                                                                                                                                                                                                                                                                                                                                                             |
 | **Instance URL**             | Provide Instance URL of the Aha! instance. This URL will be used for communicating to Aha! API. The format of the URL is: https:// <company _name>.aha.io Example: https://opshub-inc.aha.io                                                                                                                                                                                                                                          |
 | **User Email**               | Provide the email Id of a dedicated user who will be used for communicating with Aha! API. This user should have the required privileges to use the Aha! API. For more details on the required privileges, please refer to [User privileges](aha.md#user-privileges) section.                                                                                                                                                         |
 | **API Token**                | Provide the bearer API Token generated in Aha! for the user given in "User Email" field. Please refer to [Steps for generating the API token](aha.md#steps-for-generating-the-api-token) section for generating the API token.                                                                                                                                                                                                        |
-| **Metadata Details**         | The user can edit entity types based on his/her Aha! instance details for system metadata. For the format and guidance related to filling these details in JSON form, please refer to [Understanding JSON Input](aha.md#understanding-json-input) section.                                                 |
+| **Metadata Details**         | The user can edit entity types based on his/her Aha! instance details for system metadata. For the format and guidance related to filling these details in JSON form, please refer to [Understanding JSON Input](aha.md#Understanding-JSON-Input) section.                                                                                                                                                                            |
 | **Base URL for Remote Link** | Provide different Instance URL of the Aha! instance. This URL is used for generating the Remote Link. E.g., if the Instance URL is https://opshubTest33.aha.io/ or any API node URL, but Remote Link needs to be generated with a different Instance URL such as https://opshubTest.aha.io/. **Note** : If "Base URL for Remote Link" is empty, it will use Instance/Server URL to generate Remote Link if configured on Integration. |
 
-**Understanding JSON Input**
+## Understanding the Metadata Details JSON
 
-* The entity metadata details can be provided at the time of system configuration in the field 'Metadata details'  [in the form of JSON] in the below mentioned use case:
-  * Use case: In Aha!, the entity display name can be changed. Hence, if this is the case at your end, then changes are needed to be performed in the entity display name of JSON input. Below is the example of the JSON input:
+During system configuration, the user can customize entity names and field definitions by providing a JSON input in the **Metadata details** field of the system configuration form.
+This configuration can be used in the following scenarios:
+
+#### 1. Mapping Renamed Entities
+Aha! uses fixed standard entities, but user can customize their labels (for example, renaming **Initiative** to **Product initiatives**).
+* **Internal Entity Names:** Please ensure the `internalName` values remain exactly as provided in the example JSON below.
+* **Display Names:** The user can update the `displayName` values to match the custom terminology configured in the Aha! workspace.
+
+#### 2. Updating Field Metadata
+If the user introduces new system fields, updates field types, or adjusts standard/custom field configurations in Aha!, the user can define them here to ensure the integration reflects the latest workspace setup. Please refer to the JSON structure provided below for the required schema and attributes.
+* **`system` fields:** Use this array to add or update standard system field attributes (such as updating data types, mandatory flags, or read-only settings).
+* **`custom` fields:** Use this array to define custom fields configured in the workspace along with their respective formats and properties.
 
 ```json
 {
@@ -68,7 +78,50 @@ Refer to the following screenshot for reference:
     },
     {
       "internalName": "initiatives",
-      "displayName": "Initiative"
+      "displayName": "Initiative",
+      "fields": {
+        "system": [
+          {
+            "internalName": "textRange",
+            "displayName": "Text Range new",
+            "dataType": "text",
+            "mandatory": false,
+            "historyEnabled": false,
+            "readOnly": true
+          }
+        ],
+        "custom": [
+          {
+            "internalName": "CustomDate",
+            "displayName": "Custom Date",
+            "dataType": "date_string",
+            "mandatory": false,
+            "historyEnabled": false,
+            "dateFormat": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            "readOnly": true
+          }
+        ]
+      }
+    },
+    {
+      "internalName": "epics",
+      "displayName": "Epic"
+    },
+    {
+      "internalName": "goals",
+      "displayName": "Goal"
+    },
+    {
+      "internalName": "ideas",
+      "displayName": "Idea"
+    },
+    {
+      "internalName": "Approval",
+      "displayName": "Approval"
+    },
+    {
+      "internalName": "WorkRequest",
+      "displayName": "Work request"
     }
   ]
 }
