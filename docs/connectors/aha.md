@@ -36,7 +36,7 @@ Refer to the following screenshot for reference:
 
 ## Understanding JSON Input
 
-During system configuration, the user can customize entity names and field definitions by providing a JSON input in the **Metadata details** field of the system configuration form.
+During system configuration, user can customize entity names and field definitions by providing a JSON input in the **Metadata details** field of the system configuration form.
 This configuration can be used in the following scenarios:
 
 #### 1. Mapping Renamed Entities
