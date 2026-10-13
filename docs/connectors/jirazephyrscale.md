@@ -25,6 +25,7 @@ Refer the screenshot given below for reference.
 
 <p align="center">
   <img src="../assets/ZephyrScaleWithPrivateApi.png" width="1500" />
+  <img src="../assets/ZephyrScaleWithoutPrivateAPI.png" width="1500" />
 </p>
 
 | **Field Name**                         | **When field is visible on the System form**                                                                 | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -220,10 +221,12 @@ Refer the screenshot given below for reference.
       * **Reason:** Zephyr API does not provide or handle any information related to this field.
 * If you plan to use sync features that rely on Zephyr Scale's non-public APIs, you must configure the Zephyr Scale JWT Token Service. Since non-public APIs may change without notice, if you experience issues with features, please contact OpsHub Support for assistance. Refer to [Supported Features using non-public API](#supported-features-using-non-public-api) section for the list of features that use non-public APIs.
 * When **Enable Zephyr Scale Private APIs** option is disabled in the System Configuration form (for more details, refer to [System Configuration](#system-configuration)), the following operations are not supported via <code class="expression">space.vars.OIM</code> due to limitations of the Zephyr Scale public APIs:
-  * **Link Removal**: Removing links between the Test Case and Test Cycle entities is not supported.
+  * **Link removal between Test Case and Test Cycle**: Removing links between Test Case and Test Cycle entities is not supported. As a workaround, you can unmap the corresponding link mappings in both directions:
+    * For the **Test Case** entity, unmap the **Test Cycle Link (Zephyr Scale)** link mapping.
+    * For the **Test Cycle** entity, unmap the **Test Case Link (Zephyr Scale)** link mapping.
+  * **Entity Updates**: Updating **Test Plan** and **Test Folder** entities is not supported. As a workaround, configure the workflow association to sync only the create event, for more details refer to [Workflow Association](../integrate/integration-configuration.md#workflow-association).
   * **Comment Synchronization**: Synchronization of comments is not supported when Zephyr Scale is configured as either the source or target system.
-  * **Entity Updates**: Updating **Test Plan** and **Test Folder** entities is not supported.
-  * **Criteria and Target Lookup Query**: Applying criteria or configuring target lookup queries on entity fields is not supported.
+  * **Criteria and Target Lookup Query**: Applying criteria or configuring target lookup queries on entity fields other than entity ID is not supported.
 # Appendix
 
 ## User Token Generation
@@ -253,16 +256,11 @@ The following capabilities require the use of non-public Jira Zephyr Scale APIs 
 | Capabilities                                | What it enables                                                                                                              |
 |---------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | Comments/Discussions                        | Enables end-to-end collaboration and discussion synchronization across tools                                                 |
-| Attachments                                 | Ensures supporting documents, screenshots, and evidence remain available across connected systems                            |
-| Step-level attachments                      | Preserves and synchronizes test execution evidence at the test step level                                                    |
 | Test Plan's custom fields sync              | Maintains customer-specific Test Plan field data consistently across applications                                            |
-| Relationship & traceability synchronization | Keeps linked entities and traceability relationships synchronized across systems, ensuring accurate end-to-end traceability. |
 | Retrieval of test entities using filters    | Enables efficient incremental synchronization by identifying only changed records                                            |
 | Adding/Removing Test Cases from Test Cycles | Keeps test planning and execution scope synchronized across systems                                                          |
 | Test Plan updates                           | Ensures Test Plan changes remain aligned across connected applications                                                       |
 | Folder updates                              | Keeps test organization and folder hierarchy synchronized                                                                    |
-| Archive test entities                       | Preserves archive state and lifecycle consistency across systems                                                             |
-| Delete test entities                        | Prevents stale or orphaned data by synchronizing deletions                                                                   |
 | Authentication for the above operations     | Enables secure and fully supported integration without dependency on non-public APIs                                         |
 
 
