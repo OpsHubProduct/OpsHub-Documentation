@@ -10,26 +10,47 @@ if: >-
 * Create one user in codebeamer/codebeamer X that is dedicated to <code class="expression">space.vars.OIM</code>. This user should not do any operations from the system's interface. This user should not do any operations from the system's interface. This user's timezone should be same as end system's server timezone. Refer to [Add User](codebeamer.md#add-user) section to create a user in codebeamer/codebeamerX.
 * The user must be a member of all the projects that needs to be synchronized. To add a Project member refer to section [Add Project Member](codebeamer.md#add-project-member).
 * The User group of user should have the following permissions. Refer to section [Add User Group](codebeamer.md#add-user-group) to create user group.
-  * Own Account - Admin
-  * Account - View Email Address
-  * Group - View
-  * Time Zone and Date Format - Edit if Owner
-  * Rest / Remote API - Access
+    * Own Account - Admin
+    * Account - View Email Address
+    * Group - View
+    * Time Zone and Date Format - Edit if Owner
+    * Rest / Remote API - Access
 * The user should have below mentioned permissions over tracker. Please refer to [Add User Permission Over Tracker](codebeamer.md#add-user-permission-over-tracker) section to add user permissions over tracker.
-  * Item - View Any
-  * Item - Add
-  * Item - Edit Any
-  * Tracker - Mass Edit
-  * Item - Close
-  * Item - Delete
-  * Item - History View
-  * Item - View Comments/Attachments
-  * Item - Add Comment/Attachment
-  * Item - Edit Comment/Attachment - Own
-  * Item - Edit Comment/Attachment - Any
-  * Item - View Associations
-  * Item - Edit Associations
+    * Item - View Any
+    * Item - Add
+    * Item - Edit Any
+    * Tracker - Mass Edit
+    * Item - Close
+    * Item - Delete
+    * Item - History View
+    * Item - View Comments/Attachments
+    * Item - Add Comment/Attachment
+    * Item - Edit Comment/Attachment - Own
+    * Item - Edit Comment/Attachment - Any
+    * Item - View Associations
+    * Item - Edit Associations
 * To synchronize Test case from any connector to codebeamer/codebeamer X, Integration User should be project admin and project admin role should have both read and edit permissions.
+
+
+## Authentication Options
+
+<code class="expression">space.vars.OIM</code> can connect to Codebeamer using one of two authentication types:
+
+* **Basic**: a dedicated username and password.
+* **OAuth 2.0 (Client Credentials)**: <code class="expression">space.vars.OIM</code> uses a Client ID and Client Secret to get an access token from the identity provider and sends it as a Bearer token on every Codebeamer API call. No user signs in and no password is stored.
+
+The supported OAuth 2.0 (Client Credentials) provider is **Microsoft Entra ID**.
+
+> **Note**: It is recommended to create a separate system configuration for each authentication type.
+
+## Pre-requisites for OAuth 2.0 (Client Credentials) with Microsoft Entra ID
+
+Ensure that the following steps are completed and validated before configuring the system in <code class="expression">space.vars.OIM</code>:
+
+1. **Supported release.** Your Codebeamer release must support the machine-to-machine (`m2m`) setting of OpenID Connect. Refer to the *OpenID Connect (OAuth2)* page of the Install Guide for your release.
+2. **Dedicated user.** Create the dedicated <code class="expression">space.vars.OIM</code> user (for example, `automationsyncuser`) as described in [User privileges](codebeamer.md#user-privileges). The user must have the **Rest / Remote API - Access** permission. The OAuth 2.0 (Client Credentials) access token is mapped to this user, so all project memberships and tracker permissions apply to it.
+3. **Microsoft Entra application.** Register an application in Microsoft Entra ID and create a client secret. Refer to [Register an Application in Microsoft Entra ID](codebeamer.md#register-an-application-in-microsoft-entra-id).
+4. **Codebeamer configuration.** In System Administration, configure OpenID with the Microsoft Entra tenant URL using automatic discovery, map the token to the dedicated user, then restart the server. Refer to [Configure Codebeamer for OAuth 2.0 (Client Credentials)](codebeamer.md#configure-codebeamer-for-oauth-20-client-credentials).
 
 # System Configuration
 
@@ -37,9 +58,14 @@ Before you continue with the integration, you must first configure codebeamer/co
 
 Click [System Configuration](../integrate/system-configuration.md) to learn the step-by-step process to configure a system.
 
-Refer to the following screenshot for reference: **codebeamer**
+Refer to the following screenshots for reference:
 
+**codebeamer** with **Authentication Type** as Basic:
 <div align="center"><img src="../assets/Codebeamer_Image_1c_new.png" alt="" width="1100"></div>
+
+**codebeamer** with **Authentication Type** as OAuth 2.0 (Client Credentials):
+
+<div align="center"><img src="../assets/Codebeamer_OAuth_Entra_System_Form.png" alt="" width="1100"></div>
 
 **codebeamer X**
 
@@ -53,8 +79,13 @@ Refer to the following screenshot for reference: **codebeamer**
 | **Version**                            | Always                                       | Provide the version for the codebeamer/codebeamerX system. Refer to section [Find version of codebeamer/codebeamerX Instance](codebeamer.md#find-version-of-codebeamer-codebeamer-x-instance), to determine the version of codebeamer/codebeamerX system.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Instance URL**                       | Always                                       | Provide Server URL of the codebeamer/codebeamerX instance. This URL will be used for communicating with codebeamer/codebeamerX system API. The format of the URL would be: `http://[host name]:[port no]/cb` or `http://[your_domain_name]/cb`. Example: `http://10.13.27.200:8080/cb` or `http://10.13.27.208:8080/cb`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | **Base URL for Remote Link**           | Always                                       | <p>Provide different Instance URL of the codebeamer/codebeamerX instance. This URL is used for generating the Remote Link. For example, if the Instance URL is <code>http://10.11.152.136:8080/cb</code> or any API node URL, but Remote Link needs to be generated with a different Instance URL such as <code>http://domain.com:8080/cb</code>.<br><strong>Note</strong>:If "Base URL for Remote Link" is empty, It will use Instance/Server URL to generate Remote Link if configured on Integration.</p>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| **User Name**                          | Always                                       | Provide the username of a dedicated user who will be used for communicating with codebeamer/codebeamerX API. This user should have the required privileges as mentioned in section, [User privileges](codebeamer.md#user-privileges).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| **User Password**                      | Always                                       | Enter password of the user added above.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Authentication Type** | Always | Select how <code class="expression">space.vars.OIM</code> authenticates with Codebeamer. Supported types: **Basic** and **OAuth 2.0 (Client Credentials)**. |
+| **User Name**                          | Authentication Type is Basic                                       | Provide the username of a dedicated user who will be used for communicating with codebeamer/codebeamerX API. This user should have the required privileges as mentioned in section, [User privileges](codebeamer.md#user-privileges).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **User Password**                      | Authentication Type is Basic                                       | Enter password of the user added above.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Client ID** | Authentication Type is OAuth 2.0 (Client Credentials) | Provide the Client ID (Application ID) of the application registered on Microsoft Entra ID. Refer to OpsHub product documentation for codebeamer connector to check how to get client id from the configure application. |
+| **Client Secret** | Authentication Type is OAuth 2.0 (Client Credentials) | Provide the Client Secret of the application registered on Microsoft Entra ID. |
+| **Token Endpoint URL** | Authentication Type is OAuth 2.0 (Client Credentials) | Provide the OAuth 2.0 token endpoint URL of Microsoft Entra ID. Example: `https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token` |
+| **Scope** | Authentication Type is OAuth 2.0 (Client Credentials) | Provide the scope for OAuth 2.0 (Client Credentials) authentication. For Microsoft Entra ID use `api://<Client ID>/.default`. |
 | **Instance Time Zone**                 | Always                                       | <p>Provide the codebeamer/codebeamerX instance's timezone.<br><strong>Note</strong>:The instance's timezone and the service user's timezone should be same. To verify the user's timezone, navigate to <code>System Administration / Server Status Dashboard / JVM system properties / user.timezone</code>.</p>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **Formatting support for Wiki fields** | Always                                       | Select **True** if you want to enable synchronization of formatting for the 'Wiki' fields of codebeamer/codebeamerX instances. <br>  This step involves an additional action of placing a JAR file on the codebeamer/codebeamerXs' server. <br>  To obtain this JAR, there are two approaches outlined below: <br> **Approach 1**: Use the JAR already built by OpsHub. Refer to [Wiki formatting JAR download](codebeamer.md#wiki-formatting-jar-download) section below to download the correct JAR based on your Codebeamer version. <br> **Approach 2**: Build your own JAR. Refer to the steps for [How to generate conversion JAR](codebeamer.md#how-to-generate-the-html-to-jspwiki-conversion-jar). <br> Copy the JAR file to the `<CB_INSTALLATION>/tomcat/webapps/cb/WEB-INF/lib` folder, and then restart the codebeamer/codebeamerX server to apply the changes.  <br>  Select **False** if you do not want to enable the synchronization of formatting for Wiki fields. In this case, the Wiki field's value will be displayed as plain text when synchronizing the Wiki fields to codebeamer/codebeamerX. For more details, please refer to [Known Limitations/Behavior](codebeamer.md#known-limitationsbehavior). |
 
@@ -104,19 +135,19 @@ For mapping additional fields for test steps like 'Critical' and other custom fi
 ## Synchronizing Test Step Results Field
 
 * The "Test Step Results" field of the Test Run entity's behaviour as in `codebeamer/codebeamerX`:
-  * When a test run is created, `codebeamer/codebeamerX` creates a child run for each associated test case, and the original run serves as the Parent(Main) Run.
-  * When `codebeamer/codebeamerX` is the target system in <code class="expression">space.vars.OIM</code>:
-    * <code class="expression">space.vars.OIM</code> will consider the test steps available at the time of Test Run creation to update the test step result. Consequently, the source system's test step data will be discarded. If the number of test steps to be updated differs from the test steps on the targeted Test Runs, the <code class="expression">space.vars.OIM</code> will fail to update the Test Step Results.
-      * Reason: Test Step Results are associated with the specific version of the test case. Hence, only Test Step Results can be updated, and the original test steps cannot be updated.
-    * If the "Test Step Results" need to be updated more than once, ensure that the <code class="expression">space.vars.OIM</code> is configured in a way that the status is updated to a valid value to allow further updates to the Test Step Result. It can be achieved using the [Workflow Transition](../integrate/mapping-configuration.md#workflow-transition).
-      * Reason: Test Step Results can be updated only when the Parent (Main) Test Run and Child Test Run are not in a Finished, Suspended, or Closed state. Additionally, once the Test Step Results are updated, `codebeamer/codebeamerX` sets the status of the test run to "Finished", which means it cannot be updated until it is restarted/ its status is updated.
+    * When a test run is created, `codebeamer/codebeamerX` creates a child run for each associated test case, and the original run serves as the Parent(Main) Run.
+    * When `codebeamer/codebeamerX` is the target system in <code class="expression">space.vars.OIM</code>:
+        * <code class="expression">space.vars.OIM</code> will consider the test steps available at the time of Test Run creation to update the test step result. Consequently, the source system's test step data will be discarded. If the number of test steps to be updated differs from the test steps on the targeted Test Runs, the <code class="expression">space.vars.OIM</code> will fail to update the Test Step Results.
+            * Reason: Test Step Results are associated with the specific version of the test case. Hence, only Test Step Results can be updated, and the original test steps cannot be updated.
+        * If the "Test Step Results" need to be updated more than once, ensure that the <code class="expression">space.vars.OIM</code> is configured in a way that the status is updated to a valid value to allow further updates to the Test Step Result. It can be achieved using the [Workflow Transition](../integrate/mapping-configuration.md#workflow-transition).
+            * Reason: Test Step Results can be updated only when the Parent (Main) Test Run and Child Test Run are not in a Finished, Suspended, or Closed state. Additionally, once the Test Step Results are updated, `codebeamer/codebeamerX` sets the status of the test run to "Finished", which means it cannot be updated until it is restarted/ its status is updated.
 
 > **Note**: Since `codebeamer/codebeamerX` creates the child test run, configure the Status field settings with the "Set" distribution rule so the Child Test Run's status can also be updated based on the status of the Parent Test Run.
 
 * The below functionalities are not supported for this field:
-  * Test Step Results for a test run with multiple test case linkages.
-  * Inline file/image synchronization
-  * Reconciliation
+    * Test Step Results for a test run with multiple test case linkages.
+    * Inline file/image synchronization
+    * Reconciliation
 
 ## Synchronizing the Emojis
 
@@ -219,9 +250,9 @@ For step-by-step instructions for configuring any-to-any transition refer: [Conf
 ## Rank
 
 * Codebeamer allows to organize the tracker items in tree structure. To synchronize the tracker items maintaining the tree structure, below configurations need to be performed in <code class="expression">space.vars.OIM</code>.
-  * Configure the **Hierarchy Child** and **Hierarchy Parent** relationship as per the standard [relationship configuration](../integrate/mapping-configuration.md#relationships).
-  * Enable the rank synchronization, as described in [Rank configuration](../integrate/mapping-configuration.md#configuration) section.
-    * Here make sure, the overwrite option is enabled for the Codebeamer system for OH ENABLE RANK field.
+    * Configure the **Hierarchy Child** and **Hierarchy Parent** relationship as per the standard [relationship configuration](../integrate/mapping-configuration.md#relationships).
+    * Enable the rank synchronization, as described in [Rank configuration](../integrate/mapping-configuration.md#configuration) section.
+        * Here make sure, the overwrite option is enabled for the Codebeamer system for OH ENABLE RANK field.
 
 **Known Limitations**:
 
@@ -233,14 +264,14 @@ For step-by-step instructions for configuring any-to-any transition refer: [Conf
 
 * Codebeamer allows the creation of only a Test Run (Parent). The corresponding Test Run (Child), which contains the result information, is automatically generated.
 * <code class="expression">space.vars.OIM</code> supports independent synchronization of both entities. To configure this, set the appropriate field value for Test Run Type (for writing) and define the Criteria (for reading):
-  * **Test Run (Parent)**
-    * To read only the Test Run (Parent), set the criteria as: parentId IS NULL
-    * To create a Test Run (Parent), set the **Test Run Type** to **Parent**
-  * **Test Run (Child)**
-    * To read only the Test Run (Child), set the criteria as: parentId IS NOT NULL
-    * To create a Test Run (Child), set the **Test Run Type** to **Child**
-      * Additionally, configure the **Parent Test Run** relationship. This is not a mandatory link type for Child creation, but if it's defined and contains valid data, <code class="expression">space.vars.OIM</code> will not create a new child. Instead, it will locate the automatically generated Test Run (Child) under the specified parent and update it.
-      * If this relationship is not configured, <code class="expression">space.vars.OIM</code> will first create a new Test Run (Parent) and then update the Test Run (Child). The source entity will always be associated with the Test Run (Child), based on the Test Run Type being set to Child.
+    * **Test Run (Parent)**
+        * To read only the Test Run (Parent), set the criteria as: parentId IS NULL
+        * To create a Test Run (Parent), set the **Test Run Type** to **Parent**
+    * **Test Run (Child)**
+        * To read only the Test Run (Child), set the criteria as: parentId IS NOT NULL
+        * To create a Test Run (Child), set the **Test Run Type** to **Child**
+            * Additionally, configure the **Parent Test Run** relationship. This is not a mandatory link type for Child creation, but if it's defined and contains valid data, <code class="expression">space.vars.OIM</code> will not create a new child. Instead, it will locate the automatically generated Test Run (Child) under the specified parent and update it.
+            * If this relationship is not configured, <code class="expression">space.vars.OIM</code> will first create a new Test Run (Parent) and then update the Test Run (Child). The source entity will always be associated with the Test Run (Child), based on the Test Run Type being set to Child.
 
 # Integration Configuration
 
@@ -262,7 +293,7 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
 * To find out Tracker ID, refer to section [How to find Tracker Id](codebeamer.md#how-to-find-tracker-id).
 * For custom fields: `trackerTypeId.customFieldPropertyName = 'field-value'`
 * For custom Choice fields: `projectId.trackerTypeId.customFieldPropertyName = 'field-value'` or `workspaceId.trackerTypeId.customFieldPropertyName = 'field-value'`
-  * To find out custom field property name, refer to section [Find Custom Field Property Name](codebeamer.md#find-custom-field-property-name)
+    * To find out custom field property name, refer to section [Find Custom Field Property Name](codebeamer.md#find-custom-field-property-name)
 * To know more about cbQL query in codebeamer/codebeamerX, refer to: [cbQL in codebeamer/codebeamerX](https://codebeamer.com/cb/wiki/871101)
 
 **Criteria samples**
@@ -284,8 +315,8 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
 ## Target LookUp Configuration
 
 * Provide query in Target Search Query such that it is possible to search the entity in the codebeamer/codebeamer X as target system. Set the **'Query'** as per cbQL Format.
-  * Syntax: [Target Field] = @[Source-Field-Name]@
-  * Replace [Target Field] as per the cbQL query.
+    * Syntax: [Target Field] = @[Source-Field-Name]@
+    * Replace [Target Field] as per the cbQL query.
 * To know more about cbQL query in codebeamer/codebeamer X, refer to this link: [cbQL in codebeamer/codebeamer X](https://codebeamer.com/cb/wiki/871101).
 
 #### Sample queries:
@@ -318,11 +349,11 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
 
 1. Once the tracker is configured in the <code class="expression">space.vars.OIM</code>, it must not be renamed or else the integration configured for that tracker item would be invalid.
 2. Following tracker item types/entities will not be supported:
-   * **Working Sets** (earlier known as Branches): Synchronize is only applicable for Master Branch. All the revisions which are done on the tracker item in the master (merge operations or normal revisions) will be synchronized.
-   * **Baselines**: Synchronize will not consider the Baselines and will be only considering the HEAD\Default Baseline.
-   * **SCM commits and repositories**: Any SCM related entities such as SCM commits or Pull requests will not be supported.
-   * **Wiki pages and documents**: Non ALM type of entities such as wiki pages and documents will not be supported.
-   * **Timekeeping tracker types (Worklogs)** will not be supported.
+    * **Working Sets** (earlier known as Branches): Synchronize is only applicable for Master Branch. All the revisions which are done on the tracker item in the master (merge operations or normal revisions) will be synchronized.
+    * **Baselines**: Synchronize will not consider the Baselines and will be only considering the HEAD\Default Baseline.
+    * **SCM commits and repositories**: Any SCM related entities such as SCM commits or Pull requests will not be supported.
+    * **Wiki pages and documents**: Non ALM type of entities such as wiki pages and documents will not be supported.
+    * **Timekeeping tracker types (Worklogs)** will not be supported.
 3. Currently, Table type fields are not supported.
 4. Adding an association does not change the modified time of the entity. Hence, entity's associations will not synchronize until the next update on the entity updates its modified time.
 5. **Rich text field sync limitations in Codebeamer**
@@ -355,21 +386,21 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
 15. **Calculated Fields**: Calculated fields are read-only from User Interface, hence they will be read-only.
 16. **Mandatory Fields**: In codebeamer/codebeamer X, there are two ways in which a field can be set as mandatory:
     * **Mandatory in Status**:
-      * Fields mandatory in all statuses:
-        * Fields that are mandatory across all statuses are treated as globally mandatory.
-        * A value for these fields must be provided in <code class="expression">space.vars.OIM</code> either by:
-          * Setting a default value for this field, or 
-          * Mapping it from the source system
-        * If a value is not provided, the sync will fail with an error message:
-          * OH-Connector-0059: Error occurred while processing entity, because "ReferenceField" is mandatory for Bugs. Either it is not configured in issue relationship panel or configured link entity is not found.
-      * Fields mandatory in specific statuses only:
-        * Fields that are mandatory in only certain statuses are treated as non-mandatory by default in <code class="expression">space.vars.OIM</code> 
-        * Their mandatory behavior is enforced only during specific workflow transitions. 
-        * To enforce mandatory conditions for specific statuses, configure Workflow Transition mappings. Refer to: [Workflow Transition](../integrate/mapping-configuration.md#workflow-transition) for details on XML mapping. 
-        * Reference fields (fields linking to other items)
-          * If a reference field is mandatory in a specific workflow step, a business validation error may occur if the value is not syncing to codebeamer/codebeamer X with error message: "Mandatory field value is missing"
-          * This happens because <code class="expression">space.vars.OIM</code> does not enforce these mandatory rules by itself for workflow-specific fields; the end system enforces them.
-          * To prevent errors, ensure the appropriate relationship or reference mappings are correctly set in <code class="expression">space.vars.OIM</code>.
+        * Fields mandatory in all statuses:
+            * Fields that are mandatory across all statuses are treated as globally mandatory.
+            * A value for these fields must be provided in <code class="expression">space.vars.OIM</code> either by:
+                * Setting a default value for this field, or
+                * Mapping it from the source system
+            * If a value is not provided, the sync will fail with an error message:
+                * OH-Connector-0059: Error occurred while processing entity, because "ReferenceField" is mandatory for Bugs. Either it is not configured in issue relationship panel or configured link entity is not found.
+        * Fields mandatory in specific statuses only:
+            * Fields that are mandatory in only certain statuses are treated as non-mandatory by default in <code class="expression">space.vars.OIM</code>
+            * Their mandatory behavior is enforced only during specific workflow transitions.
+            * To enforce mandatory conditions for specific statuses, configure Workflow Transition mappings. Refer to: [Workflow Transition](../integrate/mapping-configuration.md#workflow-transition) for details on XML mapping.
+            * Reference fields (fields linking to other items)
+                * If a reference field is mandatory in a specific workflow step, a business validation error may occur if the value is not syncing to codebeamer/codebeamer X with error message: "Mandatory field value is missing"
+                * This happens because <code class="expression">space.vars.OIM</code> does not enforce these mandatory rules by itself for workflow-specific fields; the end system enforces them.
+                * To prevent errors, ensure the appropriate relationship or reference mappings are correctly set in <code class="expression">space.vars.OIM</code>.
     * **Mandatory if**: Uses a computed formula to determine if the field is mandatory. These cannot be retrieved through API and hence will be shown as non-mandatory in mapping configuration.
 17. **Tracker Item Choice and Project Choice Field**:
     * No API to retrieve tracker-wise lookup values for Tracker Item Choice.
@@ -402,9 +433,9 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
     * Behavior of <code class="expression">space.vars.OIM</code>:
         * When syncing the duplicated entity to the target system, <code class="expression">space.vars.OIM</code> retrieves the actual images or files linked in the original item and syncs them to the corresponding target entity of the duplicated item.
     * Modifying the Original Entity:
-      * If an inline file is removed from the original item, the reference to that file in the duplicated item becomes invalid.
-      * In this case, with the sync of the original entity <code class="expression">space.vars.OIM</code> will remove the inline file from the corresponding target entity.
-      * However, the duplicated entity itself remains unchanged, meaning it will not be updated unless explicitly modified by the user.
+        * If an inline file is removed from the original item, the reference to that file in the duplicated item becomes invalid.
+        * In this case, with the sync of the original entity <code class="expression">space.vars.OIM</code> will remove the inline file from the corresponding target entity.
+        * However, the duplicated entity itself remains unchanged, meaning it will not be updated unless explicitly modified by the user.
     * Modifying the Duplicated Entity:
         * If a user updates the wiki field in the duplicated item (e.g., by modifying the reference to the inline file), <code class="expression">space.vars.OIM</code> will sync the changes to the target system.
         * Importantly, the file attachment itself will not be removed from the target system entity, as it was already removed from the original entity.
@@ -415,6 +446,9 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
 29. When Codebeamer is configured as the target system in <code class="expression">space.vars.OIM</code>:
     * Reference entity synchronization is supported only for entities that have previously been synchronized by <code class="expression">space.vars.OIM</code> or are resolved through the Default Target ID configuration. Refer to [Synchronize default target value for reference field](../integrate/mapping-configuration.md#synchronize-default-target-value-for-reference-field) for Default Target ID configuration for reference field
     * If a referenced entity has not been synchronized by <code class="expression">space.vars.OIM</code> then processing failure may occur.
+30. OAuth 2.0 (Client Credentials) authentication is supported with **Microsoft Entra ID** authentication provider only.
+31. OAuth 2.0 (Client Credentials) requires a Codebeamer release that supports the machine-to-machine (`m2m`) OpenID setting. The instance must be configured and restarted as described in [Configure Codebeamer for OAuth 2.0 (Client Credentials)](codebeamer.md#configure-codebeamer-for-oauth-20-client-credentials).
+32. When the Microsoft Entra client secret expires, synchronization stops until a new secret is entered in the system configuration.
 
 # Appendix
 
@@ -424,9 +458,9 @@ To find the codebeamer / codebeamer X version, follow the steps given below:
 
 * Login to codebeamer / codebeamer X.
 * The version is mentioned:
-  * **For codebeamer**: at the bottom of the page
-  * **For codebeamer X**: in the help section
-    as shown in the screenshots below:
+    * **For codebeamer**: at the bottom of the page
+    * **For codebeamer X**: in the help section
+      as shown in the screenshots below:
 
 **codebeamer:**
 
@@ -436,9 +470,9 @@ To find the codebeamer / codebeamer X version, follow the steps given below:
 
 <div align="center"><img src="../assets/CodebeamerX_Version.png" alt=""></div>
 
-## Add User  
+## Add User
 
-### Add User Group 
+### Add User Group
 
 * Login to codebeamer / codebeamer X with the Admin User.
 * Select **System Admin** tab.
@@ -474,7 +508,7 @@ To find the codebeamer / codebeamer X version, follow the steps given below:
 
 * Click on **Save** button.
 
-## Add User Account  
+## Add User Account
 
 * Login to codebeamer / codebeamer X with the Admin User.
 * Select **System Admin** tab.
@@ -556,10 +590,10 @@ To find the codebeamer / codebeamer X version, follow the steps given below:
 * If project membership is **Public with join approval**, then any user can request to join, but project administrators must approve each join request.
 * Login as user who wants to become a member and follow the steps mentioned in the section, [hbMake Join Request for a Project](codebeamer.md#make-join-request-for-a-project) for further details.
 * Login as Project Administrator and follow the steps below to approve the join request:
-  * Open a project for which you want to approve join request for Users.
-  * Click the three dots provided beside the Admin tab.
-  * Click on the Members option.
-    
+    * Open a project for which you want to approve join request for Users.
+    * Click the three dots provided beside the Admin tab.
+    * Click on the Members option.
+
 <p align="center">
   <img src="../assets/Codebeamer_Image_5_5_a.png" width="800" />
 </p>
@@ -697,7 +731,7 @@ For creating custom field in codebeamer / codebeamer X, follow the steps given b
   <img src="../assets/CodebeamerX_Image_5_9_b.png" />
 </p>
 
-* Scroll down to extreme bottom of the page and click on **More fields...** (codebeamer) / **New Choice Field** (codebeamer X) drop-down list.  
+* Scroll down to extreme bottom of the page and click on **More fields...** (codebeamer) / **New Choice Field** (codebeamer X) drop-down list.
 * Select **New Choice Field** option to add a choice type field or **New Custom Field** option to add other types of custom fields.
 
 **codebeamer:**
@@ -712,7 +746,7 @@ For creating custom field in codebeamer / codebeamer X, follow the steps given b
   <img src="../assets/CodebeamerX_Image_5_9_c.png" />
 </p>
 
-* Fill in the details for new field to be added.  
+* Fill in the details for new field to be added.
 * Click on **OK** and **Save** buttons to save the changes.
 
 
@@ -817,11 +851,11 @@ Following are the steps to configure any-to-any transition:
 <div align="center"><img src="../assets/CodebeamerX_State_Transition_Tab.png" alt=""></div>
 
 * Look at the existing State Transitions. The possible transitions are:
-  * New to Verified
-  * New to In progress
-  * New to Closed
-  * Verified to In progress
-  * In progress to Closed
+    * New to Verified
+    * New to In progress
+    * New to Closed
+    * Verified to In progress
+    * In progress to Closed
 
 <div align="center"><img src="../assets/Codebeamer_Status_Transition_Flowchart.PNG" alt=""></div>
 
@@ -860,7 +894,7 @@ Following are the steps to configure any-to-any transition:
     gradlew build
     ```
 
-    to generate the build files.
+   to generate the build files.
 
 > **Note**: After running the command mentioned above, a `build` folder will be generated inside the extracted folder.
 
@@ -869,7 +903,7 @@ Following are the steps to configure any-to-any transition:
 ## Configure Metadata JSON for reference fields
 
 * JSON Template format:
-  * Use the following template to specify the entities that a reference field can refer to:
+    * Use the following template to specify the entities that a reference field can refer to:
 ```JSON
 {
   "projects": [
@@ -924,54 +958,149 @@ Following are the steps to configure any-to-any transition:
 ```
 **Note:** The values specified in referredEntities must exactly match the display names of the entities that the reference field can refer to in the end system.
 
-## Configure Downstream Reference Link Metadata
+## Register an Application in Microsoft Entra ID
 
-Use this input to expose a reference field's downstream link type on the referred entity, so the relationship can be configured from the referred entity side as well. Refer to the section [Downstream Reference Linkage](codebeamer.md#downstream-reference-linkage) for the behavior.
+**Prerequisite**: You need a Microsoft Entra role that can register applications (for example, *Application Administrator*).
 
-* JSON Template format:
+### Step 1: Register the application
 
-```JSON
-{
-  "entities": [
-    {
-      "internalName": "<internal name of the referred entity>",
-      "relationship": {
-        "linkTypes": [
-          {
-            "linkType": "<downstream link type to expose on the referred entity>",
-            "reverseLinkType": "<the original reference field on the main entity>"
-          }
-        ]
-      }
-    }
-  ]
-}
-```
+1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com).
+2. Go to **Entra ID** → **App registrations** → **New registration**.
+3. Enter a name, for example `OIM-Codebeamer`.
+4. Under **Supported account types**, select **Accounts in this organizational directory only (Single tenant)**.
+5. Leave **Redirect URI** empty. It is not needed for Client Credentials.
+6. Click **Register**.
+7. On the **Overview** page, copy the **Application (client) ID** and the **Directory (tenant) ID**.
 
-| **JSON Tag**                  | **Description**                                                                                   |
-| ----------------------------- | ------------------------------------------------------------------------------------------------ |
-| `entities[].internalName`     | Internal name of the referred entity on which the downstream link type should be made available.   |
-| `linkTypes[].linkType`        | The downstream link type to add as a valid link type on the referred entity.                       |
-| `linkTypes[].reverseLinkType` | The original reference field on the main entity that this downstream link type reverses.           |
+<div align="center"><img src="../assets/Entra_App_Overview.png" alt="" width="900"></div>
 
-* The following example exposes the downstream link type `BugInRetina (Downstream Reference)` on the **bug** entity, reversing the `BugInRetina` reference field defined on the main entity.
+### Step 2: Set the Application ID URI
 
-```JSON
-{
-  "entities": [
-    {
-      "internalName": "bug",
-      "relationship": {
-        "linkTypes": [
-          {
-            "linkType": "BugInRetina (Downstream Reference)",
-            "reverseLinkType": "BugInRetina"
-          }
-        ]
-      }
-    }
-  ]
-}
-```
+The Scope used by <code class="expression">space.vars.OIM</code> is built from the Application ID URI, so it must be set.
 
-**Note:** The values provided for `linkType` and `reverseLinkType` must exactly match the link type and reference field names as shown in the end system.
+1. Open **Expose an API**.
+2. Next to **Application ID URI**, click **Add**.
+3. Keep the default value `api://<Application (client) ID>` and click **Save**.
+
+<div align="center"><img src="../assets/Entra_Expose_An_API.png" alt="" width="900"></div>
+
+### Step 3: Create a client secret
+
+1. Open **Certificates & secrets** → **Client secrets** → **New client secret**.
+2. Enter a description and select an expiry, then click **Add**.
+3. Copy the **Value** of the secret immediately. It is displayed only once.
+
+<div align="center"><img src="../assets/Entra_Client_Secret.png" alt="" width="900"></div>
+
+> **Important**:
+> * Copy the **Value**, not the **Secret ID**. Using the Secret ID causes the error `AADSTS7000215: Invalid client secret provided`.
+> * Note the expiry date. When the secret expires, synchronization fails until the new secret is entered in the <code class="expression">space.vars.OIM</code> system configuration.
+
+No Microsoft Graph or other API permissions are required.
+
+### Values to use in the System form
+
+| **System form field** | **Value** |
+| --- | --- |
+| Client ID | Application (client) ID |
+| Client Secret | Client secret **Value** |
+| Token Endpoint URL | `https://login.microsoftonline.com/<Directory (tenant) ID>/oauth2/v2.0/token` |
+| Scope | `api://<Application (client) ID>/.default` |
+
+### Verify the Token
+
+This step is optional but recommended.
+
+1. Request a token (replace the placeholders):
+
+   ```bash
+   curl -X POST "https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token" \
+     -d "grant_type=client_credentials" \
+     -d "client_id=<client-id>" \
+     -d "client_secret=<client-secret-value>" \
+     -d "scope=api://<client-id>/.default"
+   ```
+
+2. Copy the `access_token` from the response and open it at [jwt.ms](https://jwt.ms).
+3. Confirm that `iss` is `https://login.microsoftonline.com/<tenant-id>/v2.0` and that `exp` is of the future date.
+
+## Configure Codebeamer for OAuth 2.0 (Client Credentials)
+
+Perform these steps as a Codebeamer **system administrator**.
+
+### Step 1: Create the dedicated user
+
+1. Create the user (for example, `automationsyncuser`) and its user group as described in [Add User Group](codebeamer.md#add-user-group) and [Add User Account](codebeamer.md#add-user-account).
+2. Make sure the user group has the **Rest / Remote API - Access** permission. Without it, API calls return an authorization error even if the token is valid.
+3. Add the user to all projects to be synchronized ([Add Project Member](codebeamer.md#add-project-member)) and grant the tracker permissions listed in [User privileges](codebeamer.md#user-privileges).
+
+> **Note**: The user name is case-sensitive and must match exactly what you enter in Step 3.
+
+### Step 2: Configure OpenID using automatic discovery
+
+1. Log in as a system administrator.
+2. Go to **System Administration** and open the **OpenID** configuration.
+3. In the issuer / server URL field, enter the Microsoft Entra tenant URL: `https://login.microsoftonline.com/<Directory (tenant) ID>/v2.0`
+4. Click **Automatic discovery**. Codebeamer reads the Microsoft Entra endpoints and fills in the remaining details.
+5. Save the configuration.
+
+<div align="center"><img src="../assets/Codebeamer_OpenId_Discovery.png" alt="" width="1100"></div>
+
+> **Note**: After discovery, Codebeamer shows a **Redirect URI**. It is used only for interactive single sign-on login, so it is **not required** for <code class="expression">space.vars.OIM</code>, which uses the Client Credentials flow. If you also use the same Microsoft Entra application for single sign-on to Codebeamer, add that Redirect URI in Microsoft Entra: **App registration** → **Authentication** → **Add a platform** → **Web** → **Redirect URIs**.
+
+### Step 3: Map the token to the dedicated user
+
+1. Go to **System Administration** → **Application Configuration**.
+2. In the `openId` JSON, add the `m2m` entry with the user created in Step 1:
+
+   ```json
+   "m2m": {
+     "username": "AutomationSyncUser"
+   }
+   ```
+
+3. Save the configuration.
+
+<div align="center"><img src="../assets/Codebeamer_OpenId_M2M_Config.png" alt="" width="1100"></div>
+
+> **Note**:
+> * With `m2m.username`, every API call that carries a valid Microsoft Entra token runs as that one user. Alternatively, `m2m.usernameAttribute` reads the user name from a claim in the token.
+> * Keep `forceOAuth` as `false` (the default) so that existing Basic authentication systems continue to work.
+
+### Step 4: Restart Codebeamer
+
+The OpenID configuration is read only at startup. Restart the Codebeamer server so the changes take effect.
+
+### Step 5: Test the API with the token
+
+This step is recommended.
+
+1. Request a token as shown in [Verify the Token](codebeamer.md#verify-the-token).
+2. Call the Codebeamer API with the token:
+
+   ```bash
+   curl -H "Authorization: Bearer <access_token>" \
+     "http://<host>:<port>/cb/api/v3/projects"
+   ```
+
+3. A `200` response that lists projects confirms that Codebeamer accepts the token and maps it to `automationsyncuser`.
+
+If the call fails, refer to [Troubleshooting OAuth 2.0 (Client Credentials)](codebeamer.md#troubleshooting-oauth-20-client-credentials).
+
+### Step 6: Configure the system in OIM
+
+Select **Authentication Type** = **OAuth 2.0 (Client Credentials)** on the System form and enter the values from [Register an Application in Microsoft Entra ID](codebeamer.md#register-an-application-in-microsoft-entra-id).
+
+## Troubleshooting OAuth 2.0 (Client Credentials)
+
+| **Error** | **Where** | **Cause and fix** |
+| --- | --- | --- |
+| `AADSTS7000215: Invalid client secret provided` | Microsoft Entra | The Secret ID was entered instead of the secret **Value**, or the secret has expired. Create a new secret and copy the **Value**. |
+| `AADSTS70011` (invalid scope) | Microsoft Entra | The Scope is empty or wrong. Use `api://<Client ID>/.default` and make sure the Application ID URI is set. |
+| `AADSTS700016: Application not found in the directory` | Microsoft Entra | The Client ID or the tenant in the Token Endpoint URL is wrong. |
+| `AADSTS90002: Tenant not found` | Microsoft Entra | The `<tenant-id>` in the Token Endpoint URL is wrong. |
+| HTTP 401 from Codebeamer | Codebeamer | The token is not accepted. Check that automatic discovery was completed with the same tenant, that the server was restarted, and that the token's `iss` matches the issuer (see the next row). |
+| HTTP 401 and the token's `iss` is `https://sts.windows.net/<tenant-id>/` | Microsoft Entra | The application issues version 1.0 tokens, but Codebeamer expects version 2.0. In the Microsoft Entra application, open **Manifest**, set `requestedAccessTokenVersion` (under `api`) or `accessTokenAcceptedVersion` to `2`, and save. |
+| HTTP 403 from Codebeamer | Codebeamer | The token is valid but the mapped user lacks permission. Check **Rest / Remote API - Access**, project membership and tracker permissions of the `m2m` user. |
+| Token is accepted but the user is not found | Codebeamer | `m2m.username` does not exactly match an existing Codebeamer user. Fix the name (it is case-sensitive). |
+| Synchronization stops working after some time | <code class="expression">space.vars.OIM</code> | The client secret has expired. Create a new secret and update the system configuration. |
