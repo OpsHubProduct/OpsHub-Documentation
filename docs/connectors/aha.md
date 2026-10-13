@@ -34,7 +34,7 @@ Refer to the following screenshot for reference:
 | **Metadata Details**         | The user can edit entity types based on his/her Aha! instance details for system metadata. For the format and guidance related to filling these details in JSON form, please refer to [Understanding JSON Input](aha.md#Understanding-JSON-Input) section.                                                                                                                                                                            |
 | **Base URL for Remote Link** | Provide different Instance URL of the Aha! instance. This URL is used for generating the Remote Link. E.g., if the Instance URL is https://opshubTest33.aha.io/ or any API node URL, but Remote Link needs to be generated with a different Instance URL such as https://opshubTest.aha.io/. **Note** : If "Base URL for Remote Link" is empty, it will use Instance/Server URL to generate Remote Link if configured on Integration. |
 
-## Understanding the Metadata Details JSON
+## Understanding JSON Input
 
 During system configuration, the user can customize entity names and field definitions by providing a JSON input in the **Metadata details** field of the system configuration form.
 This configuration can be used in the following scenarios:
