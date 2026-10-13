@@ -71,7 +71,7 @@ Use this matrix as a quick reference to understand MCP coverage.
 | Feature / Module | Get | Create | Update | List | Execute | Notes |
 |------------------|-----|--------|--------|------|---------|-------|
 | Sync Report      | —   | —      | —      | ✅   | —       | Answers questions about synchronised entities — counts, entity pairing, sync state, and activity over a period |
-| Usage Report     | ✅   | —      | —      | —    | —      | Exported as a ZIP of the last-six-months and last-one-year workbooks.|
+| Usage Report     | ✅   | —      | —      | —    | —      | Exported as a ZIP of the last-six-months and last-one-year workbooks by default, or as a single workbook for the last N months (1 to 12).|
 | Metrics Report   | ✅   | —      | —      | —    | —      | Exported as a spreadsheet for the supplied filters. ``|
 
 ### Others

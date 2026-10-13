@@ -7,10 +7,12 @@ if: >-
 
 The **Usage Reports** feature enables administrators to export detailed system usage data for analysis and licensing purposes. Reports can be downloaded directly from the **Licenses screen** or through the **Admin API**, providing a convenient and efficient way to access usage information.
 
-The exported report is provided as a **Usage Reports.zip** file, which contains two Excel reports:
+By default, the exported report is provided as a **Usage Reports.zip** file, which contains two Excel reports:
 
 - **Usage Report (Last 6 Months)**
 - **Usage Report (Last 1 Year)**
+
+Administrators can also download the usage report for a period of their choice, from the **last 1 month** up to the **last 12 months**. In this case, a single Excel report, **Usage Report (Last N Months)**, is downloaded directly, without a ZIP file. For example, choosing 1 month downloads **Usage Report (Last 1 Month).xlsx**. This is useful for periodic reporting, such as a monthly usage review.
 
 Each report includes both **summary and detailed insights** about activity across integrated systems. The reports provide information such as unique users, integrated projects, integrated entity types, synced data, and detailed information about processed users across systems.
 
@@ -33,20 +35,54 @@ To access and download the reports, the user must:
 
 ---
 
+# Report Period
+
+Every usage report starts at the **same date and time, N months before** the report is downloaded, and ends at the **time of download**. The default reports follow the same rule, with N = 6 for the **Last 6 Months** report and N = 12 for the **Last 1 Year** report.
+
+For example, if the report is downloaded on **15-Oct-2026 at 10:30**:
+
+| Report | Period covered |
+|--------|----------------|
+| Last 1 month | 15-Sep-2026 10:30 to 15-Oct-2026 10:30 |
+| Last 3 months | 15-Jul-2026 10:30 to 15-Oct-2026 10:30 |
+| Last 6 months (default) | 15-Apr-2026 10:30 to 15-Oct-2026 10:30 |
+| Last 1 year (default) | 15-Oct-2025 10:30 to 15-Oct-2026 10:30 |
+
+- If the same date does not exist in the earlier month, the last day of that month is used. For example, a 1 month report downloaded on 31-Mar starts on 28-Feb (29-Feb in a leap year).
+- The period is calculated in the time zone of the server.
+- Choosing 6 months gives the same numbers as the default **Last 6 Months** report, and choosing 12 months gives the same numbers as the default **Last 1 Year** report.
+- The exact **From** and **To** dates of a report are shown on its **Summary** sheet.
+
+> **Note**: A report always ends at the time of download, so it cannot be generated again later for a past period. If you need a usage report for each month, download the **Last 1 month** report at the same date and time every month, for example on the 1st of every month, and save each file. Each month's report then continues from where the previous one ended, without any gap or overlap.
+
+---
+
 # Download Usage Reports 
 ## Using UI
 
 Follow these steps to download the usage reports from the application:
 
 1. Navigate to the **Licenses** screen.
-2. Locate the **Export Usage Reports** button on the screen, as shown in the image below. The button is highlighted with a red rectangular box.
-3. Click the **Export Usage Reports** button.
-4. The **Usage Reports.zip** file will be downloaded to your browser’s default download location.
-5. Extract the ZIP file to access the reports.
+2. Locate the **Download usage reports** button on the screen, as shown in the image below. The button is highlighted with a red rectangular box.
+3. Click the **Download usage reports** button. The **Download Usage Reports** dialog opens.
+4. Choose the report to download:
+    - To download the default **Last 6 Months** and **Last 1 Year** reports, leave the **Last [ ] month(s)** field empty.
+    - To download the report for a period of your choice, enter a whole number from **1** to **12** in the **Last [ ] month(s)** field. The period covered by the report is shown below the field, for example **From 15-Sep-2026 10:30 to the time of download.**
+5. Click **Download**.
+    - If the field is empty, the **Usage Reports.zip** file is downloaded to your browser’s default download location. Extract the ZIP file to access the reports.
+    - If a number of months is entered, the **Usage Report (Last N Months).xlsx** file is downloaded to your browser’s default download location.
 
 <p align="center">
-<img src="../../assets/UsageReports/export_button.png" alt="Export Button"/>
+<img src="../../assets/UsageReports/export_button.png" alt="Download Usage Reports Button"/>
 </p>
+
+<p align="center">
+<img src="../../assets/UsageReports/download_usage_reports_dialog.png" alt="Download Usage Reports Dialog"/>
+</p>
+
+> **Note**: If the value entered is not a whole number from 1 to 12, an error message is shown below the field and the **Download** button is disabled. Correct the value, or clear the field to download the default reports.
+
+To close the dialog without downloading a report, click **Cancel**.
 
 
 ## Using Admin API
@@ -56,11 +92,34 @@ Administrators can also download the usage reports using the Admin API.
 **Endpoint**
 GET `/export/usage-reports`
 
+**Query Parameter**
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `months` | No | Number of months to report on, a whole number from 1 to 12. Omit it to download the default reports. |
+
+**Examples**
+
+- GET `/export/usage-reports` – Downloads the default reports.
+- GET `/export/usage-reports?months=1` – Downloads the report for the last 1 month.
+
 **Response**
 
-- Returns the **Usage Reports.zip** file.
+- Without the `months` parameter, returns the **Usage Reports.zip** file.
+- With the `months` parameter, returns the **Usage Report (Last N Months).xlsx** file, without a ZIP file.
+- If the value of `months` is not a whole number from 1 to 12, the API returns an error with HTTP status **400 (Bad Request)** and the following message, and no file is downloaded:
+  `Invalid value '<value>' for months. Please enter a whole number between 1 and 12.`
 
 <p align="center"><img src="../../assets/UsageReports/admin_api.png" alt="Admin Api For Usage Report"/></p>
+
+## Using MCP
+
+The usage reports can also be downloaded through the MCP server, using the `export_usage_report` tool. The tool takes an optional `months` input, a whole number from 1 to 12:
+
+- Without `months`, the tool returns the **Usage Reports.zip** file with the default reports.
+- With `months`, the tool returns the **Usage Report (Last N Months).xlsx** file.
+
+For example, you can ask the AI assistant: *"Export the usage report for the last 3 months."* For more details, refer to [MCP Available Tools](../mcp/mcp-available-tools.md#reporting-tools).
 
 ---
 
@@ -70,6 +129,11 @@ After extracting **Usage Reports.zip**, the following files will be available:
 
 - `Usage Report (Last 6 Months).xlsx`
 - `Usage Report (Last 1 Year).xlsx`
+
+When a number of months is chosen, a single file is downloaded instead, named after the chosen period. For example:
+
+- `Usage Report (Last 1 Month).xlsx`
+- `Usage Report (Last 3 Months).xlsx`
 
 Each Excel report contains the following sheets:
 
