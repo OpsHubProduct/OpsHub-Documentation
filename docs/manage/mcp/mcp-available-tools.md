@@ -178,7 +178,7 @@ Reporting tools answer questions about what has synchronised, and produce the us
 |------|-------------|
 | `get_sync_report_list` | Retrieves synchronised entity information with search, filter, and sort capabilities. Each record pairs a source entity with its target entity and carries both IDs, both entity types, both project names, both sync states, the last read and last processed times, and the failure count. Use this to answer questions such as how many items have synced, which entity maps to which, whether an entity was deleted, and what synced over a given period. |
 | `get_chart_filter_values` | Retrieves the filter values available for metrics reporting - the systems, projects, and entity types that can be filtered on. Called before exporting the metrics report to discover valid filter values. |
-| `export_usage_report` | Exports the usage report as a ZIP file containing the last-six-months and last-one-year usage workbooks. |
+| `export_usage_report` | Exports the usage report. By default, returns a ZIP file containing the last-six-months and last-one-year usage workbooks. Takes an optional `months` input (a whole number from 1 to 12) to return only the usage workbook for the last N months, as a single spreadsheet file. See [Usage Report Manual](../advanced-utilities/usage-reports.md#report-period) for the period each report covers. |
 | `export_chart_report` | Exports the metrics report as a spreadsheet file, for the supplied filters. |
 
 > **Note**: The two export tools return a **file to download, not data the AI assistant can read**. If you ask a question about synchronised data, the assistant answers it from `get_sync_report_list` rather than by generating a report and attempting to read it.
