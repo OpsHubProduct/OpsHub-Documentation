@@ -208,8 +208,8 @@ Refer the screenshot given below for reference.
 * Shared Step is not supported.
 * The following limitations exist in <code class="expression">space.vars.OIM</code> due to API restrictions:
   * Attachment write support is not available due to API limitation.
-  * Web link are not supported for Test Case, Test Cycle and Test Plan entities.
-  * Issue link is not supported on Test Execution Step.
+  * Web links are not supported for Test Case, Test Cycle and Test Plan entities.
+  * Issue links are not supported on Test Execution Step.
   * Delete and Archive functionality is not supported.
   * For Test Execution,  
     * Criteria and target lookup are not supported.  
