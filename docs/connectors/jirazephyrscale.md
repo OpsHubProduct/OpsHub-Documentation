@@ -24,8 +24,8 @@ Click [System Configuration](../integrate/system-configuration.md) to learn the 
 Refer the screenshot given below for reference.
 
 <p align="center">
-  <img src="../assets/ZephyrScaleWithoutPrivateAPI.png" width="1500" />
   <img src="../assets/ZephyrScaleWithPrivateApi.png" width="1500" />
+  <img src="../assets/ZephyrScaleWithoutPrivateAPI.png" width="1500" />
 </p>
 
 | **Field Name**                         | **When field is visible on the System form**                                                                 | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
