@@ -9,6 +9,12 @@ if: >-
 - A dedicated user should be created for the database integration. This user must have read and write access on the database table and read access on the view that needs to be integrated.  
 - This user should not be used to perform any other operations on the database.
 
+  > **Note**: The grants below assume the user already exists as a database principal with baseline connect access — a login with zero privileges is not enough on its own for every database type:
+  > - **MS SQL Server / Azure SQL**: The login must first be mapped as a database user (`CREATE USER oim_user FOR LOGIN oim_user;`) before object-level GRANTs will apply.
+  > - **Oracle**: The user must have `CREATE SESSION` to connect at all; without it, the table/view grants below have no effect.
+  > - **PostgreSQL**: The user needs `CONNECT` on the database and `USAGE` on the schema containing the table/view. These are granted to `PUBLIC` by default, but if that default has been revoked (common in hardened environments), grant them explicitly first: `GRANT CONNECT ON DATABASE db_name TO oim_user;` and `GRANT USAGE ON SCHEMA schema_name TO oim_user;`
+  > - **MySQL / MariaDB**: No separate connect/schema-usage step is needed — the grants below are sufficient once the user can authenticate.
+
   **Example grant statements**:
   ```sql
   -- MySQL / MariaDB
@@ -256,7 +262,7 @@ Here is the screenshot:
 * For Attachment sync, attachment file names must not contain characters that are unsupported by the operating system on which the <code class="expression">space.vars.OIM</code> is installed.  
   For example, on Windows, characters such as `\ / : * ? " < > |` are not allowed in file names.
 * Only write operations are supported for `OH_History` field and extra fields (stored in `OH_Additional_Fields`); they cannot be used in criteria or target lookup.
-* User mentions and entity mentions are not supported by the Database Connector. Entity mention synchronization is supported only when the source system is Team Foundation Server/Azure DevOps Services, Codebeamer, CodebeamerX, Rally, Jira, or GitHub — Database is not in this list.
+* User mentions and entity mentions are not supported by the Database Connector.
 
 # Appendix
 
