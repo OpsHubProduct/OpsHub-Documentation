@@ -40,9 +40,9 @@ During system configuration, user can customize entity names and field definitio
 This configuration can be used in the following scenarios:
 
 #### 1. Mapping Renamed Entities
-Aha! uses fixed standard entities, but user can customize their labels (for example, renaming **Initiative** to **Product initiatives**).
+Aha! has default display names for the entities, but user can customize them (for example, renaming **Initiative** to **Product initiatives**).
 * **Internal Entity Names:** Please ensure the `internalName` values remain exactly as provided in the example JSON below.
-* **Display Names:** The user can update the `displayName` values to match the custom terminology configured in the Aha! workspace.
+* **Display Names:** The user can update the `displayName` values to match the configured display name of entities in the Aha! workspace.
 
 #### 2. Updating Field Metadata
 If the user introduces new system fields, updates field types, or adjusts standard/custom field configurations in Aha!, the user can define them here to ensure the integration reflects the latest workspace setup. Please refer to the JSON structure provided below for the required schema and attributes.
