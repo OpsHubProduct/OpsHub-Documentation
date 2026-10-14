@@ -37,17 +37,15 @@ if: >-
 <code class="expression">space.vars.OIM</code> can connect to Codebeamer using one of two authentication types:
 
 * **Basic**: a dedicated username and password.
-* **OAuth 2.0 (Client Credentials)**: <code class="expression">space.vars.OIM</code> uses a Client ID and Client Secret to get an access token from the identity provider and sends it as a Bearer token on every Codebeamer API call. No user signs in and no password is stored.
+* **OAuth 2.0 (Client Credentials)**: utilizes Client ID and Client Secret to get an access token from the identity provider and sends it as a Bearer token on every Codebeamer API call.
 
-The supported OAuth 2.0 (Client Credentials) provider is **Microsoft Entra ID**.
-
-> **Note**: It is recommended to create a separate system configuration for each authentication type.
+> **Note**: The supported OAuth 2.0 (Client Credentials) provider is **Microsoft Entra ID**..
 
 ## Pre-requisites for OAuth 2.0 (Client Credentials) with Microsoft Entra ID
 
 Ensure that the following steps are completed and validated before configuring the system in <code class="expression">space.vars.OIM</code>:
 
-1. **Supported release.** Your Codebeamer release must support the machine-to-machine (`m2m`) setting of OpenID Connect. Refer to the *OpenID Connect (OAuth2)* page of the Install Guide for your release.
+1. **Supported release.** Your Codebeamer release must support the machine-to-machine (`m2m`) setting of OpenID Connect. Refer to the [OpenID Configuration Guide](https://support.ptc.com/help/codebeamer/r2.1/en/index.html#page/codebeamer/install_guide/5376270.html).
 2. **Dedicated user.** Create the dedicated <code class="expression">space.vars.OIM</code> user (for example, `automationsyncuser`) as described in [User privileges](codebeamer.md#user-privileges). The user must have the **Rest / Remote API - Access** permission. The OAuth 2.0 (Client Credentials) access token is mapped to this user, so all project memberships and tracker permissions apply to it.
 3. **Microsoft Entra application.** Register an application in Microsoft Entra ID and create a client secret. Refer to [Register an Application in Microsoft Entra ID](codebeamer.md#register-an-application-in-microsoft-entra-id).
 4. **Codebeamer configuration.** In System Administration, configure OpenID with the Microsoft Entra tenant URL using automatic discovery, map the token to the dedicated user, then restart the server. Refer to [Configure Codebeamer for OAuth 2.0 (Client Credentials)](codebeamer.md#configure-codebeamer-for-oauth-20-client-credentials).
@@ -82,7 +80,7 @@ Refer to the following screenshots for reference:
 | **Authentication Type** | Always | Select how <code class="expression">space.vars.OIM</code> authenticates with Codebeamer. Supported types: **Basic** and **OAuth 2.0 (Client Credentials)**. |
 | **User Name**                          | Authentication Type is Basic                                       | Provide the username of a dedicated user who will be used for communicating with codebeamer/codebeamerX API. This user should have the required privileges as mentioned in section, [User privileges](codebeamer.md#user-privileges).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | **User Password**                      | Authentication Type is Basic                                       | Enter password of the user added above.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| **Client ID** | Authentication Type is OAuth 2.0 (Client Credentials) | Provide the Client ID (Application ID) of the application registered on Microsoft Entra ID. Refer to OpsHub product documentation for codebeamer connector to check how to get client id from the configure application. |
+| **Client ID** | Authentication Type is OAuth 2.0 (Client Credentials) | Provide the Client ID (Application ID) of the application registered on Microsoft Entra ID. Refer to [Register an Application in Microsoft Entra ID](codebeamer.md#register-an-application-in-microsoft-entra-id) to check how to get client id. |
 | **Client Secret** | Authentication Type is OAuth 2.0 (Client Credentials) | Provide the Client Secret of the application registered on Microsoft Entra ID. |
 | **Token Endpoint URL** | Authentication Type is OAuth 2.0 (Client Credentials) | Provide the OAuth 2.0 token endpoint URL of Microsoft Entra ID. Example: `https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token` |
 | **Scope** | Authentication Type is OAuth 2.0 (Client Credentials) | Provide the scope for OAuth 2.0 (Client Credentials) authentication. For Microsoft Entra ID use `api://<Client ID>/.default`. |
@@ -446,9 +444,10 @@ To configure criteria in codebeamer/codebeamerX, integration needs to be created
 29. When Codebeamer is configured as the target system in <code class="expression">space.vars.OIM</code>:
     * Reference entity synchronization is supported only for entities that have previously been synchronized by <code class="expression">space.vars.OIM</code> or are resolved through the Default Target ID configuration. Refer to [Synchronize default target value for reference field](../integrate/mapping-configuration.md#synchronize-default-target-value-for-reference-field) for Default Target ID configuration for reference field
     * If a referenced entity has not been synchronized by <code class="expression">space.vars.OIM</code> then processing failure may occur.
-30. OAuth 2.0 (Client Credentials) authentication is supported with **Microsoft Entra ID** authentication provider only.
-31. OAuth 2.0 (Client Credentials) requires a Codebeamer release that supports the machine-to-machine (`m2m`) OpenID setting. The instance must be configured and restarted as described in [Configure Codebeamer for OAuth 2.0 (Client Credentials)](codebeamer.md#configure-codebeamer-for-oauth-20-client-credentials).
-32. When the Microsoft Entra client secret expires, synchronization stops until a new secret is entered in the system configuration.
+30. When using OAuth 2.0 (Client Credentials) authentication:
+    * Only **Microsoft Entra ID** is supported as the authentication provider.
+    * A Codebeamer release that supports the machine-to-machine (`m2m`) OpenID setting is required. The instance must be configured and restarted as described in [Configure Codebeamer for OAuth 2.0 (Client Credentials)](codebeamer.md#configure-codebeamer-for-oauth-20-client-credentials).
+    * When the Microsoft Entra client secret expires, synchronization stops until a new secret is entered in the system configuration.
 
 # Appendix
 
@@ -1007,22 +1006,6 @@ No Microsoft Graph or other API permissions are required.
 | Token Endpoint URL | `https://login.microsoftonline.com/<Directory (tenant) ID>/oauth2/v2.0/token` |
 | Scope | `api://<Application (client) ID>/.default` |
 
-### Verify the Token
-
-This step is optional but recommended.
-
-1. Request a token (replace the placeholders):
-
-   ```bash
-   curl -X POST "https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token" \
-     -d "grant_type=client_credentials" \
-     -d "client_id=<client-id>" \
-     -d "client_secret=<client-secret-value>" \
-     -d "scope=api://<client-id>/.default"
-   ```
-
-2. Copy the `access_token` from the response and open it at [jwt.ms](https://jwt.ms).
-3. Confirm that `iss` is `https://login.microsoftonline.com/<tenant-id>/v2.0` and that `exp` is of the future date.
 
 ## Configure Codebeamer for OAuth 2.0 (Client Credentials)
 
@@ -1039,18 +1022,17 @@ Perform these steps as a Codebeamer **system administrator**.
 ### Step 2: Configure OpenID using automatic discovery
 
 1. Log in as a system administrator.
-2. Go to **System Administration** and open the **OpenID** configuration.
+2. In your Codebeamer instance, go to **System Administration** and open the **OpenID** configuration.
 3. In the issuer / server URL field, enter the Microsoft Entra tenant URL: `https://login.microsoftonline.com/<Directory (tenant) ID>/v2.0`
 4. Click **Automatic discovery**. Codebeamer reads the Microsoft Entra endpoints and fills in the remaining details.
-5. Save the configuration.
+5. Keep `forceOAuth` as `false` (the default) so that existing Basic authentication systems continue to work.
+6. Save the configuration.
 
 <div align="center"><img src="../assets/Codebeamer_OpenId_Discovery.png" alt="" width="1100"></div>
 
-> **Note**: After discovery, Codebeamer shows a **Redirect URI**. It is used only for interactive single sign-on login, so it is **not required** for <code class="expression">space.vars.OIM</code>, which uses the Client Credentials flow. If you also use the same Microsoft Entra application for single sign-on to Codebeamer, add that Redirect URI in Microsoft Entra: **App registration** → **Authentication** → **Add a platform** → **Web** → **Redirect URIs**.
-
 ### Step 3: Map the token to the dedicated user
 
-1. Go to **System Administration** → **Application Configuration**.
+1. Go to **System Administration** in your Codebeamer instance → **Application Configuration**.
 2. In the `openId` JSON, add the `m2m` entry with the user created in Step 1:
 
    ```json
@@ -1063,27 +1045,34 @@ Perform these steps as a Codebeamer **system administrator**.
 
 <div align="center"><img src="../assets/Codebeamer_OpenId_M2M_Config.png" alt="" width="1100"></div>
 
-> **Note**:
-> * With `m2m.username`, every API call that carries a valid Microsoft Entra token runs as that one user. Alternatively, `m2m.usernameAttribute` reads the user name from a claim in the token.
-> * Keep `forceOAuth` as `false` (the default) so that existing Basic authentication systems continue to work.
-
 ### Step 4: Restart Codebeamer
 
 The OpenID configuration is read only at startup. Restart the Codebeamer server so the changes take effect.
 
 ### Step 5: Test the API with the token
 
-This step is recommended.
+This step is optional but recommended.
 
-1. Request a token as shown in [Verify the Token](codebeamer.md#verify-the-token).
-2. Call the Codebeamer API with the token:
+1. Request a token (replace the placeholders):
+
+   ```bash
+   curl -X POST "https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token" \
+     -d "grant_type=client_credentials" \
+     -d "client_id=<client-id>" \
+     -d "client_secret=<client-secret-value>" \
+     -d "scope=api://<client-id>/.default"
+   ```
+   
+2. Copy the `access_token` from the response and open it at [jwt.ms](https://jwt.ms).
+3. Confirm that `iss` is `https://login.microsoftonline.com/<tenant-id>/v2.0` and that `exp` is of the future date.
+4. Call the Codebeamer API with the token:
 
    ```bash
    curl -H "Authorization: Bearer <access_token>" \
      "http://<host>:<port>/cb/api/v3/projects"
    ```
-
-3. A `200` response that lists projects confirms that Codebeamer accepts the token and maps it to `automationsyncuser`.
+   
+5. A `200` response that lists projects confirms that Codebeamer accepts the token and maps it to the user created in Step 1, for example, `automationsyncuser` in this case.
 
 If the call fails, refer to [Troubleshooting OAuth 2.0 (Client Credentials)](codebeamer.md#troubleshooting-oauth-20-client-credentials).
 
@@ -1093,7 +1082,7 @@ Select **Authentication Type** = **OAuth 2.0 (Client Credentials)** on the Syste
 
 ## Troubleshooting OAuth 2.0 (Client Credentials)
 
-| **Error** | **Where** | **Cause and fix** |
+| **Error** | **Error Occurs In** | **Cause and fix** |
 | --- | --- | --- |
 | `AADSTS7000215: Invalid client secret provided` | Microsoft Entra | The Secret ID was entered instead of the secret **Value**, or the secret has expired. Create a new secret and copy the **Value**. |
 | `AADSTS70011` (invalid scope) | Microsoft Entra | The Scope is empty or wrong. Use `api://<Client ID>/.default` and make sure the Application ID URI is set. |
