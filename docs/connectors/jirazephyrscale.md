@@ -25,6 +25,8 @@ Refer the screenshot given below for reference.
 
 <p align="center">
   <img src="../assets/ZephyrScaleWithoutPrivateAPI.png" width="1500" />
+</p>
+<p align="center">
   <img src="../assets/ZephyrScaleWithPrivateApi.png" width="1500" />
 </p>
 
@@ -202,6 +204,18 @@ Refer the screenshot given below for reference.
 * <code class="expression">space.vars.OIM</code> supports criteria and target lookups for the entity types Test Case, Test Cycle, and Test Plan via a private API.  
   * The criteria query can be obtained by inspecting the browser’s developer tools (Inspect tab).
 * <code class="expression">space.vars.OIM</code> supports criteria and target lookups for the Test Folder entity type on only one **folderType** field.
+* When the **Enable Zephyr Scale Private APIs** option is enabled in the System Configuration form:
+    * Criteria can be applied to any supported entity field. For example:
+      ```sql
+      testCase.priorityName IN ("Normal")
+      ```
+      ```sql
+      testPlan.ownerName = "Alex"
+      ```
+      ```sql
+      testCycle.statusName IN ("In Progress")
+      ```
+      
 
 # Known Behavior/ Limitations
 
@@ -222,13 +236,13 @@ Refer the screenshot given below for reference.
     * The **Iteration** field is not synchronized.  
       * **Reason:** Zephyr API does not provide or handle any information related to this field.
 * If you plan to use sync features that rely on Zephyr Scale's non-public APIs, you must configure the Zephyr Scale JWT Token Service. Since non-public APIs may change without notice, if you experience issues with features, please contact OpsHub Support for assistance. Refer to [Supported Features using non-public API](#supported-features-using-non-public-api) section for the list of features that use non-public APIs.
-* When **Enable Zephyr Scale Private APIs** option is disabled in the System Configuration form (for more details, refer to [System Configuration](#system-configuration)), the following operations are not supported via <code class="expression">space.vars.OIM</code> due to limitations of the Zephyr Scale public APIs:
-  * **Link removal between Test Case and Test Cycle**: Removing links between Test Case and Test Cycle entities is not supported. As a workaround, you can unmap the corresponding link mappings in both directions:
-    * For the **Test Case** entity, unmap the **Test Cycle Link (Zephyr Scale)** link mapping.
-    * For the **Test Cycle** entity, unmap the **Test Case Link (Zephyr Scale)** link mapping.
-  * **Entity Updates**: Updating **Test Plan** and **Test Folder** entities is not supported. As a workaround, configure the workflow association to sync only the create event, for more details refer to [Workflow Association](../integrate/integration-configuration.md#workflow-association).
-  * **Comment Synchronization**: Synchronization of comments is not supported when Zephyr Scale is configured as either the source or target system.
-  * **Criteria and Target Lookup Query**: Applying criteria or configuring target lookup queries on entity fields other than entity ID is not supported.
+* When **Enable Zephyr Scale Private APIs** is disabled in the [System Configuration](#system-configuration), the following limitations apply to <code class="expression">space.vars.OIM</code>:
+    * **Link Removal**: Removing links between Test Case and Test Cycle is not supported. Unmap the following relationships to avoid processing failures. Refer to [Relationship Configuration](../integrate/mapping-configuration.md#relationships) for details:
+        * Test Case: **Test Cycle Link (Zephyr Scale)**
+        * Test Cycle: **Test Case Link (Zephyr Scale)**
+    * **Entity Updates**: Updates to Test Plan and Test Folder are not supported. Configure the workflow association to sync only create events. For more details refer to [Workflow Association](../integrate/integration-configuration.md#workflow-association).
+    * **Comments**: Comment synchronization is not supported when Zephyr Scale is the source or target system.
+    * **Criteria and Target Lookup**: Criteria on entity fields are not supported. Target lookup is supported only on the entity ID field (`oh_internal_id`).
 # Appendix
 
 ## User Token Generation
@@ -258,7 +272,6 @@ The following capabilities require the use of non-public Jira Zephyr Scale APIs 
 | Capabilities                                | What it enables                                                                                                              |
 |---------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | Comments/Discussions                        | Enables end-to-end collaboration and discussion synchronization across tools                                                 |
-| Test Plan's custom fields sync              | Maintains customer-specific Test Plan field data consistently across applications                                            |
 | Retrieval of test entities using filters    | Enables efficient incremental synchronization by identifying only changed records                                            |
 | Adding/Removing Test Cases from Test Cycles | Keeps test planning and execution scope synchronized across systems                                                          |
 | Test Plan updates                           | Ensures Test Plan changes remain aligned across connected applications                                                       |
