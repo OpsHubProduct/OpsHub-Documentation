@@ -133,7 +133,7 @@ Given below are the systems supported currently by <code class="expression">spac
         <tr>
             <td>15</td>
             <td>Database</td>
-            <td>All versions supported for MySQL, MS SQL Server/Azure SQL, Oracle, PostgreSQL, MariaDB</td>
+            <td>See <a href="../getting-started/prerequisites.md#database-prerequisites">Database Prerequisites</a> for MySQL, MS SQL Server/Azure SQL, Oracle, PostgreSQL (MariaDB version support not separately documented)</td>
             <td>All tables or views in the database</td>
             <td></td>
         </tr>
