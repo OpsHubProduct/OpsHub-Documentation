@@ -7,20 +7,21 @@ if: >-
 
 ## User privileges
 
-* Create one GitHub user for the repository(s) that is a part of synchronization. User should be dedicated to **<code class="expression">space.vars.OIM</code>** and should not be used for any other operations from system's user interface.  
-* Once the integration user has been created, grant the required repository and organization permissions based on the selected authentication type. Refer to the supported [Authentication types](#authentication-types) and their corresponding permission requirements. 
+* Create one GitHub user for the repository that is a part of synchronization. User should be dedicated to **<code class="expression">space.vars.OIM</code>** and should not be used for any other operations from system's user interface.
+* Once the integration user has been created, grant the required repository and organization permissions based on the selected authentication type. Refer to the supported [Authentication types](#authentication-types) and their corresponding permission requirements.
 
 # Authentication types
 
 GitHub supports following authentication types:  
-### Personal Access Tokens (classic)
+#### Personal Access Tokens (classic)
   * The integration user should be added as a collaborator in the repository which is to be synced. Additionally, the following set of scopes are required while creating Personal Access Token for synchronization.
 
-| **Entity Type** | **Permission/Role** |
-|------------------|---------------------|
-| **Commit** | repo: repo:status and public_repo |
+| **Entity Type**  | **Permission/Role**                                             |
+|------------------|-----------------------------------------------------------------|
+| **Commit**       | repo: repo:status and public_repo                               |
 | **Pull Request** | repo: repo:status, repo_deployment, public_repo and repo:invite |
-| **Issue** | User should be added as a collaborator for the repository |
+| **Issue**        | project: read:project                                           |
+| **Milestone**    | User should be added as a collaborator for the repository       |
 
 
 Refer to section [Creating Personal Access Token](#create-personal-access-token) of appendix on how to create Personal Access Token.
@@ -32,14 +33,15 @@ Refer to section [Creating Personal Access Token](#create-personal-access-token)
 
 The following set of permissions are required while creating token:
 
-| Entity Type | Scope | Permission | Access |
-|-------------|--------|------------|--------|
-| **Commit** | Repository | Commit statuses, Contents | Read-only |
-|  | Organization | Members | Read-only |
-| **Pull Request** | Repository | Merge queues, Pull requests, Discussions | Read and write |
-|  | Organization | Members | Read and write |
-| **Issue** | Repository | Issues, Contents, Discussions | Read and write |
-|  | Organization | Issue fields, Issue types, Projects, Members | Read and write |
+| Entity Type      | Scope        | Permission                                   | Access         |
+|------------------|--------------|----------------------------------------------|----------------|
+| **Commit**       | Repository   | Commit statuses, Contents                    | Read-only      |
+|                  | Organization | Members                                      | Read-only      |
+| **Pull Request** | Repository   | Merge queues, Pull requests, Discussions     | Read and write |
+|                  | Organization | Members                                      | Read and write |
+| **Issue**        | Repository   | Issues, Contents, Discussions                | Read and write |
+|                  | Organization | Issue fields, Issue types, Projects, Members | Read and write |
+| **Milestone**    | Repository   | Issues                                       | Read and write |
 
 
 Refer to this GitHub document to create fine-grained token: [Creating a fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
@@ -65,18 +67,20 @@ Refer to this GitHub document to create fine-grained token: [Creating a fine-gra
 
 The following set of permissions are required while registering a GitHub App:
 
-| Entity Type | Operation | Scope | Permission                                       | Access |
-|-------------|-----------|--------|--------------------------------------------------|--------|
-| **Commit** | Read | Repository | Commit statuses, Contents                        | Read-only |
-|  |  | Organization | Members                                          | Read-only |
-| **Pull Request** | Read | Repository | Merge queues, Pull requests, Discussions, Issues | Read-only |
-|  |  | Organization | Members                                          | Read-only |
-|  | Write | Repository | Merge queues, Pull requests, Discussions, Issues       | Read and write |
-|  |  | Organization | Members                                          | Read and write |
-| **Issue** | Read | Repository | Issues, Contents, Discussions                    | Read-only |
-|  |  | Organization | Issue fields, Issue types, Projects, Members     | Read-only |
-|  | Write | Repository | Issues, Contents, Discussions                    | Read and write |
-|  |  | Organization | Issue fields, Issue types, Projects, Members     | Read and write |
+| Entity Type      | Operation | Scope        | Permission                                       | Access         |
+|------------------|-----------|--------------|--------------------------------------------------|----------------|
+| **Commit**       | Read      | Repository   | Commit statuses, Contents                        | Read-only      |
+|                  |           | Organization | Members                                          | Read-only      |
+| **Pull Request** | Read      | Repository   | Merge queues, Pull requests, Discussions, Issues | Read-only      |
+|                  |           | Organization | Members                                          | Read-only      |
+|                  | Write     | Repository   | Merge queues, Pull requests, Discussions, Issues | Read and write |
+|                  |           | Organization | Members                                          | Read and write |
+| **Issue**        | Read      | Repository   | Issues, Contents, Discussions                    | Read-only      |
+|                  |           | Organization | Issue fields, Issue types, Projects, Members     | Read-only      |
+|                  | Write     | Repository   | Issues, Contents, Discussions                    | Read and write |
+|                  |           | Organization | Issue fields, Issue types, Projects, Members     | Read and write |
+| **Milestone**    | Read      | Repository   | Issues                                           | Read-only      |
+|                  | Write     | Repository   | Issues                                           | Read and write |
 
 #### OIM Configuration:
 * Single GitHub system configuration will work for multiple organization in which GitHub App is installed.
@@ -98,12 +102,6 @@ Refer to the screenshot given below:
 
 If the system is deployed on HTTPS and a self-signed certificate is used, then you will have to import the SSL Certificate to be able to access the system from TEST MEDIAWIKI. Refer to [Import SSL Certificates](../getting-started/ssl-certificate-configuration.md) page for further details.
 
-**Understanding Metadata Details JSON Input**
-
-* The field **metadata details** is required for synchronization of GitHub Issue entity type.  
-* This field data is pre-populated in JSON format according to our knowledge of system metadata (entity type, field names, lookup...). However, the user can edit it, based on his/her GitHub instance details for system/custom metadata.  
-* Please refer to [Understanding JSON Metadata Input](#understanding-json-metadata-input) section for further details on the JSON input.
-
 # Mapping Configuration
 
 Map the fields between GitHub and the other system to be integrated to ensure that the data between both the systems synchronize correctly.  
@@ -114,71 +112,86 @@ Click [Mapping Configuration](../integrate/mapping-configuration.md) to learn th
 
 Following is the description of fields that are available in GitHub for mapping configuration:
 
-| **Entity Type** | **Field Type** | **Field Name** | **Description** |
-|------------------|----------------|----------------|-----------------|
-| **Commit** | Text fields | Commit ID | Each commit gets a unique identifier in GitHub. This field represents this unique identifier, often called SHA of commit. |
-|  |  | Files Committed | Files that were changed/committed in the commit. |
-|  |  | Branch Name | Name of branch in which that commit was done. |
-|  |  | Related Workitem Id(s) | Related workitem id given in Commit message is based on the regex given in integration configuration. For more details on regex configuration, refer to section [Regex configuration in Integration](#configuring-related-workitem-regex). |
-|  | Single-valued user field | Author | Details of user who is author of that commit. |
-|  |  | Committer | Details of user who did the commit. Note: Author and Committer can be different or they can be same. |
-|  | Date type field | Commit Date | Time the commit was done in repository. |
-| **Pull Request** | Number type fields | Number of Commits | Number of commits that are present in the created Pull Request. |
-|  |  | Files Changed | Number of files changed in the commits for which the Pull Request is created. |
-|  |  | Additions/Deletions | Number of lines added or deleted in the commits respectively for which the Pull Request is created. |
-|  | Boolean type fields | Merged | It shows whether the Pull Request is merged with the base branch or not. |
-|  | Text type fields | URL | GitHub URL of Pull Request: When clicked on the URL, the user gets redirected to the Pull Request on GitHub server. |
-|  |  | Number | Pull Request display id in GitHub. |
-|  |  | Title | Pull Request title. |
-|  |  | Merge Commit SHA | When Pull Request is merged from head branch to base branch, a merge commit is added in the head branch. This field contains the SHA of that merge commit. For more information on value of merge commit sha, kindly refer to section, **Get a single Pull Request** of document [Merge Commit SHA](https://developer.github.com/v3/pulls/#get-a-single-pull-request). |
-|  |  | Head Branch Name | Name of the branch in which the Pull Request was created. This is known as Head branch. |
-|  |  | Base Branch Name | Name of the branch in which the Pull Request is merged or is going to be merged. This is known as Base branch. |
-|  |  | Head Branch Repository | Repository name of the head branch of Pull Request (Branch from which the Pull Request is created). |
-|  |  | Base Branch Repository | Repository name of the base branch of Pull Request (Branch to which the Pull Request is merged). |
-|  |  | Milestone Name | Name of the milestone associated with the Pull Request. |
-|  |  | Related Workitem Id(s) | Related workitem id given in Pull Request title/description based on the regex given in integration configuration. For more details on regex configuration, refer to section [Regex configuration in Integration](#configuring-related-workitem-regex). |
-|  | HTML fields | Description | First comment added while creating the Pull Request. |
-|  | Single-valued lookup field | State | State of Pull Request: The current state available for lookup are Open and Closed. If a Pull Request is not merged, then the state is Open and if a Pull Request is merged or rejected, then the state changes to Closed. |
-|  | Multi-valued lookup field | Labels | Labels that can be added to Pull Request: The lookup contains all the labels present in your repository. |
-|  |  | Reviewer Teams | Teams that can be added as a Reviewer in Pull Request. The lookup contains all the teams that are added in your organization. |
-|  | Single-valued user field | Created By | Details of the user who created the Pull Request. |
-|  |  | Merged By | Details of the user who merged the Pull Request. |
-|  |  | Head Branch Created By | Details of the user who created the head branch of the Pull Request. |
-|  |  | Base Branch Created By | Details of the user who created the base branch of the Pull Request. |
-|  | Multi-valued user field | Assignees | Details of the users assigned to this Pull Request. |
-|  |  | Reviewer Users | Details of the reviewers that are added to this Pull Request. |
-|  | Date type field | Created At | Date when the Pull Request was created in head branch. |
-|  |  | Updated At | Date when the Pull Request was updated. |
-|  |  | Closed At | Date when the Pull Request was closed. If a Pull Request is in Open state, then Closed At will be null. |
-|  |  | Merged At | Date when the Pull Request was merged. If a Pull Request is in Open state or is in Closed state and is rejected, then Merged At will be null. |
-| **Issue** | Text type fields | Title | Issue entity title. |
-|  |  | Entity Id | The id of the Issue Entity. |
-|  |  | Event Type | Read only field indicating the type of the event. |
-|  |  | Project Key | Denotes the key of the project. |
-|  |  | Project Name | Denotes the name of the project. |
-|  |  | OH Comment | Indicates comment in entity. |
-|  | Lookup type fields | Labels | Labels that can be added to Issue: The lookup contains all the labels present in your repository. |
-|  |  | Projects | Contains the list of the projects contained in the instance. |
-|  |  | Status | Indicates the state of the entity. It could be either in open state or in closed state. |
-|  |  | State_reason | Indicates the state reason of the entity. It could be 'Completed', 'Not_Planned' or 'Reopened'. For more details, refer to [Known Behavior](#known-behaviors) section. |
-|  | HTML type fields | Body | Contains the description of the entity. |
+| **Entity Type**  | **Field Type**              | **Field Name**                    | **Description**                                                                                                                                                                                                                                                                                                                                                        |
+|------------------|-----------------------------|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Commit**       | Text fields                 | Commit ID                         | Each commit gets a unique identifier in GitHub. This field represents this unique identifier, often called SHA of commit.                                                                                                                                                                                                                                              |
+|                  |                             | Files Committed                   | Files that were changed/committed in the commit.                                                                                                                                                                                                                                                                                                                       |
+|                  |                             | Branch Name                       | Name of branch in which that commit was done.                                                                                                                                                                                                                                                                                                                          |
+|                  |                             | Related Workitem Id(s)            | Related workitem id given in Commit message is based on the regex given in integration configuration. For more details on regex configuration, refer to section [Regex configuration in Integration](#configuring-related-workitem-regex-for-commit-information).                                                                                                      |
+|                  | Single-valued user field    | Author                            | Details of user who is author of that commit.                                                                                                                                                                                                                                                                                                                          |
+|                  |                             | Committer                         | Details of user who did the commit. Note: Author and Committer can be different or they can be same.                                                                                                                                                                                                                                                                   |
+|                  | Date type field             | Commit Date                       | Time the commit was done in repository.                                                                                                                                                                                                                                                                                                                                |
+| **Pull Request** | Number type fields          | Number of Commits                 | Number of commits that are present in the created Pull Request.                                                                                                                                                                                                                                                                                                        |
+|                  |                             | Files Changed                     | Number of files changed in the commits for which the Pull Request is created.                                                                                                                                                                                                                                                                                          |
+|                  |                             | Additions                         | Number of lines added in the commits for which the Pull Request is created.                                                                                                                                                                                                                                                                                            |
+|                  |                             | Deletions                         | Number of lines deleted in the commits for which the Pull Request is created.                                                                                                                                                                                                                                                                                          |
+|                  |                             | Comments                          | Number of comments in a Pull Request.                                                                                                                                                                                                                                                                                                                                  |
+|                  |                             | Review Comments                   | Number of review comments in a Pull Request.                                                                                                                                                                                                                                                                                                                           |
+|                  | Boolean type fields         | Locked                            | It shows whether the conversation on Pull Request is locked or not.                                                                                                                                                                                                                                                                                                    |
+|                  |                             | Is Draft                          | It shows whether a Pull Request is draft or not.                                                                                                                                                                                                                                                                                                                       |
+|                  |                             | Is Merged                         | It shows whether a Pull Request is merged or not.                                                                                                                                                                                                                                                                                                                      |
+|                  |                             | Is Mergeable                      | It shows whether a Pull Request can be merged or not.                                                                                                                                                                                                                                                                                                                  |
+|                  |                             | Is Rebaseable                     | It shows whether a Pull Request can be rebased or not.                                                                                                                                                                                                                                                                                                                 |
+|                  | Text type fields            | Title                             | Pull Request title.                                                                                                                                                                                                                                                                                                                                                    |
+|                  |                             | Merge Commit SHA                  | When Pull Request is merged from head branch to base branch, a merge commit is added in the head branch. This field contains the SHA of that merge commit. For more information on value of merge commit sha, kindly refer to section, **Get a single Pull Request** of document [Merge Commit SHA](https://developer.github.com/v3/pulls/#get-a-single-pull-request). |
+|                  |                             | Head Branch                       | Name of the branch in which the Pull Request was created. This is known as Head branch.                                                                                                                                                                                                                                                                                |
+|                  |                             | Base Branch                       | Name of the branch in which the Pull Request is merged or is going to be merged. This is known as Base branch.                                                                                                                                                                                                                                                         |
+|                  |                             | Author Association                | Association of Pull Request author with the repository.                                                                                                                                                                                                                                                                                                                |
+|                  |                             | Active Lock Reason                | If a conversation is locked, reason for active lock.                                                                                                                                                                                                                                                                                                                   |
+|                  |                             | Mergeable State                   | State of pull request with respect to merge operation.                                                                                                                                                                                                                                                                                                                 |
+|                  |                             | Commit Information                | Information of commits associated with a Pull Request - Commit SHA, Commit Message and Author.                                                                                                                                                                                                                                                                         |
+|                  | Markdown fields             | Description                       | First comment added while creating the Pull Request.                                                                                                                                                                                                                                                                                                                   |
+|                  | Single-valued lookup field  | State                             | State of Pull Request: The current state available for lookup are Open and Closed. If a Pull Request is not merged, then the state is Open and if a Pull Request is merged or rejected, then the state changes to Closed.                                                                                                                                              |
+|                  | Multi-valued lookup field   | Labels                            | Labels that can be added to Pull Request: The lookup contains all the labels present in your repository.                                                                                                                                                                                                                                                               |
+|                  |                             | Requested Teams                   | Teams that can be added as a Reviewer in Pull Request. The lookup contains all the teams that are added in your organization.                                                                                                                                                                                                                                          |
+|                  | Single-valued user field    | User                              | Details of the user who created the Pull Request.                                                                                                                                                                                                                                                                                                                      |
+|                  |                             | Merged By                         | Details of the user who merged the Pull Request.                                                                                                                                                                                                                                                                                                                       |
+|                  | Multi-valued user field     | Assignees                         | Details of the users assigned to this Pull Request.                                                                                                                                                                                                                                                                                                                    |
+|                  |                             | Requested Reviewers               | Details of the reviewers that are added to this Pull Request.                                                                                                                                                                                                                                                                                                          |
+|                  | Date type field             | Created At                        | Date when the Pull Request was created in head branch.                                                                                                                                                                                                                                                                                                                 |
+|                  |                             | Updated At                        | Date when the Pull Request was updated.                                                                                                                                                                                                                                                                                                                                |
+|                  |                             | Closed At                         | Date when the Pull Request was closed. If a Pull Request is in Open state, then Closed At will be null.                                                                                                                                                                                                                                                                |
+|                  |                             | Merged At                         | Date when the Pull Request was merged. If a Pull Request is in Open state or is in Closed state and is rejected, then Merged At will be null.                                                                                                                                                                                                                          |
+|                  | Reference field             | Milestone                         | Milestone associated with the Pull Request.                                                                                                                                                                                                                                                                                                                            |
+| **Issue**        | Text type fields            | Title                             | Issue entity title.                                                                                                                                                                                                                                                                                                                                                    |
+|                  |                             | Active Lock Reason                | If a conversation is locked, reason for active lock.                                                                                                                                                                                                                                                                                                                   |
+|                  | Number type field           | Comments Number                   | Number of comments in the Issue.                                                                                                                                                                                                                                                                                                                                       |
+|                  | Boolean type field          | Locked                            | It shows whether the conversation on Issue is locked or not.                                                                                                                                                                                                                                                                                                           |
+|                  | Single-valued lookup fields | State                             | Indicates the state of the entity. It could be either in open state or in closed state.                                                                                                                                                                                                                                                                                |
+|                  |                             | State Reason                      | Indicates the state reason of the entity. It could be 'Completed', 'Not_Planned' or 'Reopened'. For more details, refer to [Known Behavior](#known-behaviors) section.                                                                                                                                                                                                 |
+|                  | Multi-valued lookup fields  | Labels                            | Labels that can be added to Issue: The lookup contains all the labels present in your repository.                                                                                                                                                                                                                                                                      |
+|                  |                             | GitHub Projects                   | GitHub Projects to which the Issue is added. The lookup contains all the projects accessible in the repository owner's account.                                                                                                                                                                                                                                        |
+|                  | Reference field             | Milestone                         | Milestone associated with the Issue.                                                                                                                                                                                                                                                                                                                                   |
+|                  | Single-valued user field    | User                              | Details of the user who created the Issue.                                                                                                                                                                                                                                                                                                                             |
+|                  |                             | ClosedBy                          | Details of the user who closed the Issue. If Issue is in open state, then ClosedBy will be null.                                                                                                                                                                                                                                                                       |
+|                  | Multi-valued user field     | Assignees                         | Details of the users assigned to this Issue.                                                                                                                                                                                                                                                                                                                           |
+|                  | Markdown type fields        | Description                       | Contains the description of the Issue.                                                                                                                                                                                                                                                                                                                                 |
+|                  | Date type field             | Created At                        | Date when the Issue was created.                                                                                                                                                                                                                                                                                                                                       |
+|                  |                             | Updated At                        | Date when the Issue was updated.                                                                                                                                                                                                                                                                                                                                       |
+|                  |                             | Closed At                         | Date when the Issue was closed. If the Issue is in open state, then Closed At will be null.                                                                                                                                                                                                                                                                            |
+|                  | Custom fields               | \<Project Number\>-\<Field Name\> | Custom fields of the GitHub Projects. Refer to [Custom Fields Configuration](#custom-fields-configuration) section for details.                                                                                                                                                                                                                                        |
+| **Milestone**    | Text type fields            | Title                             | Milestone entity title. It must be unique within a repository.                                                                                                                                                                                                                                                                                                         |
+|                  |                             | Description                       | Description of the Milestone.                                                                                                                                                                                                                                                                                                                                          |
+|                  | Number type fields          | Open Issues                       | Number of open issues associated with milestone.                                                                                                                                                                                                                                                                                                                       |
+|                  |                             | Closed Issues                     | Number of closed issues associated with milestone.                                                                                                                                                                                                                                                                                                                     |
+|                  | Single-valued user field    | Creator                           | Details of the user who created the Milestone.                                                                                                                                                                                                                                                                                                                         |
+|                  | Single-valued lookup field  | State                             | Indicates the state of the Milestone. It could be either in open state or in closed state.                                                                                                                                                                                                                                                                             |
+|                  | Date type field             | Created At                        | Date when the Milestone was created.                                                                                                                                                                                                                                                                                                                                   |
+|                  |                             | Updated At                        | Date when the Milestone was updated.                                                                                                                                                                                                                                                                                                                                   |
+|                  |                             | Closed At                         | Date when the Milestone was closed. If Milestone is in open state Closed At will be null.                                                                                                                                                                                                                                                                              |
+|                  |                             | Due On                            | Due date of the milestone.                                                                                                                                                                                                                                                                                                                                             |
 
 ---
 
 ## Inline attachments synchronization
 
-For HTML fields in **<code class="expression">space.vars.OIM</code>**, GitHub allows to synchronization of inline images. Such content can be synchronized for GitHub with the following behavior:  
-* Images and other type of files are synced to the target system depending on whether the target system supports inline images or not.  
+For Markdown fields in **<code class="expression">space.vars.OIM</code>**, GitHub allows to synchronization of inline images.
 
 For **limitations** of Inline image synchronization, refer to [Limitations](#known-limitations) section.
 
 ## User Mapping Configuration
-**Pull Request entity:**  
-* By default, user field synchronization in **<code class="expression">space.vars.OIM</code>** works on user email added in both source and target end systems.  
-* To make user mapping to work on username instead of email address, the username in both source and target end systems must be same. Otherwise, excel mapping will be required for one-to-one user mapping. Refer below mentioned sample examples.
-
-**Issue entity:**  
-* User Lookup based on **Email** is not supported. Hence, to perform the user mapping based on username instead of email address, the username in both source and target end systems must be same. Otherwise, excel mapping will be required for one-to-one user mapping. Refer below mentioned sample examples.
+**Pull Request, Issue and Milestone entities:**  
+* User field synchronization works on the GitHub username. User Lookup based on **Email** is not supported. Hence, the username in both source and target end systems must be same. Otherwise, excel mapping will be required for one-to-one user mapping. Refer below mentioned sample examples.
 
 **Below are few samples of user mapping:**  
 <br>  
@@ -220,17 +233,36 @@ For **limitations** of Inline image synchronization, refer to [Limitations](#kno
 </Author>
 ```
 
-# Integration Configuration
+## Custom Fields Configuration
 
-In this step, we need to set a time to synchronize data between GitHub and the other system to be integrated.  
-Also, define parameters and conditions, that are needed to be configured for integration.  
+Custom fields created in GitHub Projects can be assigned values in an Issue entity.
+
+* Text, Number, Date, Single select and Iteration fields are supported. Single select and Iteration fields are available as lookup fields.
+* Custom fields are named as - **Project Number + Field Name** (for example, `1-Priority`). Refer to [Get Project Number from GitHub UI](#get-project-number-from-github-ui) to find the project number.
+* While writing a custom field, the behavior is same as GitHub UI. The Issue is first associated with the project to which the custom field belongs, and then the field value is assigned.
+* Custom fields are available for mapping only for the projects which the integration user can access. Refer to [Authentication types](#authentication-types) for the permissions required.
+* Use the **GitHub Projects** field to read and write the GitHub Projects with which an Issue is associated. It is a multi-valued lookup field, so an Issue can be associated with more than one project.
+  * If this field is mapped to a single-valued field in the other system, the first project is picked.
+  * Projects can only be added to an Issue, not removed. This prevents the loss of custom field values already set for the Issue in that project.
+* GitHub Projects (classic) are not supported as GitHub has discontinued them. For more details, refer to [Sunset Notice - Projects (classic)](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/).
+
+>**Note**: Custom field updates will only be synchronized if any system field is updated after that.
+
+## Comments Configuration
+
+* Comments can be synchronized for **Issue** and **Pull Request** entity.
+* There are 3 types of comments for Pull Request: Issue Comments, Review Comments and Reviews.
+
+>**Note**: Review comments are read-only. A review comment in GitHub is an inline comment on a specific line of a file in the Pull Request diff. To create one, GitHub requires the commit ID, the file path and the line (or diff position) being commented on. This specific diff position information is not available for the Pull Request entity. So, review comments cannot be written to GitHub.
+
+# Integration Configuration
 
 Click [Integration Configuration](../integrate/integration-configuration.md) to learn the step-by-step process to configure integration between two systems.
 
 
-## Configuring Related Workitem Regex
+## Configuring Related Workitem Regex For Commit Information
 
-For synchronization, you need to specify a **Related Workitem Regex** (Regular Expression) while configuring integration for picking related work item id from the commit message in case of Commit Information and Title/Description in case of Pull Requests.
+For Commit Information synchronization, you need to specify a **Related Workitem Regex** (Regular Expression) while configuring integration for picking related work item id from the commit message in case of Commit Information.
 
 For example, for commit information, if your commit message is:  
 “commiting against TEST-123, added login feature for my website” and the related work item id on which you want to synchronize commit information is TEST-123, then RegEx for your input will be:
@@ -249,6 +281,8 @@ For example, for commit information, if your commit message is:
 </p>
 
 For knowing the behavior on RegEx matching multiple work items ids, please refer to section [RegEx Known Behavior](#known-behaviors).
+
+>**Note**: This parameter is mandatory for Commit Information.
 
 ## Configuring Window Size for delayed commits
 
@@ -270,11 +304,24 @@ Days interval for data reading configures the window for which entities will be 
   <img src="../assets/GH9a.png" width="1200"/>
 </p>
 
+## Configuring Attachment Path for attachment read/write operations
+
+Attachments for entities are uploaded as repository content. Path to which attachments should be uploaded/read from should be configured at integration level. On this path, folder will be created for each entity with **entity Id as the folder name**. This folder will contain all attachments associated with given entity Id.
+
+<p align="center">
+  <img src="../assets/GH10a.png" width="1200"/>
+</p>
+
+If attachment path is not provided, there will be processing failure during synchronization. For each attachment synchronization, comment will be added in the entity with following content:
+
+* Operation performed + Reference URL of attachment
+* Folder path where all entity attachments can be found.
+
 ## Criteria Configuration
 
 If you want to specify conditions for synchronizing an entity between GitHub and the other system to be integrated, you can use the **Criteria Configuration** feature.
 
->**Note**: GitHub Commit Information entity doesn't support any criteria polling.
+>**Note**: GitHub Commit Information and Milestone entity doesn't support any criteria polling.
 
 To configure criteria in GitHub, integration needs to be created with GitHub as the source system. The criteria query in GitHub system is a valid GitHub search query that can be used in the GitHub end system UI for search in a repository.
 
@@ -306,40 +353,38 @@ Refer to document [Search Syntax in GitHub](https://help.github.com/en/github/se
     * We can configure multiple integrations for synchronizing multiple GitHub repositories with different set of GitHub users, so that rate limit has less impact on synchronization time.
     * If you have an on-premise GitHub instance, then you can either have no rate limit for API or you can have a large API rate limit to experience less delay in synchronization.
 * Related Workitem Id(s) field behavior:
-  	* If multiple work item ids are found in commit message/title/description that satisfy the Regex provided in integration configuration, by default, the first one gets picked up in Related Workitem Id(s) and is sent forward for synchronization.
+  	* If multiple work item ids are found in commit message that satisfy the Regex provided in integration configuration, by default, the first one gets picked up in Related Workitem Id(s) and is sent forward for synchronization.
   	* If any workitem id is not found, then it shows -1 in field Related Workitem Id(s).
 * **State_reason** field behavior for **Issue** entity:
-  	* This field is dependant on **Status** field.
-   		 * Reason: For closing status, we have two options in GitHub **Completed** & **Not_Planned**. For opening an issue from close state, the reason will be **reopen**. Hence, State_reason field is mandatory, if we want to sync the states properly.  Or else, the Status field will be synced with the default behaviour of GitHub.
+  	* This field is dependant on **State** field.
+   		 * Reason: For closing status, we have two options in GitHub **Completed** & **Not_Planned**. For opening an issue from close state, the reason will be **reopen**. Hence, State Reason field is mandatory, if we want to sync the states properly.  Or else, the State field will be synced with the default behaviour of GitHub.
+* A GitHub project can hold a maximum of 1200 issues. Adding an issue beyond this limit will fail with a processing failure.
 
 # Known Limitations
 
 ## Common
-* For GitHub HTML fields:
-  * Content less than 400 KB will only be synchronized. If the field content is greater than 400 KB, then the field value will not be transformed correctly by <code class="expression">space.vars.OIM</code>.
-  * Synchronization of inline document is not supported for HTML fields of GitHub.
-  * For synchronization of inline image which refers to the checked-in files of a repository, <code class="expression">space.vars.OIM</code> is using keyword "blob" for processing the URL of such images. Thus, username and repositories with such inline images must not have "blob" keyword in their name. Otherwise, inline images which refer to the checked-in files in the repository won't be synchronized by <code class="expression">space.vars.OIM</code>. In such cases, the source inline image URL will be written in the target system as it is.
+* For GitHub Markdown fields:
+  * Synchronization of inline document is not supported for Markdown fields of GitHub.
+  * Inline images which refer to the checked-in files in the repository won't be synchronized by <code class="expression">space.vars.OIM</code>. In such cases, the source inline image URL will be written in the target system as it is.
   * Inline image synchronization for comments is not supported currently for GitHub as a target system due to API limitation. It will sync as a inline file.
   * Inline document synchronization for comments is not supported currently for GitHub as a target system due to API limitation.
-* GitHub doesn't give Updated By user information through API. Hence, this field won't be present in fields in mapping.
 
 ## Commit
 * GitHub Commit information entity doesn't support any criteria-based polling.
 
+## Milestone
+* GitHub Milestone entity doesn't support any criteria-based polling.
+
 ## Pull Request
+* For pull request creation, head and base branches are mandatory. Also, difference and commits must be there between the two branches. Otherwise, processing failure will be generated.
 * For GitHub Pull Request, the current values for status field are Open and Closed.
   * Going forward, if GitHub introduces a new status, then user can use it with the help of advanced mapping.
-* By default, user field synchronization in <code class="expression">space.vars.OIM</code> works on user email added in both source and target end systems.
-  * For Pull Requests, the user mapping in <code class="expression">space.vars.OIM</code> will work on the email address of users. In case the user email for any user is not publicly available in GitHub, then the mapping will work on a username by default for that user. In such a case, the username of source user and target user must be the same, otherwise, there will be a failure in synchronization. This is because GitHub API provides an email address only when the user has made his/her email address publicly available. Thus, <code class="expression">space.vars.OIM</code> can access the email of any user if it's visible as a public email.
-    * In case the source username is not found in the target system and failure occurs, then one-to-one username mapping will be required. For more information, refer to section [User Mapping Configuration](#user-mapping-configuration). 
-* For Pull Requests, we can synchronize Commits entity as links. GitHub API gives the latest 250 commits in a Pull Requests. Thus, when links are configured for Pull Request integration, only the latest 250 commits will be in sync with the target system i.e. The 1st commit link will be removed in target system when 251st commit is added in source system and the target system will have links of commit 2 to 251.
+* History based synchronization is supported only for the State field of Pull Request.
 
 ## Issue entity
-* Attachment synchronization is not supported.
-* Relationship synchronization is not supported because of API unavailability.
+* Deleting an Issue is not supported, as GitHub provides no API for it. An Issue can only be deleted from GitHub UI by its owner.
 * History based synchronization is not supported because of API unavailability.
-* Fields need to be given in JSON input at the system configuration level. Based on configurations, the fields will be loaded in the mapping.
-  * Custom fields are not supported by GitHub, hence they will be not supported by <code class="expression">space.vars.OIM</code>.
+* Removal of a project from the **GitHub Projects** field is not supported. Refer to [Custom Fields Configuration](#custom-fields-configuration) for details.
 * User Lookup based on **Email** is not supported due to API unavailability. For more information, refer to [User Mapping Configuration](#user-mapping-configuration) section.
 
 ## Entity Mention
@@ -426,135 +471,13 @@ Refer to document [Search Syntax in GitHub](https://help.github.com/en/github/se
     * After this, your private key should look like: "MIIEogIBAAKCAQEAuflHHAj2HF.....", without breaking line.
   * Provide this as Private key while configuring GitHub system in OIM.
 
-## Understanding JSON Metadata Input
+## Get Project Number from GitHub UI
 
-* Sample example of JSON Metadata input for Issue entity.
+The project number is used in the display name of custom fields, for example `6-Priority`. To get the project number of a GitHub Project:
 
-```json
+<p align="center">
+  <img src="../assets/githubProjectNumber.png" width="900"/>
+</p>
 
-{
-	"entities": [
-		{
-			"internalName": "entityInternalName1",
-			"displayName": "Entity Display Name1",
-			"readMechanism ": "HISTORY",
-			"hasReadSupport ": true,
-			"hasWriteSupport": true,
-			"entityScope": "Global",
-			"systemSpecific": {
-				"OH_LastUpdatedField": "fieldInternalname",
-				"isProjectSupported": true
-			},
-			"fields": {
-				"system": [
-					{
-						"internalName": "title",
-						"displayName": "Title",
-						"systemSpecific": {
-							"timeUnitInSystem ": "Hours"
-						},
-						"dataType": "text",
-						"multiselect": false,
-						"readOnly": false,
-						"mandatory": false,
-						"historyEnabled": false
-					},
-					{
-						"internalName": "body",
-						"displayName": "Body",
-						"dataType": "html",
-						"multiselect": false,
-						"readOnly": false,
-						"mandatory": false,
-						"historyEnabled": false
-					},
-					{
-						"internalName": "state_reason",
-						"displayName": "State_reason",
-						"dataType": "lookup",
-						"multiselect": false,
-						"readOnly": false,
-						"mandatory": false,
-						"historyEnabled": false
-					},
-					{
-						"internalName": "state",
-						"displayName": "Status",
-						"dataType": "lookup",
-						"multiselect": false,
-						"readOnly": false,
-						"mandatory": false,
-						"historyEnabled": false
-					},
-					{
-						"internalName": "labels",
-						"displayName": "Labels",
-						"dataType": "lookup",
-						"multiselect": true,
-						"readOnly": false,
-						"mandatory": false,
-						"historyEnabled": false
-					},
-					{
-						"internalName": "milestone",
-						"displayName": "Milestone",
-						"dataType": "text",
-						"multiselect": false,
-						"readOnly": false,
-						"mandatory": false,
-						"historyEnabled": false
-					},
-					{
-						"internalName": "assignee",
-						"displayName": "Assignee",
-						"dataType": "user",
-						"multiselect": false,
-						"readOnly": false,
-						"mandatory": false,
-						"historyEnabled": false
-					},
-					{
-						"internalName": "assignees",
-						"displayName": "Assignees",
-						"dataType": "user",
-						"multiselect": true,
-						"readOnly": false,
-						"mandatory": false,
-						"historyEnabled": false
-					}
-				],
-				"custom": []
-			},
-			"relationship": {
-				"entities": [
-					{
-						"internalName": "supportedEntityInternalName1",
-						"displayName": "Supported Entity Display  Name1",
-						"isSupportedAsSource": true,
-						"isSupportedAsTarget": true
-					},
-					{
-						"internalName": "supportedEntityInternalName2",
-						"displayName": "Supported Entity Display Name2"
-					}
-				],
-				"linkTypes": []
-			}
-		}
-	],
-	"projects": [
-		{
-			"internalName": "",
-			"displayName": "Project 1",
-			"entities": []
-		}
-	]
-}
-```
-
-
-
-
-
-
-
+* Log in to GitHub and open the project.
+* The number at the end of the project URL is the project number. For example, in the URL `https://github.com/users/AutomationSyncUser/projects/6`, the project number is **6**.
