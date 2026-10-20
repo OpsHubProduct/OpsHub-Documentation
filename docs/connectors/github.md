@@ -7,7 +7,7 @@ if: >-
 
 ## User privileges
 
-* Create one GitHub user for the repository(s) that is a part of synchronization. User should be dedicated to **<code class="expression">space.vars.OIM</code>** and should not be used for any other operations from system's user interface.
+* Create one GitHub user for the repository that is a part of synchronization. User should be dedicated to **<code class="expression">space.vars.OIM</code>** and should not be used for any other operations from system's user interface.
 * Once the integration user has been created, grant the required repository and organization permissions based on the selected authentication type. Refer to the supported [Authentication types](#authentication-types) and their corresponding permission requirements.
 
 # Authentication types
@@ -160,7 +160,7 @@ Following is the description of fields that are available in GitHub for mapping 
 |                  | Single-valued lookup fields | State                             | Indicates the state of the entity. It could be either in open state or in closed state.                                                                                                                                                                                                                                                                                |
 |                  |                             | State Reason                      | Indicates the state reason of the entity. It could be 'Completed', 'Not_Planned' or 'Reopened'. For more details, refer to [Known Behavior](#known-behaviors) section.                                                                                                                                                                                                 |
 |                  | Multi-valued lookup fields  | Labels                            | Labels that can be added to Issue: The lookup contains all the labels present in your repository.                                                                                                                                                                                                                                                                      |
-|                  |                             | GitHub Projects                   | GitHub Projects (Version 2) to which the Issue is added. The lookup contains all the projects accessible in the repository owner's account.                                                                                                                                                                                                                            |
+|                  |                             | GitHub Projects                   | GitHub Projects to which the Issue is added. The lookup contains all the projects accessible in the repository owner's account.                                                                                                                                                                                                                                        |
 |                  | Reference field             | Milestone                         | Milestone associated with the Issue.                                                                                                                                                                                                                                                                                                                                   |
 |                  | Single-valued user field    | User                              | Details of the user who created the Issue.                                                                                                                                                                                                                                                                                                                             |
 |                  |                             | ClosedBy                          | Details of the user who closed the Issue. If Issue is in open state, then ClosedBy will be null.                                                                                                                                                                                                                                                                       |
@@ -169,7 +169,7 @@ Following is the description of fields that are available in GitHub for mapping 
 |                  | Date type field             | Created At                        | Date when the Issue was created.                                                                                                                                                                                                                                                                                                                                       |
 |                  |                             | Updated At                        | Date when the Issue was updated.                                                                                                                                                                                                                                                                                                                                       |
 |                  |                             | Closed At                         | Date when the Issue was closed. If the Issue is in open state, then Closed At will be null.                                                                                                                                                                                                                                                                            |
-|                  | Custom fields               | \<Project Number\>-\<Field Name\> | Custom fields of the GitHub Projects (Version 2). Refer to [Custom Fields Configuration](#custom-fields-configuration) section for details.                                                                                                                                                                                                                            |
+|                  | Custom fields               | \<Project Number\>-\<Field Name\> | Custom fields of the GitHub Projects. Refer to [Custom Fields Configuration](#custom-fields-configuration) section for details.                                                                                                                                                                                                                                        |
 | **Milestone**    | Text type fields            | Title                             | Milestone entity title. It must be unique within a repository.                                                                                                                                                                                                                                                                                                         |
 |                  |                             | Description                       | Description of the Milestone.                                                                                                                                                                                                                                                                                                                                          |
 |                  | Number type fields          | Open Issues                       | Number of open issues associated with milestone.                                                                                                                                                                                                                                                                                                                       |
@@ -235,39 +235,29 @@ For **limitations** of Inline image synchronization, refer to [Limitations](#kno
 
 ## Custom Fields Configuration
 
-Custom fields created in GitHub Projects (Version 2) can be assigned values in an Issue entity.
+Custom fields created in GitHub Projects can be assigned values in an Issue entity.
 
 * Text, Number, Date, Single select and Iteration fields are supported. Single select and Iteration fields are available as lookup fields.
-* Custom fields are named as - Project Number + Field Name (for example, `3-Priority`).
+* Custom fields are named as - Project Number + Field Name (for example, `1-Priority`).
+* While writing a custom field, the behavior is same as GitHub UI. The Issue is first associated with the project to which the custom field belongs, and then the field value is assigned.
 * Custom fields are available for mapping only for the projects which the integration user can access. Refer to [Authentication types](#authentication-types) for the permissions required.
-* Use the **GitHub Projects** field to read and write the GitHub Projects (Version 2) with which an Issue is associated. It is a multi-valued lookup field, so an Issue can be associated with more than one project.
+* Use the **GitHub Projects** field to read and write the GitHub Projects with which an Issue is associated. It is a multi-valued lookup field, so an Issue can be associated with more than one project.
   * If this field is mapped to a single-valued field in the other system, the first project is picked.
   * An Issue can only be associated with a project. Removing a project from this field will not disassociate the Issue from the project in GitHub, as removing the Issue from a project also removes the values of the project's custom fields already set for that Issue.
-
-* While writing a custom field, the behavior is same as GitHub UI. The Issue is first associated with the project to which the custom field belongs, and then the field value is assigned.
 * GitHub Projects (classic) are not supported, only GitHub Projects (Version 2) are supported.
 
 >**Note**: Custom field updates will only be synchronized if any system field is updated after that.
 
 ## Comments Configuration
 
-* Comments can be synchronized in Issue and Pull Request entity.
+* Comments can be synchronized for Issue and Pull Request entity.
 * There are 3 types of comments in Pull Request: Issue Comments, Review Comments and Reviews.
 
 * Issue entity has only Issue Comments.
-* In Pull Request, Issue Comments and comments added in a Review can be synchronized as Issue Comments and Reviews respectively.
 
 >**Note**: Review comments are read-only. Write support requires the commit id and relative path of the reviewed file, which are not available from the source system. If write configuration is made for review comments, the synchronization will fail with an unsupported exception.
 
-## Labels Configuration
-
-* Labels in GitHub are case insensitive.
-* If a label given in the Labels field does not exist in the repository, it is created in GitHub while synchronizing the Issue.
-
 # Integration Configuration
-
-In this step, we need to set a time to synchronize data between GitHub and the other system to be integrated.  
-Also, define parameters and conditions, that are needed to be configured for integration.  
 
 Click [Integration Configuration](../integrate/integration-configuration.md) to learn the step-by-step process to configure integration between two systems.
 
@@ -380,7 +370,6 @@ Refer to document [Search Syntax in GitHub](https://help.github.com/en/github/se
   * Inline images which refer to the checked-in files in the repository won't be synchronized by <code class="expression">space.vars.OIM</code>. In such cases, the source inline image URL will be written in the target system as it is.
   * Inline image synchronization for comments is not supported currently for GitHub as a target system due to API limitation. It will sync as a inline file.
   * Inline document synchronization for comments is not supported currently for GitHub as a target system due to API limitation.
-* GitHub doesn't give Updated By user information through API. Hence, this field won't be present in fields in mapping.
 
 ## Commit
 * GitHub Commit information entity doesn't support any criteria-based polling.
