@@ -12,7 +12,7 @@ Our security practices are aligned with widely accepted standards and frameworks
 
 ## Security Update
 
-### Resolved Vulnerabilities
+#### Resolved Vulnerabilities
  
 <table>
     <thead>
@@ -28,47 +28,24 @@ Our security practices are aligned with widely accepted standards and frameworks
     <tbody>
         <tr>
             <td>Third party</td>
-            <td>Critical</td>
-            <td>Bouncy Castle: Name Constraints bypass via trailing dot in rfc822Name and URI (<a href="https://github.com/advisories/GHSA-9pwp-9qqc-pr26">CVE-2026-8763</a>)</td>
+            <td>High</td>
+            <td>jackson-databind: Duration XMLGregorianCalendar Unbounded Number Parse DoS (<a href="https://github.com/advisories/GHSA-q4xh-88c3-wmh7">CVE-2026-68497</a>)</td>
             <td>Not directly impacted</td>
-            <td>7.237</td>
-            <td>7.237</td>
+            <td>7.238</td>
+            <td>7.238</td>
         </tr>
         <tr>
             <td>Third party</td>
             <td>High</td>
-            <td>Bouncy Castle: Lazy ASN.1 sequence forcing resets nesting-depth guard (<a href="https://github.com/advisories/GHSA-qp49-qgx5-5m26">CVE-2026-13506</a>)</td>
+            <td>Hibernate vulnerable to SQL Injection (<a href="https://github.com/advisories/GHSA-2p5w-cvg5-gc5c">GHSA-2p5w-cvg5-gc5c</a>)</td>
             <td>Not directly impacted</td>
-            <td>7.237</td>
-            <td>7.237</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Apache cxf-core: No restriction on attachment headers per message (<a href="https://github.com/advisories/GHSA-ghvc-7hp8-2g2v">CVE-2026-50645</a>)</td>
-            <td>Not directly impacted</td>
-            <td>7.233</td>
-            <td>7.237</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Little CMS (lcms2) through 2.18: integer overflow in CubeSize in cmslut.c (<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-41254">CVE-2026-41254</a>)</td>
-            <td>Not directly impacted</td>
-            <td>7.234</td>
-            <td>7.237</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Vulnerability in Oracle Java SE / Oracle GraalVM for JDK / Oracle GraalVM Enterprise Edition (Libraries component) (<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-47063">CVE-2026-47063</a>)</td>
-            <td>Not directly impacted</td>
-            <td>7.234</td>
-            <td>7.237</td>
+            <td>7.223</td>
+            <td>7.238</td>
         </tr>
     </tbody>
 </table>
 
+ 
 ### Open Vulnerabilities
  
 <table>
@@ -77,7 +54,7 @@ Our security practices are aligned with widely accepted standards and frameworks
             <th width="100">Category</th>
             <th width="60">Severity</th>
             <th>Summary</th>
-            <th width="150">Impacted Area</th>
+            <th width="250">Impacted Area</th>
             <th width="90">Reported In Release</th>
             <th width="80">ETA</th>
         </tr>
@@ -85,10 +62,26 @@ Our security practices are aligned with widely accepted standards and frameworks
     <tbody>
         <tr>
             <td>Third party</td>
+            <td>Critical</td>
+            <td>Spring Framework Improper Path Limitation in XsltView (<a href="https://github.com/advisories/GHSA-pc63-qcmh-9cmg">GHSA-pc63-qcmh-9cmg</a>)</td>
+            <td>Not directly impacted as we do not use XsltView in our product.</td>
+            <td>7.238</td>
+            <td>Oct 2026</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>Critical</td>
+            <td>Spring Framework Server Sent Event stream corruption while rendering fragments (<a href="https://github.com/advisories/GHSA-j9f9-w8pj-32f8">GHSA-j9f9-w8pj-32f8</a>)</td>
+            <td>Not directly impacted as we do not use the affected classes in our product.</td>
+            <td>7.238</td>
+            <td>Oct 2026</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
             <td>High</td>
-            <td>Hibernate vulnerable to SQL Injection</td>
-            <td>Not directly impacted</td>
-            <td>7.223</td>
+            <td>jsoup XmlTreeBuilder vulnerable to memory exhaustion through deeply nested namespace declarations (<a href="https://github.com/advisories/GHSA-65r4-943x-97jj">GHSA-65r4-943x-97jj</a>)</td>
+            <td>Not directly impacted as usage is limited to XML generated automatically by the product. User-provided XML is not parsed by this library.</td>
+            <td>7.238</td>
             <td>Oct 2026</td>
         </tr>
     </tbody>
