@@ -54,7 +54,7 @@ Our security practices are aligned with widely accepted standards and frameworks
             <th width="100">Category</th>
             <th width="60">Severity</th>
             <th>Summary</th>
-            <th width="250">Impacted Area</th>
+            <th width="180">Impacted Area</th>
             <th width="90">Reported In Release</th>
             <th width="80">ETA</th>
         </tr>
