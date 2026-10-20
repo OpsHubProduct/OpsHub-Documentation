@@ -10,6 +10,75 @@ Our security practices are aligned with widely accepted standards and frameworks
  
 ---
 
+## Security Update
+
+### Resolved Vulnerabilities
+
+<table>
+    <thead>
+        <tr>
+            <th width="100">Category</th>
+            <th width="60">Severity</th>
+            <th>Summary</th>
+            <th width="150">Impacted Area</th>
+            <th width="90">Reported In Release</th>
+            <th width="90">Fixed In Release</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>jackson-databind: Duration/XMLGregorianCalendar unbounded number parse. Oversized numbers in JSON strings bound to these types are passed to the JDK parser, letting a small unauthenticated request consume CPU for seconds to minutes. (<a href="https://github.com/advisories/GHSA-q4xh-88c3-wmh7">GHSA-q4xh-88c3-wmh7</a>)</td>
+            <td>Not directly impacted as we do not deserialize JSON into these types as the Duration used in the product is java.time.Duration built from configuration values.</td>
+            <td>7.238</td>
+            <td>7.238</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>jackson-core: ReDoS in NumberInput.PATTERN_FLOAT via looksLikeValidNumber(). A regex backtracks quadratically on long numeric-looking strings, so a single crafted input can tie up a CPU for over a minute. (<a href="https://github.com/advisories/GHSA-p6pp-m3f8-5c89">GHSA-p6pp-m3f8-5c89</a>)</td>
+            <td>Potentially impacted, as Jackson is used for JSON parsing in the product. Fixed by upgrading to jackson-core 2.21.7.</td>
+            <td>7.238</td>
+            <td>7.238</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>	jackson-core: UTF8DataInputJsonParser._reportInvalidToken() missing maxErrorTokenLength limit. Malformed tokens read through a DataInput-based parser can build an unbounded error message and cause an OutOfMemoryError. (<a href="https://github.com/advisories/GHSA-7hhh-6rmp-j9qf">GHSA-7hhh-6rmp-j9qf</a>)</td>
+            <td>Not directly impacted as we do not parse JSON from a DataInput source.</td>
+            <td>7.238</td>
+            <td>7.238</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>jackson-databind: quadratic forward-reference completion. A small JSON document using @JsonIdentityInfo object-ID references can trigger quadratic CPU work. (<a href="https://github.com/advisories/GHSA-cxp5-3px4-pw24">GHSA-cxp5-3px4-pw24</a>)</td>
+            <td>Not directly impacted as we do not use @JsonIdentityInfo anywhere in the product.</td>
+            <td>7.238</td>
+            <td>7.238</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>jackson-databind retains every unknown raw type ID. With polymorphic types and a defaultImpl fallback, each unique unknown type ID is cached forever, so memory grows until the service fails. (<a href="https://github.com/advisories/GHSA-wv8q-qhhj-9h54">GHSA-wv8q-qhhj-9h54</a>)</td>
+            <td>Not directly impacted as we do not use @JsonTypeInfo anywhere in the product.</td>
+            <td>7.238</td>
+            <td>7.238</td>
+        </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>Hibernate vulnerable to SQL Injection. Non-alphanumeric characters in stored ID values are later run as SQL, letting a low-privileged attacker read, alter or delete database data. (<a href="https://github.com/advisories/GHSA-2p5w-cvg5-gc5c">GHSA-2p5w-cvg5-gc5c</a>)</td>
+            <td>Potentially impacted, as Hibernate is used in the product's persistence layer for database connections and data access. </td>
+            <td>7.223</td>
+            <td>7.238</td>
+        </tr>
+    </tbody>
+</table>
+
+---
+
 ## Application Security
 
 OpsHub applies a multi-layered approach to ensure the security of OpsHub Integration Manager.
