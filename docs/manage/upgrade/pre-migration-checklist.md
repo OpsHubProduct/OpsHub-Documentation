@@ -269,5 +269,24 @@ DELETE FROM reportsdb.ReportsDBVersion WHERE version='6.11.02.00.00';
 
 * To meet enhanced security requirements, the JDK (Java Development Kit) has been upgraded to version 17.0.18, which requires **Windows Server 2016 or later**.
 
+# Migrating <code class="expression">space.vars.OIM</code> 's version to 7.238 or above
+## MySQL databases earlier than version 8.0 and Oracle databases earlier than 19c are no longer supported
+
+**Applicable When**
+
+* You are running OpsHub Integration Manager with a MySQL database on a version earlier than 8.0 (for example, 5.6 or 5.7).
+* You are running OpsHub Integration Manager with an Oracle database on a version earlier than 19c (for example, 11g, 12c).
+
+**Actions**
+* MySQL: Upgrade the database server to MySQL 8.0 or later.
+* Oracle: Upgrade the database server to Oracle 19c.
+* Before upgrading, take a full backup of the OpsHub Integration Manager database and verify that it can be restored.
+* Refer to the [Supported Databases](https://docs.opshub.com/getting-started/prerequisites#database-prerequisites) documentation for detailed requirements.
+
+**Reason**
+
+* To meet enhanced security requirements, Hibernate has been upgraded to version 6.
+* Older database versions are no longer under standard vendor support, and Hibernate 6 requires database versions that align with its compatibility matrix.
+
 
 
