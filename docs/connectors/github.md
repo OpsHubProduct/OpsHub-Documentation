@@ -238,24 +238,22 @@ For **limitations** of Inline image synchronization, refer to [Limitations](#kno
 Custom fields created in GitHub Projects can be assigned values in an Issue entity.
 
 * Text, Number, Date, Single select and Iteration fields are supported. Single select and Iteration fields are available as lookup fields.
-* Custom fields are named as - Project Number + Field Name (for example, `1-Priority`).
+* Custom fields are named as - **Project Number + Field Name** (for example, `1-Priority`). Refer to [Get Project Number from GitHub UI](#get-project-number-from-github-ui) to find the project number.
 * While writing a custom field, the behavior is same as GitHub UI. The Issue is first associated with the project to which the custom field belongs, and then the field value is assigned.
 * Custom fields are available for mapping only for the projects which the integration user can access. Refer to [Authentication types](#authentication-types) for the permissions required.
 * Use the **GitHub Projects** field to read and write the GitHub Projects with which an Issue is associated. It is a multi-valued lookup field, so an Issue can be associated with more than one project.
   * If this field is mapped to a single-valued field in the other system, the first project is picked.
-  * An Issue can only be associated with a project. Removing a project from this field will not disassociate the Issue from the project in GitHub, as removing the Issue from a project also removes the values of the project's custom fields already set for that Issue.
-* GitHub Projects (classic) are not supported, only GitHub Projects (Version 2) are supported.
+  * Projects can only be added to an Issue, not removed. This prevents the loss of custom field values already set for the Issue in that project.
+* GitHub Projects (classic) are not supported as GitHub has discontinued them. For more details, refer to [Sunset Notice - Projects (classic)](https://github.blog/changelog/2024-05-23-sunset-notice-projects-classic/).
 
 >**Note**: Custom field updates will only be synchronized if any system field is updated after that.
 
 ## Comments Configuration
 
-* Comments can be synchronized for Issue and Pull Request entity.
-* There are 3 types of comments in Pull Request: Issue Comments, Review Comments and Reviews.
+* Comments can be synchronized for **Issue** and **Pull Request** entity.
+* There are 3 types of comments for Pull Request: Issue Comments, Review Comments and Reviews.
 
-* Issue entity has only Issue Comments.
-
->**Note**: Review comments are read-only. Write support requires the commit id and relative path of the reviewed file, which are not available from the source system. If write configuration is made for review comments, the synchronization will fail with an unsupported exception.
+>**Note**: Review comments are read-only. Writing them to GitHub needs the commit ID and file path of the reviewed code which are not available in the contenxt of Pull request entity.
 
 # Integration Configuration
 
@@ -472,3 +470,14 @@ Refer to document [Search Syntax in GitHub](https://help.github.com/en/github/se
   * Remove "--BEGIN RSA PRIVATE KEY--", "--END RSA PRIVATE KEY--" & new lines.
     * After this, your private key should look like: "MIIEogIBAAKCAQEAuflHHAj2HF.....", without breaking line.
   * Provide this as Private key while configuring GitHub system in OIM.
+
+## Get Project Number from GitHub UI
+
+The project number is used in the display name of custom fields, for example `6-Priority`. To get the project number of a GitHub Project:
+
+* Log in to GitHub and open the project.
+* The number at the end of the project URL is the project number. For example, in the URL `https://github.com/users/AutomationSyncUser/projects/6`, the project number is **6**.
+
+<p align="center">
+  <img src="../assets/githubProjectNumber.png" width="900"/>
+</p>
