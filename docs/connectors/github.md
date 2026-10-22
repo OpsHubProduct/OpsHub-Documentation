@@ -253,7 +253,7 @@ Custom fields created in GitHub Projects can be assigned values in an Issue enti
 * Comments can be synchronized for **Issue** and **Pull Request** entity.
 * There are 3 types of comments for Pull Request: Issue Comments, Review Comments and Reviews.
 
->**Note**: Review comments are read-only. Writing them to GitHub needs the commit ID and file path of the reviewed code which are not available in the contenxt of Pull request entity.
+>**Note**: Review comments are read-only. A review comment in GitHub is an inline comment on a specific line of a file in the Pull Request diff. To create one, GitHub requires the commit ID, the file path and the line (or diff position) being commented on. This specific diff position information is not available for the Pull Request entity. So, review comments cannot be written to GitHub.
 
 # Integration Configuration
 
@@ -306,13 +306,13 @@ Days interval for data reading configures the window for which entities will be 
 
 ## Configuring Attachment Path for attachment read/write operations
 
-Attachments for entities are uploaded as repository content. Path to which attachments should be uploaded/read from should be configured at integration level. On this path, folder will be created for each entity with entity Id as the folder name. This folder will contain all attachments associated with given entity Id.
+Attachments for entities are uploaded as repository content. Path to which attachments should be uploaded/read from should be configured at integration level. On this path, folder will be created for each entity with **entity Id as the folder name**. This folder will contain all attachments associated with given entity Id.
 
 <p align="center">
   <img src="../assets/GH10a.png" width="1200"/>
 </p>
 
-If attachment path is not provided, there will be processing failure during synchronization. For each attachment synchronization comment will be added in the entity with following content:
+If attachment path is not provided, there will be processing failure during synchronization. For each attachment synchronization, comment will be added in the entity with following content:
 
 * Operation performed + Reference URL of attachment
 * Folder path where all entity attachments can be found.
@@ -358,7 +358,7 @@ Refer to document [Search Syntax in GitHub](https://help.github.com/en/github/se
 * **State_reason** field behavior for **Issue** entity:
   	* This field is dependant on **State** field.
    		 * Reason: For closing status, we have two options in GitHub **Completed** & **Not_Planned**. For opening an issue from close state, the reason will be **reopen**. Hence, State Reason field is mandatory, if we want to sync the states properly.  Or else, the State field will be synced with the default behaviour of GitHub.
-* Only 1200 issues can be added to a GitHub project. If more than that are attempted to be added, it will lead to processing failures.
+* A GitHub project can hold a maximum of 1200 issues. Adding an issue beyond this limit will fail with a processing failure.
 
 # Known Limitations
 
@@ -475,9 +475,9 @@ Refer to document [Search Syntax in GitHub](https://help.github.com/en/github/se
 
 The project number is used in the display name of custom fields, for example `6-Priority`. To get the project number of a GitHub Project:
 
-* Log in to GitHub and open the project.
-* The number at the end of the project URL is the project number. For example, in the URL `https://github.com/users/AutomationSyncUser/projects/6`, the project number is **6**.
-
 <p align="center">
   <img src="../assets/githubProjectNumber.png" width="900"/>
 </p>
+
+* Log in to GitHub and open the project.
+* The number at the end of the project URL is the project number. For example, in the URL `https://github.com/users/AutomationSyncUser/projects/6`, the project number is **6**.
