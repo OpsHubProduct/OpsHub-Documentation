@@ -185,6 +185,29 @@ In codebeamer/codebeamerX, Associations and Reference fields will be supported a
 <div align="center"><img src="../assets/Codebeamer_Image_3_b.png" alt="" width="800"></div>
 
 
+### Reference Fields
+
+* A reference field is added on one entity (the **base** entity) and points to another entity (the **linked** entity). For example, a **Risk** entity has a reference field that points to a **Bug**, so Risk is the base entity and Bug is the linked entity.
+* When you set up link metadata for the **base** entity in <code class="expression">space.vars.OIM</code>, one link type is available for each reference field:
+  * `<reference_field_name>` - the link from the base entity to the linked entity.
+
+
+#### Downstream Reference Linkage
+
+The limitation is on the **linked** entity side. When you set up link metadata for the linked entity (for example, Bug), the `(Downstream Reference)` link type does **not** appear automatically, so the same relationship cannot be configured starting from the linked entity. This is because codebeamer/codebeamer X does not expose the downstream reference through its API while link metadata is loaded for the linked entity.
+
+If you need to configure the relationship from the linked entity side as well, provide the downstream reference link metadata as input configuration. <code class="expression">space.vars.OIM</code> then adds the `(Downstream Reference)` link type to the linked entity, matching your configuration entry to the entity by its internal name, so the link type becomes available there too.
+
+This configuration is:
+
+* **Optional** - needed only when you want to configure the relationship from the linked entity side as well as the base entity side.
+* **Applicable to reference-type links only** - it does not affect generic association links.
+* **Entity-wise** - add an entry for each linked entity on which the downstream link type should be exposed.
+
+Refer to the section [Configure Downstream Reference Link Metadata](codebeamer.md#configure-downstream-reference-link-metadata) for the input format and an example.
+
+> **Note**: If the base entity syncs before the linked entity and the downstream side is not configured, the link is created from the base entity side only. Configuring the downstream link metadata lets the relationship be resolved from either side, regardless of the sync order.
+
 ### Mapping for Entity mention field
 
 * When codebeamer/codebeamerX is configured as source system in the integration and its field/comment type is rich text (HTML), then the entity mention synchronization is supported.
@@ -929,6 +952,56 @@ Following are the steps to configure any-to-any transition:
 }
 ```
 **Note:** The values specified in referredEntities must exactly match the display names of the entities that the reference field can refer to in the end system.
+
+## Configure Downstream Reference Link Metadata
+
+Use this input to expose a reference field's downstream link type on the linked entity, so the relationship can be configured from the linked entity side as well. Refer to the section [Downstream Reference Linkage](codebeamer.md#downstream-reference-linkage) for the behavior.
+
+* JSON Template format:
+
+```JSON
+{
+  "entities": [
+    {
+      "internalName": "<internal name of the linked entity>",
+      "relationship": {
+        "linkTypes": [
+          {
+            "linkType": "<downstream link type to expose on the linked entity>",
+            "reverseLinkType": "<the original reference field on the base entity>"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+| **JSON Tag**                  | **Description**                                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------------------------ |
+| `entities[].internalName`     | Internal name of the linked entity on which the downstream link type should be made available.     |
+| `linkTypes[].linkType`        | The downstream link type to add as a valid link type on the linked entity.                         |
+| `linkTypes[].reverseLinkType` | The original reference field on the base entity that this downstream link type reverses.           |
+
+* The following example exposes the downstream link type `BugInRetina (Downstream Reference)` on the **bug** entity, reversing the `BugInRetina` reference field defined on the base entity.
+
+```JSON
+{
+  "entities": [
+    {
+      "internalName": "bug",
+      "relationship": {
+        "linkTypes": [
+          {
+            "linkType": "BugInRetina (Downstream Reference)",
+            "reverseLinkType": "BugInRetina"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
 
 ## Register an Application in Microsoft Entra ID
 
