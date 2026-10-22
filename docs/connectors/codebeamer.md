@@ -158,30 +158,27 @@ In codebeamer/codebeamerX, Associations and Reference fields will be supported a
 
 ### Reference Fields
 
-* A reference field added on one entity (the "main" entity) points to another entity (the "referred" entity).
-* In codebeamer/codebeamer X, when a reference field is created on the main entity, the referred entity automatically shows a corresponding **downstream reference** back to the main entity.
-* On the <code class="expression">space.vars.OIM</code> User Interface, for a reference field two link types are shown on the main entity:
-  * `<reference_field_name>`
-  * `<reference_field_name> (Downstream Reference)`
+* A reference field is added on one entity (the **main** entity) and points to another entity (the **referred** entity). For example, a **Risk** entity has a reference field that points to a **Bug**, so Risk is the main entity and Bug is the referred entity.
+* When you set up link metadata for the **main** entity in <code class="expression">space.vars.OIM</code>, two link types are available for each reference field:
+  * `<reference_field_name>` - the link from the main entity to the referred entity.
+  * `<reference_field_name> (Downstream Reference)` - the same link seen in the opposite direction, from the referred entity back to the main entity.
+* This means the relationship can be configured fully from the **main** entity side.
 
 #### Downstream Reference Linkage
 
-By default, a reference-field relationship can be configured only from the **main** entity side (the entity that owns the reference field). The **downstream** direction - configuring the same relationship from the **referred** entity side - is not available automatically, because codebeamer/codebeamer X does not expose, through its API, the downstream reference back to the main entity while loading link metadata for the referred entity.
+The limitation is on the **referred** entity side. When you set up link metadata for the referred entity (for example, Bug), the `(Downstream Reference)` link type does **not** appear automatically, so the same relationship cannot be configured starting from the referred entity. This is because codebeamer/codebeamer X does not expose the downstream reference through its API while link metadata is loaded for the referred entity.
 
-To make the downstream link type available on the referred entity, provide the downstream reference link metadata as input configuration. During link metadata loading, <code class="expression">space.vars.OIM</code> will:
-
-* Match the configured entry against the referred entity by its internal name.
-* Add the configured `(Downstream Reference)` link type as a valid link type on the referred entity.
+If you need to configure the relationship from the referred entity side as well, provide the downstream reference link metadata as input configuration. <code class="expression">space.vars.OIM</code> then adds the `(Downstream Reference)` link type to the referred entity, matching your configuration entry to the entity by its internal name, so the link type becomes available there too.
 
 This configuration is:
 
-* **Optional** - required only when you want to configure the relationship from both the main and the referred entity sides.
+* **Optional** - needed only when you want to configure the relationship from the referred entity side as well as the main entity side.
 * **Applicable to reference-type links only** - it does not affect generic association links.
 * **Entity-wise** - add an entry for each referred entity on which the downstream link type should be exposed.
 
 Refer to the section [Configure Downstream Reference Link Metadata](codebeamer.md#configure-downstream-reference-link-metadata) for the input format and an example.
 
-> **Note**: If a main entity syncs before the referred entity and the downstream side is not configured, the link is created from the main entity side only. Configuring the downstream link metadata lets the relationship be resolved from either side, regardless of sync order.
+> **Note**: If the main entity syncs before the referred entity and the downstream side is not configured, the link is created from the main entity side only. Configuring the downstream link metadata lets the relationship be resolved from either side, regardless of the sync order.
 
 ### Mapping for Entity mention field
 
