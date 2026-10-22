@@ -602,7 +602,7 @@ The query must be in the format:
 ### Supported Target Lookup Query for Release Pipeline Entity
 
 The query must be in the format:
-`searchText=@name@&isExactNameMatch=true`
+`searchText=@Name@&isExactNameMatch=true`
 - `searchText` performs the lookup on the release pipeline name
 - `isExactNameMatch=true` ensures that only release pipelines with an **exact name match** are returned.
 
@@ -610,7 +610,7 @@ The query must be in the format:
 ### Supported Target Lookup Query for Service Connection Entity
 
 The query must be in the format:
-`endpointNames=@name@`
+`endpointNames=@Name@`
 - Returns Service Connections whose **endpoint name** matches the provided value.
 
 ### Supported Target Lookup Query for Agent Pool Entity
