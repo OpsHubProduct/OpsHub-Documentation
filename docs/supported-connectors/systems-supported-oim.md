@@ -545,7 +545,7 @@ Given below are the systems supported currently by <code class="expression">spac
         </tr>
         <tr>
             <td>74</td>
-            <td>Tricentis Tosca*</td>
+            <td>Tricentis Tosca</td>
             <td>2023.2, 2024.2 (x64) - 2025.1 (x64)</td>
             <td>TestCase, ExecutionTestCaseLog (read), ExecutionEntry, TCFolder, Requirement, RequirementSet, Issue, Module</td>
             <td></td>
