@@ -226,6 +226,14 @@ Provide query in Target Search Query field to be able to search the entity in ET
 - If **Parent Test Cases** link is added to **Test Script** artifact, it will be synchronized to target system with next update.  
   **Reason:** After adding this link, instead of **Test Script**, **Test Case** is being updated on ETM interface.
 
+## Test Suite Execution Record
+- Only one Test Suite Execution Record can exist for a unique combination of Test Suite, Test Plan, Iteration, and Test Environment. If a record already exists for the same combination, <code class="expression">space.vars.OIM</code> returns the following error when ETM is configured as the target system:
+  - `Duplicate Test Suite Execution Record found with internal id: {id}. One record exists per combination of Test Suite, Test Plan, Test Milestone and Test Environment.`
+- A Test Suite is required when creating a Test Suite Execution Record. After creation, the associated Test Suite and Test Plan links cannot be changed.
+  - Reason: The Test Suite link can only be set during record creation, and the ETM REST API does not support updating the Test Plan link after the Test Suite Execution Record has been created.
+- The Test Case Execution Record link is read-only and is available only after the Test Suite Execution Record has been executed at least once, resulting in a Test Suite Result.
+  - Reason: Test Case Execution Records are retrieved from the Test Suite Result and cannot be accessed before a corresponding result exists. Since the link is system-generated, it cannot be created or modified directly.
+
 ## OAuth Access Token Timeout
 - On ETM admin panel, you can specify the timeout seconds for the OAuth Access Token.
 - The number of seconds provided here specifies that token will stay valid (till the number of seconds specified) while not being used. It is recommended to set this value based on usage. In case of token regeneration, refer to [OAuth Configuration](#oauth-configuration) section.
@@ -255,12 +263,12 @@ Provide query in Target Search Query field to be able to search the entity in ET
 - **Locked** field is supported as Read-only.
 - Following fields are not supported:
 
-| Artifact                | Not supported fields                                                                                                                      |
-|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| Test Plan              | Development Plan Links, Test Environment, Test Suite Execution Records, Test Suite Results, Test Suite, Test Team, Risk Assessment, Test Schedule, Resources, Normative and Informative Documents, Formal Review, Quality Objectives, Exit Criteria, Entry Criteria, Application Security, Associated Electronic Signatures, Subscribers |
+| Artifact                | Not supported fields                                                                                                                     |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Test Plan              | Development Plan Links, Test Suite Execution Records, Test Suite Results, Test Suite, Test Team, Risk Assessment, Test Schedule, Resources, Normative and Informative Documents, Formal Review, Quality Objectives, Exit Criteria, Entry Criteria, Application Security, Associated Electronic Signatures, Subscribers |
 | Test Case              | Development Items, Architecture Element Links, Risk Assessment, Execution Variables, Normative and Informative Documents, Formal Review, Associated Electronic Signatures, Subscribers |
-| Test Script            | Test Data, Formal Review, Quality Task, Associated Electronic Signatures, Subscribers                                                      |
-| Test Case Execution Record | Blocking Defects, Deployment plan, Test Environment, Iteration, rolled-up result, Subscribers                                             |
+| Test Script            | Test Data, Formal Review, Quality Task, Associated Electronic Signatures, Subscribers                                                     |
+| Test Case Execution Record | Blocking Defects, Deployment plan, rolled-up result, Subscribers                                             |
 | Test Case Result       | Defect, Test Environment, Build, Test Data, Iteration, Custom properties, Weight Distribution, Formal Review, Execution Variables, Associated Electronic Signatures |
 
 # Appendix
