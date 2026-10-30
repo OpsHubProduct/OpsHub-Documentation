@@ -7,7 +7,7 @@ if: >-
 
 ## User Privileges
 
-* Create one administrator user of Enterprise Architect System , dedicated to <code class="expression">space.vars.OIM</code>, only if the projects which will be used for synchronization have enabled security settings in Enterprise Architect System. This dedicated user should not do any operations from the system’s user interface.
+* Configure a administrator user of Enterprise Architect System with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space.vars.OIM</code>, only if the projects which will be used for synchronization have enabled security settings in Enterprise Architect System. This dedicated user should not do any operations from the system's user interface.
 * User should have access to all the projects that need to be synchronized.
 
 > **Note**: The Enterprise Architect app must **NOT** be configured to 'Run this program as an Administrator'. If the user is facing the error, 'Retrieving the COM class factory for component with CLSID {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx} failed due to the following error: 800702e4. The requested operation requires elevation.', then check if Enterprise Architect is configured to run as administrator. Uncheck this option if selected in the Compatibility tab in its Properties.
