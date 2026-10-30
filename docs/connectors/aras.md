@@ -7,7 +7,7 @@ if: >-
 
 ## User Privileges
 
-* Create a user in Aras Innovator that is dedicated for <code class="expression">space.vars.OIM</code>. The user shouldn't perform any other action from Aras Innovator user interface. Refer to [Add User in Aras Innovator](aras.md#add-users) section to learn how to add a new user in Aras Innovator.
+* Configure a dedicated Aras Innovator user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space.vars.OIM</code>. The user shouldn't perform any other action from Aras Innovator user interface. Refer to [Add User in Aras Innovator](aras.md#add-users) section to learn how to add a new user in Aras Innovator.
 * The user identity of the user dedicated for <code class="expression">space.vars.OIM</code> must have the following permissions for the 'item type' to be integrated:
 
 | **Permission Types**        | **Justification**                                                                                                                                                                          | **Needed When**                                                                                                                                                                                                                                                                                                                                                             | **How To**                                                                                                                                                                                                                   |
