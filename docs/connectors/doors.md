@@ -6,7 +6,7 @@ if: >-
 # Pre-requisites
 
 ## User privileges
-* Create one user of DOORS System, dedicated to <code class="expression">space.vars.OIM</code>. User should not be used to do any operations from system's user interface.
+* Configure a dedicated DOORS user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space.vars.OIM</code>. User should not be used to do any operations from system's user interface.
 * User should have Read (R), Modify (M), Create(C) access rights for each module of the project that required synchronization. For more details on setting access rights, please refer [How to add permissions on module](#how-to-add-permissions-on-module) in appendix.
 
 ## DOORS client
