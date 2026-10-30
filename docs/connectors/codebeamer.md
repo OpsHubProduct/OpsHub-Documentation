@@ -7,7 +7,7 @@ if: >-
 
 ## User privileges
 
-* Create one user in codebeamer/codebeamer X that is dedicated to <code class="expression">space.vars.OIM</code>. This user should not do any operations from the system's interface. This user should not do any operations from the system's interface. This user's timezone should be same as end system's server timezone. Refer to [Add User](codebeamer.md#add-user) section to create a user in codebeamer/codebeamerX.
+* Configure a dedicated codebeamer/codebeamerX user account with a name such as **OpsHub Sync** to represent activities performed by  <code class="expression">space.vars.OIM</code>. This user should not do any operations from the system's interface. This user's timezone should be same as end system's server timezone. Refer to [Add User](codebeamer.md#add-user) section to create a user in codebeamer/codebeamerX.
 * The user must be a member of all the projects that needs to be synchronized. To add a Project member refer to section [Add Project Member](codebeamer.md#add-project-member).
 * The User group of user should have the following permissions. Refer to section [Add User Group](codebeamer.md#add-user-group) to create user group.
     * Own Account - Admin
