@@ -1050,9 +1050,9 @@ for processing.
 
 <div align="center"><img src="../assets/TFS_CREATE_TOKEN_1.png" alt="" width="900"></div>
 
-* Provide the name for the token and select **All accessible organizations** option for the Organization. Then choose the scope for the Personal Access Token, and click on the **create** button.
+* Provide the name for the token and select appropriate organization. Then choose the scope for the Personal Access Token, and click on the **create** button.
 
-<div align="center"><img src="../assets/TFS_CREATE_TOKEN_2.png" alt="" width="900"></div>
+<div align="center"><img src="../assets/TFS_CREATE_TOKEN.png" alt="" width="600"></div>
 
 * Copy the token value.
 
