@@ -6,7 +6,7 @@ if: >-
 # Pre-requisites
 ## User privileges
 
-*Create one user in Jama that is dedicated to <code class="expression">space.vars.OIM</code>. This user should not do any operations from the system's interface.*  
+*Configure a dedicated Jama user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space.vars.OIM</code>. This user should not do any operations from the system's interface.*  
 **Please refer to [Add Users](#add-users) section to determine how to create a user in Jama**
 
 * Below are the permissions required for this dedicated user:  
