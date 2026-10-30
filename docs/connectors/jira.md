@@ -7,7 +7,7 @@ if: >-
 
 ## User privileges
 
-* Create a dedicated Jira user account with a username such as **OpsHub Sync** to represent activities performed by <code class="expression">space.vars.OIM</code>. This user shouldn't perform any other action from Jira's user interface. 
+* Configure a dedicated Jira user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space.vars.OIM</code>. This user shouldn't perform any other action from Jira's user interface. 
   * **Note** This user can be part of your Jira system's Lightweight Directory Access Protocol (LDAP) or Single sign-on (SSO) provider.
 * Before configuring the user permissions, ensure that the user has access to the required Jira application(s). 
 * If you plan to synchronize **Jira** entities, grant the user access to the **Jira Software** application. For instructions, refer to [Grant access to Jira applications to a User](jira.md#grant-access-to-jira-applications-to-a-user).
