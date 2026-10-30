@@ -7,8 +7,8 @@ if: >-
 
 ## User privileges
 
-* Create one user of DOORS Next system, dedicated to <code class="expression">space.vars.OIM</code>. Refer to section [Create User](#how-to-create-a-user) for steps on creating a user. This user should not be used to do any operations from end system's user interface.  
-  Following are the privileges required by the dedicated integration user for synchronization of the artifacts by <code class="expression">space.vars.OIM</code>.
+* Configure a dedicated DOORS Next user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space.vars.OIM</code>. Refer to section [Create User](#how-to-create-a-user) for steps on creating a user. This user should not be used to do any operations from end system's user interface.  
+  Following are the privileges required by the dedicated integration user for synchronization of the artifacts by <code class="expression">space.vars.OIM</code>
 
 ## DOORS Next Permissions for synchronization
 
