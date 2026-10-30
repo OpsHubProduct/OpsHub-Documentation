@@ -7,7 +7,7 @@ if: >-
 
 ## User Privileges
 
-* Create one administrator user of ServiceNow system (please refer [Add User](servicenow.md#add-user) section for creating a new user), dedicated to <code class="expression">space.vars.OIM</code>. User should not be used to do any operations from ServiceNow User-Interface.
+* Configure a dedicated ServiceNow user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space. vars.OIM</code>. Please refer [Add User](servicenow.md#add-user) section for creating a new user. User should not be used to do any operations from ServiceNow User-Interface.
   >**Note**:  In case your ServiceNow is configured with SSO, you will have to create a normal service user account in ServiceNow and use that user in integration.
 *   In case if administrator user is not available, dedicated user should have access to tables mentioned below. Please note that Read, Write, Delete, etc mentioned in brackets beside table names, are the access permissions required on respective table. Refer [Add user access for table](servicenow.md#add-user-access-for-table) for providing required permissions to the user.
 
