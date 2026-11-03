@@ -7,7 +7,7 @@ if: >-
 
 ## User privileges
 
-* Configure a dedicated IBM Rational ClearQuest user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space. vars.OIM</code>. This user shouldn't be able to do any operation from system's user interface.
+* Configure a dedicated IBM Rational ClearQuest user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space.vars.OIM</code>. This user shouldn't be able to do any operation from system's user interface.
 * Integration user should have privileges of an 'Active User', through which they must be able to create/update records and create/execute queries.
 
 ## Enable Team Web 
