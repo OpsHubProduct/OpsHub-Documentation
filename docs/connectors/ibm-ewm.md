@@ -7,7 +7,7 @@ if: >-
 
 ## User privileges
 
-* Create one user of Engineering Workflow Management (EWM), dedicated to <code class="expression">space.vars.OIM</code>. User should not be used to do any operations from system's user interface.
+* Configure a dedicated Engineering Workflow Management (EWM) user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space. vars.OIM</code>. User should not be used to do any operations from system's user interface.
 * User should be member of a Project Area with permission to create/modify work-items. For help on how to assign membership and role, please refer [Assign Membership and Role](ibm-ewm.md#assign-membership-and-role).
 * Integration User must have at least one out of 'Contributor Client Access License', 'Developer Client Access License' and 'Stakeholder Client Access License' assigned, and 'Repository' permissions should have at least one of the 'JazzUsers', 'JazzProjectAdmins' and 'JazzAdmins' marked. For step-by-step guide, please refer to [User Privileges](ibm-ewm.md#user-privileges).
 * Permissions are required for Delete and Modify attachments features. For help on how to set permission for attachments, please refer [User Privileges for Attachment Operations](ibm-ewm.md#user-privileges-for-attachment-operations).
