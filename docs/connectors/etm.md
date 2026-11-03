@@ -7,7 +7,7 @@ if: >-
 
 ## User privileges
 
-- Create a dedicated integration user in ETM. This user shouldn't perform any other action from ETM interface.
+- Configure a dedicated ETM user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space. vars.OIM</code>. This user shouldn't perform any other action from ETM interface.
 - User must be a member of projects used to synchronize entities/artifacts.
 - User can use **Forms-based authentication** or **OAuth 1.0** authentication mode to communicate with API for ETM.  
   * Refer to [OAuth Configuration](#oauth-configuration) section to learn how to create OAuth token.
