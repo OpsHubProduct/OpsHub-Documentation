@@ -7,7 +7,7 @@ if: >-
 
 ### User Privileges
 
-Before you begin, create a dedicated user in Windchill PLM that will be used specifically for this integration. This dedicated user is called an "Integration User".
+Before you begin, configure a dedicated Windchill PLM user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space.vars.OIM</code>.
 - This user will handle all data synchronization between Windchill PLM and other systems.
 - This user shouldn't perform any other action from Windchill PLM's user interface.
 
