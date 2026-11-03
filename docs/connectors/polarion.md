@@ -29,7 +29,7 @@ if: >-
           `<opshub_installation_directory>\OpsHubServer\bundle_config\POLARION_LIB`
 
 ## User Privileges
-* Create a user in Polarion that is dedicated for <code class="expression">space.vars.OIM</code>. This user shouldn't perform any other action from Polarion's user interface.
+* Configure a dedicated Polarion user account with a name such as **OpsHub Sync** to represent activities performed by <code class="expression">space. vars.OIM</code>. This user shouldn't perform any other action from Polarion's user interface.
 * Following are the user privileges required:
 1. The user must have access to the default SVN repository:
    - To grant user access to the default repository, refer [Grant Permission To Access Repository](#grant-permission-to-access-repository).
