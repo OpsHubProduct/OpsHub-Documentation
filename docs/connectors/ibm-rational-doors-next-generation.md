@@ -330,15 +330,29 @@ For example, the integration configured for the "User Requirement (Text)" and al
 </p>
 
 > **Note:**
-> - In bidirectional synchronization scenarios, disabling **Skip Base Artifact Comments** may cause comment visibility differences between the source and target systems.
-> - For example:
->   1. A comment on a base artifact is synchronized to the target system.
->   2. A user adds a new comment in the target system.
->   3. The new comment is synchronized back to the base artifact in DOORS Next.
->   4. Because base artifact comments are also visible on the associated module artifact, the same comment becomes visible on the module artifact as well.
->   5. However, the comment is not synchronized again from the module artifact because it was not created by synchronization user.
-> - As a result, users may see comments on the module artifact that are not synchronized back through the module artifact flow, leading to inconsistent comment visibility.
-> - If base artifacts and module artifacts are synchronized separately, enable **Skip Base Artifact Comments** to maintain comment consistency.
+> In bidirectional synchronization scenarios, it is recommended to enable **Skip Base Artifact Comments**. Otherwise, comments inherited from associated base artifacts may become visible on module artifacts, resulting in comment visibility inconsistencies between the source and target systems, as shown in the following example:
+> 
+> **Example:**
+>
+> Initial synchronization:
+>
+> - Base Artifact **B1** `[BC1]` → Target **B1** `[BC1]`
+> - Module Artifact **M1** `[BC1, MC1, MC2]` → Target **M1** `[BC1, MC1, MC2]`
+>
+> User adds new comments in the target system:
+>
+> - Target **M1** `[BC1, MC1, MC2]` → Module Artifact **M1** `[BC1, MC1, MC2]`
+> - Target **B1** `[BC1, BC2]` → Base Artifact **B1** `[BC1, BC2]`
+>
+> Since comments from a base artifact are also visible on its associated module artifacts in DOORS Next:
+>
+> - Base Artifact **B1**: `[BC1, BC2]`
+> - Module Artifact **M1**: `[BC1, MC1, MC2, BC2]`
+>
+> Here, comment **BC2** was added to the base artifact and becomes visible on the module artifact. 
+> However, because **BC2** was not created on the base artifact by integration user, it may not be synchronized through the module artifact synchronization flow, resulting in differences between source and target comments.
+>
+> To avoid such inconsistencies when base artifacts and module artifacts are synchronized separately, enable **Skip Base Artifact Comments**.
 
 ## Criteria Configuration
 
