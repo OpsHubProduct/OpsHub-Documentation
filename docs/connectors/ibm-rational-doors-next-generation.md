@@ -321,20 +321,24 @@ For example, the integration configured for the "User Requirement (Text)" and al
     - `1-2.0-1`, `1-2.0-2` : Child artifacts placed under a non-Heading artifact (here, children of the artifact at 1-2)
 
 ## Synchronize comments of base artifact
-When IBM Engineering Requirements Management DOORS Next is configured as the source system, <code class="expression">space.vars.OIM</code> supports synchronization of comments from both a module artifact and its associated base artifact.
-
-To synchronize comments only from the current module artifact, enable the **Skip Base Artifact Comments** option.
-When this option is enabled, comments inherited from the bound base artifact are excluded, and only comments that are directly associated with the current artifact are retrieved and synchronized.
+- When IBM Engineering Requirements Management DOORS Next is configured as the source system, <code class="expression">space.vars.OIM</code> will synchronize comments from both a module artifact and its associated base artifact with module artifact synchronization.
+- To synchronize comments only from the current module artifact, enable the **Skip Base Artifact Comments** option.
+- When this option is enabled, comments from the bound base artifact are excluded, and only comments directly associated with the current artifact are synchronized.
 
 <p align="center">
   <img src="../assets/Doors_Skip_Base_Comment.png" width="1100"/>
 </p>
 
-> **Note**: In bidirectional synchronization scenarios where both base artifacts and module artifacts are being synchronized, leaving this option disabled may result in comment visibility inconsistencies. 
-> For example, if a comment from a base artifact is synchronized to the target system and a new comment is subsequently added in the target system, that comment is synchronized back to the base artifact in DOORS Next. 
-> Since comments on a base artifact are also visible on its associated module artifacts, the returned comment may appear on both artifact types. 
-> However, subsequent updates to the module artifact will not synchronize that comment back to the target system because it was originally created as part of the synchronization process and not directly on the module artifact. 
-> This can lead to differences in comment visibility between the source and target systems.
+> **Note:**
+> - In bidirectional synchronization scenarios, disabling **Skip Base Artifact Comments** may cause comment visibility differences between the source and target systems.
+> - For example:
+>   1. A comment on a base artifact is synchronized to the target system.
+>   2. A user adds a new comment in the target system.
+>   3. The new comment is synchronized back to the base artifact in DOORS Next.
+>   4. Because base artifact comments are also visible on the associated module artifact, the same comment becomes visible on the module artifact as well.
+>   5. However, the comment is not synchronized again from the module artifact because it was not created by synchronization user.
+> - As a result, users may see comments on the module artifact that are not synchronized back through the module artifact flow, leading to inconsistent comment visibility.
+> - If base artifacts and module artifacts are synchronized separately, enable **Skip Base Artifact Comments** to maintain comment consistency.
 
 ## Criteria Configuration
 
@@ -561,7 +565,8 @@ Let's say there is one stream `Stream A` and one changeset `Changeset A`. `Strea
 - If the given view name is not present in DOORS Next stream, then no artifacts corresponding to that stream will be synchronized.
 - If the view name is configured in integration and is later renamed on DOORS Next UI, then, the view name must be updated in the integration to keep on synchronizing the artifacts.
 - If there are two modules configured for synchronization. If one of the module is removed later on, then the already synchronized artifacts of that module will no longer be in synchronization.
-
+- Base artifact comments in bidirectional synchronization: 
+  - Synchronizing comments from both base and module artifacts may result in comment visibility differences. For more information, see [Synchronize Comments of Base Artifact](#synchronize-comments-of-base-artifact).
 
 ### When DOORS Next is configured as target system
 
