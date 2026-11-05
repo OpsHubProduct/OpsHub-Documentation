@@ -320,6 +320,21 @@ For example, the integration configured for the "User Requirement (Text)" and al
     - `1-1`, `1-2` : Top-level artifacts that are not Headings 
     - `1-2.0-1`, `1-2.0-2` : Child artifacts placed under a non-Heading artifact (here, children of the artifact at 1-2)
 
+## Synchronize comments of base artifact
+When IBM Engineering Requirements Management DOORS Next is configured as the source system, <code class="expression">space.vars.OIM</code> supports synchronization of comments from both a module artifact and its associated base artifact.
+
+To synchronize comments only from the current module artifact, enable the **Skip Base Artifact Comments** option.
+When this option is enabled, comments inherited from the bound base artifact are excluded, and only comments that are directly associated with the current artifact are retrieved and synchronized.
+
+<p align="center">
+  <img src="../assets/Doors_Skip_Base_Comment.png" width="1100"/>
+</p>
+
+> **Note**: In bidirectional synchronization scenarios where both base artifacts and module artifacts are being synchronized, leaving this option disabled may result in comment visibility inconsistencies. 
+> For example, if a comment from a base artifact is synchronized to the target system and a new comment is subsequently added in the target system, that comment is synchronized back to the base artifact in DOORS Next. 
+> Since comments on a base artifact are also visible on its associated module artifacts, the returned comment may appear on both artifact types. 
+> However, subsequent updates to the module artifact will not synchronize that comment back to the target system because it was originally created as part of the synchronization process and not directly on the module artifact. 
+> This can lead to differences in comment visibility between the source and target systems.
 
 ## Criteria Configuration
 
