@@ -320,6 +320,37 @@ For example, the integration configured for the "User Requirement (Text)" and al
     - `1-1`, `1-2` : Top-level artifacts that are not Headings 
     - `1-2.0-1`, `1-2.0-2` : Child artifacts placed under a non-Heading artifact (here, children of the artifact at 1-2)
 
+## Synchronize comments of base artifact
+- When IBM Engineering Requirements Management DOORS Next is configured as the source system, <code class="expression">space.vars.OIM</code> will synchronize comments from both a module artifact and its associated base artifact with module artifact synchronization.
+- To synchronize comments only from the current module artifact, enable the **Skip Base Artifact Comments** option.
+- When this option is enabled, comments from the bound base artifact are excluded, and only comments directly associated with the current artifact are synchronized.
+
+<p align="center">
+  <img src="../assets/Doors_Skip_Base_Comment.png" width="1100"/>
+</p>
+
+> **Note:**
+> In bidirectional synchronization scenarios if base and module both level artifacts are in sync in OIM,
+> it is recommended to enable **Skip Base Artifact Comments**. Otherwise, comments inherited from associated base artifacts may become visible on module artifacts, resulting in comment visibility inconsistencies between the source and target systems, as shown in the following example:
+>
+> **Example:**
+>
+> Initial synchronization:
+>
+> - Base Artifact **B1** `[BC1]` → Target **B1** `[BC1]`
+> - Module Artifact **M1** `[BC1, MC1, MC2]` → Target **M1** `[BC1, MC1, MC2]`
+>
+> User adds new comments in the target system:
+>
+> - Target **M1** `[BC1, MC1, MC2]` → Module Artifact **M1** `[BC1, MC1, MC2]`
+> - Target **B1** `[BC1, BC2]` → Base Artifact **B1** `[BC1, BC2]`
+>
+> Since comments from a base artifact are also visible on its associated module artifacts in DOORS Next:
+>
+> - Base Artifact **B1**: `[BC1, BC2]`
+> - Module Artifact **M1**: `[BC1, MC1, MC2, BC2]`: Here BC2 will not sync to target and target will be **M1** `[BC1, MC1, MC2]`, as BC2 was synced by OIM sync user.
+>
+> To avoid such inconsistencies when base artifacts and module artifacts are synchronized separately, enable **Skip Base Artifact Comments**.
 
 ## Criteria Configuration
 
@@ -546,7 +577,8 @@ Let's say there is one stream `Stream A` and one changeset `Changeset A`. `Strea
 - If the given view name is not present in DOORS Next stream, then no artifacts corresponding to that stream will be synchronized.
 - If the view name is configured in integration and is later renamed on DOORS Next UI, then, the view name must be updated in the integration to keep on synchronizing the artifacts.
 - If there are two modules configured for synchronization. If one of the module is removed later on, then the already synchronized artifacts of that module will no longer be in synchronization.
-
+- Base artifact comments in bidirectional synchronization:
+  - Synchronizing comments from both base and module artifacts may result in comment visibility differences. For more information, see [Synchronize Comments of Base Artifact](#synchronize-comments-of-base-artifact).
 
 ### When DOORS Next is configured as target system
 
