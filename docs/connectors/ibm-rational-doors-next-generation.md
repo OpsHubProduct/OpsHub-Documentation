@@ -330,7 +330,8 @@ For example, the integration configured for the "User Requirement (Text)" and al
 </p>
 
 > **Note:**
-> In bidirectional synchronization scenarios, it is recommended to enable **Skip Base Artifact Comments**. Otherwise, comments inherited from associated base artifacts may become visible on module artifacts, resulting in comment visibility inconsistencies between the source and target systems, as shown in the following example:
+> In bidirectional synchronization scenarios if base and module both level artifacts are in sync in OIM, 
+> it is recommended to enable **Skip Base Artifact Comments**. Otherwise, comments inherited from associated base artifacts may become visible on module artifacts, resulting in comment visibility inconsistencies between the source and target systems, as shown in the following example:
 > 
 > **Example:**
 >
@@ -347,10 +348,7 @@ For example, the integration configured for the "User Requirement (Text)" and al
 > Since comments from a base artifact are also visible on its associated module artifacts in DOORS Next:
 >
 > - Base Artifact **B1**: `[BC1, BC2]`
-> - Module Artifact **M1**: `[BC1, MC1, MC2, BC2]`
->
-> Here, comment **BC2** was added to the base artifact and becomes visible on the module artifact. 
-> However, because **BC2** was not created on the base artifact by integration user, it may not be synchronized through the module artifact synchronization flow, resulting in differences between source and target comments.
+> - Module Artifact **M1**: `[BC1, MC1, MC2, BC2]`: Here BC2 will not sync to target and target will be **M1** `[BC1, MC1, MC2]`, as BC2 was synced by OIM sync user.
 >
 > To avoid such inconsistencies when base artifacts and module artifacts are synchronized separately, enable **Skip Base Artifact Comments**.
 
