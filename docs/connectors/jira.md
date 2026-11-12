@@ -1123,6 +1123,27 @@ Target Lookup is supported for **Test**, **Test Cycle**, and **Test Execution** 
   * Example: `executionStatus=@State@`
   * [Zephyr ZQL Parameters](https://support.smartbear.com/zephyr-squad-cloud/docs/execute/zql.html)
 
+### Target Lookup for Xray Test Plan Folder Entity
+
+Target Lookup is supported for the **Test Plan Folder** entity when Jira's deployment type is **Cloud** and Xray is the target system.
+
+* Target lookup is supported on the `path` of the folder. An individual folder is searched based on its full path within the Test Plan.
+* When only the `path` is provided, the folder is searched in all the Test Plans of the project.
+* The parent Test Plan id can be provided in the target lookup query. The folder is then searched only in that Test Plan, and no calls are made to the other Test Plans of the project.
+* The parent Test Plan id is provided through the `OH Test Plan Id` field (`OH_TEST_PLAN_ID`) of the Test Plan Folder entity. This field holds the id of the parent Test Plan in the target Xray system and is used **only** for target lookup.
+* If the Test Plan id is not provided in the query, the folder is searched in all the Test Plans.
+* To use it:
+  1. Map the `OH Test Plan Id` field in the mapping so that it holds the id of the target Test Plan in which the folder should be searched. The value can be set using [advanced mapping](../integrate/mapping-configuration.md#view-edit-xslt-configurations-options), for example by fetching the target id of the parent Test Plan that was synchronized through <code class="expression">space.vars.OIM</code>.
+  2. Add the `OH_TEST_PLAN_ID` condition to the target lookup query in the integration settings, along with the `path` condition.
+* Sample target lookup query using `OH Test Plan Id` along with `path`:
+
+```json
+[
+  { "field": "OH_TEST_PLAN_ID", "condition": "EQUALS", "value": "@OH_TEST_PLAN_ID@" },
+  { "field": "path", "condition": "EQUALS", "value": "@path@" }
+]
+```
+
 ### Target Lookup for QMetry Entities
 
 Target Lookup is supported for **Test Case**, **Test Run**, **Test Scenario**, and **QMetry Test Execution** entities.
@@ -1732,7 +1753,7 @@ For Target Lookup Configuration of Zephyr entities, refer to [Target lookup for 
 
 *  <code class="expression">space.vars.OIM</code> supports following Xray entities:
   * For self-managed system: Test, Test Set, Test Plan, Test Execution, Sub Test Execution, Pre-Condition. 
-  * For cloud system: Xray Test, Test Set, Test Plan, Test Execution, Test Run, Precondition. 
+  * For cloud system: Xray Test, Test Set, Test Plan, Test Plan Folder, Test Execution, Test Run, Precondition. 
 * The supported versions of Xray plugin are specified in [Systems Supported List](../systemsupported/systems-supported-list.md). 
 
 ### Jira Self-managed Instance
@@ -1818,6 +1839,7 @@ Also, the user can rename the "Default Folder" as per his/her liking.
 
 * When synchronizing Xray Cloud entities, if default name of any of Xray entity is changed, the same information must be provided in system configuration. For more details, refer to [System Configuration](jira.md#system-configuration) section.
   * Default Xray entity names are: Test, Test Set, Test Plan, Test Execution, Test Run, Precondition
+  * **Test Plan Folder** is not a Jira issue type, hence its name cannot be changed and need not be provided in system configuration.
 * In the Jira Xray, it is recommended not to create any new links with the below-mentioned names. Additionally, any existing link names should not have the below-mentioned link name (in this case, the link type name needs to be changed).
   * Link types: tests, preconditions, testExecutions, testSets, testPlans, testRuns, Xray Test, Test Execution
     * **Reason:** The links above are reserved for the relationship sync in `<code class="expression">space.vars.OIM</code>`.
@@ -1839,15 +1861,36 @@ Also, the user can rename the "Default Folder" as per his/her liking.
 * In Jira, Test Run is used to sync the test case execution results.
 * To sync the step level results in case of the manual test steps, user must configure the `iterations` field available on the `<code class="expression">space.vars.OIM</code>` field configurations.
 
+**Test Plan Folder Entity**
+
+* In Jira Xray Cloud, a Test Plan owns its own folder tree (the root folder is named "Board"), where folders can be nested to any depth and Tests are placed inside the folders. <code class="expression">space.vars.OIM</code> supports synchronization of these folders as the `Test Plan Folder` entity.
+* The path field is the mandatory field for mapping as it is the sole field by which all entity operations are performed.
+  * Links and Relationships:
+    * The relationship links provided for mapping are: Parent Test Plan, Parent Folder, Child Folder, and Tests.
+    * The "Parent Test Plan" is a mandatory link as Test Plan Folders require a Test Plan to be created under. The link to the Test Plan is fixed when the folder is created and cannot be changed later.
+    * In Xray Cloud, a Test can be in exactly one folder, so adding it to another folder moves it from the earlier folder. Adding a Test in a Test Plan folder also associates it with the Test Plan that contains the folder.
+  * Target Lookup: For Target Lookup Configuration of Test Plan Folder entity, refer to [Target Lookup for Xray Test Plan Folder Entity](jira.md#target-lookup-for-xray-test-plan-folder-entity) section.
+  * Criteria: Criteria is supported on the `path` of the folder and, optionally, on the `OH Test Plan Id` field (`OH_TEST_PLAN_ID`), which holds the id of the parent Test Plan in the target Xray system. When the Test Plan id is given, the folder is searched only in that Test Plan; otherwise it is searched in all Test Plans of the project. Xray does not provide any filtering for folders, so criteria can only be used to fetch a specific folder directly by its full path.
+    * Sample criteria:
+    ```json
+    [
+      { "field": "OH_TEST_PLAN_ID", "condition": "EQUALS", "value": "@OH_TEST_PLAN_ID@" },
+      { "field": "path", "condition": "EQUALS", "value": "@path@" }
+    ]
+    ```
+
 **Known Limitations**
 
 * **Due to API limitation:**
   * Synchronization of the 'Parameter' (which can be used in the 'steps' field in Xray Test entity) is not possible.
   * Synchronization of the Sub Test Execution entity is not supported.
   * Iteration level status update synchronization is not supported as of now for Test Run entity when the test type is Generic or Cucumber.
+  * **Test Plan Folder entity:**
+    * Remote URL is not supported as the GUID of the folder is not exposed by any public Xray API. The remote id of the folder is its display id (`<Test Plan id>::<folder name>`).
 * **When Jira  [Xray] is source system:**
   * For Xray Test, Test Execution, Test Set, Test Plan and Precondition entities, criteria will not work on Xray fields. Criteria can be given only on Jira fields as JQL query for these entities.
   * Criteria is not supported for Test Run entity.
+  * For Test Plan Folder entity, if a folder is renamed in Xray, <code class="expression">space.vars.OIM</code> cannot identify whether it is an existing folder that was renamed or a new folder, and hence synchronizes it as a new entity in the target system. Thus, to avoid orphaned/duplicate folders in the target, it is recommended to configure delete synchronization.
   *   For all the Xray fields, only current values (present at the time of synchronization) will be synchronized. Historic (Audit/Revisions) values will not be synchronized to target system.
 
       * An additional update to any Jira field is required in the following cases:
@@ -1876,6 +1919,18 @@ Also, the user can rename the "Default Folder" as per his/her liking.
   * **Reason:** Test steps can only be added in the Xray Test from UI and API when the test type is set to Manual.
 * For Test Run synchronization, the user must configure `Xray Test` & `Test Execution` links and sync these entities (associated with Test Run) before running Test Run integration. Without it, the syncing process cannot be completed.
 * For Test Run entities, in `iteration` field, step result `Defects` type of links from source will be synced at the entity level in target system.
+* For Test Plan Folder entity:
+  * The link to the Test Plan is fixed when the folder is created and cannot be changed later.
+  * A Test can be in exactly one folder. Adding it to another folder moves it from the earlier folder, and putting it in a Test Plan folder also adds it to the Test Plan.
+  * Only logical delete is supported. The logical delete can be set up on the `path` field of the folder and the default value selected for the `path` will be updated in the target for the deleted entities. 
+  * The Test Plan is a mandatory link of the Test Plan Folder entity ("Parent Test Plan").
+  * A folder does not have a unique id in Xray. The display id distinguished the folder as `<Test Plan id>::<folder name>`. For example, a folder named "AutomationTesting1" under Test Plan with id "3112200" will show the display id as "3112200::AutomationTesting1".
+
+**When Jira  [Xray] is source system:**
+
+* For Test Plan Folder entity, folders are read by fetching the entire folder tree of the Test Plan, as Xray does not allow filtering folders. 
+* Deleting a folder in Xray is a permanent operation: its subfolders are also deleted and the Tests inside the folder and its subfolders move to the root folder of the Test Plan.
+
 
 ## QMetry plugin entities
 

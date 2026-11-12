@@ -365,7 +365,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>48</td>
             <td>Jira Xray**</td>
             <td>On Premise: 3.6.x–6.1.3<br/>Cloud: V1.1.90-AC-4.004.000</td>
-            <td>On Premise: Test, Test Plan, Test Execution, Test Set, Sub Test Execution, Pre-Condition<br/>Cloud: Xray Test, Test Plan, Test Execution, Test Set, Test Run, Precondition</td>
+            <td>On Premise: Test, Test Plan, Test Execution, Test Set, Sub Test Execution, Pre-Condition<br/>Cloud: Xray Test, Test Plan, Test Plan Folder, Test Execution, Test Set, Test Run, Precondition</td>
             <td></td>
         </tr>
         <tr>
