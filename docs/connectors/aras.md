@@ -23,9 +23,22 @@ if: >-
 * For any Item Type in Aras Innovator, the versions/history for the item gets generated only when the item is versionable. Hence for <code class="expression">space.vars.OIM</code> to synchronize the items with their revisions, they need to be versionable.
 * In case they are not versionable, <code class="expression">space.vars.OIM</code> will synchronize the item as per the current state of that item, available at the time of synchronization. Follow [Make Item Type Versionable](aras.md#make-item-type-versionable) in the Appendix section to learn how to make item types versionable.
 
+
+
+## Hosting Opshub Aras Service 
+
+Hosting the OpsHub Aras Service is **optional**. <code class="expression">space.vars.OIM</code> requires this service only in the following cases:
+
+* The environment variable `DISABLE_SERVER_EVENTS` is set to `true`. Refer to [Disable Server Events](aras.md#disable-server-events) for more details, or
+* The **OH_Version** field is mapped. Refer to [Version Control of Aras Innovator Items (OH_Version)](aras.md#version-control-of-aras-innovator-items-oh_version) for more details.
+
+If neither of the above is applicable, there is no need to host the service and the **Webservice URL** can be left blank in the system configuration.
+
+When hosted, it acts as a communication layer between Aras Innovator and <code class="expression">space.vars.OIM</code>.
+
 ## Disable Server Events
 
-By default, the changes synchronized by <code class="expression">space.vars.OIM</code> invoke the server events configured in Aras Innovator. To synchronize the changes without invoking the server events, set the following environment variable:
+By default, the changes synchronized by <code class="expression">space.vars.OIM</code> invoke the server events configured in Aras Innovator. To synchronize changes without triggering these events, configure the following environment variable on the machine where <code class="expression">space.vars.OIM</code> is hosted:
 
 | **Environment Variable** | **Value**                    |
 | ------------------------ | ---------------------------- |
@@ -38,17 +51,6 @@ When this environment variable is set to `true`:
 
 > **Note**:
 > The OpsHub Aras Service must be hosted and its URL must be provided in the **Webservice URL** field of the system configuration when this environment variable is set to `true`.
-
-## Hosting Opshub Aras Service 
-
-Hosting the OpsHub Aras Service is **optional**. <code class="expression">space.vars.OIM</code> requires this service only in the following cases, to perform the update entity, add/delete link and add attachment operations on Aras Innovator:
-
-* The environment variable `DISABLE_SERVER_EVENTS` is set to `true`. Refer to [Disable Server Events](aras.md#disable-server-events) for more details, or
-* The **OH_Version** field is mapped. Refer to [Version Control of Aras Innovator Items (OH_Version)](aras.md#version-control-of-aras-innovator-items-oh_version) for more details.
-
-If neither of the above is applicable, there is no need to host the service and the **Webservice URL** can be left blank in the system configuration.
-
-When hosted, it acts as a communication layer between Aras Innovator and <code class="expression">space.vars.OIM</code>.
 
 ### System Prerequisites
 
@@ -65,19 +67,19 @@ Before the user continues with the integration, he/she must first configure Aras
 
 <div align="center"><img src="../assets/Aras_System.png" alt="" width="1100"></div>
 
-| **Field Name**          | **Description**                                                                                                                                                                                                                                                                                                                                                                                  |
-|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **System Name**         | Provide a unique name to the Aras Innovator System.                                                                                                                                                                                                                                                                                                                                              |
-| **Version**             | Provide version for Aras Innovator Instance. Check [Get Aras Innovator Version](aras.md#get-aras-innovator-version) in the Appendix section to learn how to get Aras Innovator version.                                                                                                                                                                                                          |
-| **Instance URL**        | Provide URL for Aras Innovator Instance. Example: `<hostname>/InnovatorServer/Server/InnovatorServer.aspx`                                                                                                                                                                                                                                                                                       |
-| **Username**            | Provide username of the user dedicated for <code class="expression">space.vars.OIM</code>. Please ensure that user has the necessary permissions. Refer to [User privileges](aras.md#user-privileges) for permissions required by user identity.                                                                                                                                                 |
-| **Client Id**           | Provide the Client ID whose OAuth settings include `Innovator` and `offline_access` as scope. Refer to [Get Client Id](aras.md#get-client-id) to learn how to get the Client ID.                                                                                                                                                                                                                 |
-| **OAuth Grant Type**    | Select the authentication mode to communicate with the Aras API. Supported grant types are `Password Based` and `Refresh Token Based`.                                                                                                                                                                                                                                                           |
-| **Password Based**      | Displayed when the OAuth Grant Type is `Password Based`. Provide the password of the Aras user dedicated for <code class="expression">space.vars.OIM</code>. Use the actual password value and not an MD5 hash or any other encrypted/hashed version of the password. The Password grant type must be enabled for the above Client Id in Aras.                                                   |
-| **Refresh Token Based** | Displayed when the OAuth Grant Type is `Refresh Token Based`. Provide the refresh token generated from Aras Innovator. The refresh token needs to be renewed and updated in the **System configuration form** whenever the existing token expires to ensure uninterrupted synchronization. Refer to [Get Refresh Token](aras.md#get-refresh-token) to learn how to generate a new refresh token. |
-| **Database Name**       | Displayed when the OAuth Grant Type is `Password Based`. Provide Aras Innovator Database name to which the connection needs to be done. Refer to [Get Database Name](aras.md#get-database-name) in the Appendix section to learn how to get Database name.                                                                                                                                       |
-| **Webservice URL**      | **Optional.** Provide URL for the hosted OpsHubArasService. It is required only when the environment variable `DISABLE_SERVER_EVENTS` is set to `true` or when **OH_Version** is mapped. Refer to [Hosting opshub Aras service](aras.md#hosting-opshub-aras-service) to learn when the service is required and how to host <code class="expression">space.vars.OIM</code> Aras Webservice.       |
-| **Metadata Details**    | Override default entity properties using metadata configuration. Refer to [Understanding JSON Input](aras.md#understanding-json-input) to learn how to specify the metadata details.                                                                                                                                                                                                             |
+| **Field Name**          | **Description**                                                                                                                                                                                                                                                                                                                                                                                 |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **System Name**         | Provide a unique name to the Aras Innovator System.                                                                                                                                                                                                                                                                                                                                             |
+| **Version**             | Provide version for Aras Innovator Instance. Check [Get Aras Innovator Version](aras.md#get-aras-innovator-version) in the Appendix section to learn how to get Aras Innovator version.                                                                                                                                                                                                         |
+| **Instance URL**        | Provide URL for Aras Innovator Instance. Example: `<hostname>/InnovatorServer/Server/InnovatorServer.aspx`                                                                                                                                                                                                                                                                                      |
+| **Username**            | Provide username of the user dedicated for <code class="expression">space.vars.OIM</code>. Please ensure that user has the necessary permissions. Refer to [User privileges](aras.md#user-privileges) for permissions required by user identity.                                                                                                                                                |
+| **Client Id**           | Provide the Client ID whose OAuth settings include `Innovator` and `offline_access` as scope. Refer to [Get Client Id](aras.md#get-client-id) to learn how to get the Client ID.                                                                                                                                                                                                                |
+| **OAuth Grant Type**    | Select the authentication mode to communicate with the Aras API. Supported grant types are `Password Based` and `Refresh Token Based`.                                                                                                                                                                                                                                                          |
+| **Password Based**      | Displayed when the OAuth Grant Type is `Password Based`. Provide the password of the Aras user dedicated for <code class="expression">space.vars.OIM</code>. Use the actual password value and not an MD5 hash or any other encrypted/hashed version of the password. The Password grant type must be enabled for the above Client Id in Aras.                                                  |
+| **Refresh Token Based** | Displayed when the OAuth Grant Type is `Refresh Token Based`. Provide the refresh token generated from Aras Innovator. The refresh token needs to be renewed and updated in the **System configuration form** whenever the existing token expires to ensure uninterrupted synchronization. Refer to [Get Refresh Token](aras.md#get-refresh-token) to learn how to generate a new refresh token |
+| **Database Name**       | Displayed when the OAuth Grant Type is `Password Based`. Provide Aras Innovator Database name to which the connection needs to be done. Refer to [Get Database Name](aras.md#get-database-name) in the Appendix section to learn how to get Database name.                                                                                                                                      |
+| **Webservice URL**      | **Optional.** Provide URL for the hosted OpsHubArasService. It is required only when the environment variable `DISABLE_SERVER_EVENTS` is set to `true` or when **OH_Version** is mapped. Refer to [Hosting opshub Aras service](aras.md#hosting-opshub-aras-service) to learn when the service is required and how to host <code class="expression">space.vars.OIM</code> Aras Webservice.      |
+| **Metadata Details**    | Override default entity properties using metadata configuration. Refer to [Understanding JSON Input](aras.md#understanding-json-input) to learn how to specify the metadata details.                                                                                                                                                                                                            |
 
 * If the system is deployed on HTTPS and a self-signed certificate is used, then the user should import the SSL Certificate to be able to access the system from <code class="expression">space.vars.OIM</code>. Check [Import SSL Certificates](../getting-started/ssl-certificate-configuration.md) to learn how to import SSL certificate.
 
@@ -132,7 +134,7 @@ Aras Innovator creates a new version (generation) of a versionable item every ti
 ### About the OH_Version Field
 
 * **OH_Version** is available in the list of fields for every item type.
-* It is a **boolean** field and it is **not mandatory** to map it. If it is not mapped, the items are versioned by default and a version is created whenever the entity is updated.
+* It is a **boolean** field and it is **not mandatory** to map it. If it is not mapped, a new version is created whenever the entity itself is updated. However, updates to its links or attachments do not create a new version.
 * It is not an actual property of the item type in Aras Innovator, and no value is stored against it in Aras Innovator. Its value only decides whether the write performed by <code class="expression">space.vars.OIM</code> creates a new generation of the item, or updates the current generation of the item.
 * The item type should be versionable for this field to have any effect. Refer to [Versionable Item Type](aras.md#versionable-item-type) section.
 * When this field is mapped, the OpsHub Aras Service is required for the update entity, add/delete link and add attachment operations. Hence, host the service and provide its URL in the **Webservice URL** field of the system configuration. Refer to [Hosting Opshub Aras Service](aras.md#hosting-opshub-aras-service) section.
@@ -161,7 +163,7 @@ Aras Innovator creates a new version (generation) of a versionable item every ti
 Map the **OH_Version** field when:
 
 * Versions in Aras Innovator are to be created only for the changes made by the users, and not for every update synchronized by <code class="expression">space.vars.OIM</code>.
-* Each update of the entity should not create a new version in Aras Innovator. For example, a source entity that changes frequently updates the item every time it is synchronized, and each update creates a version.
+* A new version should not be created for every field update synchronized by <code class="expression">space.vars.OIM</code>. By default, each entity field update creates a new version in Aras Innovator, whereas link and attachment updates do not create a new version.
 * The rule for creating a version is specific to the organization. The value can be a fixed `true` or `false`, or it can be decided for each entity using an Advanced XSLT script.
 
 ### Configure the OH_Version Field in the Mapping
@@ -260,7 +262,7 @@ Set polling time as the time after which the user wants to synchronize data betw
 
 ## Version Control in Bidirectional Integrations
 
-* When **OH_Version** is mapped to `false` without any condition, every update synchronized by <code class="expression">space.vars.OIM</code> is written to the current generation of the item. As no new generation is created, the values which the item had before that write are not retained in any generation of the item.
+* When **OH_Version** is mapped to `false` without any condition, every change synchronized by <code class="expression">space.vars.OIM</code> is written to the current generation of the item. As no new generation is created, the values which the item had before that write are not retained in any generation of the item.
 * Hence, in a bidirectional setup, if a user changes the item in Aras Innovator and that change is not yet polled by the integration in which Aras Innovator is the source system, the next write from <code class="expression">space.vars.OIM</code> updates the same generation of the item, and the user's change is not available as a separate generation to be picked up from the version history.
 * In such a setup, it is recommended to configure any one of the following:
   * Map **OH_Version** with a condition, so that the item is versioned when it is changed by a user and the current generation is updated only when the last change on the item was written by <code class="expression">space.vars.OIM</code>. Refer to the sample script in [Configure the OH_Version Field in the Mapping](aras.md#configure-the-oh_version-field-in-the-mapping) section.
@@ -462,6 +464,7 @@ Client Id can be obtained from the Aras Innovator installation directory.
 
 * For the Authorization Code flow, the Callback URL used while generating the refresh token must be listed under `redirectUris` of the same registry.
 * Use the Client ID in the **System configuration form** while creating the Aras Innovator system in <code class="expression">space.vars.OIM</code>. Ensure that it matches the `id` configured in the `OAuth.config` file.
+* For more details about the client registry configuration and token lifetime parameters, refer to the [Aras OAuth Registry Administrator Guide](https://www.aras.com/community/documentationlibrary/ALL%20PDFs/OAuth/32/Aras%20OAuth%20Registry%2032%20-%20Administrator%20Guide.pdf).
 
 ## Get Refresh Token
 
