@@ -32,9 +32,9 @@ During refresh, OIM maintains the derived element type definitions based on chan
 
 | Scenario | OIM Behavior | Example |
 |---|---|---|
-| New stereotype/meta-type combination | Discovers the new combination as an element type and makes it available in mapping and integration configurations. | An element tagged with the `Block` and `Control` stereotypes is added to the end system. OIM discovers this combination and loads it as a new element type. |
-| Additional stereotype/meta-type on existing elements | Updates the corresponding element type definition during refresh, provided it has not been configured in an integration or manually modified. | An additional `BOM` stereotype is applied to an element already tagged with the `Block` and `ConstraintBlock` stereotypes. The existing element type definition is updated to include the `BOM` stereotype. |
-| Change in stereotype/meta-type tagging | Updates the corresponding element type definition during refresh, provided it has not been configured in an integration or manually modified. | An element tagged with the `Block` and `Control` stereotypes is updated to have the `Block` and `ConstraintBlock` stereotypes in the end system. The existing definition is updated to the `Block` and `ConstraintBlock` combination. |
+| New stereotype (metadata definition) combination | Discovers the new combination as an element type and makes it available in mapping and integration configurations. | An element tagged with the `Block` and `Control` stereotypes is added to the end system. OIM discovers this combination and loads it as a new element type. |
+| Additional stereotype on existing elements | Updates the corresponding element type definition during refresh, provided it has not been configured in an integration or manually modified. | An additional `BOM` stereotype is applied to an element already tagged with the `Block` and `ConstraintBlock` stereotypes. The existing element type definition is updated to include the `BOM` stereotype. |
+| Change in stereotype tagging | Updates the corresponding element type definition during refresh, provided it has not been configured in an integration or manually modified. | An element tagged with the `Block` and `Control` stereotypes is updated to have the `Block` and `ConstraintBlock` stereotypes in the end system. The existing definition is updated to the `Block` and `ConstraintBlock` combination. |
 
 - To prevent unintended changes to the synchronization scope, OIM does not automatically modify element type definitions that have been manually modified or configured in an integration.
 - The `refreshRestrictedDueTo` property in the element type definition indicates why OIM has excluded that element type from refresh. It has the following possible values:
@@ -52,7 +52,7 @@ Sometimes, the groupings derived through automatic detection do not match the in
 
 ### 1. Different Element Types Merged into One Grouping
 
-Similarity-based merging may combine stereotype/meta-type combinations that represent different business-level element types.
+Similarity-based merging may combine stereotype combinations that represent different business-level element types.
 
 **Example:**
 
@@ -77,18 +77,18 @@ The following combinations may represent a single element type:
 
 If both combinations represent the same business-level element type, they must be consolidated into a single element type definition in the JSON.
 
-### 3. Excluding Stereotype/Meta-Type-Tagged Elements
+### 3. Excluding Stereotype-Tagged Elements
 
-Certain elements tagged with specific stereotypes/meta-types may not be intended for synchronization.
+Certain elements tagged with specific stereotypes may not be intended for synchronization.
 
 The exclusion can be configured at either of the following levels:
 
-- **System level:** Specify the stereotypes/meta-types in `excludingStereotypes` in the system-level Element Meta JSON input. The exclusion applies across integrations.
+- **System level:** Specify the stereotypes in `excludingStereotypes` in the system-level Element Meta JSON input. The exclusion applies across integrations.
 - **Integration level:** Configure the exclusion using [criteria](criteria-configuration.md). The exclusion applies only to the respective integration.
 
-### 4. Stereotype/Meta-Type Changes to a Protected Element Type
+### 4. Stereotype Changes to a Protected Element Type
 
-When stereotype/meta-type tagging changes in the end system, the corresponding element type definition is updated during refresh if it has not been configured in an integration or manually modified.
+When stereotype tagging changes in the end system, the corresponding element type definition is updated during refresh if it has not been configured in an integration or manually modified.
 
 However, if the existing definition is configured in an integration or has been manually modified, it is treated as a protected definition. In this case, a new element type is created for the updated combination during refresh.
 

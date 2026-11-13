@@ -239,7 +239,7 @@
             * [Get All Workspaces](docs/mbse-sdk/metadata/workspaces-list.md)
             * [Get All Projects](docs/mbse-sdk/metadata/projects-list.md)
             * [Get Types](docs/mbse-sdk/metadata/types-list.md)
-            * [Get Meta Type Grouping](docs/mbse-sdk/metadata/discover-meta-type-grouping.md)
+            * [Get Stereotype Grouping](docs/mbse-sdk/metadata/stereotype-grouping.md)
             * [Get Stereotypes](docs/mbse-sdk/metadata/stereotype-details.md)
             * [Get Element Type](docs/mbse-sdk/metadata/element-type-get.md)
             * [Get Properties](docs/mbse-sdk/metadata/properties-list.md)
