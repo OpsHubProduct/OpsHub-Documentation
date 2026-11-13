@@ -7,6 +7,7 @@ if: >-
 
 | SDK Server                                                                                                                                | OIM                 | Remarks                                                                                                                                                                                                                                                                                                        |
 |-------------------------------------------------------------------------------------------------------------------------------------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1.7.0                                                                                                                                     | TBD                 | <ul><li>Added 'Get types' and 'Get meta type grouping' APIs to ease the usability of integration. These APIs enable automatic detection of element types based on the data created in the end system</li></ul> |
 | 1.6.0                                                                                                                                     | \>=7.238            | <ul><li>Updated 'Get elements at revision' API to POST method with request body and updated response structure</li><li>Made elementTypeIds parameter optional in Revision Diff API</li></ul>                                                    |
 | [1.5.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgAmBLUYkxc7TLy8PeyTr4dnARHu0hXkm4wA7lggMZ6JMkg?e=dD3QZy) | \>=7.237 and <7.238 | <ul><li>Added support for Project as an entity type</li></ul>                                                                                                                                                                            |
 | [1.4.0](https://opshubtrial-my.sharepoint.com/:f:/g/personal/support_opshub_com/IgAmBLUYkxc7TLy8PeyTr4dnARHu0hXkm4wA7lggMZ6JMkg?e=dD3QZy) | \>=7.226 and <7.237 | <ul><li>Added rich text support for Documentation Field</li><li>Added filtering based on MetaType and identifiedStereotypes in the Owning Package field</li></ul>                                                                                                                                              |
@@ -17,6 +18,12 @@ if: >-
 ---
 
 # Developer Notes
+## MBSE SDK Release 1.7.0
+**Breaking API changes**
+- Added the following new APIs to ease the usability of integration. These APIs enable automatic detection of element types based on the data created in the end system:
+  - [**Get types**](metadata/types-list.md) API (`GET /mbse/api/1.0/types?projectId=<projectId>`): Returns the UML and SysML types supported by the end system for a project, categorized as container, packageable, and non-packageable types.
+  - [**Get meta type grouping**](metadata/discover-meta-type-grouping.md) API (`GET /mbse/api/1.0/meta-type-grouping?projectId=<projectId>`): Returns the combinations of meta types (stereotypes) and corresponding UML or SysML types applied to the elements of a project. OpsHub uses these groupings to derive the element types supported by the end system.
+
 ## MBSE SDK Release 1.6.0
 **Breaking API changes**
 - Updated the **Get elements at revision** API:

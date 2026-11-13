@@ -236,10 +236,12 @@
             * [Cleanup](docs/mbse-sdk/authentication/session-logout.md)
         * Metadata APIs
             * [Get Server Info](docs/mbse-sdk/metadata/server-info.md)
-            * [Get All Projects](docs/mbse-sdk/metadata/projects-list.md)
             * [Get All Workspaces](docs/mbse-sdk/metadata/workspaces-list.md)
-            * [Get Element Type](docs/mbse-sdk/metadata/element-type-get.md)
+            * [Get All Projects](docs/mbse-sdk/metadata/projects-list.md)
+            * [Get Types](docs/mbse-sdk/metadata/types-list.md)
+            * [Get Meta Type Grouping](docs/mbse-sdk/metadata/discover-meta-type-grouping.md)
             * [Get Stereotypes](docs/mbse-sdk/metadata/stereotype-details.md)
+            * [Get Element Type](docs/mbse-sdk/metadata/element-type-get.md)
             * [Get Properties](docs/mbse-sdk/metadata/properties-list.md)
             * [Get Enumeration Literals](docs/mbse-sdk/metadata/enumeration-literals.md)
         * Multi Element Revision APIs
@@ -267,6 +269,7 @@
         * [Package Selection Criteria](docs/mbse-sdk/oim-config/package-selection-criteria.md)
         * [Criteria Configuration](docs/mbse-sdk/oim-config/criteria-configuration.md)
         * [Owning Package Configuration](docs/mbse-sdk/oim-config/owning-package-lookup.md)
+        * [Automatic Element Type Detection](docs/mbse-sdk/oim-config/automatic-element-type-detection.md)
       * [Behavior For Locked Elements](docs/mbse-sdk/oim-config/behavior-for-locked-entities.md)
 * [Product Security](docs/manage/product-security.md)
 * [Release Notes](docs/release-notes/release-notes.md)
