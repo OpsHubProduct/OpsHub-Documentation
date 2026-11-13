@@ -19,11 +19,12 @@ No additional configuration is required to enable automatic detection.
 
 OIM follows these steps to derive element types:
 
-1. **Discover stereotype/meta-type combinations:** Scans the project profiles and elements to identify unique combinations of stereotypes/meta-types associated with existing elements.
-2. **Merge similar combinations:** Since stereotypes/meta-types may be used for tagging rather than representing distinct element types, similar combinations are merged based on the following criteria:
-   - They share more than 50% of their stereotypes/meta-types.
-   - One combination is fully covered by another, and the larger combination occurs less frequently than the median element count of the overlapping combinations.
-3. **Select frequently occurring combinations:** Selects the 50 most frequently occurring combinations as element types.
+<p align="center">
+  <img src="../../assets/MBSE/stereotype-merge-flow.png"
+       alt="Flow of deriving element types from stereotype combinations"
+       width="700"/>
+</p>
+
 
 ## Automatic Refresh and Protection
 
