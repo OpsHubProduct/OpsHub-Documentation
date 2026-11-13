@@ -28,7 +28,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <th width="160">System</th>
             <th width="200">Versions Supported</th>
             <th>Entities Supported</th>
-            <th width="260">Poller Type</th>
+            <th width="200">Poller Type</th>
             <th width="140">Formerly Known as</th>
         </tr>
     </thead>
@@ -689,7 +689,7 @@ Given below are the systems currently supported by <code class="expression">spac
             <th width="160">System</th>
             <th width="200">Versions Supported</th>
             <th>Entities Supported</th>
-            <th width="260">Poller Type</th>
+            <th width="200">Poller Type</th>
             <th width="140">Formerly Known as</th>
         </tr>
     </thead>
