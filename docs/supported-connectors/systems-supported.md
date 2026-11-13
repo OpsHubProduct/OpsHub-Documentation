@@ -54,7 +54,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Azure DevOps Server</td>
             <td> 2010*, 2012*, 2013, 2015 (up to Update 3), 2017, 2017 Update 2, 2018, 2019, 2020, 2022, 2025 </td>
             <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All Custom Entity Types <br>Test Entities such as Test Plan, Test Result, Test Run, Test Suite <br>Iteration, Area Path, User Group, Team and User: 2010 and above <br>Git Commit Information (only read): 2016 and above<br>Dashboard, Query, Widget: 2017 and above <br>Pull Request (only read), Build Pipeline**, Release Pipeline**, Service Connection, Task Group, Variable Group : 2018 and above <br>Build* (only read): 2019 and above <br>  Agent Pool : 2020 and above</td>
-            <td><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline</td>
+            <td><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Team Foundation Server (TFS)</td>
         </tr>
         <tr>
@@ -70,7 +70,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Azure DevOps Services</td>
             <td>All</td>
             <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All custom workitem types <br>Test entities such as Test Plan, Test Result, Test Run, Test Suite<br>Iteration, Area Path, Group, Team, User, Dashboard, Query, Widget, Pipeline**, Release Pipeline**, Agent Pool, Service Connection, Task Group, Variable Group  <br> Git Commit Information(only read), Pull Request(only read), Build* (only read) </td>
-            <td><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline</td>
+            <td><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Visual Studio Team Services (VSTS)</td>
         </tr>
         <tr>
@@ -326,7 +326,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Jira AIO (All-In-One) Tests*</td>
             <td>Data Center: 4.4.0<br/>Cloud: 4.4.0</td>
             <td>AIO Test Case (read), AIO Test Cycle (read), AIO Test Run (read)</td>
-            <td><strong>Non-timestamp:</strong> Test Run, Test Cycle<br><strong>Current state:</strong> Test Case</td>
+            <td><strong>Current state:</strong> Test Case<br><strong>Non-timestamp:</strong> Test Run, Test Cycle</td>
             <td></td>
         </tr>
         <tr>
@@ -582,7 +582,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>SolarWinds Service Desk</td>
             <td>SaaS</td>
             <td>Catalog Items, Change Catalog, Changes, Incidents, Problems, Releases, Solutions</td>
-            <td><strong>Non-timestamp:</strong> Solutions<br><strong>Current state:</strong> Catalog Items, Tasks<br><strong>History-based:</strong> Change Catalog, Changes, Incidents, Problems, Releases</td>
+            <td><strong>History-based:</strong> Change Catalog, Changes, Incidents, Problems, Releases<br><strong>Current state:</strong> Catalog Items, Tasks<br><strong>Non-timestamp:</strong> Solutions</td>
             <td></td>
         </tr>
         <tr>
@@ -662,7 +662,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Zephyr Enterprise</td>
             <td>8.6.0</td>
             <td>Folder, Phase, Test Case, Test Execution</td>
-            <td><strong>Non-timestamp:</strong> Cycle, Phase<br><strong>Current state:</strong> Folder, Phase Folder, Test Case, Test Execution</td>
+            <td><strong>Current state:</strong> Folder, Phase Folder, Test Case, Test Execution<br><strong>Non-timestamp:</strong> Cycle, Phase</td>
             <td></td>
         </tr>
         <tr>
@@ -699,7 +699,7 @@ Given below are the systems currently supported by <code class="expression">spac
             <td>Azure DevOps Server</td>
             <td> 2010*, 2012*, 2013, 2015 (up to Update 3), 2017, 2017 Update 2, 2018, 2019, 2020, 2022, 2025 </td>
             <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All Custom Entity Types <br>Test Entities such as Test Plan, Test Result, Test Run, Test Suite <br>Iteration, Area Path, User Group, Team and User: 2010 and above <br>Git Commit Information (only read): 2016 and above<br>Dashboard, Query, Widget: 2017 and above <br>Pull Request (only read), Build Pipeline**, Release Pipeline**, Service Connection, Task Group, Variable Group : 2018 and above <br>Build* (only read): 2019 and above <br>  Agent Pool : 2020 and above</td>
-            <td><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline</td>
+            <td><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Team Foundation Server (TFS)</td>
         </tr>
         <tr>
@@ -715,7 +715,7 @@ Given below are the systems currently supported by <code class="expression">spac
             <td>Azure DevOps Services</td>
             <td>All</td>
             <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All custom workitem types <br>Test entities such as Test Plan, Test Result, Test Run, Test Suite<br>Iteration, Area Path, Group, Team, User, Dashboard, Query, Widget, Pipeline**, Release Pipeline**, Agent Pool, Service Connection, Task Group, Variable Group  <br> Git Commit Information(only read), Pull Request(only read), Build* (only read) </td>
-            <td><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline</td>
+            <td><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Visual Studio Team Services (VSTS)</td>
         </tr>
     </tbody>
