@@ -39,9 +39,9 @@ GET /mbse/api/1.0/stereotype-grouping?projectId=<projectId>
   },
   {
     "id": "9876ae67-a44a-36c3-bec3-a59bb7e77243",
-    "name": "Model",
-    "type": "uml:Model",
-    "identifyingStereotypes": []
+    "name": "Requirement",
+    "type": "uml:Class",
+    "identifyingStereotypes": ["SysML::Requirements::Requirement"]
   }
 ]
 ```
