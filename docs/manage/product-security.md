@@ -26,21 +26,13 @@ Our security practices are aligned with widely accepted standards and frameworks
         </tr>
     </thead>
     <tbody>
-        <tr>
+         <tr>
             <td>Third party</td>
             <td>High</td>
-            <td>jackson-databind: Duration XMLGregorianCalendar Unbounded Number Parse DoS (<a href="https://github.com/advisories/GHSA-q4xh-88c3-wmh7">CVE-2026-68497</a>)</td>
-            <td>Not directly impacted</td>
+            <td>jsoup XmlTreeBuilder vulnerable to memory exhaustion through deeply nested namespace declarations (<a href="https://github.com/advisories/GHSA-65r4-943x-97jj">GHSA-65r4-943x-97jj</a>)</td>
+            <td>Not directly impacted as usage is limited to XML generated automatically by the product. User-provided XML is not parsed by this library.</td>
             <td>7.238</td>
-            <td>7.238</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>Hibernate vulnerable to SQL Injection (<a href="https://github.com/advisories/GHSA-2p5w-cvg5-gc5c">GHSA-2p5w-cvg5-gc5c</a>)</td>
-            <td>Not directly impacted</td>
-            <td>7.223</td>
-            <td>7.238</td>
+            <td>7.241</td>
         </tr>
     </tbody>
 </table>
@@ -76,62 +68,9 @@ Our security practices are aligned with widely accepted standards and frameworks
             <td>7.238</td>
             <td>Oct 2026</td>
         </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>jsoup XmlTreeBuilder vulnerable to memory exhaustion through deeply nested namespace declarations (<a href="https://github.com/advisories/GHSA-65r4-943x-97jj">GHSA-65r4-943x-97jj</a>)</td>
-            <td>Not directly impacted as usage is limited to XML generated automatically by the product. User-provided XML is not parsed by this library.</td>
-            <td>7.238</td>
-            <td>Oct 2026</td>
-        </tr>
     </tbody>
 </table>
- 
----
 
-## Security Update
-
-### Open Vulnerabilities
- 
-<table>
-    <thead>
-        <tr>
-            <th width="100">Category</th>
-            <th width="60">Severity</th>
-            <th>Summary</th>
-            <th width="250">Impacted Area</th>
-            <th width="90">Reported In Release</th>
-            <th width="80">ETA</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Third party</td>
-            <td>Critical</td>
-            <td>Spring Framework Improper Path Limitation in XsltView (<a href="https://github.com/advisories/GHSA-pc63-qcmh-9cmg">GHSA-pc63-qcmh-9cmg</a>)</td>
-            <td>Not directly impacted as we do not use XsltView in our product.</td>
-            <td>7.238</td>
-            <td>Nov 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>Critical</td>
-            <td>Spring Framework Server Sent Event stream corruption while rendering fragments (<a href="https://github.com/advisories/GHSA-j9f9-w8pj-32f8">GHSA-j9f9-w8pj-32f8</a>)</td>
-            <td>Not directly impacted as we do not use the affected classes in our product.</td>
-            <td>7.238</td>
-            <td>Nov 2026</td>
-        </tr>
-        <tr>
-            <td>Third party</td>
-            <td>High</td>
-            <td>jsoup XmlTreeBuilder vulnerable to memory exhaustion through deeply nested namespace declarations (<a href="https://github.com/advisories/GHSA-65r4-943x-97jj">GHSA-65r4-943x-97jj</a>)</td>
-            <td>Not directly impacted as usage is limited to XML generated automatically by the product. User-provided XML is not parsed by this library.</td>
-            <td>7.238</td>
-            <td>Nov 2026</td>
-        </tr>
-    </tbody>
-</table>
----
 
 ## Application Security
 
