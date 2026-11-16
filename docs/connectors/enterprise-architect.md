@@ -16,7 +16,7 @@ if: >-
 
 * Operating System (Tested On) : Windows 7, Windows Server 2008, Windows Server 2012, Windows Server 2016, Windows Server 2019, Windows 10, Windows 11
 * OpsHubEAWindowsService must be installed on the same machine where Enterprise Architect application has been installed and should have .NET framework 4.7.2 or higher version installed on it.
-* It is recommended to install OpsHubEAWindowsService on a machine having quad-core processor, 4GB RAM (minimum) and 4GB disk space (minimum).
+* It is recommended to install OpsHubEAWindowsService on a machine with at least 4GB of RAM and 4GB of available disk space. Refer to the [Server Sizing and Thread Capacity](enterprise-architect.md#server-sizing-and-thread-capacity) section to determine the number of processor cores required for the expected load.
 * OpsHubEAWindowsService is configurable for Enterprise Architect installed on Windows 64-bit Operating System.
 
 > **Note**: This prerequisite is compulsory regardless of the version of Enterprise Architect that the user is trying to integrate. Client Profile versions of .NET framework are not supported. It is recommended that the user installs the full version of the .NET framework.
@@ -30,6 +30,9 @@ if: >-
   `<add key="ATTACHMENT_PATH" value="C:\EAAttachments"/>`
 * Set the value to a folder location where the local system has **write** access. (This step can be skipped if the user's local system has adequate write permissions in the local drive C). Attachments synchronizing from/to Enterprise Architect need to be saved locally. This folder will be used for saving the attachments locally.
   * This configuration is required even when attachment's synchronization is disabled.
+* Configure automatic closure of Enterprise Architect pop-ups: 
+  * By default, OpsHubEAWindowsService does not automatically close Enterprise Architect pop-ups. This can cause integrations to remain unresponsive indefinitely. 
+  * Refer to [Configure Automatic Closure of Enterprise Architect Pop-ups](enterprise-architect.md#configure-automatic-closure-of-enterprise-architect-pop-ups) section to enable automatic closure of Enterprise Architect pop-ups.
 * Go to `<code class="expression">space.vars.OIM</code>_INSTALLATION_PATH>\OpsHubEAService` folder, and run `EAService.exe` in administrator mode to start OpsHubEAWindowsService.
 * Test the web service by opening this URL in browser: `http://<hostname>:9393/EAService`.\
   E.g. `http://localhost:9393/EAService`
@@ -230,7 +233,7 @@ The base element type name of `Block` type is `Class`. If we create configuratio
   * Dependency__Bi-Directional
   * Dependency__Unspecified
   * Dependency__From
-      * Map this link type for synchronizing the dependency of current entity to the linked entity.
+    * Map this link type for synchronizing the dependency of current entity to the linked entity.
   * Dependency__To
     * Map this link type for synchronizing the dependency of linked entity to the current entity.
 * **Examples of link configuration for Enterprise Architect as source and target:**
@@ -326,7 +329,7 @@ Provide queries in a format that is acceptable by Enterprise Architect.
 * Criteria to get entities whose Status is Approved
   **Example:** `Status = 'Approved'
 * In providing criteria for complexity of a field, give its internal value. Find its internal value from the table. Below is a criterion to get entities whose Complexity is Medium.
-Example: Complexity = '2'
+  Example: Complexity = '2'
 * Criteria can also contain and/or operators. Given below are two examples:
   * To get entities whose **Complexity** is **Medium**, **AND** Type is **Requirement**
     `Complexity = '2' and Object_Type = 'Requirement'
@@ -444,10 +447,10 @@ $$OH_Last_Update:1=1609163655000.0_0_1.0
 2. Go to **File** menu, select **Open Project**.
 3. Open the Project in which the new user is to be added.
 4. After opening the project, enable Security for the project. To enable Security:
-   1. Go to Project Menu → **Security** and select **Enable Security**.
-   2. Enter the authorization key and click **OK**. Security will be enabled with default user: admin and password: password.
-   3. Now go to Project menu → **Security** and select **Login as Another User**.
-   4. Login with the credentials configured above.
+  1. Go to Project Menu → **Security** and select **Enable Security**.
+  2. Enter the authorization key and click **OK**. Security will be enabled with default user: admin and password: password.
+  3. Now go to Project menu → **Security** and select **Login as Another User**.
+  4. Login with the credentials configured above.
 5. Security Users dialogue box will appear. Fill in the details.
 
 <p align="center">
@@ -585,3 +588,41 @@ Follow any one of the steps below to configure auto login:
 3. To enable auto login from registry editor, refer to [Microsoft Docs – Turn on automatic logon](https://learn.microsoft.com/en-us/troubleshoot/windows-server/user-profiles-and-logon/turn-on-automatic-logon).
 
 > **Note**: It is recommended to use the first method (**netplwiz**) to configure auto login because the password for the administrator is stored in plain text in the registry, which can lead to security issues. Netplwiz stores the password in encrypted form.
+
+## Configure Automatic Closure of Enterprise Architect Pop-ups
+
+* Some operations performed through the Enterprise Architect API may display pop-ups, such as error alerts or warning messages.
+* These pop-ups block the operation until they are closed. If they are not closed, integration jobs may remain unresponsive indefinitely. 
+* OpsHubEAWindowsService can automatically monitor and close these pop-ups.
+
+* ### Configuration Steps
+  1. Navigate to the directory where OpsHubEAService is extracted.
+  2. Open the **AppConfig.json** file in a text editor.
+  3. Configure the following parameters:
+  
+  ```json
+  {
+    "AUTO_CLOSE_EA_POP_UP": true,
+    "POPUP_MONITORING_DURATION_MINUTES": 3
+  }
+  ```
+
+  * #### Configuration Parameters
+  
+    | Parameter                             | Type                           | Default Value | Description                                                                                                                                                                                                                                                               |
+    |:--------------------------------------|:-------------------------------|:--------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | **AUTO_CLOSE_EA_POP_UP**              | Boolean (**true** / **false**) | **false**     | Enables or disables automatic monitoring and closure of Enterprise Architect pop-ups. Set it to **true** to automatically detect and close the pop-ups. Set it to **false** to disable automatic closure.                                                                 |
+    | **POPUP_MONITORING_DURATION_MINUTES** | Number                         | **3**         | Specifies the maximum duration, in minutes, for monitoring pop-ups for a request. During this period, the service checks for pop-ups every 30 seconds. If the operation does not finish and no pop-up is detected within this duration, a **TimeoutException** is thrown. |
+  
+  4. Save the changes to **AppConfig.json**.
+  5. Restart OpsHubEAWindowsService for the changes to take effect.
+
+## Server Sizing and Thread Capacity
+
+* OpsHubEAWindowsService is a WCF (Windows Communication Foundation) application. The number of threads available to process requests depends on the number of processor cores on the machine where the service is installed.
+  * **Number of available threads = 16 × number of processor cores**
+* All the requests sent by <code class="expression">space.vars.OIM</code> to Enterprise Architect through OpsHubEAWindowsService use this pool of threads.
+* If all threads are busy, new requests must wait until a thread becomes available. This waiting period can increase the time required for synchronization. If a thread does not become available within the timeout period, the request times out.
+* The machine must have enough processor cores to handle the number of requests that <code class="expression">space.vars.OIM</code> is expected to send to Enterprise Architect at the same time. The required number of cores depends on the number of integrations running at the same time. More integrations require more processor cores and threads.
+
+> **Note**: The number of threads is calculated based on the processor cores visible to the operating system. For a virtual machine, it is calculated based on the number of virtual processor cores allocated to the machine.
