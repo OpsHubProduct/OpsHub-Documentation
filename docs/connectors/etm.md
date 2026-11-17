@@ -234,6 +234,33 @@ Provide query in Target Search Query field to be able to search the entity in ET
 - The Test Case Execution Record link is read-only and is available only after the Test Suite Execution Record has been executed at least once, resulting in a Test Suite Result.
   - Reason: Test Case Execution Records are retrieved from the Test Suite Result and cannot be accessed before a corresponding result exists. Since the link is system-generated, it cannot be created or modified directly.
 
+## Test Suite Result
+
+- **A Test Suite Result can be created only under an existing Test Suite Execution Record.** Its Test Suite Execution Record, Test Suite and Test Plan links cannot be changed afterward, and an attempt to change them fails with an error.
+  - **Reason:** ETM sets these links when the result is created and does not accept changes to them later.
+
+- **Test Case Results link only within the same Test Suite Execution Record.** A Test Case Result can be linked to a Test Suite Result only if its Test Case Execution Record belongs to the Test Suite Result's Test Suite Execution Record. Otherwise the sync fails with an error.
+
+- **End Time is set in a separate update.** ETM accepts an End Time only while the result is Inconclusive. When an End Time is set for the first time, <code class="expression">space.vars.OIM</code> sets the State to Inconclusive, sets the End Time, and then restores the original State. Once the End Time exists, it can be changed normally. You may see an extra update on the result in ETM.
+
+- **Stop-on-failure needs sequential execution.** "Stop test suite execution if the verdict of any test case execution is not passed" can be set to true only when "Run this suite in parallel" is false. An update that breaks this rule fails with an error.
+
+- **Fields that refer to other ETM items sync as titles only.** Test Environment, Team Area, Build, Iteration and Test Cell are independent items in ETM. A normal sync brings only their titles into the Test Suite Result. To get other details of these items, use the <code class="expression">space.vars.OIM</code> utility methods in the mapping.
+
+- **State is read-only.** The State of a Test Suite Result is never set or updated by the connector.
+  - **Reason:** ETM ignores the State value sent in an update.
+
+- **Points are read-only.** Points are not synchronized to ETM.
+  - **Reason:** ETM does not allow Points to be set to zero through its API, and its sum-of-points rules make the update fail when they are not followed.
+
+## Synchronization order
+When ETM is the target system, synchronize the entities in this order. ETM needs each entity's related items to exist before it can create that entity, so syncing out of order can cause failures. Entities listed together can be synchronized in parallel:
+  1. Test Case, Test Scripts, Test Suite, Test Plan
+  2. Test Case Execution Record
+  3. Test Suite Execution Record
+  4. Test Case Result
+  5. Test Suite Result
+
 ## OAuth Access Token Timeout
 - On ETM admin panel, you can specify the timeout seconds for the OAuth Access Token.
 - The number of seconds provided here specifies that token will stay valid (till the number of seconds specified) while not being used. It is recommended to set this value based on usage. In case of token regeneration, refer to [OAuth Configuration](#oauth-configuration) section.
@@ -270,6 +297,8 @@ Provide query in Target Search Query field to be able to search the entity in ET
 | Test Script            | Test Data, Formal Review, Quality Task, Associated Electronic Signatures, Subscribers                                                     |
 | Test Case Execution Record | Blocking Defects, Deployment plan, rolled-up result, Subscribers                                             |
 | Test Case Result       | Defect, Test Environment, Build, Test Data, Iteration, Custom properties, Weight Distribution, Formal Review, Execution Variables, Associated Electronic Signatures |
+
+
 
 # Appendix
 ## Permission Configuration
