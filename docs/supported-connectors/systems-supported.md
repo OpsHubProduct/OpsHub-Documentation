@@ -28,7 +28,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <th width="160">System</th>
             <th width="200">Versions Supported</th>
             <th>Entities Supported</th>
-            <th width="200">Poller Type</th>
+            <th width="200">Sync Mode</th>
             <th width="140">Formerly Known as</th>
         </tr>
     </thead>
@@ -38,7 +38,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Aha!</td>
             <td>All</td>
             <td>Approval, Epic, Goal, Feature, Idea, Initiative, Release, Requirement, To-do, Note, WorkRequest</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -46,15 +46,15 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Aras Innovator</td>
             <td>All</td>
             <td>All System Item Types (excluding Item Types of Relationship and Core Type) and All Custom Item Types (excluding Item Types of Relationship Type)</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
             <td>3</td>
             <td>Azure DevOps Server</td>
             <td> 2010*, 2012*, 2013, 2015 (up to Update 3), 2017, 2017 Update 2, 2018, 2019, 2020, 2022, 2025 </td>
-            <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All Custom Entity Types <br>Test Entities such as Test Plan, Test Result, Test Run, Test Suite <br>Iteration, Area Path, User Group, Team and User: 2010 and above <br>Git Commit Information (only read): 2016 and above<br>Dashboard, Query, Widget: 2017 and above <br>Pull Request (only read), Build Pipeline**, Release Pipeline**, Service Connection, Task Group, Variable Group : 2018 and above <br>Build* (only read): 2019 and above <br>  Agent Pool : 2020 and above</td>
-            <td><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
+            <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All Custom Entity Types <br>Test Entities such as Test Plan, Test Result, Test Run, Test Suite <br>Iteration, Area Path, User Group, Team and User: 2010 and above <br>Delivery Plan: 2018 and above <br>Git Commit Information (only read): 2016 and above<br>Dashboard, Query, Widget: 2017 and above <br>Pull Request (only read), Build Pipeline**, Release Pipeline**, Service Connection, Task Group, Variable Group : 2018 and above <br>Build* (only read): 2019 and above <br>  Agent Pool : 2020 and above</td>
+            <td><strong>History sync:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Team Foundation Server (TFS)</td>
         </tr>
         <tr>
@@ -62,15 +62,15 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Azure DevOps Server Version Control</td>
             <td> 2010*, 2012*, 2013, 2015 (up to Update 3), 2017, 2017 Update 2, 2018, 2019, 2020, 2022, 2025 </td>
             <td> Commit Information </td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td> Team Foundation Server Version Control </td>
         </tr>
         <tr>
             <td>5</td>
             <td>Azure DevOps Services</td>
             <td>All</td>
-            <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All custom workitem types <br>Test entities such as Test Plan, Test Result, Test Run, Test Suite<br>Iteration, Area Path, Group, Team, User, Dashboard, Query, Widget, Pipeline**, Release Pipeline**, Agent Pool, Service Connection, Task Group, Variable Group  <br> Git Commit Information(only read), Pull Request(only read), Build* (only read) </td>
-            <td><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
+            <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All custom workitem types <br>Test entities such as Test Plan, Test Result, Test Run, Test Suite<br>Iteration, Area Path, Group, Team, User, Delivery Plan, Dashboard, Query, Widget, Pipeline**, Release Pipeline**, Agent Pool, Service Connection, Task Group, Variable Group  <br> Git Commit Information(only read), Pull Request(only read), Build* (only read) </td>
+            <td><strong>History sync:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Visual Studio Team Services (VSTS)</td>
         </tr>
         <tr>
@@ -78,7 +78,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Blueprint*</td>
             <td>From 5.4 to 13.0</td>
             <td>All System/Custom Entities</td>
-            <td>History-based</td>
+            <td>Current state</td>
             <td></td>
         </tr>
         <tr>
@@ -86,7 +86,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>BMC Remedy*</td>
             <td>6.3, 8.0, 8.1</td>
             <td>Request</td>
-            <td>History-based</td>
+            <td>Current state</td>
             <td>Remedy</td>
         </tr>
         <tr>
@@ -102,7 +102,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Broadcom Rally Software</td>
             <td>All</td>
             <td>Portfolio Items, Defect, Task, Test Case, Test Case Result, Test Set, Test Folder, User Story, Change Set [Write support only, Release, Iteration, Milestone], Risk</td>
-            <td>History-based</td>
+            <td><strong>History sync:</strong> Portfolio Items, Defect, Task, Test Case, Test Set, Milestone, User Story, Change Set, Risk<br><strong>Current state:</strong> Test Case Result<br><strong>Non-timestamp:</strong> Release, Iteration, Test Folder</td>
             <td>CA Agile</td>
         </tr>
         <tr>
@@ -118,7 +118,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Bugzilla</td>
             <td>4.4, 4.4.1, 4.4.2, 5.0 and above<br/>Read only: 4.4.3 to 4.4.13</td>
             <td>Bug</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -134,7 +134,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Codebeamer</td>
             <td>21.09-SP3, 21.09-SP9, 22.10 LTS, 2.x, 3.x</td>
             <td>All System and Custom Tracker items<br/><br/>Not Supported: SCM type entities (Working Sets, Baselines, SCM commits, repositories), timekeeping trackers (Worklogs), Non-ALM entities (Wiki pages, documents)</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -142,7 +142,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Codebeamer X</td>
             <td>4.2.1</td>
             <td>All System and Custom Tracker items<br/><br/>Not Supported: SCM type entities (Working Sets, Baselines, SCM commits, repositories), timekeeping trackers (Worklogs), Non-ALM entities (Wiki pages, documents)</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -150,7 +150,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Database</td>
             <td>See <a href="../getting-started/prerequisites.md#database-prerequisites">Database Prerequisites</a> for MySQL, MS SQL Server/Azure SQL, Oracle, PostgreSQL (MariaDB version support not separately documented)</td>
             <td>All tables or views in the database</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -158,7 +158,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Digital.ai Agility</td>
             <td>Cloud (All)</td>
             <td>Backlog Item, Defect, Epic, Goal, Issue, Request, Task, Test, TestSet, Theme, Project/Release, Iteration, Build Run, Changesets, Actuals</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td>VersionOne</td>
         </tr>
         <tr>
@@ -166,7 +166,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Digital.ai TeamForge</td>
             <td>17.11 to 21.x</td>
             <td>All System/Custom Tracker Types, Planning Folders, Teams</td>
-            <td>History-based</td>
+            <td><strong>History sync:</strong> All System/Custom Tracker Types<br><strong>Non-timestamp:</strong> Planning Folders, Teams</td>
             <td></td>
         </tr>
         <tr>
@@ -182,7 +182,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>FogBugz*</td>
             <td>8.8.*, 8.9.*, 8.9.110.0H, 8.9.122.0H</td>
             <td>Case</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -214,7 +214,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>GitLab</td>
             <td>SaaS<br/>On Premise: 15.x, 16.x, 17.x, 18.x</td>
             <td>Commit (read only), Epic, Issues</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -238,7 +238,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>HubSpot</td>
             <td>SaaS</td>
             <td>Deal, Ticket, Contact, Company, Orders, Notes, Emails, Tasks, Calls, Meetings</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -254,14 +254,14 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>IBM Engineering Requirements Management DOORS Next</td>
             <td>6.0.x*, 7.0.1, 7.0.2 to 7.0.2 IFix25, 7.0.3</td>
             <td>All Artifacts (Text + Collection)</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td>IBM DOORS NG</td>
         </tr>
         <tr>
             <td>29</td>
             <td>IBM Engineering Test Management</td>
             <td>6.0.5 - 7.1.x</td>
-            <td>Test Plan, Test Suite, Test Case, Test Script, Test Case Execution Record, Test Case Result, Keyword</td>
+            <td>Test Plan, Test Suite, Test Case, Test Script, Test Case Execution Record, Test Case Result, Keyword, Test Suite Execution record</td>
             <td>Current state</td>
             <td></td>
         </tr>
@@ -270,7 +270,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>IBM Engineering Workflow Management</td>
             <td>5.0.2, 6.0.1, 6.0.2, 6.0.3, 7.0.1, 7.0.2</td>
             <td>Process Template/All Custom Entities</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td>Rational Team Concert</td>
         </tr>
         <tr>
@@ -285,8 +285,8 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>32</td>
             <td>IBM Rational DOORS</td>
             <td>9.1–9.7.2</td>
-            <td>Requirement, Baseline (read only)</td>
-            <td>History-based</td>
+            <td>Requirement, Module, Baseline (read only)</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -294,15 +294,15 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>IBM Rational RequisitePro*</td>
             <td>7.0.1+</td>
             <td>Requirement [All Custom-created Requirement Types supported]</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
             <td>34</td>
             <td>Jama Connect</td>
             <td>Cloud/Self-Hosted: From 8.22+</td>
-            <td>All System/Custom Item Types (Defect, Epic, Persona, Test Plan, Test Cycle, Test Run, Commit, Component, Set, Folder, etc.)<br/>Not Supported: Attachment, Core</td>
-            <td>History-based</td>
+            <td>All System/Custom Item Types (Defect, Epic, Persona, Test Plan, Test Cycle, Test Run, Commit, Component, Set, Folder, Releases, etc.)<br/>Not Supported: Attachment, Core</td>
+            <td><strong>History sync:</strong> Defect, Epic, Persona, Test Plan, Test Cycle, Test Run, Commit, Component, Set, Folder, etc.<br><strong>Non-timestamp:</strong> Releases, Test Group</td>
             <td></td>
         </tr>
         <tr>
@@ -318,7 +318,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Jira Agile</td>
             <td>Cloud<br/>Data Center: 6.7.7 – 9.12.x</td>
             <td>Sprint, Epic, Link</td>
-            <td>History-based</td>
+            <td><strong>History sync:</strong> Epic<br><strong>Non-timestamp:</strong> Sprint</td>
             <td></td>
         </tr>
         <tr>
@@ -334,23 +334,23 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Jira Align</td>
             <td>SaaS</td>
             <td>Capability, Customer, Defect, Epic, Initiative, Portfolio, Program, PI, Release, Sprint, Story, Task, Theme, Value Stream, Objectives</td>
-            <td>History-based</td>
+            <td><strong>History sync:</strong> Capability, Defect, Epic, Initiative, Portfolio, Program, PI, Release, Sprint, Story, Task, Theme, Objectives<br><strong>Non-timestamp:</strong> Product, Value Stream, Customer</td>
             <td></td>
         </tr>
         <tr>
             <td>39</td>
             <td>Jira Cloud</td>
             <td>All</td>
-            <td>All System & Custom Issue Types, Sub-Task Types, Version, Work-log</td>
-            <td>History-based</td>
+            <td>All System & Custom Issue Types, Sub-Task Types, Version, Work-log, Sprint</td>
+            <td><strong>History sync:</strong> All System & Custom Issue Types, Sub-Task Types<br><strong>Current state:</strong> Work-log<br><strong>Non-timestamp:</strong> Version, Sprint</td>
             <td></td>
         </tr>
         <tr>
             <td>40</td>
             <td>Jira Data Center</td>
             <td>5.x–11.x</td>
-            <td>All System & Custom Issue Types, Sub-Task Types, Version, Work-log</td>
-            <td>History-based</td>
+            <td>All System & Custom Issue Types, Sub-Task Types, Version, Work-log, Sprint</td>
+            <td><strong>History sync:</strong> All System & Custom Issue Types, Sub-Task Types<br><strong>Current state:</strong> Work-log<br><strong>Non-timestamp:</strong> Version, Sprint</td>
             <td></td>
         </tr>
         <tr>
@@ -358,7 +358,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Jira Elements Connect</td>
             <td>On-Premise: 6.13.x</td>
             <td>Live text/user/date/datetime custom fields</td>
-            <td>History-based</td>
+            <td>Current state</td>
             <td></td>
         </tr>
         <tr>
@@ -366,15 +366,15 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Jira Project & Portfolio Management</td>
             <td>From Jira 8.15+ (part of Jira software)<br/>2.24.0–3.29.x</td>
             <td>Portfolio Items</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
             <td>43</td>
-            <td>Jira QMetry**</td>
+            <td>Jira QMetry*</td>
             <td>On Premise: QMetry 3.X, Build 4.6.1</td>
             <td>Test Case, Test Scenario, Test Run, QMetry Test Execution</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -390,7 +390,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Jira Service Management</td>
             <td>Cloud<br/>On Premise: 3.1.10–5.12.1</td>
             <td>All System & Custom Issue Types</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td>Jira Service Desk</td>
         </tr>
         <tr>
@@ -398,15 +398,15 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Jira SLA Powerbox</td>
             <td>3.x–4.2.x (excl. 3.5.x)</td>
             <td>SLA Metric field (read only)</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
             <td>47</td>
-            <td>Jira Stagil Assets Management</td>
+            <td>Jira Stagil Assets Management*</td>
             <td>On Premise: Stagil Assets – Advanced Link 5.0.86</td>
             <td>All Entities Supported By <code class="expression">space.vars.OIM</code> In JIRA</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -438,7 +438,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Midas</td>
             <td>25.10.e.003</td>
             <td>Safety Mechanism</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -446,7 +446,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Microsoft Dynamics 365</td>
             <td>9.2</td>
             <td>All Entities</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -462,7 +462,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Monday.com</td>
             <td>SaaS</td>
             <td>Board items, Board sub items</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -478,7 +478,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>OpenText ALM Quality Center</td>
             <td>SaaS: 15.x<br/>On-Prem: 10.0+ to 24.x</td>
             <td>Defect, Requirement, Test, Test Set, Release, Cycle, Test Run, Folders, Configurations, Execution Request</td>
-            <td>History-based</td>
+            <td><strong>History sync:</strong> Defect, Requirement, Test, Test Set, Release, Cycle, Test Run, Configuration, Execution<br><strong>Current state:</strong> Test Set folder, Test folder<br><strong>Non-timestamp:</strong> Release folder</td>
             <td>Micro Focus ALM/QC, HPALM</td>
         </tr>
         <tr>
@@ -486,7 +486,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>OpenText IT Operations Cloud*</td>
             <td>2009 R3,R4, 10.1.2.1,11.0</td>
             <td>All Custom Primary Item Entities</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td>Serena Business Manager</td>
         </tr>
         <tr>
@@ -494,7 +494,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>OpenText Project & Portfolio Mgmt (PPM)*</td>
             <td>11.3, 11.5</td>
             <td>Requirement</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td>Caliber RM</td>
         </tr>
         <tr>
@@ -502,7 +502,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>PagerDuty</td>
             <td>Cloud</td>
             <td>Incident</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -518,7 +518,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>ReadyOne</td>
             <td>14.0.x (Release 26)</td>
             <td>All System Item Types (Core + Custom)</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -526,7 +526,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Redmine</td>
             <td>3.1.2+</td>
             <td>Redmine Issue + Custom Issue Types</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -550,7 +550,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Selenium*</td>
             <td>All</td>
             <td>TestScripts</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -558,7 +558,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>ServiceNow</td>
             <td>San Diego - Australia</td>
             <td>All System + Custom Tables</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -581,8 +581,8 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>69</td>
             <td>SolarWinds Service Desk</td>
             <td>SaaS</td>
-            <td>Catalog Items, Change Catalog, Changes, Incidents, Problems, Releases, Solutions</td>
-            <td><strong>History-based:</strong> Change Catalog, Changes, Incidents, Problems, Releases<br><strong>Current state:</strong> Catalog Items, Tasks<br><strong>Non-timestamp:</strong> Solutions</td>
+            <td>Catalog Items, Change Catalog, Changes, Incidents, Problems, Releases, Solutions, Tasks</td>
+            <td><strong>History sync:</strong> Change Catalog, Changes, Incidents, Problems, Releases<br><strong>Current state:</strong> Catalog Items, Tasks<br><strong>Non-timestamp:</strong> Solutions</td>
             <td></td>
         </tr>
         <tr>
@@ -598,7 +598,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>TestRail**</td>
             <td>7.2.1, 7.8.0, 8.0.1</td>
             <td>Tests, Test Cases, Test Plans, Test Results, Test Runs, Test Suites, Sections, Milestones</td>
-            <td>Current state</td>
+            <td><strong>Current state:</strong> Test Cases, Test Results<br><strong>Non-timestamp:</strong> Milestone, Test Runs, Test Plans, Test Suites, Tests, Sections</td>
             <td></td>
         </tr>
         <tr>
@@ -606,7 +606,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Trac*</td>
             <td>0.12.0, 0.11.5, 1.0</td>
             <td>Trac Ticket</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
         <tr>
@@ -614,7 +614,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Tricentis qTest</td>
             <td>Cloud (All)<br/>On Premise: 8.4.2–2023.x.x</td>
             <td>Defect, Requirement, Testcase, Testlog, Release, Test Suite, Test Run, Module, Test Cycle, Build (read only)</td>
-            <td>History-based</td>
+            <td><strong>History sync:</strong> Defect, Requirement, Testcase, Test Suite, Test Run<br><strong>Current state:</strong> Testlog<br><strong>Non-timestamp:</strong> Release, Build, Test Cycle, Module</td>
             <td>QA Symphony</td>
         </tr>
         <tr>
@@ -630,7 +630,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Verisium Manager**</td>
             <td>20.x–25.x (up to 25.01)</td>
             <td>Section, Metrics Port, Reference [from 21.01+]<br/>Supported for vPlan in DB only</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td>vManager</td>
         </tr>
         <tr>
@@ -645,7 +645,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>77</td>
             <td>Windchill PLM*</td>
             <td>13.x</td>
-            <td>Issue [Soft type/Subtype of Problem Reports]</td>
+            <td>Issue, Part, Change Request, and Engineering Material (each with associated Soft Types and Subtypes)</td>
             <td>Current state</td>
             <td>PDM Link</td>
         </tr>
@@ -654,14 +654,14 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Zendesk</td>
             <td>Cloud</td>
             <td>Zendesk Ticket</td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td></td>
         </tr>
          <tr>
             <td>79</td>
             <td>Zephyr Enterprise</td>
             <td>8.6.0</td>
-            <td>Folder, Phase, Test Case, Test Execution</td>
+            <td>Cycle, Folder, Phase, Phase Folder, Test Case, Test Execution</td>
             <td><strong>Current state:</strong> Folder, Phase Folder, Test Case, Test Execution<br><strong>Non-timestamp:</strong> Cycle, Phase</td>
             <td></td>
         </tr>
@@ -670,7 +670,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Zephyr Scale</td>
             <td>15.6.0 and above</td>
             <td>Test Case, Test Plan, Test Cycle, Test Execution, Folder, Environment</td>
-            <td>Current state</td>
+            <td><strong>Current state:</strong> Test Case, Test Plan, Test Cycle, Test Execution<br><strong>Non-timestamp:</strong> Folder, Environment</td>
             <td></td>
         </tr>
     </tbody>
@@ -689,7 +689,7 @@ Given below are the systems currently supported by <code class="expression">spac
             <th width="160">System</th>
             <th width="200">Versions Supported</th>
             <th>Entities Supported</th>
-            <th width="200">Poller Type</th>
+            <th width="200">Sync Mode</th>
             <th width="140">Formerly Known as</th>
         </tr>
     </thead>
@@ -698,8 +698,8 @@ Given below are the systems currently supported by <code class="expression">spac
             <td>1</td>
             <td>Azure DevOps Server</td>
             <td> 2010*, 2012*, 2013, 2015 (up to Update 3), 2017, 2017 Update 2, 2018, 2019, 2020, 2022, 2025 </td>
-            <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All Custom Entity Types <br>Test Entities such as Test Plan, Test Result, Test Run, Test Suite <br>Iteration, Area Path, User Group, Team and User: 2010 and above <br>Git Commit Information (only read): 2016 and above<br>Dashboard, Query, Widget: 2017 and above <br>Pull Request (only read), Build Pipeline**, Release Pipeline**, Service Connection, Task Group, Variable Group : 2018 and above <br>Build* (only read): 2019 and above <br>  Agent Pool : 2020 and above</td>
-            <td><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
+            <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All Custom Entity Types <br>Test Entities such as Test Plan, Test Result, Test Run, Test Suite <br>Iteration, Area Path, User Group, Team and User: 2010 and above <br>Delivery Plan: 2018 and above <br>Git Commit Information (only read): 2016 and above<br>Dashboard, Query, Widget: 2017 and above <br>Pull Request (only read), Build Pipeline**, Release Pipeline**, Service Connection, Task Group, Variable Group : 2018 and above <br>Build* (only read): 2019 and above <br>  Agent Pool : 2020 and above</td>
+            <td><strong>History sync:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Team Foundation Server (TFS)</td>
         </tr>
         <tr>
@@ -707,15 +707,15 @@ Given below are the systems currently supported by <code class="expression">spac
             <td>Azure DevOps Server Version Control</td>
             <td> 2010*, 2012*, 2013, 2015 (up to Update 3), 2017, 2017 Update 2, 2018, 2019, 2020, 2022, 2025 </td>
             <td> Commit Information </td>
-            <td>History-based</td>
+            <td>History sync</td>
             <td> Team Foundation Server Version Control </td>
         </tr>
         <tr>
             <td>3</td>
             <td>Azure DevOps Services</td>
             <td>All</td>
-            <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All custom workitem types <br>Test entities such as Test Plan, Test Result, Test Run, Test Suite<br>Iteration, Area Path, Group, Team, User, Dashboard, Query, Widget, Pipeline**, Release Pipeline**, Agent Pool, Service Connection, Task Group, Variable Group  <br> Git Commit Information(only read), Pull Request(only read), Build* (only read) </td>
-            <td><strong>History-based:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
+            <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All custom workitem types <br>Test entities such as Test Plan, Test Result, Test Run, Test Suite<br>Iteration, Area Path, Group, Team, User, Delivery Plan, Dashboard, Query, Widget, Pipeline**, Release Pipeline**, Agent Pool, Service Connection, Task Group, Variable Group  <br> Git Commit Information(only read), Pull Request(only read), Build* (only read) </td>
+            <td><strong>History sync:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Visual Studio Team Services (VSTS)</td>
         </tr>
     </tbody>
