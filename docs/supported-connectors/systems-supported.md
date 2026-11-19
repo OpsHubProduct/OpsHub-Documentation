@@ -315,14 +315,6 @@ Given below are the systems supported currently by <code class="expression">spac
         </tr>
         <tr>
             <td>36</td>
-            <td>Jira Agile</td>
-            <td>Cloud<br/>Data Center: 6.7.7 – 9.12.x</td>
-            <td>Sprint, Epic, Link</td>
-            <td><strong>History sync:</strong> Epic<br><strong>Non-timestamp:</strong> Sprint</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>37</td>
             <td>Jira AIO (All-In-One) Tests*</td>
             <td>Data Center: 4.4.0<br/>Cloud: 4.4.0</td>
             <td>AIO Test Case (read), AIO Test Cycle (read), AIO Test Run (read)</td>
@@ -330,7 +322,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>38</td>
+            <td>37</td>
             <td>Jira Align</td>
             <td>SaaS</td>
             <td>Capability, Customer, Defect, Epic, Initiative, Portfolio, Program, PI, Release, Sprint, Story, Task, Theme, Value Stream, Objectives</td>
@@ -338,7 +330,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>39</td>
+            <td>38</td>
             <td>Jira Cloud</td>
             <td>All</td>
             <td>All System & Custom Issue Types, Sub-Task Types, Version, Work-log, Sprint</td>
@@ -346,7 +338,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>40</td>
+            <td>39</td>
             <td>Jira Data Center</td>
             <td>5.x–11.x</td>
             <td>All System & Custom Issue Types, Sub-Task Types, Version, Work-log, Sprint</td>
@@ -354,7 +346,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>41</td>
+            <td>40</td>
             <td>Jira Elements Connect</td>
             <td>On-Premise: 6.13.x</td>
             <td>Live text/user/date/datetime custom fields</td>
@@ -362,7 +354,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>42</td>
+            <td>41</td>
             <td>Jira Project & Portfolio Management</td>
             <td>From Jira 8.15+ (part of Jira software)<br/>2.24.0–3.29.x</td>
             <td>Portfolio Items</td>
@@ -370,7 +362,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>43</td>
+            <td>42</td>
             <td>Jira QMetry*</td>
             <td>On Premise: QMetry 3.X, Build 4.6.1</td>
             <td>Test Case, Test Scenario, Test Run, QMetry Test Execution</td>
@@ -378,7 +370,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>44</td>
+            <td>43</td>
             <td>Jira R4J</td>
             <td>4.4.x–4.18.4</td>
             <td>Folders, R4J Relationships (Folders ↔ Jira Issues)</td>
@@ -386,7 +378,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>45</td>
+            <td>44</td>
             <td>Jira Service Management</td>
             <td>Cloud<br/>On Premise: 3.1.10–5.12.1</td>
             <td>All System & Custom Issue Types</td>
@@ -394,7 +386,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Jira Service Desk</td>
         </tr>
         <tr>
-            <td>46</td>
+            <td>45</td>
             <td>Jira SLA Powerbox</td>
             <td>3.x–4.2.x (excl. 3.5.x)</td>
             <td>SLA Metric field (read only)</td>
@@ -402,7 +394,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>47</td>
+            <td>46</td>
             <td>Jira Stagil Assets Management*</td>
             <td>On Premise: Stagil Assets – Advanced Link 5.0.86</td>
             <td>All Entities Supported By <code class="expression">space.vars.OIM</code> In JIRA</td>
@@ -410,7 +402,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>48</td>
+            <td>47</td>
             <td>Jira Xray**</td>
             <td>On Premise: 3.6.x–6.1.3<br/>Cloud: V1.1.90-AC-4.004.000</td>
             <td>On Premise: Test, Test Plan, Test Execution, Test Set, Sub Test Execution, Pre-Condition<br/>Cloud: Xray Test, Test Plan, Test Execution, Test Set, Test Run, Precondition</td>
@@ -418,7 +410,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>49</td>
+            <td>48</td>
             <td>Jira Zephyr Essential**</td>
             <td>Data Center: 9.x, 10.x<br/>Cloud: 8.x (1.3.33-AC)</td>
             <td>Test, Test Cycle, Test Execution, Folder</td>
@@ -426,7 +418,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Zephyr Squad</td>
         </tr>
         <tr>
-            <td>50</td>
+            <td>49</td>
             <td>Mercurial*</td>
             <td>2.0–2.0.1, 2.6.1, 2.6.2</td>
             <td>Commit Information</td>
@@ -434,7 +426,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>51</td>
+            <td>50</td>
             <td>Midas</td>
             <td>25.10.e.003</td>
             <td>Safety Mechanism</td>
@@ -442,7 +434,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>52</td>
+            <td>51</td>
             <td>Microsoft Dynamics 365</td>
             <td>9.2</td>
             <td>All Entities</td>
@@ -450,7 +442,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>53</td>
+            <td>52</td>
             <td>Modern Requirements</td>
             <td>2010–2019</td>
             <td>Test Result, Test Run, Test Suite, Work items (Bug, Requirement, Task, Test Case, User Story, etc.), Iteration, Git Commit, Custom Entities</td>
@@ -458,7 +450,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>54</td>
+            <td>53</td>
             <td>Monday.com</td>
             <td>SaaS</td>
             <td>Board items, Board sub items</td>
@@ -466,7 +458,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>55</td>
+            <td>54</td>
             <td>OpenText ALM Octane</td>
             <td>On Premise: 16.1.x to 25.x<br/>SaaS</td>
             <td>Defect, User Story, Epic, Feature, Task, Requirement, Test, Run, etc.</td>
@@ -474,7 +466,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Micro Focus ALM Octane</td>
         </tr>
         <tr>
-            <td>56</td>
+            <td>55</td>
             <td>OpenText ALM Quality Center</td>
             <td>SaaS: 15.x<br/>On-Prem: 10.0+ to 24.x</td>
             <td>Defect, Requirement, Test, Test Set, Release, Cycle, Test Run, Folders, Configurations, Execution Request</td>
@@ -482,7 +474,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Micro Focus ALM/QC, HPALM</td>
         </tr>
         <tr>
-            <td>57</td>
+            <td>56</td>
             <td>OpenText IT Operations Cloud*</td>
             <td>2009 R3,R4, 10.1.2.1,11.0</td>
             <td>All Custom Primary Item Entities</td>
@@ -490,7 +482,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Serena Business Manager</td>
         </tr>
         <tr>
-            <td>58</td>
+            <td>57</td>
             <td>OpenText Project & Portfolio Mgmt (PPM)*</td>
             <td>11.3, 11.5</td>
             <td>Requirement</td>
@@ -498,7 +490,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Caliber RM</td>
         </tr>
         <tr>
-            <td>59</td>
+            <td>58</td>
             <td>PagerDuty</td>
             <td>Cloud</td>
             <td>Incident</td>
@@ -506,7 +498,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>60</td>
+            <td>59</td>
             <td>Polarion</td>
             <td>On Premise: ALM 2506<br/>SaaS*</td>
             <td>User Story, Requirement, Epic, Task, Test Case, Issue, Change Request, Release, all system-defined work items,custom work items, Plan and Test Run</td>
@@ -514,7 +506,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>61</td>
+            <td>60</td>
             <td>ReadyOne</td>
             <td>14.0.x (Release 26)</td>
             <td>All System Item Types (Core + Custom)</td>
@@ -522,7 +514,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>62</td>
+            <td>61</td>
             <td>Redmine</td>
             <td>3.1.2+</td>
             <td>Redmine Issue + Custom Issue Types</td>
@@ -530,7 +522,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>63</td>
+            <td>62</td>
             <td>Salesforce</td>
             <td>All</td>
             <td>Case, Opportunity, Feeds, Custom Objects</td>
@@ -538,7 +530,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>64</td>
+            <td>63</td>
             <td>SAP**</td>
             <td>ECC, S/4HANA</td>
             <td>Program, Transport Request, Transaction Code, Enhancement, Usage Details, Table, Function, Package, Auth Object, Class, Data Element, TADIR</td>
@@ -546,7 +538,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>65</td>
+            <td>64</td>
             <td>Selenium*</td>
             <td>All</td>
             <td>TestScripts</td>
@@ -554,7 +546,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>66</td>
+            <td>65</td>
             <td>ServiceNow</td>
             <td>San Diego - Australia</td>
             <td>All System + Custom Tables</td>
@@ -562,7 +554,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>67</td>
+            <td>66</td>
             <td>Slack*</td>
             <td>Cloud</td>
             <td>Comments, Attachments, Post (write only)</td>
@@ -570,7 +562,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>68</td>
+            <td>67</td>
             <td>Snowflake**</td>
             <td>Cloud</td>
             <td>Tables and Views</td>
@@ -578,7 +570,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>69</td>
+            <td>68</td>
             <td>SolarWinds Service Desk</td>
             <td>SaaS</td>
             <td>Catalog Items, Change Catalog, Changes, Incidents, Problems, Releases, Solutions, Tasks</td>
@@ -586,7 +578,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>70</td>
+            <td>69</td>
             <td>Subversion*</td>
             <td>1.5, 1.6.3, 1.6.17, 1.7.9</td>
             <td>Commit Information</td>
@@ -594,7 +586,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>71</td>
+            <td>70</td>
             <td>TestRail**</td>
             <td>7.2.1, 7.8.0, 8.0.1</td>
             <td>Tests, Test Cases, Test Plans, Test Results, Test Runs, Test Suites, Sections, Milestones</td>
@@ -602,7 +594,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>72</td>
+            <td>71</td>
             <td>Trac*</td>
             <td>0.12.0, 0.11.5, 1.0</td>
             <td>Trac Ticket</td>
@@ -610,7 +602,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>73</td>
+            <td>72</td>
             <td>Tricentis qTest</td>
             <td>Cloud (All)<br/>On Premise: 8.4.2–2023.x.x</td>
             <td>Defect, Requirement, Testcase, Testlog, Release, Test Suite, Test Run, Module, Test Cycle, Build (read only)</td>
@@ -618,7 +610,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>QA Symphony</td>
         </tr>
         <tr>
-            <td>74</td>
+            <td>73</td>
             <td>Tricentis Tosca</td>
             <td>2023.2, 2024.2 (x64) - 2025.1 (x64)</td>
             <td>TestCase, ExecutionTestCaseLog (read), ExecutionEntry, TCFolder, Requirement, RequirementSet, Issue, Module</td>
@@ -626,7 +618,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>75</td>
+            <td>74</td>
             <td>Verisium Manager**</td>
             <td>20.x–25.x (up to 25.01)</td>
             <td>Section, Metrics Port, Reference [from 21.01+]<br/>Supported for vPlan in DB only</td>
@@ -634,7 +626,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>vManager</td>
         </tr>
         <tr>
-            <td>76</td>
+            <td>75</td>
             <td>Windchill</td>
             <td>2009–13.3</td>
             <td>Change Order, Change Request, Defect, Document, Model, Portfolio, Product, Project, Requirement, Test, Specification, Work Item, Custom Entities</td>
@@ -642,7 +634,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>PTC, Windchill RV&S</td>
         </tr>
         <tr>
-            <td>77</td>
+            <td>76</td>
             <td>Windchill PLM*</td>
             <td>13.x</td>
             <td>Issue, Part, Change Request, and Engineering Material (each with associated Soft Types and Subtypes)</td>
@@ -650,7 +642,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>PDM Link</td>
         </tr>
         <tr>
-            <td>78</td>
+            <td>77</td>
             <td>Zendesk</td>
             <td>Cloud</td>
             <td>Zendesk Ticket</td>
@@ -658,7 +650,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
          <tr>
-            <td>79</td>
+            <td>78</td>
             <td>Zephyr Enterprise</td>
             <td>8.6.0</td>
             <td>Cycle, Folder, Phase, Phase Folder, Test Case, Test Execution</td>
@@ -666,7 +658,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td></td>
         </tr>
         <tr>
-            <td>80</td>
+            <td>79</td>
             <td>Zephyr Scale</td>
             <td>15.6.0 and above</td>
             <td>Test Case, Test Plan, Test Cycle, Test Execution, Folder, Environment</td>
