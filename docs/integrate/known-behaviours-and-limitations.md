@@ -16,6 +16,10 @@ There are a few limitations that are common across all connectors. The limitatio
   - Synchronization of the height and width of the inline image is performed only for HTML-supported systems.
   - If the same image is referred to more than once with a different height and width, then only the size of the last image is synchronized with all the images on the target side.
 
+- **Attachment Synchronization Limitations**  
+  - While performing reconciliation, if the source and target systems have multiple attachments with the same name and the same size, the source attachment will be synchronized as a new attachment in the target system, as mapping to any existing attachment can lead to incorrect data.  
+    - **Example:** If the source entity has an attachment `About.png` (with 1 KB size) and the target entity has two attachments named `About.png` (both having 1 KB size), then during reconciliation, <code class="expression">space.vars.OIM</code> will synchronize a duplicate attachment in the target system.
+
 - **Comment Synchronization Behaviour (Edited Comments)**
   - Consider the following scenario:
       - Initial sync of an entity:
