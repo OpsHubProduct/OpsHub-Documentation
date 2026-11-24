@@ -115,6 +115,7 @@
     * [Aras Innovator](docs/connectors/aras.md)
     * [Azure DevOps Server/Services/Version Control](docs/connectors/azure-devops.md)
         * [Service Troubleshooting](docs/connectors/service-troubleshooting.md)
+    * [Bamboo](docs/connectors/bamboo.md)
     * [Blueprint](docs/connectors/blueprint.md)
     * [BMC Remedy](docs/connectors/remedy.md)
     * [Brodcom Clarity](docs/connectors/clarity.md)

@@ -41,6 +41,11 @@ layout:
             <td><a href="azure-devops.md">Azure DevOps</a></td>
         </tr>
         <tr>
+            <td align="center"><mark style="color:#555555"><strong>Bamboo</strong></mark></td>
+            <td><a href="../assets/connector/bamboo.png">Bamboo</a></td>
+            <td><a href="bamboo.md">bamboo.md</a></td>
+        </tr>
+        <tr>
             <td align="center"><mark style="color:#555555"><strong>Blueprint</strong></mark></td>
             <td><a href="../assets/connector/61_blueprint.png">Blueprint</a></td>
             <td><a href="blueprint.md">blueprint.md</a></td>
