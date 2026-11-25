@@ -451,13 +451,13 @@ Click the **Configure Advance** icon > Go to Advance Configuration pop-up > Sele
 #### External Remote Link Configuration
 
 <p align="center">
-  <img src="../assets/Remote_link_as_external_link_configuration.png" width="1000" />
+  <img src="../assets/Remote_link_as_external_link_configuration.png" width="400" />
 </p>
 
 | Setting | Description |
 |---------|-------------|
 | **Remote Entity Link Field Name** | Along with the fields, the drop-down list shows the external link types of the end system, displayed as `<link type name> (Link)`. Select a link type to store the Remote Entity Link as an external link. |
-| **Remote URL Identifier (For external links)** | The name of the external link added by <code class="expression">space.vars.OIM</code>. <code class="expression">space.vars.OIM</code> uses this name to recognize its own link among the other links on the entity, so that it updates only its own link. If you leave it blank, <code class="expression">space.vars.OIM</code> uses **OpsHub Entity Remote Link** as the name. <code class="expression">space.vars.OIM</code> uses this setting only when a link type is selected in **Remote Entity Link Field Name**. |
+| **Remote URL Identifier (For external links)** | Enter a suitable and unique identifier, such as the name of the other system, to identify the external link added by <code class="expression">space.vars.OIM</code>. <code class="expression">space.vars.OIM</code> stores this value as the name or comment of the external link, and uses it to recognize its own link among the other links on the entity, so that it updates only its own link. If you leave it blank, <code class="expression">space.vars.OIM</code> uses **OpsHub Entity Remote Link**. <code class="expression">space.vars.OIM</code> uses this setting only when a link type is selected in **Remote Entity Link Field Name**. |
 
 To configure these settings, follow the same steps as given in [To store the Id and link of the target entity in the source entity](#to-store-the-id-and-link-of-the-target-entity-in-the-source-entity) and [To store the Id and link of the source entity in the target entity](#to-store-the-id-and-link-of-the-source-entity-in-the-target-entity).
 
