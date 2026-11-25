@@ -1752,6 +1752,24 @@ Also, the user can rename the "Default Folder" as per his/her liking.
 
 * In Jira, Test Run is used to sync the test case execution results.
 * To sync the step level results in case of the manual test steps, user must configure the `iterations` field available on the `<code class="expression">space.vars.OIM</code>` field configurations.
+* For both criteria-based synchronization and target lookup queries, filter conditions must be provided as comma-separated `field: value` pairs.
+
+  **Supported Filter Fields for Criteria and Target Lookup Queries:**
+
+
+  | Field Name | Description | Example                                          |
+    | :--- | :--- |:-------------------------------------------------|
+  | `testIssueIds` | Issue IDs of the Test entities associated with the Test Runs. | `testIssueIds: ["10001", "10002"]`               |
+  | `testExecIssueIds` | Issue IDs of the Test Execution entities associated with the Test Runs. | `testExecIssueIds: ["20001", "20002"]`           |
+  | `testRunAssignees` | User account IDs of the assignees of the Test Runs. | `testRunAssignees: ["5b10ac8d82e05b22cc7d4ef5"]` |
+  | `statuses` | Status names or IDs of the Test Runs (for example, `PASSED`, `FAILED`, `TODO`, `EXECUTING`, or a custom status ID). | `statuses: ["PASSED", "TO DO"]`                  |
+  | `testPlanIssueIds` | Issue IDs of the Test Plans whose Test Runs should be returned. | `testPlanIssueIds: ["30001"]`                    |
+  | `limit` | Maximum number of Test Runs to be returned per request (maximum is `100`). | `limit: 50`                                      |
+  | `start` | Zero-based index of the first item to return in the page of results (page offset). | `start: 0`                                       |
+  | `modifiedSince` | Returns all Test Runs modified after this timestamp. | `modifiedSince: "2026-11-01T00:00:00Z"`          |
+
+- Filters can be applied across more than one field in a single query, and multiple fields are combined as an `AND` condition. Within a single list field, multiple values are matched with `OR` logic (matching any value in that list), while different fields are combined with `AND` logic (must satisfy every specified field).
+- For example, `testIssueIds: ["10001", "10002"], testExecIssueIds: ["20001"], statuses: ["TO DO", "PASSED"]` returns only Test Runs whose test issue ID is `10001` **or** `10002`, **and** whose test execution issue ID is `20001`, **and** whose status is `TO DO` **or** `PASSED`.
 
 **Known Limitations**
 
@@ -1759,9 +1777,9 @@ Also, the user can rename the "Default Folder" as per his/her liking.
   * Synchronization of the 'Parameter' (which can be used in the 'steps' field in Xray Test entity) is not possible.
   * Synchronization of the Sub Test Execution entity is not supported.
   * Iteration level status update synchronization is not supported as of now for Test Run entity when the test type is Generic or Cucumber.
+  * Synchronization of Test Step attachments larger than 20 MB is not supported due to the GraphQL payload size limitation.
 * **When Jira  [Xray] is source system:**
   * For Xray Test, Test Execution, Test Set, Test Plan and Precondition entities, criteria will not work on Xray fields. Criteria can be given only on Jira fields as JQL query for these entities.
-  * Criteria is not supported for Test Run entity.
   *   For all the Xray fields, only current values (present at the time of synchronization) will be synchronized. Historic (Audit/Revisions) values will not be synchronized to target system.
 
       * An additional update to any Jira field is required in the following cases:
@@ -1780,7 +1798,6 @@ Also, the user can rename the "Default Folder" as per his/her liking.
   * For syncing the `Test Run` entity's step Results, the user should create below custom field of type `Text (Single Line)` with the specific given name in the Xray Test Step which is: `OH_Test_Step_Id`. Refer to [Project Settings: Test Step Fields](https://docs.getxray.app/display/XRAYCLOUD/Project+Settings%3A+Test+Step+Fields) section for details.
   * For syncing the Test Run, this custom field of type `Text (Single Line)` needs to be created in the Test Run: `OH_Last_Update`. Make sure to select all the test types in the `Test Type` selection while creating this field. Refer to [Project Settings: Test Run Custom Fields](https://docs.getxray.app/display/XRAYCLOUD/Project+Settings%3A+Test+Run+Custom+Fields) section for details.
   * For Xray Test, Test Execution, Test Set, Test Plan and Precondition entities, target lookup will not work on Xray fields. Target lookup can be given only on Jira fields as JQL query for these entities.
-  * Target lookup is not supported for Test Run entity.
 
 **Known Behavior**
 
