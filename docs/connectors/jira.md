@@ -1780,6 +1780,7 @@ Also, the user can rename the "Default Folder" as per his/her liking.
   * Synchronization of Test Step attachments larger than 20 MB is not supported due to the GraphQL payload size limitation.
 * **When Jira  [Xray] is source system:**
   * For Xray Test, Test Execution, Test Set, Test Plan and Precondition entities, criteria will not work on Xray fields. Criteria can be given only on Jira fields as JQL query for these entities.
+  * Criteria configuration with [Storage type 'In End System'](../../integrate/criteria-information-storage.md) is not supported as the end system does not support query on text or boolean type of fields.
   *   For all the Xray fields, only current values (present at the time of synchronization) will be synchronized. Historic (Audit/Revisions) values will not be synchronized to target system.
 
       * An additional update to any Jira field is required in the following cases:
