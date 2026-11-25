@@ -439,6 +439,48 @@ Click the **Configure Advance** icon > Go to Advance Configuration pop-up > Sele
   <img src="../assets/Integration_Configuration_Image_9a.png" width="700"/>
 </p>
 
+### Store Remote Entity Link as an External Link
+
+<code class="expression">space.vars.OIM</code> can store the Remote Entity Link as an external link on the entity, instead of in a field. With this, you do not need to create a dedicated field in the end system only to hold the URL of the entity in the other system. You can open the corresponding entity in the other system directly from the link.
+
+<code class="expression">space.vars.OIM</code> supports this feature for end systems in which an external link can have a name or comment. You can configure the external link in the source settings, the target settings, or both:
+
+* **Source settings**: <code class="expression">space.vars.OIM</code> adds a link on the source entity that opens its synchronized entity in the target system.
+* **Target settings**: <code class="expression">space.vars.OIM</code> adds a link on the target entity that opens its original entity in the source system.
+
+#### External Remote Link Configuration
+
+<p align="center">
+  <img src="../assets/Remote_link_as_external_link_configuration.png" width="1000" />
+</p>
+
+| Setting | Description |
+|---------|-------------|
+| **Remote Entity Link Field Name** | Along with the fields, the drop-down list shows the external link types of the end system, displayed as `<link type name> (Link)`. Select a link type to store the Remote Entity Link as an external link. |
+| **Remote URL Identifier (For external links)** | The name of the external link added by <code class="expression">space.vars.OIM</code>. <code class="expression">space.vars.OIM</code> uses this name to recognize its own link among the other links on the entity, so that it updates only its own link. If you leave it blank, <code class="expression">space.vars.OIM</code> uses **OpsHub Entity Remote Link** as the name. <code class="expression">space.vars.OIM</code> uses this setting only when a link type is selected in **Remote Entity Link Field Name**. |
+
+To configure these settings, follow the same steps as given in [To store the Id and link of the target entity in the source entity](#to-store-the-id-and-link-of-the-target-entity-in-the-source-entity) and [To store the Id and link of the source entity in the target entity](#to-store-the-id-and-link-of-the-source-entity-in-the-target-entity).
+
+#### How it works
+
+Consider an entity of System A that is synchronized to System B. In System B, **Remote Entity Link Field Name** is set to an external link type and **Remote URL Identifier** is left blank.
+
+* <code class="expression">space.vars.OIM</code> adds one external link named **OpsHub Entity Remote Link** on the entity in System B, which opens the entity in System A.
+* When the entity in System A is updated and its URL is unchanged, <code class="expression">space.vars.OIM</code> keeps the existing external link as it is and does not add a new one.
+* When the URL of the entity in System A changes (for example, the entity is moved to another project or the server is migrated), <code class="expression">space.vars.OIM</code> updates the existing external link with the new URL on the next update of the entity. The entity in System B still has only one **OpsHub Entity Remote Link**.
+* When you add your own external links on the entity in System B, <code class="expression">space.vars.OIM</code> identifies them by their names and does not update or remove them. <code class="expression">space.vars.OIM</code> updates only the link named with the **Remote URL Identifier**.
+* If any other user deletes the **OpsHub Entity Remote Link** on the entity in System B, <code class="expression">space.vars.OIM</code> adds it again on the next update of the entity in System A.
+
+#### Known behavior
+
+* It is recommended to store the Remote Entity Link in a field when the end system has a field available for it and an external link is not required. Storing it as an external link needs additional requests to the end system on every create and update, so the synchronization can take longer.
+* When the URL of an entity changes, <code class="expression">space.vars.OIM</code> updates the external link on the next update of the entity. Until then, the external link keeps the old URL.
+* If the **Remote URL Identifier** is changed after entities are synchronized, <code class="expression">space.vars.OIM</code> adds a new external link with the new identifier to those entities on their next synchronization. <code class="expression">space.vars.OIM</code> does not change or remove the external link with the old identifier.
+* If two integrations use the same **Remote URL Identifier** for the same entity, <code class="expression">space.vars.OIM</code> overwrites the external link from each integration on every synchronization.
+  * To avoid this, keep the **Remote URL Identifier** unique when your integrations span more than two systems. For example, consider three systems configured as A ↔ B ↔ C. System B needs two different identifiers: one for the link to the entity in System A and another for the link to the entity in System C. This ensures that <code class="expression">space.vars.OIM</code> identifies and updates the correct link without affecting the other integration.
+* If the selected link type is also mapped in the relationship mapping, <code class="expression">space.vars.OIM</code> synchronizes the external link it added to the other system, like any other link.
+* <code class="expression">space.vars.OIM</code> cannot use a Remote Entity Link stored as an external link to find the target entity in [Search in Target Before Sync](#search-in-target-before-sync), due to end system API limitations. If you want to use the Remote Entity Link to find the target entity, it is recommended to store it in a field and use that field in the target lookup query.
+
 
 ## Search in Target Before Sync
 
