@@ -1872,13 +1872,14 @@ Also, the user can rename the "Default Folder" as per his/her liking.
 | `testRunAssignees` | User account IDs of the assignees of the Test Runs. | `testRunAssignees: ["5b10ac8d82e05b22cc7d4ef5"]` |
 | `statuses` | Status names or IDs of the Test Runs (for example, `PASSED`, `FAILED`, `TODO`, `EXECUTING`, or a custom status ID). | `statuses: ["PASSED", "TO DO"]`                  |
 | `testPlanIssueIds` | Issue IDs of the Test Plans whose Test Runs should be returned. | `testPlanIssueIds: ["30001"]`                    |
-| `limit` | Maximum number of Test Runs to be returned per request (maximum is `100`). | `limit: 50`                                      |
-| `start` | Zero-based index of the first item to return in the page of results (page offset). | `start: 0`                                       |
 | `modifiedSince` | Returns all Test Runs modified after this timestamp. | `modifiedSince: "2026-11-01T00:00:00Z"`          |
 
-- Filters can be applied across more than one field in a single query, and multiple fields are combined as an `AND` condition. Within a single list field, multiple values are matched with `OR` logic (matching any value in that list), while different fields are combined with `AND` logic (must satisfy every specified field).
-- For example, `testIssueIds: ["10001", "10002"], testExecIssueIds: ["20001"], statuses: ["TO DO", "PASSED"]` returns only Test Runs whose test issue ID is `10001` **or** `10002`, **and** whose test execution issue ID is `20001`, **and** whose status is `TO DO` **or** `PASSED`.
-
+- Filters can be applied across one or more fields in a single query, combining `OR` logic within a field and `AND` logic across different fields.
+  - **`OR` Condition:** Within a single list field, multiple values are matched using `OR` logic (matching any value in that list).
+    - **Example:** `statuses: ["TO DO", "PASSED"]` returns only Test Runs whose status is `TO DO` **or** `PASSED`.
+  - **`AND` Condition:** When filters are applied across multiple fields in a single query, different fields are combined using `AND` logic (must satisfy every specified field).
+    - **Example:** `testIssueIds: ["10001"], testExecIssueIds: ["20001"]` returns only Test Runs whose test issue ID is `10001` **and** whose test execution issue ID is `20001`.
+    
 **Test Plan Folder Entity**
 
 * In Jira Xray Cloud, a Test Plan owns its own folder tree (the root folder is named "Board"), where folders can be nested to any depth and Tests are placed inside the folders. <code class="expression">space.vars.OIM</code> supports synchronization of these folders as the `Test Plan Folder` entity.
@@ -1908,7 +1909,7 @@ Also, the user can rename the "Default Folder" as per his/her liking.
     * Remote URL is not supported as the GUID of the folder is not exposed by any public Xray API. The remote id of the folder is its display id (`<Test Plan id>::<folder name>`).
 * **When Jira  [Xray] is source system:**
   * For Xray Test, Test Execution, Test Set, Test Plan and Precondition entities, criteria will not work on Xray fields. Criteria can be given only on Jira fields as JQL query for these entities.
-  * For Test Run entity criteria configuration with [Storage type 'In End System'](../../integrate/criteria-information-storage.md) is not supported as the end system does not support query on text or boolean type of fields.
+  * For Test Run entity, criteria configuration with [Storage type 'In End System'](../../integrate/criteria-information-storage.md) is not supported as the end system does not support query on text or boolean type of fields.
   * For Test Plan Folder entity, if a folder is renamed in Xray, <code class="expression">space.vars.OIM</code> cannot identify whether it is an existing folder that was renamed or a new folder, and hence synchronizes it as a new entity in the target system. Thus, to avoid orphaned/duplicate folders in the target, it is recommended to configure delete synchronization.
   *   For all the Xray fields, only current values (present at the time of synchronization) will be synchronized. Historic (Audit/Revisions) values will not be synchronized to target system.
 
