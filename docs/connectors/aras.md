@@ -260,6 +260,23 @@ Set polling time as the time after which the user wants to synchronize data betw
 **Reference Field Lookup Behavior**
 * For reference fields, if the referenced entity uses a field other than the standard name field, configure the correct field in Metadata details (JSON) using PrimaryNameField.
 
+**Reverse Linkage**
+* In Aras Innovator, a link type is created on one item type and points to another item type. The item type on which it is created is the **base entity**, and the item type it points to is the **linked entity**.
+* The link type is available for mapping on the base entity. To map the same relationship from the linked entity as well, <code class="expression">space.vars.OIM</code> lists it on the linked entity as **`<LinkType> (Reverse)`**.
+* Select the `<LinkType> (Reverse)` link type in the mapping, the same way as any other link type. Refer to [Mapping Configuration](../integrate/mapping-configuration.md) to learn how to configure the mapping.
+
+**Example**
+
+Consider an example where a link type named `Related Part` that is created on the `Requirement` item type and points to a `Part` item type.
+
+| **Entity**                    | **Link type shown in the mapping** |
+| ----------------------------- | ---------------------------------- |
+| `Requirement` (base entity)   | `Related Part`                     |
+| `Part` (linked entity)        | `Related Part (Reverse)`           |
+
+* To synchronize the relationship from `Requirement` entity, map the `Related Part` link type.
+* To synchronize the same relationship from `Part` entity, map the `Related Part (Reverse)` link type.
+
 ## Version Control in Bidirectional Integrations
 
 * When **OH_Version** is mapped to `false` without any condition, every change synchronized by <code class="expression">space.vars.OIM</code> is written to the current generation of the item. As no new generation is created, the values which the item had before that write are not retained in any generation of the item.
