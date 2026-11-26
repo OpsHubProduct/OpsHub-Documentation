@@ -28,6 +28,7 @@ Given below are the systems currently supported by <code class="expression">spac
             <th width="180">System</th>
             <th width="250">Versions Supported</th>
             <th>Entities Supported</th>
+            <th width="200">Sync Mode</th>
             <th width="160">Formerly Known as</th>
         </tr>
     </thead>
@@ -37,6 +38,7 @@ Given below are the systems currently supported by <code class="expression">spac
             <td>Azure DevOps Server</td>
             <td> 2010*, 2012*, 2013, 2015 (up to Update 3), 2017, 2017 Update 2, 2018, 2019, 2020, 2022, 2025 </td>
             <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All Custom Entity Types <br>Test Entities such as Test Plan, Test Result, Test Run, Test Suite <br>Iteration, Area Path, User Group, Team and User: 2010 and above <br>Delivery Plan: 2018 and above<br>Git Commit Information (only read): 2016 and above<br>Dashboard, Query, Widget: 2017 and above <br>Pull Request (only read), Build Pipeline**, Release Pipeline**, Service Connection, Task Group, Variable Group : 2018 and above <br>Build* (only read): 2019 and above <br>  Agent Pool : 2020 and above</td>
+            <td><strong>History sync:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Team Foundation Server (TFS)</td>
         </tr>
         <tr>
@@ -44,6 +46,7 @@ Given below are the systems currently supported by <code class="expression">spac
             <td>Azure DevOps Server Version Control</td>
             <td> 2010*, 2012*, 2013, 2015 (up to Update 3), 2017, 2017 Update 2, 2018, 2019, 2020, 2022, 2025 </td>
             <td> Commit Information </td>
+            <td>History sync</td>
             <td> Team Foundation Server Version Control </td>
         </tr>
         <tr>
@@ -51,6 +54,7 @@ Given below are the systems currently supported by <code class="expression">spac
             <td>Azure DevOps Services</td>
             <td>All</td>
             <td> Work items such as Bug, Requirement, Task, Test Case, User Story, Shared Steps and All custom workitem types <br>Test entities such as Test Plan, Test Result, Test Run, Test Suite<br>Iteration, Area Path, Group, Team, User, Delivery Plan, Dashboard, Query, Widget, Pipeline**, Release Pipeline**, Agent Pool, Service Connection, Task Group, Variable Group  <br> Git Commit Information(only read), Pull Request(only read), Build* (only read) </td>
+            <td><strong>History sync:</strong> Work Items, Custom Entity Types, Test Plan, Test Suite, Test Case, Git Commit Information, Build Pipeline, Release Pipeline<br><strong>Current state:</strong> Delivery Plan, Task Group, Build, Test Run, Test Result<br><strong>Non-timestamp:</strong> Iteration, Area Path, User Group, Team, Users, Agent Pool, Variable Group, Dashboard, Query, Widget, Pull Request, Service Connection</td>
             <td>Visual Studio Team Services (VSTS)</td>
         </tr>
     </tbody>
