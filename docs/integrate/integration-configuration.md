@@ -443,12 +443,7 @@ Click the **Configure Advance** icon > Go to Advance Configuration pop-up > Sele
 
 With <code class="expression">space.vars.OIM</code>, you can add the link of the synchronized entity as an external link on the entity, instead of storing it in a field. You can then open the entity in the other system directly from this link, without creating a field only to hold its URL. This feature is available for end systems in which an external link can have a name or comment.
 
-The entity on which <code class="expression">space.vars.OIM</code> adds the external link depends on where you configure it. For example, consider an entity that is synchronized from System A (source) to System B (target):
-
-* **To store the link of the target entity in the source entity**: Configure it in **Override parameters for write operations (Source)**. <code class="expression">space.vars.OIM</code> adds the external link on the entity in System A, which opens the synchronized entity in System B.
-* **To store the link of the source entity in the target entity**: Configure it in **Override parameters for write operations (Destination)**. <code class="expression">space.vars.OIM</code> adds the external link on the entity in System B, which opens the original entity in System A.
-
-To have the external link on both the entities, configure it in both **Override parameters for write operations (Source)** and **Override parameters for write operations (Destination)**.
+Like the Remote Entity Link stored in a field, you can configure this in **Override parameters for write operations (Source)**, **Override parameters for write operations (Destination)**, or both, depending on the entity on which you want <code class="expression">space.vars.OIM</code> to add the external link.
 
 #### External Remote Link Configuration
 
@@ -460,8 +455,6 @@ To have the external link on both the entities, configure it in both **Override 
 |---------|-------------|
 | **Remote Entity Link Field Name** | Along with the fields, the drop-down list shows the external link types of the end system, displayed as `<link type name> (Link)`. Select a link type to store the Remote Entity Link as an external link. |
 | **Remote URL Identifier (For external links)** | Enter a suitable and unique identifier, such as the name of the other system, to identify the external link added by <code class="expression">space.vars.OIM</code>. <code class="expression">space.vars.OIM</code> stores this value as the name or comment of the external link, and uses it to recognize its own link among the other links on the entity, so that it updates only its own link. If you leave it blank, <code class="expression">space.vars.OIM</code> uses **OpsHub Entity Remote Link**. <code class="expression">space.vars.OIM</code> uses this setting only when a link type is selected in **Remote Entity Link Field Name**. |
-
-To configure these settings, follow the same steps as given in [To store the Id and link of the target entity in the source entity](#to-store-the-id-and-link-of-the-target-entity-in-the-source-entity) and [To store the Id and link of the source entity in the target entity](#to-store-the-id-and-link-of-the-source-entity-in-the-target-entity).
 
 #### How it works
 
