@@ -77,10 +77,7 @@ Criteria-based synchronization is **not supported** for Bamboo Deployment Result
 
 * The Bamboo connector supports **Read-only** synchronization for **Deployment Result**. Creating, updating, or deleting deployment results via the API is not supported.
 * Looking up or mapping users by email address is **not supported** because Bamboo's search API does not index user email addresses. Users can only be mapped using their **Username** or **Display Name**.
-* Deployment Results in Bamboo are immutable records; once created, they cannot be updated or permanently deleted through the API.
-* Server-side filtering is not supported by Bamboo API for deployment results; <code class="expression">space.vars.OIM</code> fetches all deployment results for the environment and applies filtering on `startedDate` in memory.
 * Although Bamboo's UI displays Jira issues associated with a deployment release, this information is not exposed via the REST API for a deployment result and cannot be synchronized.
-* Triggering a deployment pipeline only creates an execution instance; specific field values cannot be customized during trigger. All field values are populated natively by Bamboo as the deployment progresses.
 
 # Appendix
 
