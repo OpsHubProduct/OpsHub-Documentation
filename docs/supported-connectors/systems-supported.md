@@ -454,7 +454,7 @@ Given below are the systems supported currently by <code class="expression">spac
             <td>Modern Requirements</td>
             <td>2010–2019</td>
             <td>Test Result, Test Run, Test Suite, Work items (Bug, Requirement, Task, Test Case, User Story, etc.), Iteration, Git Commit, Custom Entities</td>
-            <td>Same as Azure DevOps Server</td>
+            <td>Same as Azure DevOps</td>
             <td></td>
         </tr>
         <tr>
