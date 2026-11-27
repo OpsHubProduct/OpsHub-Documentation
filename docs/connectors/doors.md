@@ -140,7 +140,7 @@ In this step, set a time to synchronize data between DOORS and the other system 
 
 ## Sync Remote Entity Link as an External Link
 
-Want to open the synchronized entity of the other system directly from DOORS, without adding an attribute for its URL? <code class="expression">space.vars.OIM</code> can add its link as an External Link on the DOORS object. To know more, refer to [Sync Remote Entity Link as an External Link](../integrate/integration-configuration.md#sync-remote-entity-link-as-an-external-link).
+**Want to open the synchronized entity of the other system directly from DOORS, without adding a custom attribute for its URL?** <code class="expression">space.vars.OIM</code> can add its link as an External Link on the DOORS object. To know more, refer to [Sync Remote Entity Link as an External Link](../integrate/integration-configuration.md#sync-remote-entity-link-as-an-external-link).
 
 For example:
 
