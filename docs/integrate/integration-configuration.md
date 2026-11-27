@@ -439,7 +439,7 @@ Click the **Configure Advance** icon > Go to Advance Configuration pop-up > Sele
   <img src="../assets/Integration_Configuration_Image_9a.png" width="700"/>
 </p>
 
-### Store Remote Entity Link as an External Link
+### Sync Remote Entity Link as an External Link
 
 With <code class="expression">space.vars.OIM</code>, you can add the link of the synchronized entity as an external link on the entity, instead of storing it in a field. You can then open the entity in the other system directly from this link, without creating a field only to hold its URL. This feature is available for end systems in which an external link can have a name or comment.
 

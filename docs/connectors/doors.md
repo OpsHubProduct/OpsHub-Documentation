@@ -138,18 +138,29 @@ In this step, set a time to synchronize data between DOORS and the other system 
     1. When object is purged from DOORS.
     2. When baseline is deleted from DOORS.
 
-## Remote Entity Link as External Link
+## Sync Remote Entity Link as an External Link
 
-<code class="expression">space.vars.OIM</code> can add the link of the synchronized entity as an External Link on the DOORS object. You can open the entity in the other system directly from the DOORS object, without creating an attribute only to hold its URL. To know more, refer to [Store Remote Entity Link as an External Link](../integrate/integration-configuration.md#store-remote-entity-link-as-an-external-link).
+Want to open the synchronized entity of the other system directly from DOORS, without adding an attribute for its URL? <code class="expression">space.vars.OIM</code> can add its link as an External Link on the DOORS object. To know more, refer to [Sync Remote Entity Link as an External Link](../integrate/integration-configuration.md#sync-remote-entity-link-as-an-external-link).
+
+For example:
+
+* You have an integration in which requirements are synchronized from Jira (source) to DOORS (target).
+* If you do not want to create a custom attribute in DOORS to store the Remote Entity Link (the Jira URL), you can use this feature.
+* In this case, select an External Link type in **Remote Entity Link Field Name** in **Override parameters for write operations (Destination)**.
+* <code class="expression">space.vars.OIM</code> adds an External Link on each DOORS object, and you can open the Jira issue directly from this link.
 
 ### External Remote Link Configuration for DOORS
 
-In the DOORS settings of the integration, configure the following:
+Click the **Entity level advance settings** icon > Select **Override parameters for write operations (Source)** if DOORS is the source system, or **Override parameters for write operations (Destination)** if DOORS is the target system > Configure the following:
 
 * **Remote Entity Link Field Name**: Along with the attributes, this list contains the following External Link types. Select one of them:
   * **OH_ExternalOutLink (Link)**: <code class="expression">space.vars.OIM</code> adds an outgoing External Link on the DOORS object.
   * **OH_ExternalInLink (Link)**: <code class="expression">space.vars.OIM</code> adds an incoming External Link on the DOORS object.
-* **Remote URL Identifier (For external links)**: Enter a suitable and unique identifier, such as the name of the other system, to identify the External Link added by <code class="expression">space.vars.OIM</code>. <code class="expression">space.vars.OIM</code> stores this value as both the name and the description of the External Link, and identifies its External Link by the description. If you leave it blank, <code class="expression">space.vars.OIM</code> uses **OpsHub Entity Remote Link**.
+* **Remote URL Identifier (For external links)**: Enter a suitable and unique identifier, such as the name of the other system. <code class="expression">space.vars.OIM</code> stores this value as both the name and the description of the External Link, and uses it to identify the External Link that it added. The URL of the entity in the other system can change, for example, when the entity is moved to another project, its type is changed, or the server URL of the other system is changed. As <code class="expression">space.vars.OIM</code> identifies its External Link by this identifier and not by the URL, it updates the existing External Link in such cases instead of adding a duplicate one. If you leave it blank, <code class="expression">space.vars.OIM</code> uses the default identifier **OpsHub Entity Remote Link**.
+
+  <p align="center">
+    <img src="../assets/Remote_link_as_external_link_configuration.png" width="400"/>
+  </p>
 
 In the following example, **OH_ExternalOutLink (Link)** is selected in **Remote Entity Link Field Name**.
 
