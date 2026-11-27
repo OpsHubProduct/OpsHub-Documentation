@@ -82,6 +82,14 @@ Our security practices are aligned with widely accepted standards and frameworks
             <td>7.234</td>
             <td>7.241</td>
         </tr>
+        <tr>
+            <td>Third party</td>
+            <td>High</td>
+            <td>OpenJDK HotSpot heap buffer overflow in the AVX-512 Base64 decoder ("Java4Shell") that may allow remote code execution, disclosure of JVM memory, or denial of service (<a href="https://nvd.nist.gov/vuln/detail/CVE-2026-114938">CVE-2026-114938</a>)</td>
+            <td>Bundled JRE. Affects only x86_64 servers with AVX-512 capable CPUs.</td>
+            <td>7.240</td>
+            <td>7.241</td>
+        </tr>
     </tbody>
 </table>
 
