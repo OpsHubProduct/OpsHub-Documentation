@@ -26,6 +26,14 @@ Our security practices are aligned with widely accepted standards and frameworks
         </tr>
     </thead>
     <tbody>
+ <tr>
+            <td>Third party</td>
+            <td>Critical</td>
+            <td>Apache Tomcat: Authentication Bypass by Alternate Name in Apache Tomcat for WebSocket based endpoints. (<a href="https://github.com/advisories/GHSA-pc63-qcmh-9cmg">GHSA-pc63-qcmh-9cmg</a>)</td>
+            <td>Not directly impacted as we do not expose template-mapped WebSocket endpoints.</td>
+            <td>7.241</td>
+            <td>7.241</td>
+        </tr>
         <tr>
             <td>Third party</td>
             <td>High</td>
@@ -34,12 +42,44 @@ Our security practices are aligned with widely accepted standards and frameworks
             <td>7.238</td>
             <td>7.241</td>
         </tr>
-   <tr>
+        <tr>
             <td>Third party</td>
             <td>High</td>
             <td>Google Guava: CompactHashMap/CompactHashSet/MapMakerInternalMap deserialization triggers uncontrolled memory allocation. (<a href="https://github.com/advisories/GHSA-xxph-c9ww-hj94">GHSA-xxph-c9ww-hj94</a>)</td>
             <td>Not directly impacted as we do not use the affected classes and methods.</td>
             <td>7.238</td>
+            <td>7.241</td>
+        </tr>
+        <tr>
+            <td>Application</td>
+            <td>High</td>
+            <td>External Control of File Name or Path allowing access to unauthorized server files through manipulated file paths.</td>
+            <td>File Upload</td>
+            <td>7.234</td>
+            <td>7.241</td>
+        </tr>
+        <tr>
+            <td>Application</td>
+            <td>High</td>
+            <td>ORM Query Injection through legacy JSON-RPC endpoints using user-controlled query input.</td>
+            <td>Legacy JSON-RPC API</td>
+            <td>7.234</td>
+            <td>7.241</td>
+        </tr>
+        <tr>
+            <td>Application</td>
+            <td>High</td>
+            <td>Insecure Deserialization could cause excessive memory consumption and potential denial-of-service conditions.</td>
+            <td>Import Mapping</td>
+            <td>7.234</td>
+            <td>7.241</td>
+        </tr>
+        <tr>
+            <td>Application</td>
+            <td>High</td>
+            <td>Code Injection risk through workflow upload capable of executing unauthorized code in the application context.</td>
+            <td>Workflow Upload/Update</td>
+            <td>7.234</td>
             <td>7.241</td>
         </tr>
     </tbody>
