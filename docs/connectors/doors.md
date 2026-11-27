@@ -151,7 +151,9 @@ For example:
 
 ### External Remote Link Configuration for DOORS
 
-Click the **Entity level advance settings** icon > Select **Override parameters for write operations (Source)** if DOORS is the source system, or **Override parameters for write operations (Destination)** if DOORS is the target system > Configure the following:
+Click the **Entity level advance settings** icon > Select **Override parameters for write operations (Source)** if DOORS is the source system, or **Override parameters for write operations (Destination)** if DOORS is the target system. To know how to open the advance settings of an integration, refer to [Advance Settings](../integrate/integration-configuration.md#advance-settings).
+
+Configure the following:
 
 * **Remote Entity Link Field Name**: Along with the attributes, this list contains the following External Link types. Select one of them:
   * **OH_ExternalOutLink (Link)**: <code class="expression">space.vars.OIM</code> adds an outgoing External Link on the DOORS object.
